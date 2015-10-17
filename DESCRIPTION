@@ -1,0 +1,13 @@
+Package: textshape
+Title: Tools for Reshaping Text
+Version: 0.0.1
+Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")))
+Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
+Description: Tools that can be used to reshape text data.
+Depends: R (>= 3.2.2)
+Imports: data.table, stringi
+Suggests: testthat
+Date: 2015-10-17
+License: GPL-2
+LazyData: TRUE
+Roxygen: list(wrap = FALSE)

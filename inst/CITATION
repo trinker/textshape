@@ -1,0 +1,16 @@
+citHeader("To cite textshape in publications, please use:")
+
+
+citEntry(entry = "manual",
+    title = "{textshape}: Tools for Reshaping Text",
+    author = "Tyler W. Rinker",
+    organization = "University at Buffalo/SUNY",
+    address = "Buffalo, New York",
+    note = "version 0.1.0",
+    year = "2015",
+    url = "http://github.com/trinker/textshape",
+    textVersion  = paste("Rinker, T. W. (2015).",
+        "textshape: Tools for Reshaping Text",
+        "version 0.1.0. University at Buffalo. Buffalo, New York.",
+        "http://github.com/trinker/textshape")
+)
