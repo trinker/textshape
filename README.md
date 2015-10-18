@@ -15,7 +15,7 @@ Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](h
 
 **textshape** is small suite of text reshaping functions. Many of these
 functions are descended from tools in the
-[\*qdapTools\*\*](https://github.com/trinker/qdapTools) package. This
+[**qdapTools**](https://github.com/trinker/qdapTools) package. This
 brings reshaping tools under one roof with specific functionality of the
 package limited to text reshaping.
 
