@@ -6,20 +6,33 @@ output:
     toc: true      
 ---
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
 desc <- suppressWarnings(readLines("DESCRIPTION"))
 regex <- "(^Version:\\s+)(\\d+\\.\\d+\\.\\d+)"
 loc <- grep(regex, desc)
 ver <- gsub(regex, "\\2", desc[loc])
 verbadge <- sprintf('<a href="https://img.shields.io/badge/Version-%s-orange.svg"><img src="https://img.shields.io/badge/Version-%s-orange.svg" alt="Version"/></a></p>', ver, ver)
-````
+```
+
+
+```{r, echo=FALSE}
+knit_hooks$set(htmlcap = function(before, options, envir) {
+  if(!before) {
+    paste('<p class="caption"><b><em>',options$htmlcap,"</em></b></p>",sep="")
+    }
+    })
+knitr::opts_knit$set(self.contained = TRUE, cache = FALSE)
+knitr::opts_chunk$set(fig.path = "inst/figure/")
+```
 
 [![Build Status](https://travis-ci.org/trinker/textshape.svg?branch=master)](https://travis-ci.org/trinker/textshape)
 [![Coverage Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/r/trinker/textshape?branch=master)
-
 `r verbadge`
 
-**textshape** is...
+<img src="inst/textshape_logo/r_textshape.png" width="200" alt="textshape Logo">  
+
+**textshape** is small suite of text reshaping functions.  Many of these functions are descended from tools in the [*qdapTools**() package.  This brings reshaping tools under one roof with specific functionality of the package limited to text reshaping.
 
 # Installation
 
@@ -38,3 +51,7 @@ You are welcome to:
 * submit suggestions and bug-reports at: <https://github.com/trinker/textshape/issues>
 * send a pull request on: <https://github.com/trinker/textshape/>
 * compose a friendly e-mail to: <tyler.rinker@gmail.com>
+
+
+# Examples
+

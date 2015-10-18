@@ -6,10 +6,14 @@ textshape
 Status](https://travis-ci.org/trinker/textshape.svg?branch=master)](https://travis-ci.org/trinker/textshape)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/r/trinker/textshape?branch=master)
-
 <a href="https://img.shields.io/badge/Version-0.0.1-orange.svg"><img src="https://img.shields.io/badge/Version-0.0.1-orange.svg" alt="Version"/></a>
 </p>
-**textshape** is...
+<img src="inst/textshape_logo/r_textshape.png" width="200" alt="textshape Logo">
+
+**textshape** is small suite of text reshaping functions. Many of these
+functions are descended from tools in the [\*qdapTools\*\*() package.
+This brings reshaping tools under one roof with specific functionality
+of the package limited to text reshaping.
 
 
 Table of Contents
@@ -17,6 +21,7 @@ Table of Contents
 
 -   [Installation](#installation)
 -   [Contact](#contact)
+-   [Examples](#examples)
 
 Installation
 ============
@@ -36,7 +41,11 @@ the development version:
 Contact
 =======
 
-You are welcome to: \* submit suggestions and bug-reports at:
-<https://github.com/trinker/textshape/issues> \* send a pull request on:
-<https://github.com/trinker/textshape/> \* compose a friendly e-mail to:
-<tyler.rinker@gmail.com>
+You are welcome to: 
+* submit suggestions and bug-reports at: <https://github.com/trinker/textshape/issues> 
+* send a pull request on: <https://github.com/trinker/textshape/> 
+* compose a friendly e-mail to: <tyler.rinker@gmail.com>
+
+
+Examples
+========
