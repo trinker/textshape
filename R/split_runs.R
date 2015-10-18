@@ -47,7 +47,7 @@ split_runs.data.frame <- function(x, text.var, ...) {
     z <- data.table::data.table(data.frame(x, stringsAsFactors = FALSE))
 
     z[, element_id := 1:.N]
-    express1 <- parse(text=paste0(text.var, " := split_runs.default(", text.var, ", lower = ", lower, ")"))
+    express1 <- parse(text=paste0(text.var, " := split_runs.default(", text.var, ")"))
     z[, eval(express1)]
 
     express2 <- parse(text=paste0(".(", text.var, "=unlist(", text.var, "))"))
