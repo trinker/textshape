@@ -1,50 +1,50 @@
-#' Split Tokens
+#' Split Words
 #'
-#' Split tokens.
+#' Split words.
 #'
-#' @param x A \code{\link[base]{data.frame}} or character vector with tokens.
+#' @param x A \code{\link[base]{data.frame}} or character vector with words.
 #' @param text.var The name of the text variable.  If missing
-#' \code{split_tokens} tries to detect the text column with tokens.
+#' \code{split_word} tries to detect the text column with words.
 #' @param lower logical.  If \code{TRUE} the words are converted to lower case.
 #' @param \ldots Ignored.
 #' @export
-#' @rdname split_tokens
+#' @rdname split_word
 #' @importFrom data.table .N :=
-#' @return Returns a list of vectors of tokens or an expanded
-#' \code{\link[data.table]{data.table}} with tokens split apart.
+#' @return Returns a list of vectors of words or an expanded
+#' \code{\link[data.table]{data.table}} with words split apart.
 #' @examples
 #' (x <- c(
 #'     "Mr. Brown comes! He says hello. i give him coffee.",
 #'     "I'll go at 5 p. m. eastern time.  Or somewhere in between!",
 #'     "go there"
 #' ))
-#' split_tokens(x)
-#' split_tokens(x, lower=FALSE)
+#' split_word(x)
+#' split_word(x, lower=FALSE)
 #'
 #' data(DATA)
-#' split_tokens(DATA)
-#' split_tokens(DATA, lower=FALSE)
+#' split_word(DATA)
+#' split_word(DATA, lower=FALSE)
 #'
 #' ## Larger data set
-#' split_tokens(hamlet)
-split_tokens <- function(x, ...) {
-    UseMethod("split_tokens")
+#' split_word(hamlet)
+split_word <- function(x, ...) {
+    UseMethod("split_word")
 }
 
 #' @export
-#' @rdname split_tokens
-#' @method split_tokens default
-split_tokens.default <- function(x, lower = TRUE, ...) {
+#' @rdname split_word
+#' @method split_word default
+split_word.default <- function(x, lower = TRUE, ...) {
     if (lower) {
         x <- stringi::stri_trans_tolower(x)
     }
-    stringi::stri_split_regex(x, "(\\s+)|(?!')(?=[[:punct:]])")
+    stringi::stri_extract_all_word(x)
 }
 
 #' @export
-#' @rdname split_tokens
-#' @method split_tokens data.frame
-split_tokens.data.frame <- function(x, text.var = TRUE, lower = TRUE, ...) {
+#' @rdname split_word
+#' @method split_word data.frame
+split_word.data.frame <- function(x, text.var = TRUE, lower = TRUE, ...) {
 
     element_id <- NULL
     nms <- colnames(x)
@@ -59,7 +59,7 @@ split_tokens.data.frame <- function(x, text.var = TRUE, lower = TRUE, ...) {
     }
 
     z[, element_id := 1:.N]
-    express1 <- parse(text=paste0(text.var, " := split_tokens.default(", text.var, ", lower = ", lower, ")"))
+    express1 <- parse(text=paste0(text.var, " := split_word.default(", text.var, ", lower = ", lower, ")"))
     z[, eval(express1)]
 
     express2 <- parse(text=paste0(".(", text.var, "=unlist(", text.var, "))"))

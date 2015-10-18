@@ -51,37 +51,37 @@ table below describes the functions and their use:
 <td align="left">Split data a specified indices</td>
 </tr>
 <tr class="even">
+<td align="left"><code>split_match</code></td>
+<td align="left"><code>vector</code></td>
+<td align="left">Split vector at specified character/regex</td>
+</tr>
+<tr class="odd">
 <td align="left"><code>split_portion</code></td>
 <td align="left"><code>vector</code>*</td>
 <td align="left">Split data into portioned chunks</td>
 </tr>
-<tr class="odd">
-<td align="left"><code>split_runs</code></td>
+<tr class="even">
+<td align="left"><code>split_run</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split runs (e.g., &quot;aaabbbbcdddd&quot;)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_sentence</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split sentences</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_speaker</code></td>
 <td align="left"><code>data.frame</code></td>
 <td align="left">Split combined speakers (e.g., &quot;Josh, Jake, Jim&quot;)</td>
 </tr>
-<tr class="even">
-<td align="left"><code>split_tokens</code></td>
+<tr class="odd">
+<td align="left"><code>split_token</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split words and punctuation</td>
 </tr>
-<tr class="odd">
-<td align="left"><code>split_vector</code></td>
-<td align="left"><code>vector</code></td>
-<td align="left">Split vector at specified character/regex</td>
-</tr>
 <tr class="even">
-<td align="left"><code>split_words</code></td>
+<td align="left"><code>split_word</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split words</td>
 </tr>

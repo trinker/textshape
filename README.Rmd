@@ -44,13 +44,13 @@ Most of the functions split/expand a `vector`, `list` or `data.frame`.  The `com
 | `combine`        | `vector`, `list`, `data.frame` | Combine and collapse elements                           |
 | `mtabulate`      | `vector`, `list`, `data.frame` | Vectorize version of `tabulate` to produce count matrix |
 | `split_index`    | `vector`, `list`, `data.frame` | Split data a specified indices                          |
+| `split_match`    | `vector`                       | Split vector at specified character/regex               |
 | `split_portion`  | `vector`\*                     | Split data into portioned chunks                        |
-| `split_runs`     | `vector`, `data.frame`         | Split runs (e.g., "aaabbbbcdddd")                       |
+| `split_run`      | `vector`, `data.frame`         | Split runs (e.g., "aaabbbbcdddd")                       |
 | `split_sentence` | `vector`, `data.frame`         | Split sentences                                         |
 | `split_speaker`  | `data.frame`                   | Split combined speakers (e.g., "Josh, Jake, Jim")       |
-| `split_tokens`   | `vector`, `data.frame`         | Split words and punctuation                             |
-| `split_vector`   | `vector`                       | Split vector at specified character/regex               |
-| `split_words`    | `vector`, `data.frame`         | Split words                                             |
+| `split_token`    | `vector`, `data.frame`         | Split words and punctuation                             |
+| `split_word`     | `vector`, `data.frame`         | Split words                                             |
 
 \****Note:*** *Text vector accompanied by aggregating `grouping.var` argument, which can be in the form of a `vector`, `list`, or  `data.frame`*
 
