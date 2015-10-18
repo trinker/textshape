@@ -89,3 +89,33 @@ title_tag_table <- function (mat) {
         names(x[x > 0][1])
     }))
 }
+
+
+
+paste2 <- function (multi.columns, sep = ".", handle.na = TRUE, trim = TRUE) {
+    if (is.matrix(multi.columns)) {
+        multi.columns <- data.frame(multi.columns, stringsAsFactors = FALSE)
+    }
+    if (trim)
+        multi.columns <- lapply(multi.columns, function(x) {
+            gsub("^\\s+|\\s+$", "", x)
+        })
+    if (!is.data.frame(multi.columns) & is.list(multi.columns)) {
+        multi.columns <- do.call("cbind", multi.columns)
+    }
+    if (handle.na) {
+        m <- apply(multi.columns, 1, function(x) {
+            if (any(is.na(x))) {
+                NA
+            } else {
+                paste(x, collapse = sep)
+            }
+        })
+    } else {
+        m <- apply(multi.columns, 1, paste, collapse = sep)
+    }
+    names(m) <- NULL
+    return(m)
+}
+
+is.Integer <- function(x, tol = .Machine$double.eps^0.5) abs(x - round(x)) < tol
