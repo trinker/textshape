@@ -37,7 +37,7 @@ knitr::opts_chunk$set(fig.path = "inst/figure/")
 
 # Functions
 
-Most of the functions split/expand `vector`s, `list`s or `data.frame`s.  The `combine` and `mtabulate` unctions are notable exceptions.  The table below describes the functions and their use:
+Most of the functions split/expand a `vector`, `list` or `data.frame`.  The `combine` and `mtabulate` functions are notable exceptions.  The table below describes the functions and their use:
 
 | Function         | Used On                        |  Description                                            |
 |------------------|--------------------------------|---------------------------------------------------------|
