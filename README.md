@@ -14,9 +14,10 @@ Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](h
 <img src="inst/textshape_logo/r_textshape.png" width="200" alt="textshape Logo">
 
 **textshape** is small suite of text reshaping functions. Many of these
-functions are descended from tools in the [\*qdapTools\*\*() package.
-This brings reshaping tools under one roof with specific functionality
-of the package limited to text reshaping.
+functions are descended from tools in the
+[\*qdapTools\*\*](https://github.com/trinker/qdapTools) package. This
+brings reshaping tools under one roof with specific functionality of the
+package limited to text reshaping.
 
 
 Table of Contents
