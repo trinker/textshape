@@ -11,7 +11,7 @@
 #' @rdname split_tokens
 #' @importFrom data.table .N :=
 #' @return Returns a list of vectors of tokens or an expanded
-#' \code{\link[base]{data.frame}} with tokens split apart.
+#' \code{\link[data.table]{data.table}} with tokens split apart.
 #' @examples
 #' (x <- c(
 #'     "Mr. Brown comes! He says hello. i give him coffee.",

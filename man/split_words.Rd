@@ -24,7 +24,7 @@ split_words(x, ...)
 }
 \value{
 Returns a list of vectors of words or an expanded
-\code{\link[base]{data.frame}} with words split apart.
+\code{\link[data.table]{data.table}} with words split apart.
 }
 \description{
 Split words.

@@ -24,7 +24,7 @@ split_tokens(x, ...)
 }
 \value{
 Returns a list of vectors of tokens or an expanded
-\code{\link[base]{data.frame}} with tokens split apart.
+\code{\link[data.table]{data.table}} with tokens split apart.
 }
 \description{
 Split tokens.

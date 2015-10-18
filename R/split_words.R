@@ -11,7 +11,7 @@
 #' @rdname split_words
 #' @importFrom data.table .N :=
 #' @return Returns a list of vectors of words or an expanded
-#' \code{\link[base]{data.frame}} with words split apart.
+#' \code{\link[data.table]{data.table}} with words split apart.
 #' @examples
 #' (x <- c(
 #'     "Mr. Brown comes! He says hello. i give him coffee.",
