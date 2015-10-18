@@ -3,7 +3,7 @@
 #' Split tokens.
 #'
 #' @param x A \code{\link[base]{data.frame}} or character vector with tokens.
-#' @param text.var The name of the text variable.  If missing
+#' @param text.var The name of the text variable.  If \code{TRUE}
 #' \code{split_token} tries to detect the text column with tokens.
 #' @param lower logical.  If \code{TRUE} the words are converted to lower case.
 #' @param \ldots Ignored.

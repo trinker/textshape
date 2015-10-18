@@ -17,7 +17,7 @@ split_token(x, ...)
 
 \item{lower}{logical.  If \code{TRUE} the words are converted to lower case.}
 
-\item{text.var}{The name of the text variable.  If missing
+\item{text.var}{The name of the text variable.  If \code{TRUE}
 \code{split_token} tries to detect the text column with tokens.}
 
 \item{\ldots}{Ignored.}

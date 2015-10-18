@@ -3,7 +3,7 @@
 #' Split words.
 #'
 #' @param x A \code{\link[base]{data.frame}} or character vector with words.
-#' @param text.var The name of the text variable.  If missing
+#' @param text.var The name of the text variable.  If \code{TRUE}
 #' \code{split_word} tries to detect the text column with words.
 #' @param lower logical.  If \code{TRUE} the words are converted to lower case.
 #' @param \ldots Ignored.
@@ -38,7 +38,7 @@ split_word.default <- function(x, lower = TRUE, ...) {
     if (lower) {
         x <- stringi::stri_trans_tolower(x)
     }
-    stringi::stri_extract_all_word(x)
+    stringi::stri_extract_all_words(x)
 }
 
 #' @export

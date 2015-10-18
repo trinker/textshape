@@ -39,18 +39,18 @@ knitr::opts_chunk$set(fig.path = "inst/figure/")
 
 Most of the functions split/expand a `vector`, `list` or `data.frame`.  The `combine` and `mtabulate` functions are notable exceptions.  The table below describes the functions and their use:
 
-| Function         | Used On                        |  Description                                            |
-|------------------|--------------------------------|---------------------------------------------------------|
-| `combine`        | `vector`, `list`, `data.frame` | Combine and collapse elements                           |
-| `mtabulate`      | `vector`, `list`, `data.frame` | Vectorize version of `tabulate` to produce count matrix |
-| `split_index`    | `vector`, `list`, `data.frame` | Split data a specified indices                          |
-| `split_match`    | `vector`                       | Split vector at specified character/regex               |
-| `split_portion`  | `vector`\*                     | Split data into portioned chunks                        |
-| `split_run`      | `vector`, `data.frame`         | Split runs (e.g., "aaabbbbcdddd")                       |
-| `split_sentence` | `vector`, `data.frame`         | Split sentences                                         |
-| `split_speaker`  | `data.frame`                   | Split combined speakers (e.g., "Josh, Jake, Jim")       |
-| `split_token`    | `vector`, `data.frame`         | Split words and punctuation                             |
-| `split_word`     | `vector`, `data.frame`         | Split words                                             |
+| Function         | Used On                        |  Description                                                 |
+|------------------|--------------------------------|--------------------------------------------------------------|
+| `combine`        | `vector`, `list`, `data.frame` | Combine and collapse elements                                |
+| `mtabulate`      | `vector`, `list`, `data.frame` | Dataframe/list version of `tabulate` to produce count matrix |
+| `split_index`    | `vector`, `list`, `data.frame` | Split data a specified indices                               |
+| `split_match`    | `vector`                       | Split vector at specified character/regex                    |
+| `split_portion`  | `vector`\*                     | Split data into portioned chunks                             |
+| `split_run`      | `vector`, `data.frame`         | Split runs (e.g., "aaabbbbcdddd")                            |
+| `split_sentence` | `vector`, `data.frame`         | Split sentences                                              |
+| `split_speaker`  | `data.frame`                   | Split combined speakers (e.g., "Josh, Jake, Jim")            |
+| `split_token`    | `vector`, `data.frame`         | Split words and punctuation                                  |
+| `split_word`     | `vector`, `data.frame`         | Split words                                                  |
 
 \****Note:*** *Text vector accompanied by aggregating `grouping.var` argument, which can be in the form of a `vector`, `list`, or  `data.frame`*
 
@@ -77,3 +77,221 @@ You are welcome to:
 
 # Examples
 
+The main shaping functions can be broken into the categories of (a) combining, (b) tabulating, & &#40;c) Splitting.  The majority of functions in **textshape** fall into the last category of splitting and expanding (the semantic opposite of combining.  These sections will provide examples uses of the functions from **textshape** within thee categories.
+
+## Combining
+
+The `combine` function acts like `paste(x, collapse=" ")` on vectors and lists of vectors.  On dataframes multiple text cells are pasted together within grouping variables.
+
+#### A Vector
+
+```{r}
+x <- c("Computer", "is", "fun", ".", "Not", "too", "fun", ".")
+combine(x)
+```
+
+#### A Dataframe
+
+```{r}
+(dat <- split_sentence(DATA))
+combine(dat[, 1:5, with=FALSE])
+```
+
+## Tabulating
+
+`mtabulate` allows the user to transform data types into a dataframe of counts.
+
+#### A Vector
+
+```{r}
+(x <- list(w=letters[1:10], x=letters[1:5], z=letters))
+mtabulate(x)
+
+## Dummy coding
+mtabulate(mtcars$cyl[1:10])
+```
+
+
+#### A Dataframe
+
+```{r}
+(dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
+mtabulate(dat)
+t(mtabulate(dat))
+```
+
+## Splitting
+
+The following section provides examples of available splitting functions.
+
+### Indices
+
+`split_index` allows the user to supply the integer indices of where to split a data type.
+
+#### A Vector
+
+```{r}
+split_index(LETTERS, c(4, 10, 16), c("dog", "cat", "chicken", "rabbit"))
+```
+
+#### A Dataframe
+
+Here I calculate the indices of every time the `vs` variable in the `mtcars` data set changes and then split the dataframe on those indices.
+
+```{r}
+(vs_change <- head(1 + cumsum(rle(as.character(mtcars[["vs"]]))[[1]]), -1))
+split_index(mtcars, vs_change)
+```
+
+### Matches
+
+`split_match` splits on elements that match exactly or via a regular expression match.
+
+#### Exact Match
+
+```{r}
+set.seed(15)
+(x <- sample(c("", LETTERS[1:10]), 25, TRUE, prob=c(.2, rep(.08, 10))))
+
+split_match(x)
+split_match(x, "C")
+split_match(x, c("", "C"))
+## Don't include
+split_match(x, include = 0)
+## Include at beginning
+split_match(x, include = 1)
+## Include at end
+split_match(x, include = 2)
+```
+
+#### Regex Match
+
+Here I use the regex `"^I"` to break on any vectors containing the capital letter I as the first character.
+
+```{r}
+split_match(DATA[["state"]], "^I", regex=TRUE, include = 1)
+```
+
+
+### Portions
+
+At times it is useful to split texts into portioned chunks, operate on the chunks and aggregate the results.  `split_portion` allows the user to do this sort of text shaping.  We can split into n chunks  per grouping variable (via `n.chunks`) or into chunks of n length (via `n.words`).
+
+#### A Vector
+
+
+```{r}
+with(DATA, split_portion(state, n.chunks = 10))
+with(DATA, split_portion(state, n.words = 10))
+```
+
+#### A Dataframe
+
+```{r}
+with(DATA, split_portion(state, list(sex, adult), n.words = 10))
+```
+
+
+### Runs
+
+`split_run` allows the user to split up runs of identical characters.
+
+```{r}
+x1 <- c(
+     "122333444455555666666",
+     NA,
+     "abbcccddddeeeeeffffff",
+     "sddfg",
+     "11112222333"
+)
+
+x <- c(rep(x1, 2), ">>???,,,,....::::;[[")
+
+split_run(x)
+```
+
+#### Dataframe
+
+```{r}
+DATA[["run.col"]] <- x
+split_run(DATA)
+## Reset the DATA dataset
+DATA <- textshape::DATA
+```
+
+### Sentences
+
+`split_sentece` provides a mapping + regex approach to splitting sentences.  It is less accurate than the Stanford parser but more accurate than a simple regular expression approach alone.
+
+#### A Vector
+
+```{r}
+(x <- paste0(
+    "Mr. Brown comes! He says hello. i give him coffee.  i will ",
+    "go at 5 p. m. eastern time.  Or somewhere in between!go there"
+))
+split_sentence(x)
+```
+
+#### A Dataframe
+
+```{r}
+split_sentence(DATA)
+```
+
+### Speakers
+
+Often speakers may talk in unison.  This is often displayed in a single cell as a comma separated string of speakers.  Some analysis may require this information to be parsed out and replicated as one turn per speaker.  The `split_speaker` function accomplishes this.
+
+```{r}
+DATA$person <- as.character(DATA$person)
+DATA$person[c(1, 4, 6)] <- c("greg, sally, & sam",
+    "greg, sally", "sam and sally")
+DATA
+
+speakerSplit(DATA)
+## Reset the DATA dataset
+DATA <- textshape::DATA
+```
+
+### Tokens
+
+The `split_token` function split data into words and punctuation.
+
+#### A Vector
+
+```{r}
+(x <- c(
+    "Mr. Brown comes! He says hello. i give him coffee.",
+    "I'll go at 5 p. m. eastern time.  Or somewhere in between!",
+    "go there"
+))
+split_token(x)
+```
+
+#### A Dataframe
+
+```{r}
+ split_token(DATA)
+```
+
+### Words
+
+The `split_word` function split data into words.
+
+#### A Vector
+
+```{r}
+(x <- c(
+    "Mr. Brown comes! He says hello. i give him coffee.",
+    "I'll go at 5 p. m. eastern time.  Or somewhere in between!",
+    "go there"
+))
+split_word(x)
+```
+
+#### A Dataframe
+
+```{r}
+ split_word(DATA)
+```

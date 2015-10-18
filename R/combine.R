@@ -15,10 +15,10 @@
 #' @return Returns a vector (if given a list/vector) or an expanded
 #' \code{\link[data.table]{data.table}} with elements pasted together.
 #' @examples
-#' (x <- split_tokens(DATA[["state"]][1], FALSE))
+#' (x <- split_token(DATA[["state"]][1], FALSE))
 #' combine(x)
 #'
-#' (x2 <- split_tokens(DATA[["state"]], FALSE))
+#' (x2 <- split_token(DATA[["state"]], FALSE))
 #' combine(x2)
 #'
 #' (x3 <- split_sentence(DATA))
@@ -37,7 +37,8 @@ combine <- function(x, ...) {
 #' @method combine default
 combine.default <- function(x, fix.punctuation = TRUE, ...) {
 
-    x <- sapply(x, paste, collapse = " ")
+    if(!is.list(x)) x <- list(x)
+    x <- unlist(lapply(x, paste, collapse = " "))
     if (isTRUE(fix.punctuation)){
         x <- gsub("(\\s+(?=[,.?!;:%-]))|((?<=[$-])\\s+)", "", x, perl = TRUE)
     }

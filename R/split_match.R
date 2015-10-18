@@ -21,18 +21,18 @@
 #' set.seed(15)
 #' x <- sample(c("", LETTERS[1:10]), 25, TRUE, prob=c(.2, rep(.08, 10)))
 #'
-#' split_vector(x)
-#' split_vector(x, "C")
-#' split_vector(x, c("", "C"))
+#' split_match(x)
+#' split_match(x, "C")
+#' split_match(x, c("", "C"))
 #'
-#' split_vector(x, include = 0)
-#' split_vector(x, include = 1)
-#' split_vector(x, include = 2)
+#' split_match(x, include = 0)
+#' split_match(x, include = 1)
+#' split_match(x, include = 2)
 #'
 #' set.seed(15)
 #' x <- sample(1:11, 25, TRUE, prob=c(.2, rep(.08, 10)))
-#' split_vector(x, 1)
-split_vector <- function(x, split = "", include = FALSE, regex = FALSE, ...) {
+#' split_match(x, 1)
+split_match <- function(x, split = "", include = FALSE, regex = FALSE, ...) {
 
     include <- as.numeric(include)
 

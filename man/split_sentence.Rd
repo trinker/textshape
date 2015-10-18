@@ -15,7 +15,7 @@ split_sentence(x, ...)
 \arguments{
 \item{x}{A \code{\link[base]{data.frame}} or character vector with sentences.}
 
-\item{text.var}{The name of the text variable.  If missing
+\item{text.var}{The name of the text variable.  If \code{TRUE}
 \code{split_sentence} tries to detect the column with sentences.}
 
 \item{\ldots}{Ignored.}

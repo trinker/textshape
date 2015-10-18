@@ -3,7 +3,8 @@
 #' Split runs of consecutive characters.
 #'
 #' @param x A \code{\link[base]{data.frame}} or character vector with runs.
-#' @param text.var The name of the text variable.
+#' @param text.var The name of the text variable with runs. If \code{TRUE}
+#' \code{split_word} tries to detect the text column with runs.
 #' @param \ldots Ignored.
 #' @export
 #' @rdname split_run
@@ -40,11 +41,18 @@ split_run.default <- function(x, ...) {
 #' @export
 #' @rdname split_run
 #' @method split_run data.frame
-split_run.data.frame <- function(x, text.var, ...) {
+split_run.data.frame <- function(x, text.var = TRUE, ...) {
 
     element_id <- NULL
     nms <- colnames(x)
     z <- data.table::data.table(data.frame(x, stringsAsFactors = FALSE))
+
+    if (isTRUE(text.var)) {
+        text.var <- names(which.max(sapply(as.data.frame(z), function(y) {
+           mean(stringi::stri_count_regex(as.character(y), "(\\w)\\1+"), na.rm = TRUE)
+        }))[1])
+        if (length(text.var) == 0) stop("Could not detect ` text.var`.  Please supply `text.var` explicitly.")
+    }
 
     z[, element_id := 1:.N]
     express1 <- parse(text=paste0(text.var, " := split_run.default(", text.var, ")"))

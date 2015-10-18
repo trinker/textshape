@@ -35,7 +35,6 @@
 #' with(hamlet, split_portion(dialogue, list(act, scene, person), n.chunks = 10))
 #' with(hamlet, split_portion(dialogue, person, n.words = 300))
 #' with(hamlet, split_portion(dialogue, list(act, scene, person), n.words = 300))
-#'
 split_portion <- function(text.var, grouping.var = NULL, n.words, n.chunks,
     as.string = TRUE, rm.unequal = FALSE, as.data.table = TRUE){
 

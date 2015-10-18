@@ -10,12 +10,13 @@ split_run(x, ...)
 
 \method{split_run}{default}(x, ...)
 
-\method{split_run}{data.frame}(x, text.var, ...)
+\method{split_run}{data.frame}(x, text.var = TRUE, ...)
 }
 \arguments{
 \item{x}{A \code{\link[base]{data.frame}} or character vector with runs.}
 
-\item{text.var}{The name of the text variable.}
+\item{text.var}{The name of the text variable with runs. If \code{TRUE}
+\code{split_word} tries to detect the text column with runs.}
 
 \item{\ldots}{Ignored.}
 }

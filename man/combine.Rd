@@ -33,10 +33,10 @@ Combine (\code{\link[base]{paste}}) elements (\code{\link[base]{vector}}s,
 with \code{collapse = TRUE}.
 }
 \examples{
-(x <- split_tokens(DATA[["state"]][1], FALSE))
+(x <- split_token(DATA[["state"]][1], FALSE))
 combine(x)
 
-(x2 <- split_tokens(DATA[["state"]], FALSE))
+(x2 <- split_token(DATA[["state"]], FALSE))
 combine(x2)
 
 (x3 <- split_sentence(DATA))
