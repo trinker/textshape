@@ -34,9 +34,6 @@ split_runs <- function(x, ...) {
 #' @rdname split_runs
 #' @method split_runs default
 split_runs.default <- function(x, ...) {
-    if (lower) {
-        x <- stringi::stri_trans_tolower(x)
-    }
     stringi::stri_split_regex(x,  "(?<=(\\w))(?!\\1)")
 }
 
