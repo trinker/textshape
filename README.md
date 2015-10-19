@@ -146,9 +146,8 @@ Examples
 The main shaping functions can be broken into the categories of (a)
 combining, (b) tabulating, & (c) splitting. The majority of functions in
 **textshape** fall into the last category of splitting and expanding
-(the semantic opposite of combining. These sections will provide
-examples uses of the functions from **textshape** within thee
-categories.
+(the semantic opposite of combining). These sections will provide
+example uses of the functions from **textshape** within thee categories.
 
 Combining
 ---------
