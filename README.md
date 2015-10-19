@@ -48,12 +48,12 @@ table below describes the functions and their use:
 <tr class="odd">
 <td align="left"><code>split_index</code></td>
 <td align="left"><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
-<td align="left">Split data a specified indices</td>
+<td align="left">Split at specified indices</td>
 </tr>
 <tr class="even">
 <td align="left"><code>split_match</code></td>
 <td align="left"><code>vector</code></td>
-<td align="left">Split vector at specified character/regex</td>
+<td align="left">Split vector at specified character/regex match</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>split_portion</code></td>
