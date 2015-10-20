@@ -36,7 +36,7 @@ Table of Contents
     -   [Spanning](#spanning)
         -   [A Vector](#a-vector)
         -   [A Dataframe](#a-dataframe)
-        -   [Aggregating](#aggregating)
+        -   [Gantt Plot](#gantt-plot)
     -   [Splitting](#splitting)
         -   [Indices](#indices)
         -   [Matches](#matches)
@@ -272,29 +272,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  A  A
-    ## 2   A  B  B
-    ## 3   B  A  B
-    ## 4   A  B  A
-    ## 5   A  B  B
-    ## 6   A  A  B
-    ## 7   A  B  B
-    ## 8   A  A  B
-    ## 9   B  A  A
-    ## 10  B  A  B
+    ## 1   B  B  A
+    ## 2   A  A  A
+    ## 3   A  B  B
+    ## 4   B  A  B
+    ## 5   A  B  A
+    ## 6   A  B  B
+    ## 7   A  A  B
+    ## 8   A  B  B
+    ## 9   A  A  B
+    ## 10  B  A  A
 
     mtabulate(dat)
 
     ##    A B
     ## X1 7 3
-    ## X2 6 4
-    ## X3 3 7
+    ## X2 5 5
+    ## X3 4 6
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  7  6  3
-    ## B  3  4  7
+    ## A  7  5  4
+    ## B  3  5  6
 
 Spanning
 --------
@@ -367,7 +367,7 @@ The `duration` function calculations start-end durations as n words.
     ## 10:         Shall we move on?  Good then.
     ## 11: I'm hungry.  Let's eat.  You already?
 
-#### Aggregating
+#### Gantt Plot
 
     library(ggplot2)
     ggplot(duration(DATA), aes(x = start, xend = end, y = person, yend = person, color = sex)) +
