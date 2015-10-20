@@ -19,12 +19,41 @@ functions are descended from tools in the
 brings reshaping tools under one roof with specific functionality of the
 package limited to text reshaping.
 
+
+Table of Contents
+============
+
+-   [Functions](#functions)
+-   [Installation](#installation)
+-   [Contact](#contact)
+-   [Examples](#examples)
+    -   [Combining](#combining)
+        -   [A Vector](#a-vector)
+        -   [A Dataframe](#a-dataframe)
+    -   [Tabulating](#tabulating)
+        -   [A Vector](#a-vector)
+        -   [A Dataframe](#a-dataframe)
+    -   [Spanning](#spanning)
+        -   [A Vector](#a-vector)
+        -   [A Dataframe](#a-dataframe)
+        -   [Aggregating](#aggregating)
+    -   [Splitting](#splitting)
+        -   [Indices](#indices)
+        -   [Matches](#matches)
+        -   [Portions](#portions)
+        -   [Runs](#runs)
+        -   [Sentences](#sentences)
+        -   [Speakers](#speakers)
+        -   [Tokens](#tokens)
+        -   [Words](#words)
+
 Functions
-=========
+============
+
 
 Most of the functions split/expand a `vector`, `list` or `data.frame`.
-The `combine` and `mtabulate` functions are notable exceptions. The
-table below describes the functions and their use:
+The `combine`, `duration`, & `mtabulate` functions are notable
+exceptions. The table below describes the functions and their use:
 
 <table>
 <thead>
@@ -41,46 +70,51 @@ table below describes the functions and their use:
 <td align="left">Combine and collapse elements</td>
 </tr>
 <tr class="even">
+<td align="left"><code>duration</code></td>
+<td align="left"><code>vector</code>, <code>data.frame</code></td>
+<td align="left">Get duration (start-end times) for turns of talk in n words</td>
+</tr>
+<tr class="odd">
 <td align="left"><code>mtabulate</code></td>
 <td align="left"><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
 <td align="left">Dataframe/list version of <code>tabulate</code> to produce count matrix</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_index</code></td>
 <td align="left"><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
 <td align="left">Split at specified indices</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_match</code></td>
 <td align="left"><code>vector</code></td>
 <td align="left">Split vector at specified character/regex match</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_portion</code></td>
 <td align="left"><code>vector</code>*</td>
 <td align="left">Split data into portioned chunks</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_run</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split runs (e.g., &quot;aaabbbbcdddd&quot;)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_sentence</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split sentences</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_speaker</code></td>
 <td align="left"><code>data.frame</code></td>
 <td align="left">Split combined speakers (e.g., &quot;Josh, Jake, Jim&quot;)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_token</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split words and punctuation</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_word</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split words</td>
@@ -92,33 +126,8 @@ table below describes the functions and their use:
 argument, which can be in the form of a `vector`, `list`, or
 `data.frame`*
 
-
-Table of Contents
-============
-
--   [Functions](#functions)
--   [Installation](#installation)
--   [Contact](#contact)
--   [Examples](#examples)
-    -   [Combining](#combining)
-        -   [A Vector](#a-vector)
-        -   [A Dataframe](#a-dataframe)
-    -   [Tabulating](#tabulating)
-        -   [A Vector](#a-vector)
-        -   [A Dataframe](#a-dataframe)
-    -   [Splitting](#splitting)
-        -   [Indices](#indices)
-        -   [Matches](#matches)
-        -   [Portions](#portions)
-        -   [Runs](#runs)
-        -   [Sentences](#sentences)
-        -   [Speakers](#speakers)
-        -   [Tokens](#tokens)
-        -   [Words](#words)
-
 Installation
 ============
-
 
 To download the development version of **textshape**:
 
@@ -144,11 +153,11 @@ Examples
 ========
 
 The main shaping functions can be broken into the categories of (a)
-combining, (b) tabulating, & (c) splitting. The majority of functions in
-**textshape** fall into the last category of splitting and expanding
-(the semantic opposite of combining). These sections will provide
-example uses of the functions from **textshape** within the three
-categories.
+combining, (b) tabulating, (c) spanning, & (d) splitting. The majority
+of functions in **textshape** fall into the last category of splitting
+and expanding (the semantic opposite of combining). These sections will
+provide example uses of the functions from **textshape** within the
+three categories.
 
 Combining
 ---------
@@ -263,29 +272,110 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   B  B  A
-    ## 2   A  A  A
-    ## 3   A  B  B
-    ## 4   B  A  B
-    ## 5   A  B  A
-    ## 6   A  B  B
-    ## 7   A  A  B
-    ## 8   A  B  B
-    ## 9   A  A  B
-    ## 10  B  A  A
+    ## 1   A  A  A
+    ## 2   A  B  B
+    ## 3   B  A  B
+    ## 4   A  B  A
+    ## 5   A  B  B
+    ## 6   A  A  B
+    ## 7   A  B  B
+    ## 8   A  A  B
+    ## 9   B  A  A
+    ## 10  B  A  B
 
     mtabulate(dat)
 
     ##    A B
     ## X1 7 3
-    ## X2 5 5
-    ## X3 4 6
+    ## X2 6 4
+    ## X3 3 7
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  7  5  4
-    ## B  3  5  6
+    ## A  7  6  3
+    ## B  3  4  7
+
+Spanning
+--------
+
+Often it is useful to know the duration (start-end) of turns of talk.
+The `duration` function calculations start-end durations as n words.
+
+#### A Vector
+
+    (x <- c(
+        "Mr. Brown comes! He says hello. i give him coffee.",
+        "I'll go at 5 p. m. eastern time.  Or somewhere in between!",
+        "go there"
+    ))
+
+    ## [1] "Mr. Brown comes! He says hello. i give him coffee."        
+    ## [2] "I'll go at 5 p. m. eastern time.  Or somewhere in between!"
+    ## [3] "go there"
+
+    duration(x)
+
+    ##    all word.count start end
+    ## 1: all         10     1  10
+    ## 2: all         12    11  22
+    ## 3: all          2    23  24
+    ##                                                      text.var
+    ## 1:         Mr. Brown comes! He says hello. i give him coffee.
+    ## 2: I'll go at 5 p. m. eastern time.  Or somewhere in between!
+    ## 3:                                                   go there
+
+    # With grouping variables
+    groups <- list(group1 = c("A", "B", "A"), group2 = c("red", "red", "green"))
+    duration(x, groups)
+
+    ##    group1 group2 word.count start end
+    ## 1:      A    red         10     1  10
+    ## 2:      B    red         12    11  22
+    ## 3:      A  green          2    23  24
+    ##                                                      text.var
+    ## 1:         Mr. Brown comes! He says hello. i give him coffee.
+    ## 2: I'll go at 5 p. m. eastern time.  Or somewhere in between!
+    ## 3:                                                   go there
+
+#### A Dataframe
+
+    duration(DATA)
+
+    ##         person sex adult code word.count start end
+    ##  1:        sam   m     0   K1          6     1   6
+    ##  2:       greg   m     0   K2          5     7  11
+    ##  3:    teacher   m     1   K3          4    12  15
+    ##  4:        sam   m     0   K4          4    16  19
+    ##  5:       greg   m     0   K5          5    20  24
+    ##  6:      sally   f     0   K6          5    25  29
+    ##  7:       greg   m     0   K7          4    30  33
+    ##  8:        sam   m     0   K8          3    34  36
+    ##  9:      sally   f     0   K9          5    37  41
+    ## 10: researcher   f     1  K10          6    42  47
+    ## 11:       greg   m     0  K11          6    48  53
+    ##                                     state
+    ##  1:         Computer is fun. Not too fun.
+    ##  2:               No it's not, it's dumb.
+    ##  3:                    What should we do?
+    ##  4:                  You liar, it stinks!
+    ##  5:               I am telling the truth!
+    ##  6:                How can we be certain?
+    ##  7:                      There is no way.
+    ##  8:                       I distrust you.
+    ##  9:           What are you talking about?
+    ## 10:         Shall we move on?  Good then.
+    ## 11: I'm hungry.  Let's eat.  You already?
+
+#### Aggregating
+
+    library(ggplot2)
+    ggplot(duration(DATA), aes(x = start, xend = end, y = person, yend = person, color = sex)) +
+        geom_segment(size=4) +
+        xlab("Duration (Words)") +
+        ylab("Person")
+
+![](inst/figure/unnamed-chunk-9-1.png)
 
 Splitting
 ---------
@@ -824,24 +914,40 @@ speaker. The `split_speaker` function accomplishes this.
     ## 10         researcher   f     1         Shall we move on?  Good then.  K10
     ## 11               greg   m     0 I'm hungry.  Let's eat.  You already?  K11
 
-    speakerSplit(DATA)
+    split_speaker(DATA)
 
-    ##        person sex adult                                 state code
-    ## 1        greg   m     0         Computer is fun. Not too fun.   K1
-    ## 2       sally   m     0         Computer is fun. Not too fun.   K1
-    ## 3         sam   m     0         Computer is fun. Not too fun.   K1
-    ## 4        greg   m     0               No it's not, it's dumb.   K2
-    ## 5     teacher   m     1                    What should we do?   K3
-    ## 6        greg   m     0                  You liar, it stinks!   K4
-    ## 7       sally   m     0                  You liar, it stinks!   K4
-    ## 8        greg   m     0               I am telling the truth!   K5
-    ## 9         sam   f     0                How can we be certain?   K6
-    ## 10      sally   f     0                How can we be certain?   K6
-    ## 11       greg   m     0                      There is no way.   K7
-    ## 12        sam   m     0                       I distrust you.   K8
-    ## 13      sally   f     0           What are you talking about?   K9
-    ## 14 researcher   f     1         Shall we move on?  Good then.  K10
-    ## 15       greg   m     0 I'm hungry.  Let's eat.  You already?  K11
+    ##         person sex adult                                 state code
+    ##  1:       greg   m     0         Computer is fun. Not too fun.   K1
+    ##  2:      sally   m     0         Computer is fun. Not too fun.   K1
+    ##  3:        sam   m     0         Computer is fun. Not too fun.   K1
+    ##  4:       greg   m     0               No it's not, it's dumb.   K2
+    ##  5:    teacher   m     1                    What should we do?   K3
+    ##  6:       greg   m     0                  You liar, it stinks!   K4
+    ##  7:      sally   m     0                  You liar, it stinks!   K4
+    ##  8:       greg   m     0               I am telling the truth!   K5
+    ##  9:        sam   f     0                How can we be certain?   K6
+    ## 10:      sally   f     0                How can we be certain?   K6
+    ## 11:       greg   m     0                      There is no way.   K7
+    ## 12:        sam   m     0                       I distrust you.   K8
+    ## 13:      sally   f     0           What are you talking about?   K9
+    ## 14: researcher   f     1         Shall we move on?  Good then.  K10
+    ## 15:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11
+    ##     element_id split_id
+    ##  1:          1        1
+    ##  2:          1        2
+    ##  3:          1        3
+    ##  4:          2        1
+    ##  5:          3        1
+    ##  6:          4        1
+    ##  7:          4        2
+    ##  8:          5        1
+    ##  9:          6        1
+    ## 10:          6        2
+    ## 11:          7        1
+    ## 12:          8        1
+    ## 13:          9        1
+    ## 14:         10        1
+    ## 15:         11        1
 
     ## Reset the DATA dataset
     DATA <- textshape::DATA

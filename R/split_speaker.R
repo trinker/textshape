@@ -15,12 +15,12 @@
 #' DATA$person[c(1, 4, 6)] <- c("greg, sally, & sam",
 #'     "greg, sally", "sam and sally")
 #'
-#' speakerSplit(DATA)
+#' split_speaker(DATA)
 #'
 #' DATA$person[c(1, 4, 6)] <- c("greg_sally_sam",
 #'     "greg.sally", "sam; sally")
 #'
-#' speakerSplit(DATA, sep = c(".", "_", ";"))
+#' split_speaker(DATA, sep = c(".", "_", ";"))
 #'
 #' DATA <- textshape::DATA  #reset DATA
 #' }

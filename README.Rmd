@@ -37,11 +37,12 @@ knitr::opts_chunk$set(fig.path = "inst/figure/")
 
 # Functions
 
-Most of the functions split/expand a `vector`, `list` or `data.frame`.  The `combine` and `mtabulate` functions are notable exceptions.  The table below describes the functions and their use:
+Most of the functions split/expand a `vector`, `list` or `data.frame`.  The `combine`, `duration`, & `mtabulate` functions are notable exceptions.  The table below describes the functions and their use:
 
 | Function         | Used On                        |  Description                                                 |
 |------------------|--------------------------------|--------------------------------------------------------------|
 | `combine`        | `vector`, `list`, `data.frame` | Combine and collapse elements                                |
+| `duration`       | `vector`, `data.frame`         | Get duration (start-end times) for turns of talk in n words  |
 | `mtabulate`      | `vector`, `list`, `data.frame` | Dataframe/list version of `tabulate` to produce count matrix |
 | `split_index`    | `vector`, `list`, `data.frame` | Split at specified indices                                   |
 | `split_match`    | `vector`                       | Split vector at specified character/regex match              |
@@ -77,7 +78,7 @@ You are welcome to:
 
 # Examples
 
-The main shaping functions can be broken into the categories of (a) combining, (b) tabulating, & &#40;c) splitting.  The majority of functions in **textshape** fall into the last category of splitting and expanding (the semantic opposite of combining).  These sections will provide example uses of the functions from **textshape** within the three categories.
+The main shaping functions can be broken into the categories of (a) combining, (b) tabulating, &#40;c) spanning, & (d) splitting.  The majority of functions in **textshape** fall into the last category of splitting and expanding (the semantic opposite of combining).  These sections will provide example uses of the functions from **textshape** within the three categories.
 
 ## Combining
 
@@ -118,6 +119,42 @@ mtabulate(mtcars$cyl[1:10])
 (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 mtabulate(dat)
 t(mtabulate(dat))
+```
+
+## Spanning
+
+Often it is useful to know the duration (start-end) of turns of talk.  The `duration` function calculations start-end durations as n words.
+
+
+#### A Vector
+
+```{r}
+(x <- c(
+    "Mr. Brown comes! He says hello. i give him coffee.",
+    "I'll go at 5 p. m. eastern time.  Or somewhere in between!",
+    "go there"
+))
+duration(x)
+# With grouping variables
+groups <- list(group1 = c("A", "B", "A"), group2 = c("red", "red", "green"))
+duration(x, groups)
+```
+
+
+#### A Dataframe
+
+```{r}
+duration(DATA)
+```
+
+#### Aggregating
+
+```{r}
+library(ggplot2)
+ggplot(duration(DATA), aes(x = start, xend = end, y = person, yend = person, color = sex)) +
+    geom_segment(size=4) +
+    xlab("Duration (Words)") +
+    ylab("Person")
 ```
 
 ## Splitting
@@ -249,7 +286,7 @@ DATA$person[c(1, 4, 6)] <- c("greg, sally, & sam",
     "greg, sally", "sam and sally")
 DATA
 
-speakerSplit(DATA)
+split_speaker(DATA)
 ## Reset the DATA dataset
 DATA <- textshape::DATA
 ```

@@ -1,0 +1,111 @@
+#' Duration of Turns of Talk
+#'
+#' Calculate duration (start and end times) for duration of turns of talk
+#' measured in words.
+#'
+#' @param x A \code{\link[base]{data.frame}} or character vector with a text
+#' variable.
+#' @param text.var The name of the text variable.  If \code{TRUE}
+#' \code{duration} tries to detect the text column.
+#' @param grouping.var The grouping variables.  Default \code{NULL} generates
+#' one word list for all text.  Also takes a single grouping variable or a list
+#' of 1 or more grouping variables.
+#' @param \ldots Ignored.
+#' @export
+#' @rdname duration
+#' @importFrom data.table .N :=
+#' @return Returns a list of vectors of tokens or an expanded
+#' \code{\link[data.table]{data.table}} with tokens split apart.
+#' @examples
+#' (x <- c(
+#'     "Mr. Brown comes! He says hello. i give him coffee.",
+#'     "I'll go at 5 p. m. eastern time.  Or somewhere in between!",
+#'     "go there"
+#' ))
+#' duration(x)
+#' group <- c("A", "B", "A")
+#' duration(x, group)
+#'
+#' groups <- list(group1 = c("A", "B", "A"), group2 = c("red", "red", "green"))
+#' duration(x, groups)
+#'
+#' data(DATA)
+#' duration(DATA)
+#'
+#' ## Larger data set
+#' duration(hamlet)
+duration <- function(x, ...) {
+    UseMethod("duration")
+}
+
+#' @export
+#' @rdname duration
+#' @method duration default
+duration.default <- function(x, grouping.var = NULL, ...) {
+
+    if(is.null(grouping.var)) {
+        G <- "all"
+        ilen <- 1
+    } else {
+        if (is.list(grouping.var)) {
+            m <- unlist(as.character(substitute(grouping.var))[-1])
+            m <- sapply(strsplit(m, "$", fixed=TRUE), function(x) {
+                    x[length(x)]
+                }
+            )
+            ilen <- length(grouping.var)
+            G <- paste(m, collapse="&")
+        } else {
+            G <- as.character(substitute(grouping.var))
+            ilen <- length(G)
+            G <- G[length(G)]
+        }
+    }
+    if(is.null(grouping.var)){
+        grouping <- rep("all", length(x))
+    } else {
+        if (is.list(grouping.var) & length(grouping.var)>1) {
+            grouping <- grouping.var
+        } else {
+            grouping <- unlist(grouping.var)
+        }
+    }
+    if (G == "") G <- paste(names(grouping.var), collapse="&")
+
+    dat <- stats::setNames(
+        data.frame(as.data.frame(grouping), x),
+        c(strsplit(G, "&")[[1]], "text.var")
+    )
+
+    duration.data.frame(dat, "text.var")
+
+}
+
+#' @export
+#' @rdname duration
+#' @method duration data.frame
+duration.data.frame <- function(x, text.var = TRUE, ...) {
+
+    word.count <- NULL
+    nms <- colnames(x)
+    z <- data.table::data.table(data.frame(x, stringsAsFactors = FALSE))
+
+    if (isTRUE(text.var)) {
+        text.var <- names(which.max(sapply(as.data.frame(z), function(y) {
+            if(!is.character(y) && !is.factor(y)) return(0)
+            mean(nchar(as.character(y)), na.rm = TRUE)
+        }))[1])
+        if (length(text.var) == 0) stop("Could not detect ` text.var`.  Please supply `text.var` explicitly.")
+    }
+
+    express1 <- parse(text=paste0("word.count := stringi::stri_count_words(", text.var, ")"))
+    z[, eval(express1)][,
+        'word.count' := ifelse(is.na(word.count), 0, word.count)][,
+        'end' := cumsum(word.count)]
+
+    z[["start"]] <- c(1, utils::head(z[["end"]] + 1, -1))
+
+    colord <- c(nms[!nms %in% text.var], "word.count", "start", "end", text.var)
+    data.table:: setcolorder(z, colord)
+    z
+}

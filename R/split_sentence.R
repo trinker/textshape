@@ -44,7 +44,7 @@ split_sentence.data.frame <- function(x, text.var = TRUE, ...) {
     if (isTRUE(text.var)) {
         text.var <- names(which.max(sapply(as.data.frame(z), function(y) {
             if(!is.character(y) && !is.factor(y)) return(0)
-            mean(nchar(as.character(y)))
+            mean(nchar(as.character(y)), na.rm = TRUE)
         }))[1])
         if (length(text.var) == 0) stop("Could not detect ` text.var`.  Please supply `text.var` explicitly.")
     }
