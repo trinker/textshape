@@ -128,7 +128,11 @@ function(x, indices, names = NULL, ...) {
     out
 }
 
+
+
+
 split_index_vector <- function(x, indices){
+    if (any(indices %in% "1")) indices <- indices[!indices %in% "1"]
     starts <- c(1, indices)
     Map(function(s, e) {x[s:e]}, starts, c(indices - 1, length(x)))
 }
