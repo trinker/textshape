@@ -8,7 +8,7 @@ Description: Tools that can be used to reshape text data.
 Depends: R (>= 3.2.2)
 Imports: data.table, stringi
 Suggests: testthat
-Date: 2015-11-18
+Date: 2015-11-28
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

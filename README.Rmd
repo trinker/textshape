@@ -37,11 +37,12 @@ knitr::opts_chunk$set(fig.path = "inst/figure/")
 
 # Functions
 
-Most of the functions split/expand a `vector`, `list` or `data.frame`.  The `combine`, `duration`, & `mtabulate` functions are notable exceptions.  The table below describes the functions and their use:
+Most of the functions split/expand a `vector`, `list` or `data.frame`.  The `combine`, `bind_list`, `duration`, & `mtabulate` functions are notable exceptions.  The table below describes the functions and their use:
 
 | Function         | Used On                        |  Description                                                 |
 |------------------|--------------------------------|--------------------------------------------------------------|
 | `combine`        | `vector`, `list`, `data.frame` | Combine and collapse elements                                |
+| `bind_list`      | `list` of `vector`s or `data.frame`s | Row bind a list and repeat list names as id column     |
 | `duration`       | `vector`, `data.frame`         | Get duration (start-end times) for turns of talk in n words  |
 | `mtabulate`      | `vector`, `list`, `data.frame` | Dataframe/list version of `tabulate` to produce count matrix |
 | `split_index`    | `vector`, `list`, `data.frame` | Split at specified indices                                   |
@@ -51,6 +52,7 @@ Most of the functions split/expand a `vector`, `list` or `data.frame`.  The `com
 | `split_sentence` | `vector`, `data.frame`         | Split sentences                                              |
 | `split_speaker`  | `data.frame`                   | Split combined speakers (e.g., "Josh, Jake, Jim")            |
 | `split_token`    | `vector`, `data.frame`         | Split words and punctuation                                  |
+| `split_transcript` | `vector`                     | Split speaker and dialogue (e.g., "greg: Who me")            |
 | `split_word`     | `vector`, `data.frame`         | Split words                                                  |
 
 \****Note:*** *Text vector accompanied by aggregating `grouping.var` argument, which can be in the form of a `vector`, `list`, or  `data.frame`*

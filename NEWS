@@ -25,6 +25,12 @@ BUG FIXES
 
 NEW FEATURES
 
+* `bind_list` added to `rbind` a `list` of named `data.frame`s or `vector`s
+
+* `split_transcript` added to split a transcript style vector (e.g.,
+  `c("greg: Who me", "sarah: yes you!")` into a name and dialogue vector that is
+  coerced to a `data.table`.
+
 MINOR FEATURES
 
 IMPROVEMENTS

@@ -52,8 +52,9 @@ Functions
 
 
 Most of the functions split/expand a `vector`, `list` or `data.frame`.
-The `combine`, `duration`, & `mtabulate` functions are notable
-exceptions. The table below describes the functions and their use:
+The `combine`, `bind_list`, `duration`, & `mtabulate` functions are
+notable exceptions. The table below describes the functions and their
+use:
 
 <table>
 <thead>
@@ -70,49 +71,59 @@ exceptions. The table below describes the functions and their use:
 <td align="left">Combine and collapse elements</td>
 </tr>
 <tr class="even">
+<td align="left"><code>bind_list</code></td>
+<td align="left"><code>list</code> of <code>vector</code>s or <code>data.frame</code>s</td>
+<td align="left">Row bind a list and repeat list names as id column</td>
+</tr>
+<tr class="odd">
 <td align="left"><code>duration</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Get duration (start-end times) for turns of talk in n words</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>mtabulate</code></td>
 <td align="left"><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
 <td align="left">Dataframe/list version of <code>tabulate</code> to produce count matrix</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_index</code></td>
 <td align="left"><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
 <td align="left">Split at specified indices</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_match</code></td>
 <td align="left"><code>vector</code></td>
 <td align="left">Split vector at specified character/regex match</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_portion</code></td>
 <td align="left"><code>vector</code>*</td>
 <td align="left">Split data into portioned chunks</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_run</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split runs (e.g., &quot;aaabbbbcdddd&quot;)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_sentence</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split sentences</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_speaker</code></td>
 <td align="left"><code>data.frame</code></td>
 <td align="left">Split combined speakers (e.g., &quot;Josh, Jake, Jim&quot;)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_token</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split words and punctuation</td>
+</tr>
+<tr class="even">
+<td align="left"><code>split_transcript</code></td>
+<td align="left"><code>vector</code></td>
+<td align="left">Split speaker and dialogue (e.g., &quot;greg: Who me&quot;)</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>split_word</code></td>
@@ -272,29 +283,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   B  B  A
-    ## 2   A  A  A
-    ## 3   A  B  B
-    ## 4   B  A  B
-    ## 5   A  B  A
-    ## 6   A  B  B
-    ## 7   A  A  B
-    ## 8   A  B  B
-    ## 9   A  A  B
-    ## 10  B  A  A
+    ## 1   B  A  B
+    ## 2   A  A  B
+    ## 3   A  A  A
+    ## 4   B  A  A
+    ## 5   B  B  A
+    ## 6   B  A  B
+    ## 7   B  A  B
+    ## 8   B  B  B
+    ## 9   B  A  A
+    ## 10  B  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 7 3
-    ## X2 5 5
+    ## X1 2 8
+    ## X2 7 3
     ## X3 4 6
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  7  5  4
-    ## B  3  5  6
+    ## A  2  7  4
+    ## B  8  3  6
 
 Spanning
 --------
@@ -370,6 +381,14 @@ The `duration` function calculations start-end durations as n words.
 #### Gantt Plot
 
     library(ggplot2)
+
+    ## 
+    ## Attaching package: 'ggplot2'
+    ## 
+    ## The following object is masked from 'package:qdapRegex':
+    ## 
+    ##     %+%
+
     ggplot(duration(DATA), aes(x = start, xend = end, y = person, yend = person, color = sex)) +
         geom_segment(size=4) +
         xlab("Duration (Words)") +
