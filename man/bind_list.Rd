@@ -45,7 +45,7 @@ lapply(debates, function(x){
     xml2::read_html(paste0("http://www.presidency.ucsb.edu/ws/index.php?pid=", x)) \%>\%
         rvest::html_nodes("p") \%>\%
         rvest::html_text() \%>\%
-        textshape::split_index(., grep("^[A-Z]+:", .)) \%>\%
+        textshape::split_index(grep("^[A-Z]+:", .)) \%>\%
         textshape::combine() \%>\%
         textshape::split_transcript() \%>\%
         textshape::split_sentence()
