@@ -80,7 +80,23 @@ You are welcome to:
 
 # Examples
 
-The main shaping functions can be broken into the categories of (a) combining, (b) tabulating, &#40;c) spanning, & (d) splitting.  The majority of functions in **textshape** fall into the last category of splitting and expanding (the semantic opposite of combining).  These sections will provide example uses of the functions from **textshape** within the three categories.
+The main shaping functions can be broken into the categories of (a) binding, (b) combining, &#40;c) tabulating, (d) spanning, & (e) splitting.  The majority of functions in **textshape** fall into the last category of splitting and expanding (the semantic opposite of combining).  These sections will provide example uses of the functions from **textshape** within the three categories.
+
+## Binding
+
+The `bind_list` function is used in the style of `do.call(rbind, list(x1, x2))` as a convenient way to bind together multiple named `data.frame`s or `vectors`s into a single `data.frame` with the `list` `names` acting as an id column.  The `data.frame` bind is particularly useful for binding transcripts from different observations.
+
+#### A Vector
+
+```{r}
+bind_list(list(p=1:500, r=letters))
+```
+
+#### A Dataframe
+
+```{r}
+bind_list(list(p=mtcars, r=mtcars, z=mtcars, d=mtcars)) 
+```
 
 ## Combining
 
@@ -314,9 +330,29 @@ split_token(x)
  split_token(DATA)
 ```
 
+
+### Transcript
+
+The `split_transcript` function splits `vector`s with speaker prefixes (e.g., `c("greg: Who me", "sarah: yes you!")`) into a two column `data.frame`.
+
+#### A Vector
+
+```{r}
+(x <- c(
+    "greg: Who me", 
+    "sarah: yes you!",
+    "greg: well why didn't you say so?",
+    "sarah: I did but you weren't listening.",
+    "greg: oh :-/ I see...",
+    "dan: Ok let's meet at 4:30 pm for drinks"
+))
+
+split_transcript(x)
+```
+
 ### Words
 
-The `split_word` function split data into words.
+The `split_word` function splits data into words.
 
 #### A Vector
 

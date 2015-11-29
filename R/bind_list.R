@@ -1,4 +1,4 @@
-#' rbind a List of named data.frames or vectors
+#' Row Bind a List of Named Dataframes or Vectors
 #'
 #' \code{\link[base]{rbind}} a named \code{\link[base]{list}} of
 #' \code{\link[base]{data.frame}}s or \code{\link[base]{vector}}s to

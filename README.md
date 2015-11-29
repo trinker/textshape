@@ -27,6 +27,9 @@ Table of Contents
 -   [Installation](#installation)
 -   [Contact](#contact)
 -   [Examples](#examples)
+    -   [Binding](#binding)
+        -   [A Vector](#a-vector)
+        -   [A Dataframe](#a-dataframe)
     -   [Combining](#combining)
         -   [A Vector](#a-vector)
         -   [A Dataframe](#a-dataframe)
@@ -45,6 +48,7 @@ Table of Contents
         -   [Sentences](#sentences)
         -   [Speakers](#speakers)
         -   [Tokens](#tokens)
+        -   [Transcript](#transcript)
         -   [Words](#words)
 
 Functions
@@ -164,11 +168,54 @@ Examples
 ========
 
 The main shaping functions can be broken into the categories of (a)
-combining, (b) tabulating, (c) spanning, & (d) splitting. The majority
-of functions in **textshape** fall into the last category of splitting
-and expanding (the semantic opposite of combining). These sections will
-provide example uses of the functions from **textshape** within the
-three categories.
+binding, (b) combining, (c) tabulating, (d) spanning, & (e) splitting.
+The majority of functions in **textshape** fall into the last category
+of splitting and expanding (the semantic opposite of combining). These
+sections will provide example uses of the functions from **textshape**
+within the three categories.
+
+Binding
+-------
+
+The `bind_list` function is used in the style of
+`do.call(rbind, list(x1, x2))` as a convenient way to bind together
+multiple named `data.frame`s or `vectors`s into a single `data.frame`
+with the `list` `names` acting as an id column. The `data.frame` bind is
+particularly useful for binding transcripts from different observations.
+
+#### A Vector
+
+    bind_list(list(p=1:500, r=letters))
+
+    ##      id content
+    ##   1:  p       1
+    ##   2:  p       2
+    ##   3:  p       3
+    ##   4:  p       4
+    ##   5:  p       5
+    ##  ---           
+    ## 522:  r       v
+    ## 523:  r       w
+    ## 524:  r       x
+    ## 525:  r       y
+    ## 526:  r       z
+
+#### A Dataframe
+
+    bind_list(list(p=mtcars, r=mtcars, z=mtcars, d=mtcars)) 
+
+    ##      id  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+    ##   1:  p 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+    ##   2:  p 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+    ##   3:  p 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+    ##   4:  p 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+    ##   5:  p 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+    ##  ---                                                       
+    ## 124:  d 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+    ## 125:  d 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+    ## 126:  d 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+    ## 127:  d 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+    ## 128:  d 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
 
 Combining
 ---------
@@ -283,29 +330,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   B  A  B
-    ## 2   A  A  B
-    ## 3   A  A  A
-    ## 4   B  A  A
-    ## 5   B  B  A
-    ## 6   B  A  B
-    ## 7   B  A  B
-    ## 8   B  B  B
-    ## 9   B  A  A
-    ## 10  B  B  B
+    ## 1   B  B  A
+    ## 2   A  A  A
+    ## 3   A  B  B
+    ## 4   B  A  B
+    ## 5   A  B  A
+    ## 6   A  B  B
+    ## 7   A  A  B
+    ## 8   A  B  B
+    ## 9   A  A  B
+    ## 10  B  A  A
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 2 8
-    ## X2 7 3
+    ## X1 7 3
+    ## X2 5 5
     ## X3 4 6
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  2  7  4
-    ## B  8  3  6
+    ## A  7  5  4
+    ## B  3  5  6
 
 Spanning
 --------
@@ -381,20 +428,12 @@ The `duration` function calculations start-end durations as n words.
 #### Gantt Plot
 
     library(ggplot2)
-
-    ## 
-    ## Attaching package: 'ggplot2'
-    ## 
-    ## The following object is masked from 'package:qdapRegex':
-    ## 
-    ##     %+%
-
     ggplot(duration(DATA), aes(x = start, xend = end, y = person, yend = person, color = sex)) +
         geom_segment(size=4) +
         xlab("Duration (Words)") +
         ylab("Person")
 
-![](inst/figure/unnamed-chunk-9-1.png)
+![](inst/figure/unnamed-chunk-11-1.png)
 
 Splitting
 ---------
@@ -1079,9 +1118,43 @@ The `split_token` function split data into words and punctuation.
     ## 70:       greg   m     0        ?  K11         11           9
     ##         person sex adult    state code element_id sentence_id
 
+### Transcript
+
+The `split_transcript` function splits `vector`s with speaker prefixes
+(e.g., `c("greg: Who me", "sarah: yes you!")`) into a two column
+`data.frame`.
+
+#### A Vector
+
+    (x <- c(
+        "greg: Who me", 
+        "sarah: yes you!",
+        "greg: well why didn't you say so?",
+        "sarah: I did but you weren't listening.",
+        "greg: oh :-/ I see...",
+        "dan: Ok let's meet at 4:30 pm for drinks"
+    ))
+
+    ## [1] "greg: Who me"                            
+    ## [2] "sarah: yes you!"                         
+    ## [3] "greg: well why didn't you say so?"       
+    ## [4] "sarah: I did but you weren't listening." 
+    ## [5] "greg: oh :-/ I see..."                   
+    ## [6] "dan: Ok let's meet at 4:30 pm for drinks"
+
+    split_transcript(x)
+
+    ##    person                            dialogue
+    ## 1:   greg                              Who me
+    ## 2:  sarah                            yes you!
+    ## 3:   greg         well why didn't you say so?
+    ## 4:  sarah    I did but you weren't listening.
+    ## 5:   greg                     oh :-/ I see...
+    ## 6:    dan Ok let's meet at 4:30 pm for drinks
+
 ### Words
 
-The `split_word` function split data into words.
+The `split_word` function splits data into words.
 
 #### A Vector
 

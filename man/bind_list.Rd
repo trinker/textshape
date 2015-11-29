@@ -2,7 +2,7 @@
 % Please edit documentation in R/bind_list.R
 \name{bind_list}
 \alias{bind_list}
-\title{rbind a List of named data.frames or vectors}
+\title{Row Bind a List of Named Dataframes or Vectors}
 \usage{
 bind_list(x, id.name = "id", content.name = "content")
 }
