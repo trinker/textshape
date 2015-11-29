@@ -470,7 +470,8 @@ split a data type.
 Here I calculate the indices of every time the `vs` variable in the
 `mtcars` data set changes and then split the dataframe on those indices.
 The `change_index` function is handy for extracting the indices of
-changes in runs within an atomic vector.
+changes in runs within an [atomic
+vector](http://arrgh.tim-smith.us/atomic.html).
 
     (vs_change <- change_index(mtcars[["vs"]]))
 
