@@ -26,7 +26,7 @@ split_transcript(c("greg: Who me", "sarah: yes you!"))
 
 \dontrun{
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(rvest, magrittr)
+pacman::p_load(rvest, magrittr, xml2)
 
 debates <- c(
     wisconsin = "110908",

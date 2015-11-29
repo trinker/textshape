@@ -30,7 +30,7 @@ bind_list(list(p=1:500, r=letters))
 bind_list(list(p=mtcars, r=mtcars, z=mtcars, d=mtcars))
 \dontrun{
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(rvest, magrittr)
+pacman::p_load(rvest, magrittr, xml2)
 
 debates <- c(
     wisconsin = "110908",
