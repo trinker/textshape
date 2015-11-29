@@ -185,7 +185,8 @@ particularly useful for binding transcripts from different observations.
 
 #### A Vector
 
-    bind_list(list(p=1:500, r=letters))
+    x <- list(p=1:500, r=letters)
+    bind_list(x)
 
     ##      id content
     ##   1:  p       1
@@ -202,7 +203,8 @@ particularly useful for binding transcripts from different observations.
 
 #### A Dataframe
 
-    bind_list(list(p=mtcars, r=mtcars, z=mtcars, d=mtcars)) 
+    x <- list(p=mtcars, r=mtcars, z=mtcars, d=mtcars)
+    bind_list(x) 
 
     ##      id  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
     ##   1:  p 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4

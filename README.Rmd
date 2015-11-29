@@ -89,13 +89,15 @@ The `bind_list` function is used in the style of `do.call(rbind, list(x1, x2))` 
 #### A Vector
 
 ```{r}
-bind_list(list(p=1:500, r=letters))
+x <- list(p=1:500, r=letters)
+bind_list(x)
 ```
 
 #### A Dataframe
 
 ```{r}
-bind_list(list(p=mtcars, r=mtcars, z=mtcars, d=mtcars)) 
+x <- list(p=mtcars, r=mtcars, z=mtcars, d=mtcars)
+bind_list(x) 
 ```
 
 ## Combining
