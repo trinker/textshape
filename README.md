@@ -334,28 +334,28 @@ counts.
 
     ##    X1 X2 X3
     ## 1   B  B  A
-    ## 2   B  A  A
-    ## 3   B  A  A
-    ## 4   A  B  B
-    ## 5   A  A  A
-    ## 6   B  B  A
-    ## 7   B  B  A
-    ## 8   A  B  A
-    ## 9   B  B  A
-    ## 10  A  B  B
+    ## 2   A  A  A
+    ## 3   A  B  B
+    ## 4   B  A  B
+    ## 5   A  B  A
+    ## 6   A  B  B
+    ## 7   A  A  B
+    ## 8   A  B  B
+    ## 9   A  A  B
+    ## 10  B  A  A
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 4 6
-    ## X2 3 7
-    ## X3 8 2
+    ## X1 7 3
+    ## X2 5 5
+    ## X3 4 6
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  4  3  8
-    ## B  6  7  2
+    ## A  7  5  4
+    ## B  3  5  6
 
 Spanning
 --------
@@ -431,14 +431,6 @@ The `duration` function calculations start-end durations as n words.
 #### Gantt Plot
 
     library(ggplot2)
-
-    ## 
-    ## Attaching package: 'ggplot2'
-    ## 
-    ## The following object is masked from 'package:qdapRegex':
-    ## 
-    ##     %+%
-
     ggplot(duration(DATA), aes(x = start, xend = end, y = person, yend = person, color = sex)) +
         geom_segment(size=4) +
         xlab("Duration (Words)") +
@@ -1266,8 +1258,10 @@ where he demonstrated some scraping and analysis techniques. Here I
 highlight a combination usage of **textshape** tools to scrape and
 structure the text from 4 of the 2015 Republican debates within a
 [**magrittr**](https://github.com/smbache/magrittr) pipeline. The result
-is a single [\*data.table\*\*](https://github.com/Rdatatable/data.table)
-containing the dialogue from all 4 debates.
+is a single [**data.table**](https://github.com/Rdatatable/data.table)
+containing the dialogue from all 4 debates. The code highlights the
+conciseness and readability of **textshape** by restructuring Flores
+scraping with **textshape** replacements.
 
     if (!require("pacman")) install.packages("pacman")
     pacman::p_load(rvest, magrittr, xml2)

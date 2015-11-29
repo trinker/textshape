@@ -18,6 +18,6 @@
 #' (p_chng <- change_index(CO2[["Plant"]]))
 #' split_index(CO2[["Plant"]], p_chng)
 change_index <- function (x) {
-    head(1 + cumsum(rle(as.character(x))[[1]]), -1)
+    utils::head(1 + cumsum(rle(as.character(x))[[1]]), -1)
 }
 

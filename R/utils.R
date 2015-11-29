@@ -119,3 +119,36 @@ paste2 <- function (multi.columns, sep = ".", handle.na = TRUE, trim = TRUE) {
 }
 
 is.Integer <- function(x, tol = .Machine$double.eps^0.5) abs(x - round(x)) < tol
+
+pad <- function (x, padding = max(nchar(as.character(x))), sort = TRUE,
+    type = "detect") {
+    poss <- c("detect", "numeric", "character", "d", "s")
+    if (!type %in% poss)
+        stop("type must be: \"detect\", \"numeric\"\\\"d\" or \"character\"\\\"s\"")
+    Rel <- c(NA, "d", "s", "d", "s")
+    type <- Rel[poss %in% type]
+    if (is.na(type)) {
+        type <- ifelse(is.numeric(x), "d", "s")
+    }
+    x <- sprintf_ish(x, padding, type)
+    if (sort) {
+        x <- sort(x)
+    }
+    x
+}
+
+sprintf_ish <- function(x, padding, type){
+    OS <- Sys.info()[['sysname']]
+
+    if (OS %in% c("Windows", "Linux")) {
+        sprintf(paste0("%0", padding, type), x)
+    } else {
+        type <- ifelse(type == "s", " ", "0")
+        pads <- sapply(padding - nchar(x), function(i)  {
+            if (i == 0) return("")
+            paste(rep(type, i), collapse = "")
+        })
+        paste0(pads, x)
+
+    }
+}

@@ -64,7 +64,7 @@ split_index(LETTERS, c(4, 10, 16), c("dog", "cat", "chicken", "rabbit"))
 split_index(1:100, c(33, 66))
 
 ## factor
-(p_chng <- change_index(CO2[["Plant"]])
+(p_chng <- change_index(CO2[["Plant"]]))
 split_index(CO2[["Plant"]], p_chng)
 #`change_index` was unnecessary as it is the defualt of atomic vectors
 split_index(CO2[["Plant"]])
