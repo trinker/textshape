@@ -48,7 +48,7 @@ lapply(debates, function(x){
         split_transcript() \%>\%
         split_sentence()
 }) \%>\%
-    bind_list("location"
+    bind_list("location")
 }
 }
 

@@ -36,7 +36,7 @@
 #'         split_transcript() %>%
 #'         split_sentence()
 #' }) %>%
-#'     bind_list("location"
+#'     bind_list("location")
 #' }
 bind_list <- function(x, id.name= "id", content.name = "content"){
     if (is.data.frame(x[[1]])){
