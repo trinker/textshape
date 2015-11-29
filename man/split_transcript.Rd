@@ -25,6 +25,7 @@ Leading/trailing white space in the columns is stripped out.
 split_transcript(c("greg: Who me", "sarah: yes you!"))
 
 \dontrun{
+## 2015 Vice-Presidential Debates Example
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(rvest, magrittr, xml2)
 
@@ -36,13 +37,13 @@ debates <- c(
 )
 
 lapply(debates, function(x){
-    txt <- read_html(paste0("http://www.presidency.ucsb.edu/ws/index.php?pid=", x)) \%>\%
-        html_nodes("p") \%>\%
-        html_text()
-
-    sapply(split_index(txt, grep("^[A-Z]+:", txt)), paste, collapse = " ") \%>\%
-        split_transcript() \%>\%
-        split_sentence()
+    xml2::read_html(paste0("http://www.presidency.ucsb.edu/ws/index.php?pid=", x)) \%>\%
+        rvest::html_nodes("p") \%>\%
+        rvest::html_text() \%>\%
+        textshape::split_index(., grep("^[A-Z]+:", .)) \%>\%
+        textshape::combine() \%>\%
+        textshape::split_transcript() \%>\%
+        textshape::split_sentence()
 })
 }
 }

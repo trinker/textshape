@@ -31,11 +31,17 @@ textshape 0.1.0
   `c("greg: Who me", "sarah: yes you!")` into a name and dialogue vector that is
   coerced to a `data.table`.
 
+* `change_index` added  for extracting the indices of changes in runs within an
+  atomic vector.  Pairs well with `split_index`.
+
 **MINOR FEATURES**
 
 IMPROVEMENTS
 
 **CHANGES**
+
+* `split_index` now uses `change_index(x)` as the default when `x` is an atomic
+  vector.
 
 
 textshape 0.0.1

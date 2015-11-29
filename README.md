@@ -50,6 +50,7 @@ Table of Contents
         -   [Tokens](#tokens)
         -   [Transcript](#transcript)
         -   [Words](#words)
+    -   [Putting It Together](#putting-it-together)
 
 Functions
 ============
@@ -333,28 +334,28 @@ counts.
 
     ##    X1 X2 X3
     ## 1   B  B  A
-    ## 2   A  A  A
-    ## 3   A  B  B
-    ## 4   B  A  B
-    ## 5   A  B  A
-    ## 6   A  B  B
-    ## 7   A  A  B
-    ## 8   A  B  B
-    ## 9   A  A  B
-    ## 10  B  A  A
+    ## 2   B  A  A
+    ## 3   B  A  A
+    ## 4   A  B  B
+    ## 5   A  A  A
+    ## 6   B  B  A
+    ## 7   B  B  A
+    ## 8   A  B  A
+    ## 9   B  B  A
+    ## 10  A  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 7 3
-    ## X2 5 5
-    ## X3 4 6
+    ## X1 4 6
+    ## X2 3 7
+    ## X3 8 2
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  7  5  4
-    ## B  3  5  6
+    ## A  4  3  8
+    ## B  6  7  2
 
 Spanning
 --------
@@ -430,6 +431,14 @@ The `duration` function calculations start-end durations as n words.
 #### Gantt Plot
 
     library(ggplot2)
+
+    ## 
+    ## Attaching package: 'ggplot2'
+    ## 
+    ## The following object is masked from 'package:qdapRegex':
+    ## 
+    ##     %+%
+
     ggplot(duration(DATA), aes(x = start, xend = end, y = person, yend = person, color = sex)) +
         geom_segment(size=4) +
         xlab("Duration (Words)") +
@@ -468,8 +477,10 @@ split a data type.
 
 Here I calculate the indices of every time the `vs` variable in the
 `mtcars` data set changes and then split the dataframe on those indices.
+The `change_index` function is handy for extracting the indices of
+changes in runs within an atomic vector.
 
-    (vs_change <- head(1 + cumsum(rle(as.character(mtcars[["vs"]]))[[1]]), -1))
+    (vs_change <- change_index(mtcars[["vs"]]))
 
     ##  [1]  3  5  6  7  8 12 18 22 26 27 28 29 32
 
@@ -1243,3 +1254,76 @@ The `split_word` function splits data into words.
     ## 52:       greg   m     0      you  K11         11           5
     ## 53:       greg   m     0  already  K11         11           6
     ##         person sex adult    state code element_id sentence_id
+
+Putting It Together
+-------------------
+
+[Eduardo Flores](https://www.linkedin.com/in/eduardo-flores-16850523)
+blogged about [What the candidates say, analyzing republican debates
+using
+R](http://enelmargen.org/r-english/datascience/2015/11/26/What-the-candidates-say-analyzing-republican-debates-using-R2.html)
+where he demonstrated some scraping and analysis techniques. Here I
+highlight a combination usage of **textshape** tools to scrape and
+structure the text from 4 of the 2015 Republican debates within a
+[**magrittr**](https://github.com/smbache/magrittr) pipeline. The result
+is a single [\*data.table\*\*](https://github.com/Rdatatable/data.table)
+containing the dialogue from all 4 debates.
+
+    if (!require("pacman")) install.packages("pacman")
+    pacman::p_load(rvest, magrittr, xml2)
+
+    debates <- c(
+        wisconsin = "110908",
+        boulder = "110906",
+        california = "110756",
+        ohio = "110489"
+    )
+
+    lapply(debates, function(x){
+        xml2::read_html(paste0("http://www.presidency.ucsb.edu/ws/index.php?pid=", x)) %>%
+            rvest::html_nodes("p") %>%
+            rvest::html_text() %>%
+            textshape::split_index(., grep("^[A-Z]+:", .)) %>%
+            #textshape::split_match("^[A-Z]+:", TRUE, TRUE) %>% #equal to line above
+            textshape::combine() %>%
+            textshape::split_transcript() %>%
+            textshape::split_sentence()
+    }) %>%
+        textshape::bind_list("location")
+
+    ##        location     person
+    ##    1: wisconsin MODERATORS
+    ##    2: wisconsin     CAVUTO
+    ##    3: wisconsin     CAVUTO
+    ##    4: wisconsin     CAVUTO
+    ##    5: wisconsin  BARTIROMO
+    ##   ---                     
+    ## 7401:      ohio      BAIER
+    ## 7402:      ohio      KELLY
+    ## 7403:      ohio      KELLY
+    ## 7404:      ohio      KELLY
+    ## 7405:      ohio      KELLY
+    ##                                                                                                                                                        dialogue
+    ##    1:                                      Gerard Baker (The Wall Street Journal);Maria Bartiromo (Fox Business Network); andNeil Cavuto (Fox Business Network)
+    ##    2:                                                                           It is 9:00 p.m. on the East Coast, 8:00 p.m. here inside the Milwaukee theater.
+    ##    3:                                                                           Welcome to the Republican presidential debate here on the Fox Business Network.
+    ##    4:                           I'm Neil Cavuto, alongside my co-moderators, Maria Bartiromo, and the editor-in-chief of the Wall Street Journal, Gerard Baker.
+    ##    5:                                          Tonight we're partnering with the Wall Street Journal to ask questions on the economy that voters want answered.
+    ##   ---                                                                                                                                                          
+    ## 7401:                                                                                                                                                That's it.
+    ## 7402:                                                                                                                                         Are you relieved?
+    ## 7403:                                                                                                  You were nervous before, they--they don't look relieved.
+    ## 7404: They look "get me outta here."  Thank you all very much, and that will do it for the first Republican primary debate night of the 2016 presidential race.
+    ## 7405:                                                                          Our thanks to the candidates, who will now be joined by their families on stage.
+    ##       element_id sentence_id
+    ##    1:          1           1
+    ##    2:          2           1
+    ##    3:          2           2
+    ##    4:          2           3
+    ##    5:          3           1
+    ##   ---                       
+    ## 7401:        301           1
+    ## 7402:        302           1
+    ## 7403:        302           2
+    ## 7404:        302           3
+    ## 7405:        302           4

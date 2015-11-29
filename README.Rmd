@@ -193,10 +193,10 @@ split_index(LETTERS, c(4, 10, 16), c("dog", "cat", "chicken", "rabbit"))
 
 #### A Dataframe
 
-Here I calculate the indices of every time the `vs` variable in the `mtcars` data set changes and then split the dataframe on those indices.
+Here I calculate the indices of every time the `vs` variable in the `mtcars` data set changes and then split the dataframe on those indices.  The `change_index` function is handy for extracting the indices of changes in runs within an atomic vector.
 
 ```{r}
-(vs_change <- head(1 + cumsum(rle(as.character(mtcars[["vs"]]))[[1]]), -1))
+(vs_change <- change_index(mtcars[["vs"]]))
 split_index(mtcars, vs_change)
 ```
 
@@ -372,3 +372,35 @@ split_word(x)
 ```{r}
  split_word(DATA)
 ```
+
+
+## Putting It Together 
+
+[Eduardo Flores](https://www.linkedin.com/in/eduardo-flores-16850523) blogged about [What the candidates say, analyzing republican debates using R](http://enelmargen.org/r-english/datascience/2015/11/26/What-the-candidates-say-analyzing-republican-debates-using-R2.html) where he demonstrated some scraping and analysis techniques.  Here I highlight a combination usage of **textshape** tools to scrape and structure the text from 4 of the 2015 Republican debates within a [**magrittr**](https://github.com/smbache/magrittr) pipeline.  The result is a single [*data.table**](https://github.com/Rdatatable/data.table) containing the dialogue from all 4 debates.
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(rvest, magrittr, xml2)
+
+debates <- c(
+    wisconsin = "110908",
+    boulder = "110906",
+    california = "110756",
+    ohio = "110489"
+)
+
+lapply(debates, function(x){
+    xml2::read_html(paste0("http://www.presidency.ucsb.edu/ws/index.php?pid=", x)) %>%
+        rvest::html_nodes("p") %>%
+        rvest::html_text() %>%
+        textshape::split_index(., grep("^[A-Z]+:", .)) %>%
+        #textshape::split_match("^[A-Z]+:", TRUE, TRUE) %>% #equal to line above
+        textshape::combine() %>%
+        textshape::split_transcript() %>%
+        textshape::split_sentence()
+}) %>%
+    textshape::bind_list("location")
+```
+
+
+

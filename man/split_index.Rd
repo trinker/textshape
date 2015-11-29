@@ -11,7 +11,8 @@
 \alias{split_index.numeric}
 \title{Split Data Forms at Specified Indices}
 \usage{
-split_index(x, indices, names = NULL, ...)
+split_index(x, indices = if (is.atomic(x)) {     NULL } else {    
+  change_index(x) }, names = NULL, ...)
 
 \method{split_index}{list}(x, indices, names = NULL, ...)
 
@@ -19,20 +20,26 @@ split_index(x, indices, names = NULL, ...)
 
 \method{split_index}{matrix}(x, indices, names = NULL, ...)
 
-\method{split_index}{numeric}(x, indices, names = NULL, ...)
+\method{split_index}{numeric}(x, indices = change_index(x), names = NULL,
+  ...)
 
-\method{split_index}{factor}(x, indices, names = NULL, ...)
+\method{split_index}{factor}(x, indices = change_index(x), names = NULL,
+  ...)
 
-\method{split_index}{character}(x, indices, names = NULL, ...)
+\method{split_index}{character}(x, indices = change_index(x), names = NULL,
+  ...)
 
-\method{split_index}{default}(x, indices, names = NULL, ...)
+\method{split_index}{default}(x, indices = change_index(x), names = NULL,
+  ...)
 }
 \arguments{
 \item{x}{A data form (\code{list}, \code{vector}, \code{data.frame},
 \code{matrix}).}
 
 \item{indices}{A vector of integer indices to split at.  If \code{indices}
-contains the index 1, it will be silently dropped.}
+contains the index 1, it will be silently dropped.  The default value when
+\code{x} evaluates to \code{TRUE} for \code{\link[base]{is.atomic}} is to use
+\code{\link[textshape]{change_index}(x)}.}
 
 \item{names}{Optional vector of names to give to the list elements.}
 
@@ -57,18 +64,23 @@ split_index(LETTERS, c(4, 10, 16), c("dog", "cat", "chicken", "rabbit"))
 split_index(1:100, c(33, 66))
 
 ## factor
-(p_chng <- head(1 + cumsum(rle(as.character(CO2[["Plant"]]))[[1]]), -1))
+(p_chng <- change_index(CO2[["Plant"]])
 split_index(CO2[["Plant"]], p_chng)
+#`change_index` was unnecessary as it is the defualt of atomic vectors
+split_index(CO2[["Plant"]])
 
 ## list
 split_index(as.list(LETTERS), c(4, 10, 16))
 
 ## data.frame
-(vs_change <- head(1 + cumsum(rle(as.character(mtcars[["vs"]]))[[1]]), -1))
+(vs_change <- change_index(mtcars[["vs"]]))
 split_index(mtcars, vs_change)
 
 ## matrix
 (mat <- matrix(1:50, nrow=10))
 split_index(mat, c(3, 6, 10))
+}
+\seealso{
+\code{\link[textshape]{change_index}}
 }
 

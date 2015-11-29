@@ -16,7 +16,9 @@
 #' @examples
 #' bind_list(list(p=1:500, r=letters))
 #' bind_list(list(p=mtcars, r=mtcars, z=mtcars, d=mtcars))
+#'
 #' \dontrun{
+#' ## 2015 Vice-Presidential Debates Example
 #' if (!require("pacman")) install.packages("pacman")
 #' pacman::p_load(rvest, magrittr, xml2)
 #'
@@ -28,15 +30,15 @@
 #' )
 #'
 #' lapply(debates, function(x){
-#'     txt <- read_html(paste0("http://www.presidency.ucsb.edu/ws/index.php?pid=", x)) %>%
-#'         html_nodes("p") %>%
-#'         html_text()
-#'
-#'     sapply(split_index(txt, grep("^[A-Z]+:", txt)), paste, collapse = " ") %>%
-#'         split_transcript() %>%
-#'         split_sentence()
+#'     xml2::read_html(paste0("http://www.presidency.ucsb.edu/ws/index.php?pid=", x)) %>%
+#'         rvest::html_nodes("p") %>%
+#'         rvest::html_text() %>%
+#'         textshape::split_index(., grep("^[A-Z]+:", .)) %>%
+#'         textshape::combine() %>%
+#'         textshape::split_transcript() %>%
+#'         textshape::split_sentence()
 #' }) %>%
-#'     bind_list("location")
+#'     textshape::bind_list("location")
 #' }
 bind_list <- function(x, id.name= "id", content.name = "content"){
     if (is.data.frame(x[[1]])){
