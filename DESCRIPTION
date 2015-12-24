@@ -5,10 +5,16 @@ Authors@R: c(person("Tyler", "Rinker", email =
         "tyler.rinker@gmail.com", role = c("aut", "cre")))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
 Description: Tools that can be used to reshape text data.
-Depends: R (>= 3.2.2)
-Imports: data.table, stringi, utils
-Suggests: testthat
-Date: 2015-11-29
+Depends:
+    R (>= 3.2.2)
+Imports:
+    data.table,
+    stringi,
+    utils
+Suggests:
+    testthat
+Date: 2015-12-24
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)
+RoxygenNote: 5.0.1
