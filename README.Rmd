@@ -43,6 +43,8 @@ Most of the functions split/expand a `vector`, `list` or `data.frame`.  The `com
 |------------------|--------------------------------|--------------------------------------------------------------|
 | `combine`        | `vector`, `list`, `data.frame` | Combine and collapse elements                                |
 | `bind_list`      | `list` of `vector`s or `data.frame`s | Row bind a list and repeat list names as id column     |
+| `bind_vector`    | `vector`                       | Column bind a named atomic `vector`'s names and values       |
+| `bind_table`     | `table`                        | Column bind a `table`'s names and values                     |
 | `duration`       | `vector`, `data.frame`         | Get duration (start-end times) for turns of talk in n words  |
 | `mtabulate`      | `vector`, `list`, `data.frame` | Dataframe/list version of `tabulate` to produce count matrix |
 | `split_index`    | `vector`, `list`, `data.frame` | Split at specified indices                                   |

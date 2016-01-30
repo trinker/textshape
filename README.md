@@ -23,34 +23,34 @@ package limited to text reshaping.
 Table of Contents
 ============
 
--   [Functions](#functions)
--   [Installation](#installation)
--   [Contact](#contact)
--   [Examples](#examples)
-    -   [Binding](#binding)
-        -   [A Vector](#a-vector)
-        -   [A Dataframe](#a-dataframe)
-    -   [Combining](#combining)
-        -   [A Vector](#a-vector)
-        -   [A Dataframe](#a-dataframe)
-    -   [Tabulating](#tabulating)
-        -   [A Vector](#a-vector)
-        -   [A Dataframe](#a-dataframe)
-    -   [Spanning](#spanning)
-        -   [A Vector](#a-vector)
-        -   [A Dataframe](#a-dataframe)
-        -   [Gantt Plot](#gantt-plot)
-    -   [Splitting](#splitting)
-        -   [Indices](#indices)
-        -   [Matches](#matches)
-        -   [Portions](#portions)
-        -   [Runs](#runs)
-        -   [Sentences](#sentences)
-        -   [Speakers](#speakers)
-        -   [Tokens](#tokens)
-        -   [Transcript](#transcript)
-        -   [Words](#words)
-    -   [Putting It Together](#putting-it-together)
+-   [[Functions](#functions)](#[functions](#functions))
+-   [[Installation](#installation)](#[installation](#installation))
+-   [[Contact](#contact)](#[contact](#contact))
+-   [[Examples](#examples)](#[examples](#examples))
+    -   [[Binding](#binding)](#[binding](#binding))
+        -   [[A Vector](#a-vector)](#[a-vector](#a-vector))
+        -   [[A Dataframe](#a-dataframe)](#[a-dataframe](#a-dataframe))
+    -   [[Combining](#combining)](#[combining](#combining))
+        -   [[A Vector](#a-vector-1)](#[a-vector](#a-vector-1))
+        -   [[A Dataframe](#a-dataframe-1)](#[a-dataframe](#a-dataframe-1))
+    -   [[Tabulating](#tabulating)](#[tabulating](#tabulating))
+        -   [[A Vector](#a-vector-2)](#[a-vector](#a-vector-2))
+        -   [[A Dataframe](#a-dataframe-2)](#[a-dataframe](#a-dataframe-2))
+    -   [[Spanning](#spanning)](#[spanning](#spanning))
+        -   [[A Vector](#a-vector-3)](#[a-vector](#a-vector-3))
+        -   [[A Dataframe](#a-dataframe-3)](#[a-dataframe](#a-dataframe-3))
+        -   [[Gantt Plot](#gantt-plot)](#[gantt-plot](#gantt-plot))
+    -   [[Splitting](#splitting)](#[splitting](#splitting))
+        -   [[Indices](#indices)](#[indices](#indices))
+        -   [[Matches](#matches)](#[matches](#matches))
+        -   [[Portions](#portions)](#[portions](#portions))
+        -   [[Runs](#runs)](#[runs](#runs))
+        -   [[Sentences](#sentences)](#[sentences](#sentences))
+        -   [[Speakers](#speakers)](#[speakers](#speakers))
+        -   [[Tokens](#tokens)](#[tokens](#tokens))
+        -   [[Transcript](#transcript)](#[transcript](#transcript))
+        -   [[Words](#words)](#[words](#words))
+    -   [[Putting It Together](#putting-it-together)](#[putting-it-together](#putting-it-together))
 
 Functions
 ============
@@ -61,7 +61,12 @@ The `combine`, `bind_list`, `duration`, & `mtabulate` functions are
 notable exceptions. The table below describes the functions and their
 use:
 
-<table>
+<table style="width:160%;">
+<colgroup>
+<col width="26%" />
+<col width="45%" />
+<col width="87%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Function</th>
@@ -79,6 +84,16 @@ use:
 <td align="left"><code>bind_list</code></td>
 <td align="left"><code>list</code> of <code>vector</code>s or <code>data.frame</code>s</td>
 <td align="left">Row bind a list and repeat list names as id column</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>bind_vector</code></td>
+<td align="left"><code>vector</code></td>
+<td align="left">Column bind a named atomic <code>vector</code>'s names and values</td>
+</tr>
+<tr class="even">
+<td align="left"><code>bind_table</code></td>
+<td align="left"><code>table</code></td>
+<td align="left">Column bind a <code>table</code>'s names and values</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>duration</code></td>
@@ -333,29 +348,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   B  B  A
-    ## 2   A  A  A
+    ## 1   A  A  A
+    ## 2   A  B  A
     ## 3   A  B  B
-    ## 4   B  A  B
-    ## 5   A  B  A
-    ## 6   A  B  B
-    ## 7   A  A  B
-    ## 8   A  B  B
-    ## 9   A  A  B
-    ## 10  B  A  A
+    ## 4   A  A  B
+    ## 5   A  A  B
+    ## 6   A  A  B
+    ## 7   B  A  B
+    ## 8   A  B  A
+    ## 9   B  B  A
+    ## 10  B  B  A
 
     mtabulate(dat)
 
     ##    A B
     ## X1 7 3
     ## X2 5 5
-    ## X3 4 6
+    ## X3 5 5
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  7  5  4
-    ## B  3  5  6
+    ## A  7  5  5
+    ## B  3  5  5
 
 Spanning
 --------
@@ -431,12 +446,20 @@ The `duration` function calculations start-end durations as n words.
 #### Gantt Plot
 
     library(ggplot2)
+
+    ## 
+    ## Attaching package: 'ggplot2'
+
+    ## The following object is masked from 'package:qdapRegex':
+    ## 
+    ##     %+%
+
     ggplot(duration(DATA), aes(x = start, xend = end, y = person, yend = person, color = sex)) +
         geom_segment(size=4) +
         xlab("Duration (Words)") +
         ylab("Person")
 
-![](inst/figure/unnamed-chunk-11-1.png)
+![](inst/figure/unnamed-chunk-11-1.png)<!-- -->
 
 Splitting
 ---------
@@ -1293,11 +1316,11 @@ scraping with **textshape** replacements.
     ##    4: wisconsin     CAVUTO
     ##    5: wisconsin  BARTIROMO
     ##   ---                     
-    ## 7401:      ohio      BAIER
-    ## 7402:      ohio      KELLY
-    ## 7403:      ohio      KELLY
-    ## 7404:      ohio      KELLY
-    ## 7405:      ohio      KELLY
+    ## 7405:      ohio      BAIER
+    ## 7406:      ohio      KELLY
+    ## 7407:      ohio      KELLY
+    ## 7408:      ohio      KELLY
+    ## 7409:      ohio      KELLY
     ##                                                                                                                                                        dialogue
     ##    1:                                      Gerard Baker (The Wall Street Journal);Maria Bartiromo (Fox Business Network); andNeil Cavuto (Fox Business Network)
     ##    2:                                                                           It is 9:00 p.m. on the East Coast, 8:00 p.m. here inside the Milwaukee theater.
@@ -1305,11 +1328,11 @@ scraping with **textshape** replacements.
     ##    4:                           I'm Neil Cavuto, alongside my co-moderators, Maria Bartiromo, and the editor-in-chief of the Wall Street Journal, Gerard Baker.
     ##    5:                                          Tonight we're partnering with the Wall Street Journal to ask questions on the economy that voters want answered.
     ##   ---                                                                                                                                                          
-    ## 7401:                                                                                                                                                That's it.
-    ## 7402:                                                                                                                                         Are you relieved?
-    ## 7403:                                                                                                  You were nervous before, they--they don't look relieved.
-    ## 7404: They look "get me outta here."  Thank you all very much, and that will do it for the first Republican primary debate night of the 2016 presidential race.
-    ## 7405:                                                                          Our thanks to the candidates, who will now be joined by their families on stage.
+    ## 7405:                                                                                                                                                That's it.
+    ## 7406:                                                                                                                                         Are you relieved?
+    ## 7407:                                                                                                  You were nervous before, they--they don't look relieved.
+    ## 7408: They look "get me outta here."  Thank you all very much, and that will do it for the first Republican primary debate night of the 2016 presidential race.
+    ## 7409:                                                                          Our thanks to the candidates, who will now be joined by their families on stage.
     ##       element_id sentence_id
     ##    1:          1           1
     ##    2:          2           1
@@ -1317,8 +1340,8 @@ scraping with **textshape** replacements.
     ##    4:          2           3
     ##    5:          3           1
     ##   ---                       
-    ## 7401:        301           1
-    ## 7402:        302           1
-    ## 7403:        302           2
-    ## 7404:        302           3
-    ## 7405:        302           4
+    ## 7405:        301           1
+    ## 7406:        302           1
+    ## 7407:        302           2
+    ## 7408:        302           3
+    ## 7409:        302           4
