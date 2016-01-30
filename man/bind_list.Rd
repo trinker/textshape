@@ -4,16 +4,18 @@
 \alias{bind_list}
 \title{Row Bind a List of Named Dataframes or Vectors}
 \usage{
-bind_list(x, id.name = "id", content.name = "content")
+bind_list(x, id.name = "id", content.name = "content", ...)
 }
 \arguments{
 \item{x}{A named \code{\link[base]{list}} of
-\code{\link[base]{data.frame}}s or \code{\link[base]{vector}}}
+\code{\link[base]{data.frame}}s or \code{\link[base]{vector}}.}
 
 \item{id.name}{The name to use for the column created from the \code{\link[base]{list}}.}
 
 \item{content.name}{The name to use for the column created from the \code{\link[base]{list}}
 of \code{\link[base]{vector}}s (only used if \code{x} is  \code{\link[base]{vector}}).}
+
+\item{\ldots}{ignored.}
 }
 \value{
 Returns a \code{\link[data.table]{data.table}} with the \code{\link[base]{names}}

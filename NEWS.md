@@ -25,7 +25,7 @@ textshape 0.1.0
 
 **NEW FEATURES**
 
-* `bind_list` added to `rbind` a `list` of named `data.frame`s or `vector`s
+* `bind_list` added to `rbind` a `list` of named `data.frame`s or `vector`s.
 
 * `split_transcript` added to split a transcript style vector (e.g.,
   `c("greg: Who me", "sarah: yes you!")` into a name and dialogue vector that is
@@ -34,9 +34,15 @@ textshape 0.1.0
 * `change_index` added  for extracting the indices of changes in runs within an
   atomic vector.  Pairs well with `split_index`.
 
+* `bind_vector` added to `cbind` a named atomic `vector`'s names and values.
+
+* `bind_table` added to `cbind` a `table`'s names and values.
+
+
+
 **MINOR FEATURES**
 
-IMPROVEMENTS
+**IMPROVEMENTS**
 
 **CHANGES**
 
