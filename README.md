@@ -30,6 +30,8 @@ Table of Contents
     -   [[Binding](#binding)](#[binding](#binding))
         -   [[A Vector](#a-vector)](#[a-vector](#a-vector))
         -   [[A Dataframe](#a-dataframe)](#[a-dataframe](#a-dataframe))
+        -   [[A Named Vector](#a-named-vector)](#[a-named-vector](#a-named-vector))
+        -   [[A Table](#a-table)](#[a-table](#a-table))
     -   [[Combining](#combining)](#[combining](#combining))
         -   [[A Vector](#a-vector-1)](#[a-vector](#a-vector-1))
         -   [[A Dataframe](#a-dataframe-1)](#[a-dataframe](#a-dataframe-1))
@@ -198,6 +200,9 @@ The `bind_list` function is used in the style of
 multiple named `data.frame`s or `vectors`s into a single `data.frame`
 with the `list` `names` acting as an id column. The `data.frame` bind is
 particularly useful for binding transcripts from different observations.
+Additionally, `bind_vector` and `bind_table` ar provided for `cbinding`
+a `table`'s or named atomic `vector`'s values and names as separate
+columns in a `data.frame`.
 
 #### A Vector
 
@@ -234,6 +239,40 @@ particularly useful for binding transcripts from different observations.
     ## 126:  d 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
     ## 127:  d 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
     ## 128:  d 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+
+#### A Named Vector
+
+    x <- setNames(
+        sample(LETTERS[1:6], 1000, TRUE), 
+        sample(state.name[1:5], 1000, TRUE)
+    )
+    bind_vector(x)
+
+    ##               id content
+    ##    1:   Arkansas       E
+    ##    2:    Alabama       F
+    ##    3:    Alabama       E
+    ##    4: California       A
+    ##    5:    Arizona       F
+    ##   ---                   
+    ##  996:     Alaska       F
+    ##  997:    Arizona       B
+    ##  998:    Alabama       D
+    ##  999:    Arizona       E
+    ## 1000:     Alaska       C
+
+#### A Table
+
+    x <- table(sample(LETTERS[1:6], 1000, TRUE))
+    bind_table(x)
+
+    ##    id content
+    ## 1:  A     143
+    ## 2:  B     155
+    ## 3:  C     181
+    ## 4:  D     157
+    ## 5:  E     188
+    ## 6:  F     176
 
 Combining
 ---------
@@ -348,29 +387,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  A  A
-    ## 2   A  B  A
-    ## 3   A  B  B
-    ## 4   A  A  B
-    ## 5   A  A  B
-    ## 6   A  A  B
-    ## 7   B  A  B
+    ## 1   A  A  B
+    ## 2   B  B  A
+    ## 3   A  A  A
+    ## 4   B  A  B
+    ## 5   B  A  A
+    ## 6   A  B  A
+    ## 7   A  B  A
     ## 8   A  B  A
-    ## 9   B  B  A
-    ## 10  B  B  A
+    ## 9   B  B  B
+    ## 10  B  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 7 3
-    ## X2 5 5
-    ## X3 5 5
+    ## X1 5 5
+    ## X2 4 6
+    ## X3 6 4
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  7  5  5
-    ## B  3  5  5
+    ## A  5  4  6
+    ## B  5  6  4
 
 Spanning
 --------
@@ -446,20 +485,12 @@ The `duration` function calculations start-end durations as n words.
 #### Gantt Plot
 
     library(ggplot2)
-
-    ## 
-    ## Attaching package: 'ggplot2'
-
-    ## The following object is masked from 'package:qdapRegex':
-    ## 
-    ##     %+%
-
     ggplot(duration(DATA), aes(x = start, xend = end, y = person, yend = person, color = sex)) +
         geom_segment(size=4) +
         xlab("Duration (Words)") +
         ylab("Person")
 
-![](inst/figure/unnamed-chunk-11-1.png)<!-- -->
+![](inst/figure/unnamed-chunk-13-1.png)<!-- -->
 
 Splitting
 ---------

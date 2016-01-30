@@ -86,7 +86,7 @@ The main shaping functions can be broken into the categories of (a) binding, (b)
 
 ## Binding
 
-The `bind_list` function is used in the style of `do.call(rbind, list(x1, x2))` as a convenient way to bind together multiple named `data.frame`s or `vectors`s into a single `data.frame` with the `list` `names` acting as an id column.  The `data.frame` bind is particularly useful for binding transcripts from different observations.
+The `bind_list` function is used in the style of `do.call(rbind, list(x1, x2))` as a convenient way to bind together multiple named `data.frame`s or `vectors`s into a single `data.frame` with the `list` `names` acting as an id column.  The `data.frame` bind is particularly useful for binding transcripts from different observations.  Additionally, `bind_vector` and `bind_table` ar provided for `cbinding` a `table`'s or named atomic `vector`'s values and names as separate columns in a `data.frame`.
 
 #### A Vector
 
@@ -100,6 +100,23 @@ bind_list(x)
 ```{r}
 x <- list(p=mtcars, r=mtcars, z=mtcars, d=mtcars)
 bind_list(x) 
+```
+
+#### A Named Vector
+
+```{r}
+x <- setNames(
+    sample(LETTERS[1:6], 1000, TRUE), 
+    sample(state.name[1:5], 1000, TRUE)
+)
+bind_vector(x)
+```
+
+#### A Table
+
+```{r}
+x <- table(sample(LETTERS[1:6], 1000, TRUE))
+bind_table(x)
 ```
 
 ## Combining
