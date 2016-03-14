@@ -1,6 +1,6 @@
-#' What the Package Does (one line)
+#' Tools for Reshaping Text
 #'
-#' What the package does (one or more paragraphs)
+#' Tools that can be used to reshape text data.
 #' @docType package
 #' @name textshape
 #' @aliases textshape package-textshape

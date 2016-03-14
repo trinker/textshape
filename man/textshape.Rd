@@ -5,8 +5,8 @@
 \alias{package-textshape}
 \alias{textshape}
 \alias{textshape-package}
-\title{What the Package Does (one line)}
+\title{Tools for Reshaping Text}
 \description{
-What the package does (one or more paragraphs)
+Tools that can be used to reshape text data.
 }
 
