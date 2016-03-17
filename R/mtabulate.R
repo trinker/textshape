@@ -6,7 +6,7 @@
 #' \code{\link[base]{data.frame}} of named/unnamed vectors.
 #' @keywords tabulate frequency
 #' @export
-#' @seealso \code{\link[base]{tabulate}}, \code{\link[qdapTools]{counts2list}}
+#' @seealso \code{\link[base]{tabulate}}
 #' @return \code{mtabulate} - Returns a \code{\link[base]{data.frame}} with columns equal to
 #' number of unique elements and the number of rows equal to the the original
 #' length of the \code{\link[base]{vector}}, \code{\link[base]{list}}, or

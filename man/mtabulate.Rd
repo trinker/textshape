@@ -54,7 +54,7 @@ Joran Elias and Tyler Rinker <tyler.rinker@gmail.com>.
 \url{http://stackoverflow.com/a/9961324/1000343}
 }
 \seealso{
-\code{\link[base]{tabulate}}, \code{\link[qdapTools]{counts2list}}
+\code{\link[base]{tabulate}}
 }
 \keyword{frequency}
 \keyword{tabulate}
