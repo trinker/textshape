@@ -1,4 +1,4 @@
-textshape
+textshape   [![Follow](https://img.shields.io/twitter/follow/tylerrinker.svg?style=social)](https://twitter.com/intent/follow?screen_name=tylerrinker)
 ============
 
 
@@ -9,7 +9,7 @@ developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repos
 Status](https://travis-ci.org/trinker/textshape.svg?branch=master)](https://travis-ci.org/trinker/textshape)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/r/trinker/textshape?branch=master)
-<a href="https://img.shields.io/badge/Version-0.1.0-orange.svg"><img src="https://img.shields.io/badge/Version-0.1.0-orange.svg" alt="Version"/></a>
+<a href="https://img.shields.io/badge/Version-0.1.1-orange.svg"><img src="https://img.shields.io/badge/Version-0.1.1-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/textshape_logo/r_textshape.png" width="200" alt="textshape Logo">
 
@@ -23,36 +23,36 @@ package limited to text reshaping.
 Table of Contents
 ============
 
--   [[Functions](#functions)](#[functions](#functions))
--   [[Installation](#installation)](#[installation](#installation))
--   [[Contact](#contact)](#[contact](#contact))
--   [[Examples](#examples)](#[examples](#examples))
-    -   [[Binding](#binding)](#[binding](#binding))
-        -   [[A Vector](#a-vector)](#[a-vector](#a-vector))
-        -   [[A Dataframe](#a-dataframe)](#[a-dataframe](#a-dataframe))
-        -   [[A Named Vector](#a-named-vector)](#[a-named-vector](#a-named-vector))
-        -   [[A Table](#a-table)](#[a-table](#a-table))
-    -   [[Combining](#combining)](#[combining](#combining))
-        -   [[A Vector](#a-vector-1)](#[a-vector](#a-vector-1))
-        -   [[A Dataframe](#a-dataframe-1)](#[a-dataframe](#a-dataframe-1))
-    -   [[Tabulating](#tabulating)](#[tabulating](#tabulating))
-        -   [[A Vector](#a-vector-2)](#[a-vector](#a-vector-2))
-        -   [[A Dataframe](#a-dataframe-2)](#[a-dataframe](#a-dataframe-2))
-    -   [[Spanning](#spanning)](#[spanning](#spanning))
-        -   [[A Vector](#a-vector-3)](#[a-vector](#a-vector-3))
-        -   [[A Dataframe](#a-dataframe-3)](#[a-dataframe](#a-dataframe-3))
-        -   [[Gantt Plot](#gantt-plot)](#[gantt-plot](#gantt-plot))
-    -   [[Splitting](#splitting)](#[splitting](#splitting))
-        -   [[Indices](#indices)](#[indices](#indices))
-        -   [[Matches](#matches)](#[matches](#matches))
-        -   [[Portions](#portions)](#[portions](#portions))
-        -   [[Runs](#runs)](#[runs](#runs))
-        -   [[Sentences](#sentences)](#[sentences](#sentences))
-        -   [[Speakers](#speakers)](#[speakers](#speakers))
-        -   [[Tokens](#tokens)](#[tokens](#tokens))
-        -   [[Transcript](#transcript)](#[transcript](#transcript))
-        -   [[Words](#words)](#[words](#words))
-    -   [[Putting It Together](#putting-it-together)](#[putting-it-together](#putting-it-together))
+-   [Functions](#functions)
+-   [Installation](#installation)
+-   [Contact](#contact)
+-   [Examples](#examples)
+    -   [Binding](#binding)
+        -   [A Vector](#a-vector)
+        -   [A Dataframe](#a-dataframe)
+        -   [A Named Vector](#a-named-vector)
+        -   [A Table](#a-table)
+    -   [Combining](#combining)
+        -   [A Vector](#a-vector-1)
+        -   [A Dataframe](#a-dataframe-1)
+    -   [Tabulating](#tabulating)
+        -   [A Vector](#a-vector-2)
+        -   [A Dataframe](#a-dataframe-2)
+    -   [Spanning](#spanning)
+        -   [A Vector](#a-vector-3)
+        -   [A Dataframe](#a-dataframe-3)
+        -   [Gantt Plot](#gantt-plot)
+    -   [Splitting](#splitting)
+        -   [Indices](#indices)
+        -   [Matches](#matches)
+        -   [Portions](#portions)
+        -   [Runs](#runs)
+        -   [Sentences](#sentences)
+        -   [Speakers](#speakers)
+        -   [Tokens](#tokens)
+        -   [Transcript](#transcript)
+        -   [Words](#words)
+    -   [Putting It Together](#putting-it-together)
 
 Functions
 ============
@@ -176,11 +176,10 @@ the development version:
 Contact
 =======
 
-You are welcome to: 
-* submit suggestions and bug-reports at: <https://github.com/trinker/textshape/issues> 
-* send a pull request on: <https://github.com/trinker/textshape/> 
-* compose a friendly e-mail to: <tyler.rinker@gmail.com>
-
+You are welcome to:    
+- submit suggestions and bug-reports at: <https://github.com/trinker/textshape/issues>    
+- send a pull request on: <https://github.com/trinker/textshape/>    
+- compose a friendly e-mail to: <tyler.rinker@gmail.com>    
 
 Examples
 ========
@@ -490,7 +489,7 @@ The `duration` function calculations start-end durations as n words.
         xlab("Duration (Words)") +
         ylab("Person")
 
-![](inst/figure/unnamed-chunk-13-1.png)<!-- -->
+![](inst/figure/unnamed-chunk-13-1.png)
 
 Splitting
 ---------

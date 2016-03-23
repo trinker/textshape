@@ -4,6 +4,9 @@
 \alias{duration}
 \alias{duration.data.frame}
 \alias{duration.default}
+\alias{duration.numeric}
+\alias{ends}
+\alias{starts}
 \title{Duration of Turns of Talk}
 \usage{
 duration(x, ...)
@@ -11,10 +14,16 @@ duration(x, ...)
 \method{duration}{default}(x, grouping.var = NULL, ...)
 
 \method{duration}{data.frame}(x, text.var = TRUE, ...)
+
+\method{duration}{numeric}(x, ...)
+
+starts(x, ...)
+
+ends(x, ...)
 }
 \arguments{
 \item{x}{A \code{\link[base]{data.frame}} or character vector with a text
-variable.}
+variable or a numeric vector.}
 
 \item{grouping.var}{The grouping variables.  Default \code{NULL} generates
 one word list for all text.  Also takes a single grouping variable or a list
@@ -30,8 +39,12 @@ Returns a list of vectors of tokens or an expanded
 \code{\link[data.table]{data.table}} with tokens split apart.
 }
 \description{
-Calculate duration (start and end times) for duration of turns of talk
-measured in words.
+\code{duration} - Calculate duration (start and end times) for duration of turns
+of talk measured in words.
+
+\code{startss} - Calculate start times from a numeric vector.
+
+\code{ends} - Calculate end times from a numeric vector.
 }
 \examples{
 (x <- c(
@@ -51,5 +64,11 @@ duration(DATA)
 
 ## Larger data set
 duration(hamlet)
+
+## Integer values
+x <- sample(1:10, 10)
+duration(x)
+starts(x)
+ends(x)
 }
 

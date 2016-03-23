@@ -18,7 +18,7 @@ And constructed with the following guidelines:
 
 
 
-textshape 0.1.0
+textshape 0.1.0 -
 ----------------------------------------------------------------
 
 **BUG FIXES**
@@ -38,7 +38,8 @@ textshape 0.1.0
 
 * `bind_table` added to `cbind` a `table`'s names and values.
 
-
+* `duration` method for numeric vectors added as well as a `starts` and `ends`
+  function for calculating start and end times from a numeric vector.
 
 **MINOR FEATURES**
 

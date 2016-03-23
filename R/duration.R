@@ -1,10 +1,10 @@
 #' Duration of Turns of Talk
 #'
-#' Calculate duration (start and end times) for duration of turns of talk
-#' measured in words.
+#' \code{duration} - Calculate duration (start and end times) for duration of turns
+#' of talk measured in words.
 #'
 #' @param x A \code{\link[base]{data.frame}} or character vector with a text
-#' variable.
+#' variable or a numeric vector.
 #' @param text.var The name of the text variable.  If \code{TRUE}
 #' \code{duration} tries to detect the text column.
 #' @param grouping.var The grouping variables.  Default \code{NULL} generates
@@ -34,6 +34,12 @@
 #'
 #' ## Larger data set
 #' duration(hamlet)
+#'
+#' ## Integer values
+#' x <- sample(1:10, 10)
+#' duration(x)
+#' starts(x)
+#' ends(x)
 duration <- function(x, ...) {
     UseMethod("duration")
 }
@@ -109,3 +115,33 @@ duration.data.frame <- function(x, text.var = TRUE, ...) {
     data.table:: setcolorder(z, colord)
     z
 }
+
+
+#' @export
+#' @rdname duration
+#' @method duration numeric
+duration.numeric <- function(x, ...){
+    dat <- data.frame(x = x, end = cumsum(x))
+    dat[["start"]] <- c(1, utils::head(dat[["end"]] + 1 , -1))
+    dat[c(1, 3:2)]
+}
+
+
+#' Duration of Turns of Talk
+#'
+#' \code{startss} - Calculate start times from a numeric vector.
+#'
+#' @rdname duration
+#' @export
+starts <- function(x, ...) c(1, utils::head(ends(x) + 1 , -1))
+
+
+
+#' Duration of Turns of Talk
+#'
+#' \code{ends} - Calculate end times from a numeric vector.
+#'
+#' @rdname duration
+#' @export
+ends <- function(x, ...) cumsum(x)
+
