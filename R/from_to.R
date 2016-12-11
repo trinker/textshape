@@ -15,7 +15,6 @@
 #' of the speaker (from variable).
 #' @param text.var The name of the text variable.  If \code{TRUE}
 #' \code{duration} tries to detect the text column.
-#' @param \ldots Ignored.
 #' @return Returns a vector (if given a vector) or an augmented
 #' \code{\link[data.table]{data.table}}.
 #' @rdname from_to

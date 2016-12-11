@@ -36,8 +36,6 @@ of the speaker (from variable).}
 \code{duration} tries to detect the text column.}
 
 \item{\ldots}{Ignored.}
-
-\item{\ldots}{Ignored.}
 }
 \value{
 Returns a vector (if given a vector) or an augmented
