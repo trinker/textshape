@@ -46,6 +46,7 @@ Most of the functions split/expand a `vector`, `list` or `data.frame`.  The `com
 | `bind_vector`    | `vector`                       | Column bind a named atomic `vector`'s names and values       |
 | `bind_table`     | `table`                        | Column bind a `table`'s names and values                     |
 | `duration`       | `vector`, `data.frame`         | Get duration (start-end times) for turns of talk in n words  |
+| `from_to`        | `vector`, `data.frame`         | Prepare speaker data for a flow network                      |
 | `mtabulate`      | `vector`, `list`, `data.frame` | Dataframe/list version of `tabulate` to produce count matrix |
 | `split_index`    | `vector`, `list`, `data.frame` | Split at specified indices                                   |
 | `split_match`    | `vector`                       | Split vector at specified character/regex match              |

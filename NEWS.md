@@ -41,6 +41,9 @@ textshape 0.1.0 -
 * `duration` method for numeric vectors added as well as a `starts` and `ends`
   function for calculating start and end times from a numeric vector.
 
+* `from_to` added to prepare speaker data for a network lot given the flowing
+  nature of discourse.
+
 **MINOR FEATURES**
 
 **IMPROVEMENTS**

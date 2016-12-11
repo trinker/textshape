@@ -103,51 +103,56 @@ use:
 <td align="left">Get duration (start-end times) for turns of talk in n words</td>
 </tr>
 <tr class="even">
+<td align="left"><code>from_to</code></td>
+<td align="left"><code>vector</code>, <code>data.frame</code></td>
+<td align="left">Prepare speaker data for a flow network</td>
+</tr>
+<tr class="odd">
 <td align="left"><code>mtabulate</code></td>
 <td align="left"><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
 <td align="left">Dataframe/list version of <code>tabulate</code> to produce count matrix</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_index</code></td>
 <td align="left"><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
 <td align="left">Split at specified indices</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_match</code></td>
 <td align="left"><code>vector</code></td>
 <td align="left">Split vector at specified character/regex match</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_portion</code></td>
 <td align="left"><code>vector</code>*</td>
 <td align="left">Split data into portioned chunks</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_run</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split runs (e.g., &quot;aaabbbbcdddd&quot;)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_sentence</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split sentences</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_speaker</code></td>
 <td align="left"><code>data.frame</code></td>
 <td align="left">Split combined speakers (e.g., &quot;Josh, Jake, Jim&quot;)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_token</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split words and punctuation</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_transcript</code></td>
 <td align="left"><code>vector</code></td>
 <td align="left">Split speaker and dialogue (e.g., &quot;greg: Who me&quot;)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_word</code></td>
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split words</td>
@@ -180,6 +185,7 @@ You are welcome to:
 - submit suggestions and bug-reports at: <https://github.com/trinker/textshape/issues>    
 - send a pull request on: <https://github.com/trinker/textshape/>    
 - compose a friendly e-mail to: <tyler.rinker@gmail.com>    
+
 
 Examples
 ========
@@ -248,17 +254,17 @@ columns in a `data.frame`.
     bind_vector(x)
 
     ##               id content
-    ##    1:   Arkansas       E
-    ##    2:    Alabama       F
-    ##    3:    Alabama       E
-    ##    4: California       A
-    ##    5:    Arizona       F
+    ##    1:     Alaska       F
+    ##    2: California       A
+    ##    3:    Alabama       B
+    ##    4:     Alaska       B
+    ##    5:    Alabama       E
     ##   ---                   
-    ##  996:     Alaska       F
-    ##  997:    Arizona       B
-    ##  998:    Alabama       D
-    ##  999:    Arizona       E
-    ## 1000:     Alaska       C
+    ##  996:    Arizona       B
+    ##  997:    Arizona       A
+    ##  998:   Arkansas       C
+    ##  999:   Arkansas       C
+    ## 1000: California       B
 
 #### A Table
 
@@ -266,12 +272,12 @@ columns in a `data.frame`.
     bind_table(x)
 
     ##    id content
-    ## 1:  A     143
-    ## 2:  B     155
-    ## 3:  C     181
-    ## 4:  D     157
-    ## 5:  E     188
-    ## 6:  F     176
+    ## 1:  A     180
+    ## 2:  B     164
+    ## 3:  C     136
+    ## 4:  D     195
+    ## 5:  E     158
+    ## 6:  F     167
 
 Combining
 ---------
@@ -386,29 +392,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  A  B
-    ## 2   B  B  A
-    ## 3   A  A  A
-    ## 4   B  A  B
+    ## 1   A  B  A
+    ## 2   B  A  B
+    ## 3   B  B  B
+    ## 4   A  A  B
     ## 5   B  A  A
-    ## 6   A  B  A
-    ## 7   A  B  A
-    ## 8   A  B  A
-    ## 9   B  B  B
-    ## 10  B  B  B
+    ## 6   B  B  B
+    ## 7   B  A  B
+    ## 8   B  A  B
+    ## 9   A  A  A
+    ## 10  B  A  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 5 5
-    ## X2 4 6
-    ## X3 6 4
+    ## X1 3 7
+    ## X2 7 3
+    ## X3 3 7
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  5  4  6
-    ## B  5  6  4
+    ## A  3  7  3
+    ## B  7  3  7
 
 Spanning
 --------
@@ -484,6 +490,14 @@ The `duration` function calculations start-end durations as n words.
 #### Gantt Plot
 
     library(ggplot2)
+
+    ## 
+    ## Attaching package: 'ggplot2'
+
+    ## The following object is masked from 'package:qdapRegex':
+    ## 
+    ##     %+%
+
     ggplot(duration(DATA), aes(x = start, xend = end, y = person, yend = person, color = sex)) +
         geom_segment(size=4) +
         xlab("Duration (Words)") +
