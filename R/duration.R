@@ -113,7 +113,7 @@ duration.data.frame <- function(x, text.var = TRUE, ...) {
 
     colord <- c(nms[!nms %in% text.var], "word.count", "start", "end", text.var)
     data.table:: setcolorder(z, colord)
-    z
+    z[]
 }
 
 
