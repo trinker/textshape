@@ -49,6 +49,28 @@ NULL
 #' @usage data(hamlet)
 #' @format A data frame with 2007 rows and 7 variables
 #' @references
-#' \url{http://www.gutenberg.org}
+#' http://www.gutenberg.org
 NULL
 
+
+
+#' Simple \code{\link[tm]{DocumentTermMatrix}}
+#'
+#' A dataset containing a simple \code{\link[tm]{DocumentTermMatrix}}.
+#'
+#' @details
+#' \describe{
+#'   \item{i}{The document locations}
+#'   \item{j}{The term locations}
+#'   \item{v}{The count of terms for that particular element position}
+#'   \item{nrow}{The number of rows}
+#'   \item{ncol}{The numebr of columns}
+#'   \item{dimnames}{docuemnt and terms}
+#' }
+#'
+#' @docType data
+#' @keywords datasets
+#' @name simple_dtm
+#' @usage data(simple_dtm)
+#' @format A list with 6 elements
+NULL

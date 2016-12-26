@@ -6,9 +6,9 @@ Authors@R: c(person("Tyler", "Rinker", email =
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
 Description: Tools that can be used to reshape text data.
 Depends: R (>= 3.2.2)
-Imports: data.table, stringi, utils
+Imports: data.table, slam, stringi, utils
 Suggests: testthat
-Date: 2016-12-22
+Date: 2016-12-25
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

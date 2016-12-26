@@ -254,17 +254,17 @@ columns in a `data.frame`.
     bind_vector(x)
 
     ##               id content
-    ##    1:     Alaska       F
-    ##    2: California       A
-    ##    3:    Alabama       B
-    ##    4:     Alaska       B
-    ##    5:    Alabama       E
+    ##    1:   Arkansas       E
+    ##    2:    Alabama       F
+    ##    3:    Alabama       E
+    ##    4: California       A
+    ##    5:    Arizona       F
     ##   ---                   
-    ##  996:    Arizona       B
-    ##  997:    Arizona       A
-    ##  998:   Arkansas       C
-    ##  999:   Arkansas       C
-    ## 1000: California       B
+    ##  996:     Alaska       F
+    ##  997:    Arizona       B
+    ##  998:    Alabama       D
+    ##  999:    Arizona       E
+    ## 1000:     Alaska       C
 
 #### A Table
 
@@ -272,12 +272,12 @@ columns in a `data.frame`.
     bind_table(x)
 
     ##    id content
-    ## 1:  A     180
-    ## 2:  B     164
-    ## 3:  C     136
-    ## 4:  D     195
-    ## 5:  E     158
-    ## 6:  F     167
+    ## 1:  A     143
+    ## 2:  B     155
+    ## 3:  C     181
+    ## 4:  D     157
+    ## 5:  E     188
+    ## 6:  F     176
 
 Combining
 ---------
@@ -392,29 +392,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  B  A
-    ## 2   B  A  B
-    ## 3   B  B  B
-    ## 4   A  A  B
+    ## 1   A  A  B
+    ## 2   B  B  A
+    ## 3   A  A  A
+    ## 4   B  A  B
     ## 5   B  A  A
-    ## 6   B  B  B
-    ## 7   B  A  B
-    ## 8   B  A  B
-    ## 9   A  A  A
-    ## 10  B  A  B
+    ## 6   A  B  A
+    ## 7   A  B  A
+    ## 8   A  B  A
+    ## 9   B  B  B
+    ## 10  B  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 3 7
-    ## X2 7 3
-    ## X3 3 7
+    ## X1 5 5
+    ## X2 4 6
+    ## X3 6 4
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  3  7  3
-    ## B  7  3  7
+    ## A  5  4  6
+    ## B  5  6  4
 
 Spanning
 --------
@@ -490,14 +490,6 @@ The `duration` function calculations start-end durations as n words.
 #### Gantt Plot
 
     library(ggplot2)
-
-    ## 
-    ## Attaching package: 'ggplot2'
-
-    ## The following object is masked from 'package:qdapRegex':
-    ## 
-    ##     %+%
-
     ggplot(duration(DATA), aes(x = start, xend = end, y = person, yend = person, color = sex)) +
         geom_segment(size=4) +
         xlab("Duration (Words)") +
@@ -1318,10 +1310,9 @@ The `split_word` function splits data into words.
 Putting It Together
 -------------------
 
-[Eduardo Flores](https://www.linkedin.com/in/eduardo-flores-16850523)
-blogged about [What the candidates say, analyzing republican debates
-using
-R](http://enelmargen.org/r-english/datascience/2015/11/26/What-the-candidates-say-analyzing-republican-debates-using-R2.html)
+Eduardo Flores blogged about [What the candidates say, analyzing
+republican debates using
+R](https://www.r-bloggers.com/what-the-candidates-say-analyzing-republican-debates-using-r)
 where he demonstrated some scraping and analysis techniques. Here I
 highlight a combination usage of **textshape** tools to scrape and
 structure the text from 4 of the 2015 Republican debates within a
