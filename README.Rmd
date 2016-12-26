@@ -37,7 +37,7 @@ knitr::opts_chunk$set(fig.path = "inst/figure/")
 
 # Functions
 
-Most of the functions split/expand a `vector`, `list` or `data.frame`.  The `combine`, `bind_list`, `duration`, & `mtabulate` functions are notable exceptions.  The table below describes the functions and their use:
+Most of the functions split/expand a `vector`, `list`, `data.frame`, or `DocumentTermMatrix`.  The `combine`, `bind_list`, `duration`, & `mtabulate` functions are notable exceptions.  The table below describes the functions and their use:
 
 | Function         | Used On                        |  Description                                                 |
 |------------------|--------------------------------|--------------------------------------------------------------|
@@ -57,6 +57,8 @@ Most of the functions split/expand a `vector`, `list` or `data.frame`.  The `com
 | `split_token`    | `vector`, `data.frame`         | Split words and punctuation                                  |
 | `split_transcript` | `vector`                     | Split speaker and dialogue (e.g., "greg: Who me")            |
 | `split_word`     | `vector`, `data.frame`         | Split words                                                  |
+| `tidy_dtm`/`tidy_tdm` | `DocumentTermMatrix`      | Tidy format `DocumentTermMatrix`/`TermDocumentMatrix`        |
+| `tidy_colo_dtm`/`tidy_colo_tdm` | `DocumentTermMatrix`      | Tidy format collocating words  from a `DocumentTermMatrix`/`TermDocumentMatrix`        |
 
 \****Note:*** *Text vector accompanied by aggregating `grouping.var` argument, which can be in the form of a `vector`, `list`, or  `data.frame`*
 
@@ -391,6 +393,64 @@ split_word(x)
 
 ```{r}
  split_word(DATA)
+```
+
+
+### Tidying DocumentTermMatrix
+
+The `tidy_dtm` and `tidy_tdm` functions convert a `DocumentTermMatrix` or `TermDocumentMatrix` into a tidied data set.  
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load_current_gh('trinker/gofastr')
+pacman::p_load(tidyverse, magrittr, ggstance)
+
+my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
+
+tidy_dtm(my_dtm) %>%
+    tidyr::extract(doc, c("time", "turn", "sentence"), "(\\d)_(\\d+)\\.(\\d+)") %>%
+    mutate(
+        time = as.numeric(time),
+        turn = as.numeric(turn),
+        sentence = as.numeric(sentence)
+    ) %>%
+    tbl_df() %T>%
+    print() %>%
+    group_by(time, term) %>%
+    summarize(n = sum(n)) %>%
+    group_by(time) %>%
+    arrange(desc(n)) %>%
+    slice(1:10) %>%
+    mutate(term = factor(paste(term, time, sep = "__"), levels = rev(paste(term, time, sep = "__")))) %>%
+    ggplot(aes(x = n, y = term)) +
+        geom_barh(stat='identity') +
+        facet_wrap(~time, ncol=2, scales = 'free_y') +
+        scale_y_discrete(labels = function(x) gsub("__.+$", "", x))
+```
+
+
+### Tidying DocumentTermMatrix of Collocations
+
+The `tidy_colo_dtm` and `tidy_colo_tdm` functions convert a `DocumentTermMatrix` or `TermDocumentMatrix` into a collocation matrix and then a tidied data set.  
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load_current_gh('trinker/gofastr', 'trinker/lexicon')
+pacman::p_load(tidyverse, magrittr, ggstance)
+
+my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
+
+tidy_colo_dtm(my_dtm) %>%
+    tbl_df() %>%
+    filter(!term_1 %in% c('i', lexicon::sw_onix) & !term_2 %in% lexicon::sw_onix) %>%
+    filter(term_1 != term_2) %>%
+    unique_pairs() %>%
+    filter(n > 15) %>%
+    complete(term_1, term_2, fill = list(n = 0)) %>%
+    ggplot(aes(x = term_1, y = term_2, fill = n)) +
+        geom_tile() +
+        scale_fill_gradient(low= 'white', high = 'red') +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 
