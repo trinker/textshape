@@ -400,7 +400,7 @@ split_word(x)
 The `tidy_xxx` functions convert untidy structures into [tidy format](https://www.jstatsoft.org/article/view/v059i10).  Tidy formatted text data structures are particularly useful for itnerfacing with **ggplot2**, which expects this form.  
 
 
-### Tidying DocumentTermMatrix
+### A DocumentTermMatrix
 
 The `tidy_dtm` and `tidy_tdm` functions convert a `DocumentTermMatrix` or `TermDocumentMatrix` into a tidied data set.  
 
@@ -433,7 +433,7 @@ tidy_dtm(my_dtm) %>%
 ```
 
 
-### Tidying DocumentTermMatrix of Collocations
+### A DocumentTermMatrix of Collocations
 
 The `tidy_colo_dtm` and `tidy_colo_tdm` functions convert a `DocumentTermMatrix` or `TermDocumentMatrix` into a collocation matrix and then a tidied data set.  
 

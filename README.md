@@ -53,8 +53,8 @@ Table of Contents
         -   [Transcript](#transcript)
         -   [Words](#words)
     -   [Tidying](#tidying)
-        -   [Tidying DocumentTermMatrix](#tidying-documenttermmatrix)
-        -   [Tidying DocumentTermMatrix of Collocations](#tidying-documenttermmatrix-of-collocations)
+        -   [A DocumentTermMatrix](#a-documenttermmatrix)
+        -   [A DocumentTermMatrix of Collocations](#a-documenttermmatrix-of-collocations)
     -   [Putting It Together](#putting-it-together)
 
 Functions
@@ -267,17 +267,17 @@ columns in a `data.frame`.
     bind_vector(x)
 
     ##               id content
-    ##    1:     Alaska       B
-    ##    2:   Arkansas       C
-    ##    3:     Alaska       E
-    ##    4:     Alaska       B
-    ##    5:    Alabama       B
+    ##    1:    Arizona       D
+    ##    2:   Arkansas       D
+    ##    3:   Arkansas       D
+    ##    4:    Alabama       B
+    ##    5:     Alaska       C
     ##   ---                   
-    ##  996:    Arizona       D
-    ##  997:   Arkansas       E
-    ##  998: California       E
-    ##  999:     Alaska       A
-    ## 1000:     Alaska       A
+    ##  996: California       C
+    ##  997:   Arkansas       F
+    ##  998:    Alabama       E
+    ##  999:    Arizona       E
+    ## 1000:   Arkansas       D
 
 #### A Table
 
@@ -285,12 +285,12 @@ columns in a `data.frame`.
     bind_table(x)
 
     ##    id content
-    ## 1:  A     161
-    ## 2:  B     180
-    ## 3:  C     161
-    ## 4:  D     171
-    ## 5:  E     170
-    ## 6:  F     157
+    ## 1:  A     165
+    ## 2:  B     191
+    ## 3:  C     153
+    ## 4:  D     149
+    ## 5:  E     156
+    ## 6:  F     186
 
 Combining
 ---------
@@ -405,29 +405,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  B  A
-    ## 2   A  A  A
-    ## 3   A  B  A
-    ## 4   B  A  A
-    ## 5   A  B  A
-    ## 6   A  A  B
-    ## 7   A  A  B
+    ## 1   A  A  B
+    ## 2   B  A  B
+    ## 3   B  A  A
+    ## 4   B  A  B
+    ## 5   A  A  A
+    ## 6   B  B  B
+    ## 7   B  A  B
     ## 8   B  A  B
     ## 9   A  A  B
-    ## 10  B  A  B
+    ## 10  B  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 7 3
-    ## X2 7 3
-    ## X3 5 5
+    ## X1 3 7
+    ## X2 8 2
+    ## X3 2 8
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  7  7  5
-    ## B  3  3  5
+    ## A  3  8  2
+    ## B  7  2  8
 
 Spanning
 --------
@@ -503,9 +503,6 @@ The `duration` function calculations start-end durations as n words.
 #### Gantt Plot
 
     library(ggplot2)
-
-    ## Find out what's changed in ggplot2 at
-    ## http://github.com/tidyverse/ggplot2/releases.
 
     ## 
     ## Attaching package: 'ggplot2'
@@ -1339,7 +1336,7 @@ format](https://www.jstatsoft.org/article/view/v059i10). Tidy formatted
 text data structures are particularly useful for itnerfacing with
 **ggplot2**, which expects this form.
 
-### Tidying DocumentTermMatrix
+### A DocumentTermMatrix
 
 The `tidy_dtm` and `tidy_tdm` functions convert a `DocumentTermMatrix`
 or `TermDocumentMatrix` into a tidied data set.
@@ -1387,7 +1384,7 @@ or `TermDocumentMatrix` into a tidied data set.
 
 ![](inst/figure/unnamed-chunk-30-1.png)
 
-### Tidying DocumentTermMatrix of Collocations
+### A DocumentTermMatrix of Collocations
 
 The `tidy_colo_dtm` and `tidy_colo_tdm` functions convert a
 `DocumentTermMatrix` or `TermDocumentMatrix` into a collocation matrix
