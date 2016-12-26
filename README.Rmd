@@ -37,7 +37,7 @@ knitr::opts_chunk$set(fig.path = "inst/figure/")
 
 # Functions
 
-Most of the functions split/expand a `vector`, `list`, `data.frame`, or `DocumentTermMatrix`.  The `combine`, `bind_list`, `duration`, & `mtabulate` functions are notable exceptions.  The table below describes the functions and their use:
+Most of the functions split, expand, or tidy a `vector`, `list`, `data.frame`, or `DocumentTermMatrix`.  The `combine`, `bind_list`, `duration`, & `mtabulate` functions are notable exceptions.  The table below describes the functions and their use:
 
 | Function         | Used On                        |  Description                                                 |
 |------------------|--------------------------------|--------------------------------------------------------------|
@@ -394,6 +394,10 @@ split_word(x)
 ```{r}
  split_word(DATA)
 ```
+
+## Tidying
+
+The `tidy_xxx` functions convert untidy structures into [tidy format](https://www.jstatsoft.org/article/view/v059i10).  Tidy formatted text data structures are particularly useful for itnerfacing with **ggplot2**, which expects this form.  
 
 
 ### Tidying DocumentTermMatrix

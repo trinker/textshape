@@ -52,6 +52,7 @@ Table of Contents
         -   [Tokens](#tokens)
         -   [Transcript](#transcript)
         -   [Words](#words)
+    -   [Tidying](#tidying)
         -   [Tidying DocumentTermMatrix](#tidying-documenttermmatrix)
         -   [Tidying DocumentTermMatrix of Collocations](#tidying-documenttermmatrix-of-collocations)
     -   [Putting It Together](#putting-it-together)
@@ -60,10 +61,10 @@ Functions
 ============
 
 
-Most of the functions split/expand a `vector`, `list`, `data.frame`, or
-`DocumentTermMatrix`. The `combine`, `bind_list`, `duration`, &
-`mtabulate` functions are notable exceptions. The table below describes
-the functions and their use:
+Most of the functions split, expand, or tidy a `vector`, `list`,
+`data.frame`, or `DocumentTermMatrix`. The `combine`, `bind_list`,
+`duration`, & `mtabulate` functions are notable exceptions. The table
+below describes the functions and their use:
 
 <table style="width:160%;">
 <colgroup>
@@ -266,17 +267,17 @@ columns in a `data.frame`.
     bind_vector(x)
 
     ##               id content
-    ##    1:   Arkansas       E
-    ##    2:    Alabama       F
-    ##    3:    Alabama       E
-    ##    4: California       A
-    ##    5:    Arizona       F
+    ##    1:     Alaska       B
+    ##    2:   Arkansas       C
+    ##    3:     Alaska       E
+    ##    4:     Alaska       B
+    ##    5:    Alabama       B
     ##   ---                   
-    ##  996:     Alaska       F
-    ##  997:    Arizona       B
-    ##  998:    Alabama       D
-    ##  999:    Arizona       E
-    ## 1000:     Alaska       C
+    ##  996:    Arizona       D
+    ##  997:   Arkansas       E
+    ##  998: California       E
+    ##  999:     Alaska       A
+    ## 1000:     Alaska       A
 
 #### A Table
 
@@ -284,12 +285,12 @@ columns in a `data.frame`.
     bind_table(x)
 
     ##    id content
-    ## 1:  A     143
-    ## 2:  B     155
-    ## 3:  C     181
-    ## 4:  D     157
-    ## 5:  E     188
-    ## 6:  F     176
+    ## 1:  A     161
+    ## 2:  B     180
+    ## 3:  C     161
+    ## 4:  D     171
+    ## 5:  E     170
+    ## 6:  F     157
 
 Combining
 ---------
@@ -404,29 +405,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  A  B
-    ## 2   B  B  A
-    ## 3   A  A  A
-    ## 4   B  A  B
-    ## 5   B  A  A
-    ## 6   A  B  A
-    ## 7   A  B  A
-    ## 8   A  B  A
-    ## 9   B  B  B
-    ## 10  B  B  B
+    ## 1   A  B  A
+    ## 2   A  A  A
+    ## 3   A  B  A
+    ## 4   B  A  A
+    ## 5   A  B  A
+    ## 6   A  A  B
+    ## 7   A  A  B
+    ## 8   B  A  B
+    ## 9   A  A  B
+    ## 10  B  A  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 5 5
-    ## X2 4 6
-    ## X3 6 4
+    ## X1 7 3
+    ## X2 7 3
+    ## X3 5 5
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  5  4  6
-    ## B  5  6  4
+    ## A  7  7  5
+    ## B  3  3  5
 
 Spanning
 --------
@@ -502,6 +503,17 @@ The `duration` function calculations start-end durations as n words.
 #### Gantt Plot
 
     library(ggplot2)
+
+    ## Find out what's changed in ggplot2 at
+    ## http://github.com/tidyverse/ggplot2/releases.
+
+    ## 
+    ## Attaching package: 'ggplot2'
+
+    ## The following object is masked from 'package:qdapRegex':
+    ## 
+    ##     %+%
+
     ggplot(duration(DATA), aes(x = start, xend = end, y = person, yend = person, color = sex)) +
         geom_segment(size=4) +
         xlab("Duration (Words)") +
@@ -1318,6 +1330,14 @@ The `split_word` function splits data into words.
     ## 52:       greg   m     0      you  K11         11           5
     ## 53:       greg   m     0  already  K11         11           6
     ##         person sex adult    state code element_id sentence_id
+
+Tidying
+-------
+
+The `tidy_xxx` functions convert untidy structures into [tidy
+format](https://www.jstatsoft.org/article/view/v059i10). Tidy formatted
+text data structures are particularly useful for itnerfacing with
+**ggplot2**, which expects this form.
 
 ### Tidying DocumentTermMatrix
 
