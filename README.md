@@ -205,7 +205,7 @@ Examples
 
 The main shaping functions can be broken into the categories of (a)
 binding, (b) combining, (c) tabulating, (d) spanning, (e) splitting, &
-(f)tidying. The majority of functions in **textshape** fall into the
+(f) tidying. The majority of functions in **textshape** fall into the
 category of splitting and expanding (the semantic opposite of
 combining). These sections will provide example uses of the functions
 from **textshape** within the three categories.
@@ -267,17 +267,17 @@ columns in a `data.frame`.
     bind_vector(x)
 
     ##               id content
-    ##    1:     Alaska       C
-    ##    2:   Arkansas       B
+    ##    1:    Alabama       B
+    ##    2:     Alaska       F
     ##    3:     Alaska       D
-    ##    4: California       E
-    ##    5: California       B
+    ##    4: California       C
+    ##    5:   Arkansas       C
     ##   ---                   
-    ##  996:    Alabama       D
-    ##  997: California       E
-    ##  998:     Alaska       B
-    ##  999:    Arizona       E
-    ## 1000: California       D
+    ##  996:   Arkansas       C
+    ##  997:    Arizona       F
+    ##  998:   Arkansas       B
+    ##  999:     Alaska       A
+    ## 1000:     Alaska       F
 
 #### A Table
 
@@ -285,12 +285,12 @@ columns in a `data.frame`.
     bind_table(x)
 
     ##    id content
-    ## 1:  A     168
-    ## 2:  B     170
-    ## 3:  C     173
-    ## 4:  D     136
-    ## 5:  E     172
-    ## 6:  F     181
+    ## 1:  A     166
+    ## 2:  B     158
+    ## 3:  C     180
+    ## 4:  D     165
+    ## 5:  E     162
+    ## 6:  F     169
 
 Combining
 ---------
@@ -405,29 +405,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   B  B  B
-    ## 2   A  A  A
-    ## 3   A  B  A
-    ## 4   B  B  B
-    ## 5   A  B  A
-    ## 6   A  A  A
-    ## 7   B  B  B
+    ## 1   B  B  A
+    ## 2   A  B  A
+    ## 3   B  B  A
+    ## 4   B  A  A
+    ## 5   B  A  A
+    ## 6   A  B  A
+    ## 7   A  B  A
     ## 8   B  A  A
-    ## 9   A  B  A
-    ## 10  B  A  B
+    ## 9   B  A  A
+    ## 10  B  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 5 5
+    ## X1 3 7
     ## X2 4 6
-    ## X3 6 4
+    ## X3 9 1
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  5  4  6
-    ## B  5  6  4
+    ## A  3  4  9
+    ## B  7  6  1
 
 Spanning
 --------
