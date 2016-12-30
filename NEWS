@@ -18,10 +18,8 @@ And constructed with the following guidelines:
 
 
 
-textshape 0.1.0 -
+textshape 0.1.0 - 0.2.0
 ----------------------------------------------------------------
-
-BUG FIXES
 
 NEW FEATURES
 
@@ -44,9 +42,16 @@ NEW FEATURES
 * `from_to` added to prepare speaker data for a network lot given the flowing
   nature of discourse.
 
-MINOR FEATURES
+* `tidy_dtm` & `tidy_tdm` added to convert a `DocumentTermMatrix`
+  or `TermDocumentMatrix` into a tidied `data.frame`.
 
-IMPROVEMENTS
+* `tidy_colo_dtm` & `tidy_colo_tdm` added to convert a `DocumentTermMatrix`
+  or `TermDocumentMatrix` into a collocation matrix and then a tidied `data.frame`.
+
+* `unique_pairs` added to compliment the output of `tidy_colo_dtm` &
+  `tidy_colo_tdm`.  Enables the removal of duplicated collocating pairs caused
+  by symmetrical mirroring of the upper and lower triangle of the collocation
+  matrix.
 
 CHANGES
 

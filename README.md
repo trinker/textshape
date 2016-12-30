@@ -267,16 +267,16 @@ columns in a `data.frame`.
     bind_vector(x)
 
     ##               id content
-    ##    1:     Alaska       E
-    ##    2: California       B
-    ##    3:   Arkansas       F
-    ##    4: California       E
-    ##    5:     Alaska       F
+    ##    1:   Arkansas       E
+    ##    2:    Alabama       F
+    ##    3:    Alabama       E
+    ##    4: California       A
+    ##    5:    Arizona       F
     ##   ---                   
-    ##  996:   Arkansas       B
-    ##  997: California       F
-    ##  998: California       A
-    ##  999:   Arkansas       C
+    ##  996:     Alaska       F
+    ##  997:    Arizona       B
+    ##  998:    Alabama       D
+    ##  999:    Arizona       E
     ## 1000:     Alaska       C
 
 #### A Table
@@ -285,12 +285,12 @@ columns in a `data.frame`.
     bind_table(x)
 
     ##    id content
-    ## 1:  A     161
-    ## 2:  B     163
-    ## 3:  C     143
-    ## 4:  D     172
-    ## 5:  E     187
-    ## 6:  F     174
+    ## 1:  A     143
+    ## 2:  B     155
+    ## 3:  C     181
+    ## 4:  D     157
+    ## 5:  E     188
+    ## 6:  F     176
 
 Combining
 ---------
@@ -405,29 +405,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  B  B
-    ## 2   A  A  A
-    ## 3   B  B  B
-    ## 4   A  A  B
-    ## 5   A  B  A
-    ## 6   A  B  B
-    ## 7   B  A  A
-    ## 8   A  B  B
-    ## 9   A  B  A
-    ## 10  A  A  A
+    ## 1   A  A  B
+    ## 2   B  B  A
+    ## 3   A  A  A
+    ## 4   B  A  B
+    ## 5   B  A  A
+    ## 6   A  B  A
+    ## 7   A  B  A
+    ## 8   A  B  A
+    ## 9   B  B  B
+    ## 10  B  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 8 2
+    ## X1 5 5
     ## X2 4 6
-    ## X3 5 5
+    ## X3 6 4
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  8  4  5
-    ## B  2  6  5
+    ## A  5  4  6
+    ## B  5  6  4
 
 Spanning
 --------
@@ -503,14 +503,6 @@ The `duration` function calculations start-end durations as n words.
 #### Gantt Plot
 
     library(ggplot2)
-
-    ## 
-    ## Attaching package: 'ggplot2'
-
-    ## The following object is masked from 'package:qdapRegex':
-    ## 
-    ##     %+%
-
     ggplot(duration(DATA), aes(x = start, xend = end, y = person, yend = person, color = sex)) +
         geom_segment(size=4) +
         xlab("Duration (Words)") +
@@ -1344,14 +1336,6 @@ or `TermDocumentMatrix` into a tidied data set.
     if (!require("pacman")) install.packages("pacman")
     pacman::p_load_current_gh('trinker/gofastr')
     pacman::p_load(tidyverse, magrittr, ggstance)
-
-    ## package 'ggstance' successfully unpacked and MD5 sums checked
-    ## 
-    ## The downloaded binary packages are in
-    ##  C:\Users\Tyler\AppData\Local\Temp\RtmpYp9zSo\downloaded_packages
-
-    ## 
-    ## ggstance installed
 
     my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
 
