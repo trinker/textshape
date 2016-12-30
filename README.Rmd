@@ -58,7 +58,7 @@ Most of the functions split, expand, or tidy a `vector`, `list`, `data.frame`, o
 | `split_transcript` | `vector`                     | Split speaker and dialogue (e.g., "greg: Who me")            |
 | `split_word`     | `vector`, `data.frame`         | Split words                                                  |
 | `tidy_dtm`/`tidy_tdm` | `DocumentTermMatrix`      | Tidy format `DocumentTermMatrix`/`TermDocumentMatrix`        |
-| `tidy_colo_dtm`/`tidy_colo_tdm` | `DocumentTermMatrix`      | Tidy format collocating words  from a `DocumentTermMatrix`/`TermDocumentMatrix`        |
+| `tidy_colo_dtm`/`tidy_colo_tdm` | `DocumentTermMatrix`      | Tidy format of collocating words  from a `DocumentTermMatrix`/`TermDocumentMatrix`        |
 
 \****Note:*** *Text vector accompanied by aggregating `grouping.var` argument, which can be in the form of a `vector`, `list`, or  `data.frame`*
 
@@ -89,7 +89,7 @@ The main shaping functions can be broken into the categories of (a) binding, (b)
 
 ## Binding
 
-The `bind_list` function is used in the style of `do.call(rbind, list(x1, x2))` as a convenient way to bind together multiple named `data.frame`s or `vectors`s into a single `data.frame` with the `list` `names` acting as an id column.  The `data.frame` bind is particularly useful for binding transcripts from different observations.  Additionally, `bind_vector` and `bind_table` ar provided for `cbinding` a `table`'s or named atomic `vector`'s values and names as separate columns in a `data.frame`.
+The `bind_list` function is used in the style of `do.call(rbind, list(x1, x2))` as a convenient way to bind together multiple named `data.frame`s or `vectors`s into a single `data.frame` with the `list` `names` acting as an id column.  The `data.frame` bind is particularly useful for binding transcripts from different observations.  Additionally, `bind_vector` and `bind_table` are provided for `cbinding` a `table`'s or named atomic `vector`'s values and names as separate columns in a `data.frame`.
 
 #### A Vector
 
@@ -397,7 +397,7 @@ split_word(x)
 
 ## Tidying
 
-The `tidy_xxx` functions convert untidy structures into [tidy format](https://www.jstatsoft.org/article/view/v059i10).  Tidy formatted text data structures are particularly useful for itnerfacing with **ggplot2**, which expects this form.  
+The `tidy_xxx` functions convert untidy structures into [tidy format](https://www.jstatsoft.org/article/view/v059i10).  Tidy formatted text data structures are particularly useful for interfacing with **ggplot2**, which expects this form.  
 
 
 ### A DocumentTermMatrix

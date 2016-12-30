@@ -2,14 +2,14 @@
 % Please edit documentation in R/split_transcript.R
 \name{split_transcript}
 \alias{split_transcript}
-\title{Split a Transcript Style Vector on Delimitor & Coerce to Dataframe}
+\title{Split a Transcript Style Vector on Delimiter & Coerce to Dataframe}
 \usage{
 split_transcript(x, delim = ":", colnames = c("person", "dialogue"))
 }
 \arguments{
 \item{x}{A transcript style vector (e.g., \code{c("greg: Who me", "sarah: yes you!")}.}
 
-\item{delim}{The delimitor to split on.}
+\item{delim}{The delimiter to split on.}
 
 \item{colnames}{The column names to use for the \code{\link[data.table]{data.table}} output.}
 }

@@ -168,7 +168,7 @@ below describes the functions and their use:
 <tr class="even">
 <td align="left"><code>tidy_colo_dtm</code>/<code>tidy_colo_tdm</code></td>
 <td align="left"><code>DocumentTermMatrix</code></td>
-<td align="left">Tidy format collocating words from a <code>DocumentTermMatrix</code>/<code>TermDocumentMatrix</code></td>
+<td align="left">Tidy format of collocating words from a <code>DocumentTermMatrix</code>/<code>TermDocumentMatrix</code></td>
 </tr>
 </tbody>
 </table>
@@ -218,7 +218,7 @@ The `bind_list` function is used in the style of
 multiple named `data.frame`s or `vectors`s into a single `data.frame`
 with the `list` `names` acting as an id column. The `data.frame` bind is
 particularly useful for binding transcripts from different observations.
-Additionally, `bind_vector` and `bind_table` ar provided for `cbinding`
+Additionally, `bind_vector` and `bind_table` are provided for `cbinding`
 a `table`'s or named atomic `vector`'s values and names as separate
 columns in a `data.frame`.
 
@@ -267,17 +267,17 @@ columns in a `data.frame`.
     bind_vector(x)
 
     ##               id content
-    ##    1:    Alabama       B
-    ##    2:     Alaska       F
-    ##    3:     Alaska       D
-    ##    4: California       C
-    ##    5:   Arkansas       C
+    ##    1:     Alaska       E
+    ##    2: California       B
+    ##    3:   Arkansas       F
+    ##    4: California       E
+    ##    5:     Alaska       F
     ##   ---                   
-    ##  996:   Arkansas       C
-    ##  997:    Arizona       F
-    ##  998:   Arkansas       B
-    ##  999:     Alaska       A
-    ## 1000:     Alaska       F
+    ##  996:   Arkansas       B
+    ##  997: California       F
+    ##  998: California       A
+    ##  999:   Arkansas       C
+    ## 1000:     Alaska       C
 
 #### A Table
 
@@ -285,12 +285,12 @@ columns in a `data.frame`.
     bind_table(x)
 
     ##    id content
-    ## 1:  A     166
-    ## 2:  B     158
-    ## 3:  C     180
-    ## 4:  D     165
-    ## 5:  E     162
-    ## 6:  F     169
+    ## 1:  A     161
+    ## 2:  B     163
+    ## 3:  C     143
+    ## 4:  D     172
+    ## 5:  E     187
+    ## 6:  F     174
 
 Combining
 ---------
@@ -405,29 +405,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   B  B  A
-    ## 2   A  B  A
-    ## 3   B  B  A
-    ## 4   B  A  A
-    ## 5   B  A  A
-    ## 6   A  B  A
-    ## 7   A  B  A
-    ## 8   B  A  A
-    ## 9   B  A  A
-    ## 10  B  B  B
+    ## 1   A  B  B
+    ## 2   A  A  A
+    ## 3   B  B  B
+    ## 4   A  A  B
+    ## 5   A  B  A
+    ## 6   A  B  B
+    ## 7   B  A  A
+    ## 8   A  B  B
+    ## 9   A  B  A
+    ## 10  A  A  A
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 3 7
+    ## X1 8 2
     ## X2 4 6
-    ## X3 9 1
+    ## X3 5 5
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  3  4  9
-    ## B  7  6  1
+    ## A  8  4  5
+    ## B  2  6  5
 
 Spanning
 --------
@@ -1333,7 +1333,7 @@ Tidying
 
 The `tidy_xxx` functions convert untidy structures into [tidy
 format](https://www.jstatsoft.org/article/view/v059i10). Tidy formatted
-text data structures are particularly useful for itnerfacing with
+text data structures are particularly useful for interfacing with
 **ggplot2**, which expects this form.
 
 ### A DocumentTermMatrix
@@ -1344,6 +1344,14 @@ or `TermDocumentMatrix` into a tidied data set.
     if (!require("pacman")) install.packages("pacman")
     pacman::p_load_current_gh('trinker/gofastr')
     pacman::p_load(tidyverse, magrittr, ggstance)
+
+    ## package 'ggstance' successfully unpacked and MD5 sums checked
+    ## 
+    ## The downloaded binary packages are in
+    ##  C:\Users\Tyler\AppData\Local\Temp\RtmpYp9zSo\downloaded_packages
+
+    ## 
+    ## ggstance installed
 
     my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
 
@@ -1367,7 +1375,7 @@ or `TermDocumentMatrix` into a tidied data set.
             facet_wrap(~time, ncol=2, scales = 'free_y') +
             scale_y_discrete(labels = function(x) gsub("__.+$", "", x))
 
-    ## # A tibble: 37,836 × 7
+    ## # A tibble: 37,836 x 7
     ##     time  turn sentence         term     n     i     j
     ##    <dbl> <dbl>    <dbl>        <chr> <dbl> <int> <int>
     ## 1      1     1        1        we'll     1     1     1

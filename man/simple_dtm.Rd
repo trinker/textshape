@@ -17,8 +17,8 @@ A dataset containing a simple \code{\link[tm]{DocumentTermMatrix}}.
   \item{j}{The term locations}
   \item{v}{The count of terms for that particular element position}
   \item{nrow}{The number of rows}
-  \item{ncol}{The numebr of columns}
-  \item{dimnames}{docuemnt and terms}
+  \item{ncol}{The number of columns}
+  \item{dimnames}{document and terms}
 }
 }
 \keyword{datasets}
