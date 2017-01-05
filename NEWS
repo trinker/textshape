@@ -30,6 +30,11 @@ IMPROVEMENTS
 
 CHANGES
 
+* `bind_list`, `bind_table`, & `bind_vector` have been renamed to the more
+  meaningful forms of `tidy_list`, `tidy_table`, & `tidy_vector`.  The former
+  version are now deprecated.  This bumps the version to 1.0.0 as this is a
+  major change that breaks backward compatibility.
+
 
 
 textshape 0.1.0 - 0.2.0

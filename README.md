@@ -9,7 +9,7 @@ developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repos
 Status](https://travis-ci.org/trinker/textshape.svg?branch=master)](https://travis-ci.org/trinker/textshape)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/r/trinker/textshape?branch=master)
-<a href="https://img.shields.io/badge/Version-0.3.0-orange.svg"><img src="https://img.shields.io/badge/Version-0.3.0-orange.svg" alt="Version"/></a>
+<a href="https://img.shields.io/badge/Version-1.0.0-orange.svg"><img src="https://img.shields.io/badge/Version-1.0.0-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/textshape_logo/r_textshape.png" width="200" alt="textshape Logo">
 
@@ -27,11 +27,14 @@ Table of Contents
 -   [Installation](#installation)
 -   [Contact](#contact)
 -   [Examples](#examples)
-    -   [Binding](#binding)
+-   [Loading Dependencies](#loading-dependencies)
+    -   [Tidying](#tidying)
         -   [A Vector](#a-vector)
         -   [A Dataframe](#a-dataframe)
         -   [A Named Vector](#a-named-vector)
         -   [A Table](#a-table)
+        -   [A DocumentTermMatrix](#a-documenttermmatrix)
+        -   [A DocumentTermMatrix of Collocations](#a-documenttermmatrix-of-collocations)
     -   [Combining](#combining)
         -   [A Vector](#a-vector-1)
         -   [A Dataframe](#a-dataframe-1)
@@ -52,9 +55,6 @@ Table of Contents
         -   [Tokens](#tokens)
         -   [Transcript](#transcript)
         -   [Words](#words)
-    -   [Tidying](#tidying)
-        -   [A DocumentTermMatrix](#a-documenttermmatrix)
-        -   [A DocumentTermMatrix of Collocations](#a-documenttermmatrix-of-collocations)
     -   [Putting It Together](#putting-it-together)
 
 Functions
@@ -62,9 +62,9 @@ Functions
 
 
 Most of the functions split, expand, or tidy a `vector`, `list`,
-`data.frame`, or `DocumentTermMatrix`. The `combine`, `bind_list`,
-`duration`, & `mtabulate` functions are notable exceptions. The table
-below describes the functions and their use:
+`data.frame`, or `DocumentTermMatrix`. The `combine`, `duration`, &
+`mtabulate` functions are notable exceptions. The table below describes
+the functions and their use:
 
 <table style="width:160%;">
 <colgroup>
@@ -86,19 +86,29 @@ below describes the functions and their use:
 <td align="left">Combine and collapse elements</td>
 </tr>
 <tr class="even">
-<td align="left"><code>bind_list</code></td>
+<td align="left"><code>tidy_list</code></td>
 <td align="left"><code>list</code> of <code>vector</code>s or <code>data.frame</code>s</td>
 <td align="left">Row bind a list and repeat list names as id column</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>bind_vector</code></td>
+<td align="left"><code>tidy_vector</code></td>
 <td align="left"><code>vector</code></td>
 <td align="left">Column bind a named atomic <code>vector</code>'s names and values</td>
 </tr>
 <tr class="even">
-<td align="left"><code>bind_table</code></td>
+<td align="left"><code>tidy_table</code></td>
 <td align="left"><code>table</code></td>
 <td align="left">Column bind a <code>table</code>'s names and values</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>tidy_dtm</code>/<code>tidy_tdm</code></td>
+<td align="left"><code>DocumentTermMatrix</code></td>
+<td align="left">Tidy format <code>DocumentTermMatrix</code>/<code>TermDocumentMatrix</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>tidy_colo_dtm</code>/<code>tidy_colo_tdm</code></td>
+<td align="left"><code>DocumentTermMatrix</code></td>
+<td align="left">Tidy format of collocating words from a <code>DocumentTermMatrix</code>/<code>TermDocumentMatrix</code></td>
 </tr>
 <tr class="odd">
 <td align="left"><code>duration</code></td>
@@ -160,16 +170,6 @@ below describes the functions and their use:
 <td align="left"><code>vector</code>, <code>data.frame</code></td>
 <td align="left">Split words</td>
 </tr>
-<tr class="odd">
-<td align="left"><code>tidy_dtm</code>/<code>tidy_tdm</code></td>
-<td align="left"><code>DocumentTermMatrix</code></td>
-<td align="left">Tidy format <code>DocumentTermMatrix</code>/<code>TermDocumentMatrix</code></td>
-</tr>
-<tr class="even">
-<td align="left"><code>tidy_colo_dtm</code>/<code>tidy_colo_tdm</code></td>
-<td align="left"><code>DocumentTermMatrix</code></td>
-<td align="left">Tidy format of collocating words from a <code>DocumentTermMatrix</code>/<code>TermDocumentMatrix</code></td>
-</tr>
 </tbody>
 </table>
 
@@ -210,22 +210,35 @@ category of splitting and expanding (the semantic opposite of
 combining). These sections will provide example uses of the functions
 from **textshape** within the three categories.
 
-Binding
+Loading Dependencies
+====================
+
+    if (!require("pacman")) install.packages("pacman")
+    pacman::p_load(tidyverse, magrittr, ggstance)
+    pacman::p_load_current_gh('trinker/gofastr', 'trinker/textshape')
+
+Tidying
 -------
 
-The `bind_list` function is used in the style of
+The `tidy_xxx` functions convert untidy structures into [tidy
+format](https://www.jstatsoft.org/article/view/v059i10). Tidy formatted
+text data structures are particularly useful for interfacing with
+**ggplot2**, which expects this form.
+
+The `tidy_list` function is used in the style of
 `do.call(rbind, list(x1, x2))` as a convenient way to bind together
 multiple named `data.frame`s or `vectors`s into a single `data.frame`
 with the `list` `names` acting as an id column. The `data.frame` bind is
 particularly useful for binding transcripts from different observations.
-Additionally, `bind_vector` and `bind_table` are provided for `cbinding`
+Additionally, `tidy_vector` and `tidy_table` are provided for `cbinding`
 a `table`'s or named atomic `vector`'s values and names as separate
-columns in a `data.frame`.
+columns in a `data.frame`. Lastly, `tidy_dtm`/`tidy_tdm` provide
+convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
 
 #### A Vector
 
     x <- list(p=1:500, r=letters)
-    bind_list(x)
+    tidy_list(x)
 
     ##      id content
     ##   1:  p       1
@@ -243,7 +256,7 @@ columns in a `data.frame`.
 #### A Dataframe
 
     x <- list(p=mtcars, r=mtcars, z=mtcars, d=mtcars)
-    bind_list(x) 
+    tidy_list(x) 
 
     ##      id  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
     ##   1:  p 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
@@ -264,33 +277,99 @@ columns in a `data.frame`.
         sample(LETTERS[1:6], 1000, TRUE), 
         sample(state.name[1:5], 1000, TRUE)
     )
-    bind_vector(x)
+    tidy_vector(x)
 
     ##               id content
-    ##    1:   Arkansas       E
-    ##    2:    Alabama       F
-    ##    3:    Alabama       E
-    ##    4: California       A
-    ##    5:    Arizona       F
+    ##    1:    Alabama       F
+    ##    2:    Arizona       A
+    ##    3:     Alaska       B
+    ##    4:   Arkansas       E
+    ##    5: California       E
     ##   ---                   
-    ##  996:     Alaska       F
+    ##  996:     Alaska       A
     ##  997:    Arizona       B
-    ##  998:    Alabama       D
-    ##  999:    Arizona       E
-    ## 1000:     Alaska       C
+    ##  998:     Alaska       D
+    ##  999:    Alabama       B
+    ## 1000:   Arkansas       B
 
 #### A Table
 
     x <- table(sample(LETTERS[1:6], 1000, TRUE))
-    bind_table(x)
+    tidy_table(x)
 
     ##    id content
-    ## 1:  A     143
-    ## 2:  B     155
-    ## 3:  C     181
-    ## 4:  D     157
-    ## 5:  E     188
-    ## 6:  F     176
+    ## 1:  A     191
+    ## 2:  B     167
+    ## 3:  C     156
+    ## 4:  D     147
+    ## 5:  E     165
+    ## 6:  F     174
+
+#### A DocumentTermMatrix
+
+The `tidy_dtm` and `tidy_tdm` functions convert a `DocumentTermMatrix`
+or `TermDocumentMatrix` into a tidied data set.
+
+    my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
+
+    tidy_dtm(my_dtm) %>%
+        tidyr::extract(doc, c("time", "turn", "sentence"), "(\\d)_(\\d+)\\.(\\d+)") %>%
+        mutate(
+            time = as.numeric(time),
+            turn = as.numeric(turn),
+            sentence = as.numeric(sentence)
+        ) %>%
+        tbl_df() %T>%
+        print() %>%
+        group_by(time, term) %>%
+        summarize(n = sum(n)) %>%
+        group_by(time) %>%
+        arrange(desc(n)) %>%
+        slice(1:10) %>%
+        mutate(term = factor(paste(term, time, sep = "__"), levels = rev(paste(term, time, sep = "__")))) %>%
+        ggplot(aes(x = n, y = term)) +
+            geom_barh(stat='identity') +
+            facet_wrap(~time, ncol=2, scales = 'free_y') +
+            scale_y_discrete(labels = function(x) gsub("__.+$", "", x))
+
+    ## # A tibble: 37,836 x 7
+    ##     time  turn sentence         term     n     i     j
+    ##    <dbl> <dbl>    <dbl>        <chr> <dbl> <int> <int>
+    ## 1      1     1        1        we'll     1     1     1
+    ## 2      1     1        1         talk     1     1     2
+    ## 3      1     1        1        about     2     1     3
+    ## 4      1     1        1 specifically     1     1     4
+    ## 5      1     1        1       health     1     1     5
+    ## 6      1     1        1         care     1     1     6
+    ## 7      1     1        1           in     1     1     7
+    ## 8      1     1        1            a     1     1     8
+    ## 9      1     1        1       moment     1     1     9
+    ## 10     1     1        2          but     1     2    10
+    ## # ... with 37,826 more rows
+
+![](inst/figure/unnamed-chunk-7-1.png)
+
+#### A DocumentTermMatrix of Collocations
+
+The `tidy_colo_dtm` and `tidy_colo_tdm` functions convert a
+`DocumentTermMatrix` or `TermDocumentMatrix` into a collocation matrix
+and then a tidied data set.
+
+    my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
+
+    tidy_colo_dtm(my_dtm) %>%
+        tbl_df() %>%
+        filter(!term_1 %in% c('i', lexicon::sw_onix) & !term_2 %in% lexicon::sw_onix) %>%
+        filter(term_1 != term_2) %>%
+        unique_pairs() %>%
+        filter(n > 15) %>%
+        complete(term_1, term_2, fill = list(n = 0)) %>%
+        ggplot(aes(x = term_1, y = term_2, fill = n)) +
+            geom_tile() +
+            scale_fill_gradient(low= 'white', high = 'red') +
+            theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+![](inst/figure/unnamed-chunk-8-1.png)
 
 Combining
 ---------
@@ -405,29 +484,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  A  B
-    ## 2   B  B  A
-    ## 3   A  A  A
-    ## 4   B  A  B
+    ## 1   A  B  A
+    ## 2   A  B  A
+    ## 3   A  A  B
+    ## 4   B  A  A
     ## 5   B  A  A
-    ## 6   A  B  A
-    ## 7   A  B  A
-    ## 8   A  B  A
-    ## 9   B  B  B
-    ## 10  B  B  B
+    ## 6   B  A  B
+    ## 7   B  A  A
+    ## 8   B  A  B
+    ## 9   A  B  A
+    ## 10  B  B  A
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 5 5
-    ## X2 4 6
-    ## X3 6 4
+    ## X1 4 6
+    ## X2 6 4
+    ## X3 7 3
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  5  4  6
-    ## B  5  6  4
+    ## A  4  6  7
+    ## B  6  4  3
 
 Spanning
 --------
@@ -508,7 +587,7 @@ The `duration` function calculations start-end durations as n words.
         xlab("Duration (Words)") +
         ylab("Person")
 
-![](inst/figure/unnamed-chunk-13-1.png)
+![](inst/figure/unnamed-chunk-15-1.png)
 
 Splitting
 ---------
@@ -1320,88 +1399,6 @@ The `split_word` function splits data into words.
     ## 53:       greg   m     0  already  K11         11           6
     ##         person sex adult    state code element_id sentence_id
 
-Tidying
--------
-
-The `tidy_xxx` functions convert untidy structures into [tidy
-format](https://www.jstatsoft.org/article/view/v059i10). Tidy formatted
-text data structures are particularly useful for interfacing with
-**ggplot2**, which expects this form.
-
-### A DocumentTermMatrix
-
-The `tidy_dtm` and `tidy_tdm` functions convert a `DocumentTermMatrix`
-or `TermDocumentMatrix` into a tidied data set.
-
-    if (!require("pacman")) install.packages("pacman")
-    pacman::p_load_current_gh('trinker/gofastr')
-    pacman::p_load(tidyverse, magrittr, ggstance)
-
-    my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
-
-    tidy_dtm(my_dtm) %>%
-        tidyr::extract(doc, c("time", "turn", "sentence"), "(\\d)_(\\d+)\\.(\\d+)") %>%
-        mutate(
-            time = as.numeric(time),
-            turn = as.numeric(turn),
-            sentence = as.numeric(sentence)
-        ) %>%
-        tbl_df() %T>%
-        print() %>%
-        group_by(time, term) %>%
-        summarize(n = sum(n)) %>%
-        group_by(time) %>%
-        arrange(desc(n)) %>%
-        slice(1:10) %>%
-        mutate(term = factor(paste(term, time, sep = "__"), levels = rev(paste(term, time, sep = "__")))) %>%
-        ggplot(aes(x = n, y = term)) +
-            geom_barh(stat='identity') +
-            facet_wrap(~time, ncol=2, scales = 'free_y') +
-            scale_y_discrete(labels = function(x) gsub("__.+$", "", x))
-
-    ## # A tibble: 37,836 x 7
-    ##     time  turn sentence         term     n     i     j
-    ##    <dbl> <dbl>    <dbl>        <chr> <dbl> <int> <int>
-    ## 1      1     1        1        we'll     1     1     1
-    ## 2      1     1        1         talk     1     1     2
-    ## 3      1     1        1        about     2     1     3
-    ## 4      1     1        1 specifically     1     1     4
-    ## 5      1     1        1       health     1     1     5
-    ## 6      1     1        1         care     1     1     6
-    ## 7      1     1        1           in     1     1     7
-    ## 8      1     1        1            a     1     1     8
-    ## 9      1     1        1       moment     1     1     9
-    ## 10     1     1        2          but     1     2    10
-    ## # ... with 37,826 more rows
-
-![](inst/figure/unnamed-chunk-30-1.png)
-
-### A DocumentTermMatrix of Collocations
-
-The `tidy_colo_dtm` and `tidy_colo_tdm` functions convert a
-`DocumentTermMatrix` or `TermDocumentMatrix` into a collocation matrix
-and then a tidied data set.
-
-    if (!require("pacman")) install.packages("pacman")
-    pacman::p_load_current_gh('trinker/gofastr', 'trinker/lexicon')
-    pacman::p_load(tidyverse, magrittr, ggstance)
-
-    my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
-
-    tidy_colo_dtm(my_dtm) %>%
-        tbl_df() %>%
-        filter(!term_1 %in% c('i', lexicon::sw_onix) & !term_2 %in% lexicon::sw_onix) %>%
-        filter(term_1 != term_2) %>%
-        unique_pairs() %>%
-        filter(n > 15) %>%
-        complete(term_1, term_2, fill = list(n = 0)) %>%
-        ggplot(aes(x = term_1, y = term_2, fill = n)) +
-            geom_tile() +
-            scale_fill_gradient(low= 'white', high = 'red') +
-            theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-![](inst/figure/unnamed-chunk-31-1.png)
-
 Putting It Together
 -------------------
 
@@ -1437,7 +1434,7 @@ scraping with **textshape** replacements.
             textshape::split_transcript() %>%
             textshape::split_sentence()
     }) %>%
-        textshape::bind_list("location")
+        textshape::tidy_list("location")
 
     ##        location     person
     ##    1: wisconsin MODERATORS

@@ -1,6 +1,9 @@
-#' Row Bind a List of Named Dataframes or Vectors
+#' Tidy a List of Named Dataframes or Vectors
 #'
-#' Deprecated, use \code{\link[textshape]{tidy_list}} instead.
+#' \code{\link[base]{rbind}} a named \code{\link[base]{list}} of
+#' \code{\link[base]{data.frame}}s or \code{\link[base]{vector}}s to
+#' output a single \code{\link[base]{data.frame}} with the \code{\link[base]{names}}
+#' from the \code{\link[base]{list}} as an \code{id} column.
 #'
 #' @param x A named \code{\link[base]{list}} of
 #' \code{\link[base]{data.frame}}s or \code{\link[base]{vector}}.
@@ -12,10 +15,10 @@
 #' from the \code{\link[base]{list}} as an \code{id} column.
 #' @export
 #' @examples
-#' \dontrun{
-#' bind_list(list(p=1:500, r=letters))
-#' bind_list(list(p=mtcars, r=mtcars, z=mtcars, d=mtcars))
+#' tidy_list(list(p=1:500, r=letters))
+#' tidy_list(list(p=mtcars, r=mtcars, z=mtcars, d=mtcars))
 #'
+#' \dontrun{
 #' ## 2015 Vice-Presidential Debates Example
 #' if (!require("pacman")) install.packages("pacman")
 #' pacman::p_load(rvest, magrittr, xml2)
@@ -36,18 +39,15 @@
 #'         textshape::split_transcript() %>%
 #'         textshape::split_sentence()
 #' }) %>%
-#'     textshape::bind_list("location")
+#'     textshape::tidy_list("location")
 #' }
-bind_list <- function(x, id.name= "id", content.name = "content", ...){
-
-    warning("Deprecated, use textshape::tidy_list() instead.", call. = FALSE)
-
+tidy_list <- function(x, id.name= "id", content.name = "content", ...){
     if (is.data.frame(x[[1]])){
-        bind_list_df(x = x, id.name = id.name)
+        tidy_list_df(x = x, id.name = id.name)
     } else {
 
         if (is.vector(x[[1]])){
-            bind_list_vector(x = x, id.name = id.name, content.name = content.name)
+            tidy_list_vector(x = x, id.name = id.name, content.name = content.name)
         } else {
             stop("`x` must be a list of `data.frame`s or `vector`s")
         }
@@ -56,7 +56,7 @@ bind_list <- function(x, id.name= "id", content.name = "content", ...){
 
 
 
-bind_list_df <- function (x, id.name = "id"){
+tidy_list_df <- function (x, id.name = "id"){
     if (is.null(x)) {
         names(x) <- paste0("L", pad(1:length(x)))
     }
@@ -67,7 +67,7 @@ bind_list_df <- function (x, id.name = "id"){
     data.table::data.table(out)
 }
 
-bind_list_vector <- function(x, id.name= "id", content.name = "content"){
+tidy_list_vector <- function(x, id.name= "id", content.name = "content"){
     if (is.null(names(x))) {
         names(x) <- seq_along(x)
     }

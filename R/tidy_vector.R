@@ -1,6 +1,8 @@
-#' Column Bind an Atomic Vector's Values with Its Names
+#' Tidy a Named Atomic Vector: Bind Its Values with Its Names
 #'
-#' Deprecated, use \code{\link[textshape]{tidy_vector}} instead.
+#' \code{\link[base]{cbind}} a named atomic \code{\link[base]{vector}}'s values
+#' with its \code{\link[base]{names}} to form \code{id} (from the names) and
+#' \code{content} columns.
 #'
 #' @param x A named atomic \code{\link[base]{vector}}.
 #' @param id.name The name to use for the column created from the \code{\link[base]{vector}}
@@ -12,13 +14,9 @@
 #' from the \code{\link[base]{vector}} as an \code{id} column.
 #' @export
 #' @examples
-#' \dontrun{
 #' x <- setNames(sample(LETTERS[1:6], 1000, TRUE), sample(state.name[1:5], 1000, TRUE))
-#' bind_vector(x)
-#' }
-bind_vector <- function(x, id.name= "id", content.name = "content", ...){
-
-    warning("Deprecated, use textshape::tidy_vector() instead.", call. = FALSE)
+#' tidy_vector(x)
+tidy_vector <- function(x, id.name= "id", content.name = "content", ...){
 
     stopifnot(is.atomic(x))
     if (is.null(names)) {

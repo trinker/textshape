@@ -1,6 +1,8 @@
-#' Column Bind a Table's Values with Its Names
+#' Tidy a Table: Bind Its Values with Its Names
 #'
-#' Deprecated, use \code{\link[textshape]{tidy_table}} instead.
+#' \code{\link[base]{cbind}} a \code{\link[base]{table}}'s values with its
+#' \code{\link[base]{names}} to form \code{id} (from the names) and
+#' \code{content} columns.
 #'
 #' @param x A \code{\link[base]{table}}.
 #' @param id.name The name to use for the column created from the \code{\link[base]{table}}
@@ -12,13 +14,9 @@
 #' from the \code{\link[base]{table}} as an \code{id} column.
 #' @export
 #' @examples
-#' \dontrun{
 #' x <- table(sample(LETTERS[1:6], 1000, TRUE))
-#' bind_table(x)
-#' }
-bind_table <- function(x, id.name= "id", content.name = "content", ...){
-
-    warning("Deprecated, use textshape::tidy_table() instead.", call. = FALSE)
+#' tidy_table(x)
+tidy_table <- function(x, id.name= "id", content.name = "content", ...){
 
     stopifnot(is.table(x))
     out <- data.table::data.table(x = names(x), y = unname(c(x)))
