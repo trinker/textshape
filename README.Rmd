@@ -37,7 +37,7 @@ knitr::opts_chunk$set(fig.path = "inst/figure/")
 
 <img src="inst/textshape_logo/r_textshape.png" width="200" alt="textshape Logo">  
 
-**textshape** is small suite of text reshaping functions.  Many of these functions are descended from tools in the [**qdapTools**](https://github.com/trinker/qdapTools) package.  This brings reshaping tools under one roof with specific functionality of the package limited to text reshaping.
+**textshape** is small suite of text reshaping and restructuring functions.  Many of these functions are descended from tools in the [**qdapTools**](https://github.com/trinker/qdapTools) package.  This brings reshaping tools under one roof with specific functionality of the package limited to text reshaping.
 
 # Functions
 

@@ -9,12 +9,12 @@ developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repos
 Status](https://travis-ci.org/trinker/textshape.svg?branch=master)](https://travis-ci.org/trinker/textshape)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/r/trinker/textshape?branch=master)
-<a href="https://img.shields.io/badge/Version-1.0.0-orange.svg"><img src="https://img.shields.io/badge/Version-1.0.0-orange.svg" alt="Version"/></a>
+<a href="https://img.shields.io/badge/Version-1.0.1-orange.svg"><img src="https://img.shields.io/badge/Version-1.0.1-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/textshape_logo/r_textshape.png" width="200" alt="textshape Logo">
 
-**textshape** is small suite of text reshaping functions. Many of these
-functions are descended from tools in the
+**textshape** is small suite of text reshaping and restructuring
+functions. Many of these functions are descended from tools in the
 [**qdapTools**](https://github.com/trinker/qdapTools) package. This
 brings reshaping tools under one roof with specific functionality of the
 package limited to text reshaping.
@@ -280,17 +280,17 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_vector(x)
 
     ##               id content
-    ##    1:    Alabama       F
-    ##    2:    Arizona       A
-    ##    3:     Alaska       B
-    ##    4:   Arkansas       E
-    ##    5: California       E
+    ##    1:   Arkansas       E
+    ##    2:    Alabama       F
+    ##    3:    Alabama       E
+    ##    4: California       A
+    ##    5:    Arizona       F
     ##   ---                   
-    ##  996:     Alaska       A
+    ##  996:     Alaska       F
     ##  997:    Arizona       B
-    ##  998:     Alaska       D
-    ##  999:    Alabama       B
-    ## 1000:   Arkansas       B
+    ##  998:    Alabama       D
+    ##  999:    Arizona       E
+    ## 1000:     Alaska       C
 
 #### A Table
 
@@ -298,12 +298,12 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     191
-    ## 2:  B     167
-    ## 3:  C     156
-    ## 4:  D     147
-    ## 5:  E     165
-    ## 6:  F     174
+    ## 1:  A     143
+    ## 2:  B     155
+    ## 3:  C     181
+    ## 4:  D     157
+    ## 5:  E     188
+    ## 6:  F     176
 
 #### A DocumentTermMatrix
 
@@ -484,29 +484,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  B  A
-    ## 2   A  B  A
-    ## 3   A  A  B
-    ## 4   B  A  A
+    ## 1   A  A  B
+    ## 2   B  B  A
+    ## 3   A  A  A
+    ## 4   B  A  B
     ## 5   B  A  A
-    ## 6   B  A  B
-    ## 7   B  A  A
-    ## 8   B  A  B
-    ## 9   A  B  A
-    ## 10  B  B  A
+    ## 6   A  B  A
+    ## 7   A  B  A
+    ## 8   A  B  A
+    ## 9   B  B  B
+    ## 10  B  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 4 6
-    ## X2 6 4
-    ## X3 7 3
+    ## X1 5 5
+    ## X2 4 6
+    ## X3 6 4
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  4  6  7
-    ## B  6  4  3
+    ## A  5  4  6
+    ## B  5  6  4
 
 Spanning
 --------

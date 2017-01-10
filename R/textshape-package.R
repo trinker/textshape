@@ -1,6 +1,6 @@
 #' Tools for Reshaping Text
 #'
-#' Tools that can be used to reshape text data.
+#' Tools that can be used to reshape and restructure text data.
 #' @docType package
 #' @name textshape
 #' @aliases textshape package-textshape

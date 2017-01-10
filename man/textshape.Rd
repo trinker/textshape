@@ -7,6 +7,6 @@
 \alias{textshape-package}
 \title{Tools for Reshaping Text}
 \description{
-Tools that can be used to reshape text data.
+Tools that can be used to reshape and restructure text data.
 }
 

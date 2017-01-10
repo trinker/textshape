@@ -17,16 +17,8 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-textshape 0.3.0 -
+textshape 1.0.0
 ----------------------------------------------------------------
-
-**BUG FIXES**
-
-**NEW FEATURES**
-
-**MINOR FEATURES**
-
-**IMPROVEMENTS**
 
 **CHANGES**
 
