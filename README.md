@@ -9,6 +9,7 @@ developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repos
 Status](https://travis-ci.org/trinker/textshape.svg?branch=master)](https://travis-ci.org/trinker/textshape)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/r/trinker/textshape?branch=master)
+[![](http://cranlogs.r-pkg.org/badges/textshape)](https://cran.r-project.org/package=textshape)
 <a href="https://img.shields.io/badge/Version-1.0.1-orange.svg"><img src="https://img.shields.io/badge/Version-1.0.1-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/textshape_logo/r_textshape.png" width="200" alt="textshape Logo">
@@ -280,17 +281,17 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_vector(x)
 
     ##               id content
-    ##    1:   Arkansas       E
-    ##    2:    Alabama       F
-    ##    3:    Alabama       E
-    ##    4: California       A
-    ##    5:    Arizona       F
+    ##    1:   Arkansas       B
+    ##    2:    Alabama       E
+    ##    3: California       D
+    ##    4:   Arkansas       C
+    ##    5:   Arkansas       B
     ##   ---                   
-    ##  996:     Alaska       F
-    ##  997:    Arizona       B
-    ##  998:    Alabama       D
-    ##  999:    Arizona       E
-    ## 1000:     Alaska       C
+    ##  996:   Arkansas       F
+    ##  997:   Arkansas       F
+    ##  998:    Arizona       A
+    ##  999: California       C
+    ## 1000:     Alaska       F
 
 #### A Table
 
@@ -298,12 +299,12 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     143
-    ## 2:  B     155
-    ## 3:  C     181
-    ## 4:  D     157
-    ## 5:  E     188
-    ## 6:  F     176
+    ## 1:  A     157
+    ## 2:  B     163
+    ## 3:  C     176
+    ## 4:  D     146
+    ## 5:  E     177
+    ## 6:  F     181
 
 #### A DocumentTermMatrix
 
@@ -485,28 +486,28 @@ counts.
 
     ##    X1 X2 X3
     ## 1   A  A  B
-    ## 2   B  B  A
+    ## 2   A  A  B
     ## 3   A  A  A
-    ## 4   B  A  B
-    ## 5   B  A  A
-    ## 6   A  B  A
+    ## 4   B  B  B
+    ## 5   A  B  B
+    ## 6   B  B  B
     ## 7   A  B  A
-    ## 8   A  B  A
-    ## 9   B  B  B
-    ## 10  B  B  B
+    ## 8   A  A  A
+    ## 9   A  B  A
+    ## 10  B  A  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 5 5
-    ## X2 4 6
-    ## X3 6 4
+    ## X1 7 3
+    ## X2 5 5
+    ## X3 4 6
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  5  4  6
-    ## B  5  6  4
+    ## A  7  5  4
+    ## B  3  5  6
 
 Spanning
 --------
