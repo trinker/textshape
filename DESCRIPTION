@@ -4,11 +4,12 @@ Version: 1.0.1
 Authors@R: c(person("Tyler", "Rinker", email =
         "tyler.rinker@gmail.com", role = c("aut", "cre")))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
-Description: Tools that can be used to reshape and restructure text data.
+Description: Tools that can be used to reshape and restructure text
+        data.
 Depends: R (>= 3.2.2)
 Imports: data.table, slam, stringi, utils
 Suggests: testthat
-Date: 2017-01-09
+Date: 2017-01-12
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)
