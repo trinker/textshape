@@ -6,6 +6,13 @@
 #' @param speaker.var The person variable to be stretched.
 #' @param sep The separator(s) to search for and break on.  Default is:
 #' c("and", "&", ",")
+#' @param as.tibble logical.  If \code{TRUE} the output class will be set to a
+#' \pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
+#' checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
+#' the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
+#' to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
+#' \code{\link[data.table]{data.table}}.
+#' @param \ldots Ignored.
 #' @return Returns an expanded dataframe with person variable stretched and
 #' accompanying rows repeated.
 #' @export
@@ -24,7 +31,8 @@
 #'
 #' DATA <- textshape::DATA  #reset DATA
 #' }
-split_speaker <- function (dataframe, speaker.var = 1, sep = c("and", "&", ",")){
+split_speaker <- function (dataframe, speaker.var = 1, sep = c("and", "&", ","),
+    as.tibble = tibble_output(), ...){
 
     element_id <- NULL
     nms <- colnames(dataframe)
@@ -42,17 +50,29 @@ split_speaker <- function (dataframe, speaker.var = 1, sep = c("and", "&", ","))
             "))"
         )
     )
+
     z[, eval(express1)]
 
     express2 <- parse(text=paste0(".(", speaker.var, "=unlist(", speaker.var, "))"))
     z <- z[, eval(express2), by = c(colnames(z)[!colnames(z) %in% speaker.var])][, c(nms, "element_id"), with = FALSE]
-    z[, 'split_id' := 1:.N, by = list(element_id)][]
+    if_tibble(z[, 'split_id' := 1:.N, by = list(element_id)][], as.tibble = as.tibble)
 
 }
 
 
 splittify <- function(x, y) {
+
+    y <- .mgsub(esc, paste0('\\', esc), y, perl = FALSE)
+
     sapply(x, function(z) {
-        gsub("^\\s+|\\s+$", "", grep("^\\s*$", strsplit(as.character(z), paste(paste(y), collapse="|"))[[1]], value=TRUE, invert = TRUE))
+        trimws(
+            grep("^\\s*$",
+                strsplit(as.character(z), paste(paste(y), collapse="|"))[[1]],
+                value=TRUE,
+                invert = TRUE
+            )
+        )
     })
 }
+
+esc <- c(".", "|", "(", ")", "[", "{", "^", "$", "*", "+", "?")

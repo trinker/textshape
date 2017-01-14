@@ -5,6 +5,7 @@
 #' functions that act on atomic vectors.
 #'
 #' @param x A vector.
+#' @param \ldots ignored.
 #' @return Returns a vector of integer indices of where a vector initially changes.
 #' @export
 #' @seealso \code{\link[textshape]{split_index}}
@@ -17,7 +18,7 @@
 #'
 #' (p_chng <- change_index(CO2[["Plant"]]))
 #' split_index(CO2[["Plant"]], p_chng)
-change_index <- function (x) {
+change_index <- function (x, ...) {
     utils::head(1 + cumsum(rle(as.character(x))[[1]]), -1)
 }
 

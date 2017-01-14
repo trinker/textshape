@@ -4,7 +4,8 @@
 \alias{split_transcript}
 \title{Split a Transcript Style Vector on Delimiter & Coerce to Dataframe}
 \usage{
-split_transcript(x, delim = ":", colnames = c("person", "dialogue"))
+split_transcript(x, delim = ":", colnames = c("person", "dialogue"),
+  as.tibble = tibble_output(), ...)
 }
 \arguments{
 \item{x}{A transcript style vector (e.g., \code{c("greg: Who me", "sarah: yes you!")}.}
@@ -12,6 +13,15 @@ split_transcript(x, delim = ":", colnames = c("person", "dialogue"))
 \item{delim}{The delimiter to split on.}
 
 \item{colnames}{The column names to use for the \code{\link[data.table]{data.table}} output.}
+
+\item{as.tibble}{logical.  If \code{TRUE} the output class will be set to a
+\pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
+checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
+the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
+to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
+\code{\link[data.table]{data.table}}.}
+
+\item{\ldots}{Ignored.}
 }
 \value{
 Returns a 2 column \code{\link[data.table]{data.table}}.

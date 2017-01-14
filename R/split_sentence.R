@@ -5,6 +5,12 @@
 #' @param x A \code{\link[base]{data.frame}} or character vector with sentences.
 #' @param text.var The name of the text variable.  If \code{TRUE}
 #' \code{split_sentence} tries to detect the column with sentences.
+#' @param as.tibble logical.  If \code{TRUE} the output class will be set to a
+#' \pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
+#' checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
+#' the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
+#' to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
+#' \code{\link[data.table]{data.table}}.
 #' @param \ldots Ignored.
 #' @export
 #' @rdname split_sentence
@@ -35,7 +41,7 @@ split_sentence.default <- function(x, ...) {
 #' @export
 #' @rdname split_sentence
 #' @method split_sentence data.frame
-split_sentence.data.frame <- function(x, text.var = TRUE, ...) {
+split_sentence.data.frame <- function(x, text.var = TRUE, as.tibble = tibble_output(), ...) {
 
     element_id <- NULL
     nms <- colnames(x)
@@ -55,7 +61,7 @@ split_sentence.data.frame <- function(x, text.var = TRUE, ...) {
 
     express2 <- parse(text=paste0(".(", text.var, "=unlist(", text.var, "))"))
     z <- z[, eval(express2), by = c(colnames(z)[!colnames(z) %in% text.var])][, c(nms, "element_id"), with = FALSE]
-    z[, 'sentence_id' := 1:.N, by = list(element_id)][]
+    if_tibble(z[, 'sentence_id' := 1:.N, by = list(element_id)][], as.tibble = as.tibble)
 
 }
 

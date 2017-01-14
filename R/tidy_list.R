@@ -10,7 +10,13 @@
 #' @param id.name The name to use for the column created from the \code{\link[base]{list}}.
 #' @param content.name The name to use for the column created from the \code{\link[base]{list}}
 #' of \code{\link[base]{vector}}s (only used if \code{x} is  \code{\link[base]{vector}}).
-#' @param \ldots ignored.
+#' @param as.tibble logical.  If \code{TRUE} the output class will be set to a
+#' \pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
+#' checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
+#' the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
+#' to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
+#' \code{\link[data.table]{data.table}}.
+#' @param \ldots Ignored.
 #' @return Returns a \code{\link[data.table]{data.table}} with the \code{\link[base]{names}}
 #' from the \code{\link[base]{list}} as an \code{id} column.
 #' @export
@@ -41,13 +47,15 @@
 #' }) %>%
 #'     textshape::tidy_list("location")
 #' }
-tidy_list <- function(x, id.name= "id", content.name = "content", ...){
+tidy_list <- function(x, id.name= "id", content.name = "content",
+    as.tibble = tibble_output(), ...){
+
     if (is.data.frame(x[[1]])){
-        tidy_list_df(x = x, id.name = id.name)
+        if_tibble(tidy_list_df(x = x, id.name = id.name), as.tibble = as.tibble)
     } else {
 
         if (is.vector(x[[1]])){
-            tidy_list_vector(x = x, id.name = id.name, content.name = content.name)
+            if_tibble(tidy_list_vector(x = x, id.name = id.name, content.name = content.name), as.tibble = as.tibble)
         } else {
             stop("`x` must be a list of `data.frame`s or `vector`s")
         }

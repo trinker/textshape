@@ -5,14 +5,21 @@
 \alias{tidy_colo_tdm}
 \title{Convert a \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}} into Collocating Words in Tidy Form}
 \usage{
-tidy_colo_tdm(x, ...)
+tidy_colo_tdm(x, as.tibble = tibble_output(), ...)
 
-tidy_colo_dtm(x, ...)
+tidy_colo_dtm(x, as.tibble = tibble_output(), ...)
 }
 \arguments{
 \item{x}{A \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}}.}
 
-\item{\ldots}{ignored.}
+\item{as.tibble}{logical.  If \code{TRUE} the output class will be set to a
+\pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
+checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
+the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
+to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
+\code{\link[data.table]{data.table}}.}
+
+\item{\ldots}{Ignored.}
 }
 \value{
 Returns a tidied data.frame.
@@ -23,6 +30,8 @@ Converts non-zero elements of a
 a tidy data set made of collocating words.
 }
 \examples{
+data(simple_dtm)
+
 tidied <- tidy_colo_dtm(simple_dtm)
 tidied
 unique_pairs(tidied)

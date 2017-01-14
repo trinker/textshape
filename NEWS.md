@@ -17,6 +17,31 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
+
+textshape 1.0.1 -
+----------------------------------------------------------------
+
+**BUG FIXES**
+
+**NEW FEATURES**
+
+* Users can now globally select a *tibble* output rather than a *data.table*
+  output for all functions that outputted a *data.table*.  This can be set
+  globally via `set_output`.  If the user does not set the output type
+  *textshape* tries to infer based on whether or not the user has *dplyr*
+  loaded.  If *dplyr* is loaded then *tibble* is the default output.
+
+* `set_output` and `tibble_output` added to globally set the output type
+  (*tibble* or *data.table*) and to check/infer the desired output type.
+
+**MINOR FEATURES**
+
+**IMPROVEMENTS**
+
+**CHANGES**
+
+
+
 textshape 1.0.0
 ----------------------------------------------------------------
 

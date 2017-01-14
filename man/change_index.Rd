@@ -4,10 +4,12 @@
 \alias{change_index}
 \title{Indexing of Changes in Runs}
 \usage{
-change_index(x)
+change_index(x, ...)
 }
 \arguments{
 \item{x}{A vector.}
+
+\item{\ldots}{ignored.}
 }
 \value{
 Returns a vector of integer indices of where a vector initially changes.

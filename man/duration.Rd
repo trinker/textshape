@@ -13,7 +13,8 @@ duration(x, ...)
 
 \method{duration}{default}(x, grouping.var = NULL, ...)
 
-\method{duration}{data.frame}(x, text.var = TRUE, ...)
+\method{duration}{data.frame}(x, text.var = TRUE,
+  as.tibble = tibble_output(), ...)
 
 \method{duration}{numeric}(x, ...)
 
@@ -31,6 +32,13 @@ of 1 or more grouping variables.}
 
 \item{text.var}{The name of the text variable.  If \code{TRUE}
 \code{duration} tries to detect the text column.}
+
+\item{as.tibble}{logical.  If \code{TRUE} the output class will be set to a
+\pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
+checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
+the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
+to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
+\code{\link[data.table]{data.table}}.}
 
 \item{\ldots}{Ignored.}
 }

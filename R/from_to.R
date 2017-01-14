@@ -15,6 +15,12 @@
 #' of the speaker (from variable).
 #' @param text.var The name of the text variable.  If \code{TRUE}
 #' \code{duration} tries to detect the text column.
+#' @param as.tibble logical.  If \code{TRUE} the output class will be set to a
+#' \pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
+#' checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
+#' the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
+#' to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
+#' \code{\link[data.table]{data.table}}.
 #' @return Returns a vector (if given a vector) or an augmented
 #' \code{\link[data.table]{data.table}}.
 #' @rdname from_to
@@ -79,13 +85,19 @@ from_to.numeric <- function(x, final = 'End', ...){
 #' @export
 #' @method from_to data.frame
 #' @rdname from_to
-from_to.data.frame <- function(x, from.var, final = 'End', ...){
-    data.table::data.table(data.frame(
-        from = x[[from.var]],
-        to = from_to(x[[from.var]]),
-        x,
-        stringsAsFactors = FALSE
-    ))
+from_to.data.frame <- function(x, from.var, final = 'End',
+    as.tibble = tibble_output(), ...){
+
+    if_tibble(
+        data.table::data.table(data.frame(
+            from = x[[from.var]],
+            to = from_to(x[[from.var]]),
+            x,
+            stringsAsFactors = FALSE
+        )),
+        as.tibble = as.tibble
+    )
+
 }
 
 #' Prepare Discourse Data for Network Plotting
@@ -95,7 +107,8 @@ from_to.data.frame <- function(x, from.var, final = 'End', ...){
 #'
 #' @rdname from_to
 #' @export
-from_to_summarize <- function(x, from.var, id.vars = NULL, text.var = TRUE, ...){
+from_to_summarize <- function(x, from.var, id.vars = NULL, text.var = TRUE,
+    as.tibble = tibble_output(), ...){
 
     word.count <- NULL
 
@@ -123,5 +136,5 @@ from_to_summarize <- function(x, from.var, id.vars = NULL, text.var = TRUE, ...)
        out <- merge(out, w, all.x=TRUE, by.x = 'from', by.y = from.var)
     }
 
-    out
+    if_tibble(out, as.tibble = as.tibble)
 }

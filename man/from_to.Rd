@@ -17,9 +17,11 @@ from_to(x, ...)
 
 \method{from_to}{numeric}(x, final = "End", ...)
 
-\method{from_to}{data.frame}(x, from.var, final = "End", ...)
+\method{from_to}{data.frame}(x, from.var, final = "End",
+  as.tibble = tibble_output(), ...)
 
-from_to_summarize(x, from.var, id.vars = NULL, text.var = TRUE, ...)
+from_to_summarize(x, from.var, id.vars = NULL, text.var = TRUE,
+  as.tibble = tibble_output(), ...)
 }
 \arguments{
 \item{x}{A data form \code{vector} or \code{data.frame}.}
@@ -28,6 +30,13 @@ from_to_summarize(x, from.var, id.vars = NULL, text.var = TRUE, ...)
 
 \item{from.var}{A character string naming the column to be considered the
 origin of the talk.}
+
+\item{as.tibble}{logical.  If \code{TRUE} the output class will be set to a
+\pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
+checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
+the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
+to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
+\code{\link[data.table]{data.table}}.}
 
 \item{id.vars}{The variables that correspond to the speaker or are attributes
 of the speaker (from variable).}

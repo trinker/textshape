@@ -17,7 +17,15 @@
 #' string.  If \code{FALSE} the chunks are returned as a vector of single words.
 #' @param rm.unequal logical. If \code{TRUE} final chunks that are unequal in
 #' length to the other chunks are removed.
-#' @param as.data.table logical.  If \code{TRUE} the list output is coerced to \code{\link[data.table]{data.table}}.
+#' @param as.table logical.  If \code{TRUE} the list output is coerced to
+#' \code{\link[data.table]{data.table}} or \pkg{tibble}.
+#' @param as.tibble logical.  If \code{TRUE} the output class will be set to a
+#' \pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
+#' checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
+#' the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
+#' to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
+#' \code{\link[data.table]{data.table}}.
+#' @param \ldots Ignored.
 #' @return Returns a list or \code{\link[data.table]{data.table}} of text chunks.
 #' @keywords chunks group text
 #' @export
@@ -36,7 +44,8 @@
 #' with(hamlet, split_portion(dialogue, person, n.words = 300))
 #' with(hamlet, split_portion(dialogue, list(act, scene, person), n.words = 300))
 split_portion <- function(text.var, grouping.var = NULL, n.words, n.chunks,
-    as.string = TRUE, rm.unequal = FALSE, as.data.table = TRUE){
+    as.string = TRUE, rm.unequal = FALSE, as.table = TRUE,
+    as.tibble = tibble_output(), ...){
 
     if (missing(n.chunks) && missing(n.words)) {
         stop("Must supply either `n.chunks` or `n.words`")
@@ -101,7 +110,7 @@ split_portion <- function(text.var, grouping.var = NULL, n.words, n.chunks,
         ), c(strsplit(G, "&")[[1]], "index")
     )
 
-    if (isTRUE(as.data.table) & isTRUE(as.string)){
+    if (isTRUE(as.table) & isTRUE(as.string)){
         out <- data.frame(
             grpvar,
             text.var = unlist(out),
@@ -109,6 +118,7 @@ split_portion <- function(text.var, grouping.var = NULL, n.words, n.chunks,
             row.names=NULL
         )
         data.table::setDT(out)
+        out <- if_tibble(out, as.tibble = as.tibble)
     }
     out
 }

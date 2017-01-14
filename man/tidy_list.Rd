@@ -4,7 +4,8 @@
 \alias{tidy_list}
 \title{Tidy a List of Named Dataframes or Vectors}
 \usage{
-tidy_list(x, id.name = "id", content.name = "content", ...)
+tidy_list(x, id.name = "id", content.name = "content",
+  as.tibble = tibble_output(), ...)
 }
 \arguments{
 \item{x}{A named \code{\link[base]{list}} of
@@ -15,7 +16,14 @@ tidy_list(x, id.name = "id", content.name = "content", ...)
 \item{content.name}{The name to use for the column created from the \code{\link[base]{list}}
 of \code{\link[base]{vector}}s (only used if \code{x} is  \code{\link[base]{vector}}).}
 
-\item{\ldots}{ignored.}
+\item{as.tibble}{logical.  If \code{TRUE} the output class will be set to a
+\pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
+checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
+the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
+to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
+\code{\link[data.table]{data.table}}.}
+
+\item{\ldots}{Ignored.}
 }
 \value{
 Returns a \code{\link[data.table]{data.table}} with the \code{\link[base]{names}}
