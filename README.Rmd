@@ -64,7 +64,7 @@ Most of the functions split, expand, or tidy a `vector`, `list`, `data.frame`, o
 | `split_token`    | `vector`, `data.frame`         | Split words and punctuation                                  |
 | `split_transcript` | `vector`                     | Split speaker and dialogue (e.g., "greg: Who me")            |
 | `split_word`     | `vector`, `data.frame`         | Split words                                                  |
-
+| `column_to_rownames` | `data.frame`               | Add a column as rownames                                     |
 
 \****Note:*** *Text vector accompanied by aggregating `grouping.var` argument, which can be in the form of a `vector`, `list`, or  `data.frame`*
 
@@ -202,7 +202,7 @@ combine(x)
 #### A Dataframe
 
 ```{r}
-(dat <- split_sentence(DATA))
+(dat <- split_sentence(DATA, as.tibble = FALSE))
 combine(dat[, 1:5, with=FALSE])
 ```
 

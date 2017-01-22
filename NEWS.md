@@ -24,6 +24,10 @@ textshape 1.0.2 -
 
 **NEW FEATURES**
 
+* `column_to_rownames` added to enable one to quickly add a column as rownames
+  easily within a pipeline.  This is useful when turning a `data.frame` into a
+  `matrix`.
+
 **MINOR FEATURES**
 
 **IMPROVEMENTS**
