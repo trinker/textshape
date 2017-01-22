@@ -14,8 +14,8 @@
 #' @export
 #' @examples
 #' state_dat <- data.frame(state.name, state.area, state.center, state.division)
-#' column_to_row(state_dat)
-#' column_to_row(state_dat, 'state.name')
+#' column_to_rownames(state_dat)
+#' column_to_rownames(state_dat, 'state.name')
 column_to_rownames <- function(x, loc = 1){
     x <- as.data.frame(x, check.names = FALSE, stringsAsFactors = FALSE)
     if (!is.numeric(loc)) loc <- which(names(x) %in% loc)[1]
