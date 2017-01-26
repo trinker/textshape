@@ -20,8 +20,7 @@
 #' @export
 #' @rdname duration
 #' @importFrom data.table .N :=
-#' @return Returns a list of vectors of tokens or an expanded
-#' \code{\link[data.table]{data.table}} with tokens split apart.
+#' @return Returns a vector or data frame of starts and/or ends.
 #' @examples
 #' (x <- c(
 #'     "Mr. Brown comes! He says hello. i give him coffee.",
