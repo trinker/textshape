@@ -4,8 +4,7 @@
 \alias{split_speaker}
 \title{Break and Stretch if Multiple Persons per Cell}
 \usage{
-split_speaker(dataframe, speaker.var = 1, sep = c("and", "&", ","),
-  as.tibble = tibble_output(), ...)
+split_speaker(dataframe, speaker.var = 1, sep = c("and", "&", ","), ...)
 }
 \arguments{
 \item{dataframe}{A dataframe that contains the person variable.}
@@ -14,13 +13,6 @@ split_speaker(dataframe, speaker.var = 1, sep = c("and", "&", ","),
 
 \item{sep}{The separator(s) to search for and break on.  Default is:
 c("and", "&", ",")}
-
-\item{as.tibble}{logical.  If \code{TRUE} the output class will be set to a
-\pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
-checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
-the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
-to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
-\code{\link[data.table]{data.table}}.}
 
 \item{\ldots}{Ignored.}
 }

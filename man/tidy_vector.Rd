@@ -4,8 +4,7 @@
 \alias{tidy_vector}
 \title{Tidy a Named Atomic Vector: Bind Its Values with Its Names}
 \usage{
-tidy_vector(x, id.name = "id", content.name = "content",
-  as.tibble = tibble_output(), ...)
+tidy_vector(x, id.name = "id", content.name = "content", ...)
 }
 \arguments{
 \item{x}{A named atomic \code{\link[base]{vector}}.}
@@ -15,13 +14,6 @@ tidy_vector(x, id.name = "id", content.name = "content",
 
 \item{content.name}{The name to use for the column created from the \code{\link[base]{vector}}
 values.}
-
-\item{as.tibble}{logical.  If \code{TRUE} the output class will be set to a
-\pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
-checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
-the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
-to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
-\code{\link[data.table]{data.table}}.}
 
 \item{\ldots}{ignored.}
 }

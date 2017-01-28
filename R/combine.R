@@ -6,12 +6,6 @@
 #'
 #' @param x A \code{\link[base]{data.frame}} or character vector with runs.
 #' @param text.var The name of the text variable.
-#' @param as.tibble logical.  If \code{TRUE} the output class will be set to a
-#' \pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
-#' checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
-#' the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
-#' to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
-#' \code{\link[data.table]{data.table}}.
 #' @param fix.punctuation logical If \code{TRUE} spaces before/after punctuation
 #' that should not be are a removed (regex used:
 #' \code{"(\\s+(?=[,.?!;:\%-]))|((?<=[$-])\\s+)"}).
@@ -54,7 +48,7 @@ combine.default <- function(x, fix.punctuation = TRUE, ...) {
 #' @export
 #' @rdname combine
 #' @method combine data.frame
-combine.data.frame <- function(x, text.var = TRUE, as.tibble = tibble_output(), ...) {
+combine.data.frame <- function(x, text.var = TRUE, ...) {
 
     nms <- colnames(x)
     z <- data.table::data.table(data.frame(x, stringsAsFactors = FALSE))
@@ -80,6 +74,6 @@ combine.data.frame <- function(x, text.var = TRUE, as.tibble = tibble_output(), 
     )
     z <- z[, eval(express1), by = group.vars]
     data.table::setcolorder(z, nms)
-    if_tibble(z, as.tibble = as.tibble)
+    z
 }
 

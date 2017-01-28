@@ -22,6 +22,9 @@ textshape 1.0.2 -
 
 **BUG FIXES**
 
+* `tidy_list` with a list of unnamed `data.frame`s resulted in an error (see
+  <a href="https://github.com/trinker/textshape/issues/7">issue #7</a>).  This issue has been fixed.
+
 **NEW FEATURES**
 
 * `column_to_rownames` added to enable one to quickly add a column as rownames
@@ -33,6 +36,14 @@ textshape 1.0.2 -
 **IMPROVEMENTS**
 
 **CHANGES**
+
+* `as.tibble` removed from all function arguments.  This was a nice interactive
+  feature that made programming very difficult to reason about.  Having an
+  environment dependant output would result in no adoption of the **textshape**
+  package as a dependency.  Additionally, `set_output` and `tibble_output`,
+  two complementary function have been removed without being deprecated.  The
+  problem was so egregious and the package infant enough, that removal without
+  deprecation was warranted.
 
 
 

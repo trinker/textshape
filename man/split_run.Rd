@@ -10,21 +10,13 @@ split_run(x, ...)
 
 \method{split_run}{default}(x, ...)
 
-\method{split_run}{data.frame}(x, text.var = TRUE,
-  as.tibble = tibble_output(), ...)
+\method{split_run}{data.frame}(x, text.var = TRUE, ...)
 }
 \arguments{
 \item{x}{A \code{\link[base]{data.frame}} or character vector with runs.}
 
 \item{text.var}{The name of the text variable with runs. If \code{TRUE}
 \code{split_word} tries to detect the text column with runs.}
-
-\item{as.tibble}{logical.  If \code{TRUE} the output class will be set to a
-\pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
-checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
-the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
-to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
-\code{\link[data.table]{data.table}}.}
 
 \item{\ldots}{Ignored.}
 }

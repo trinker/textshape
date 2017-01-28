@@ -57,8 +57,8 @@ bind_list <- function(x, id.name= "id", content.name = "content", ...){
 
 
 bind_list_df <- function (x, id.name = "id"){
-    if (is.null(x)) {
-        names(x) <- paste0("L", pad(1:length(x)))
+    if (is.null(names(x))) {
+        names(x) <- seq_along(x)
     }
     list.names <- rep(names(x), sapply(x, nrow))
     out <- data.frame(list.names, do.call(rbind, x),

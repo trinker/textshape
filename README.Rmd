@@ -202,7 +202,7 @@ combine(x)
 #### A Dataframe
 
 ```{r}
-(dat <- split_sentence(DATA, as.tibble = FALSE))
+(dat <- split_sentence(DATA))
 combine(dat[, 1:5, with=FALSE])
 ```
 

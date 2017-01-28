@@ -4,8 +4,7 @@
 \alias{tidy_table}
 \title{Tidy a Table: Bind Its Values with Its Names}
 \usage{
-tidy_table(x, id.name = "id", content.name = "content",
-  as.tibble = tibble_output(), ...)
+tidy_table(x, id.name = "id", content.name = "content", ...)
 }
 \arguments{
 \item{x}{A \code{\link[base]{table}}.}
@@ -15,13 +14,6 @@ tidy_table(x, id.name = "id", content.name = "content",
 
 \item{content.name}{The name to use for the column created from the \code{\link[base]{table}}
 values.}
-
-\item{as.tibble}{logical.  If \code{TRUE} the output class will be set to a
-\pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
-checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
-the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
-to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
-\code{\link[data.table]{data.table}}.}
 
 \item{\ldots}{ignored.}
 }

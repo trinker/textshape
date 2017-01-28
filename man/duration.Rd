@@ -13,8 +13,7 @@ duration(x, ...)
 
 \method{duration}{default}(x, grouping.var = NULL, ...)
 
-\method{duration}{data.frame}(x, text.var = TRUE,
-  as.tibble = tibble_output(), ...)
+\method{duration}{data.frame}(x, text.var = TRUE, ...)
 
 \method{duration}{numeric}(x, ...)
 
@@ -33,18 +32,10 @@ of 1 or more grouping variables.}
 \item{text.var}{The name of the text variable.  If \code{TRUE}
 \code{duration} tries to detect the text column.}
 
-\item{as.tibble}{logical.  If \code{TRUE} the output class will be set to a
-\pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
-checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
-the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
-to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
-\code{\link[data.table]{data.table}}.}
-
 \item{\ldots}{Ignored.}
 }
 \value{
-Returns a list of vectors of tokens or an expanded
-\code{\link[data.table]{data.table}} with tokens split apart.
+Returns a vector or data frame of starts and/or ends.
 }
 \description{
 \code{duration} - Calculate duration (start and end times) for duration of turns

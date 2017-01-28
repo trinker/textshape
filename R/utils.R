@@ -153,18 +153,18 @@ sprintf_ish <- function(x, padding, type){
     }
 }
 
-## check if dplyr is loaded (used in tibble_output function)
-is_dplyr_loaded <- function() 'dplyr' %in% names(utils::sessionInfo()[["otherPkgs"]])
-
-## convert a data.table to tibble
-set_tibble <- function(x, ...){
-    stopifnot(is.data.frame(x))
-    class(x) <- c("tbl_df", "tbl", "data.frame")
-    x
-}
-
-if_tibble <- function(x, as.tibble, ...){
-    if(!isTRUE(as.tibble)) return(x)
-    set_tibble(x)
-}
+# ## check if dplyr is loaded (used in tibble_output function)
+# is_dplyr_loaded <- function() 'dplyr' %in% names(utils::sessionInfo()[["otherPkgs"]])
+#
+# ## convert a data.table to tibble
+# set_tibble <- function(x, ...){
+#     stopifnot(is.data.frame(x))
+#     class(x) <- c("tbl_df", "tbl", "data.frame")
+#     x
+# }
+#
+# if_tibble <- function(x, as.tibble, ...){
+#     if(!isTRUE(as.tibble)) return(x)
+#     set_tibble(x)
+# }
 

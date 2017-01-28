@@ -7,12 +7,6 @@
 #' @param x A transcript style vector (e.g., \code{c("greg: Who me", "sarah: yes you!")}.
 #' @param delim The delimiter to split on.
 #' @param colnames The column names to use for the \code{\link[data.table]{data.table}} output.
-#' @param as.tibble logical.  If \code{TRUE} the output class will be set to a
-#' \pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
-#' checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
-#' the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
-#' to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
-#' \code{\link[data.table]{data.table}}.
 #' @param \ldots Ignored.
 #' @return Returns a 2 column \code{\link[data.table]{data.table}}.
 #' @export
@@ -42,12 +36,12 @@
 #' })
 #' }
 split_transcript <- function(x, delim = ":", colnames = c("person", "dialogue"),
-    as.tibble = tibble_output(), ...){
+    ...){
 
     V1 <- V2 <- NULL
     x <- sub(delim, "textshapesplithere", x)
     dat <- data.table::data.table(do.call(rbind,strsplit(x , "textshapesplithere")))[, V1 := trimws(V1)
         ][,V2 := trimws(V2)][]
     data.table::setnames(dat, c("V1", "V2"), colnames)
-    if_tibble(dat, as.tibble = as.tibble)
+    dat
 }

@@ -5,8 +5,7 @@
 \title{Break Text Into Ordered Word Chunks}
 \usage{
 split_portion(text.var, grouping.var = NULL, n.words, n.chunks,
-  as.string = TRUE, rm.unequal = FALSE, as.table = TRUE,
-  as.tibble = tibble_output(), ...)
+  as.string = TRUE, rm.unequal = FALSE, as.table = TRUE, ...)
 }
 \arguments{
 \item{text.var}{The text variable}
@@ -29,13 +28,6 @@ length to the other chunks are removed.}
 
 \item{as.table}{logical.  If \code{TRUE} the list output is coerced to
 \code{\link[data.table]{data.table}} or \pkg{tibble}.}
-
-\item{as.tibble}{logical.  If \code{TRUE} the output class will be set to a
-\pkg{tibble}, otherwise a \code{\link[data.table]{data.table}}.  Default
-checks \code{getOption("tibble.out")} as a logical.  If this is \code{NULL}
-the default \code{\link[textshape]{tibble_output}} will set \code{as.tibble}
-to \code{TRUE} if \pkg{dplyr} is loaded.  Otherwise, the output will be a
-\code{\link[data.table]{data.table}}.}
 
 \item{\ldots}{Ignored.}
 }
