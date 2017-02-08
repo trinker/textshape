@@ -2,9 +2,10 @@
 % Please edit documentation in R/tidy_list.R
 \name{tidy_list}
 \alias{tidy_list}
-\title{Tidy a List of Named Dataframes or Vectors}
+\title{Tidy a List of Named Dataframes or Named Vectors or Vectors}
 \usage{
-tidy_list(x, id.name = "id", content.name = "content", ...)
+tidy_list(x, id.name = "id", content.name = "content",
+  content.attribute.name = "attribute", ...)
 }
 \arguments{
 \item{x}{A named \code{\link[base]{list}} of
@@ -13,7 +14,11 @@ tidy_list(x, id.name = "id", content.name = "content", ...)
 \item{id.name}{The name to use for the column created from the \code{\link[base]{list}}.}
 
 \item{content.name}{The name to use for the column created from the \code{\link[base]{list}}
-of \code{\link[base]{vector}}s (only used if \code{x} is  \code{\link[base]{vector}}).}
+of \code{\link[base]{vector}}s (only used if \code{x} is \code{\link[base]{vector}}).}
+
+\item{content.attribute.name}{The name to use for the column created from the
+\code{\link[base]{list}} of names given to the \code{\link[base]{vector}}s
+(only used if \code{x} is named \code{\link[base]{vector}}).}
 
 \item{\ldots}{Ignored.}
 }
@@ -30,6 +35,17 @@ from the \code{\link[base]{list}} as an \code{id} column.
 \examples{
 tidy_list(list(p=1:500, r=letters))
 tidy_list(list(p=mtcars, r=mtcars, z=mtcars, d=mtcars))
+
+x <- list(
+    a = setNames(c(1:4), LETTERS[1:4]),
+    b = setNames(c(7:9), LETTERS[7:9]),
+    c = setNames(c(10:15), LETTERS[10:15]),
+    d = c(x=4, y=6, 4),
+    e = setNames(1:10, sample(state.abb, 10, TRUE)),
+    f = setNames(1:10, sample(month.abb, 10, TRUE))
+)
+
+tidy_list(x)
 
 \dontrun{
 ## 2015 Vice-Presidential Debates Example

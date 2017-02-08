@@ -31,6 +31,9 @@ NEW FEATURES
   easily within a pipeline.  This is useful when turning a `data.frame` into a
   `matrix`.
 
+* `tidy_list` picks up the ability to tidy a list of named vectors into three
+  columns.
+
 MINOR FEATURES
 
 IMPROVEMENTS
