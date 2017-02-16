@@ -25,6 +25,10 @@ textshape 1.0.2 -
 * `tidy_list` with a list of unnamed `data.frame`s resulted in an error (see
   <a href="https://github.com/trinker/textshape/issues/7">issue #7</a>).  This issue has been fixed.
 
+* `split_word.data.frame` and `split_token.data.frame` both used an incorrect
+  column naming of `sentence_id` for word and token index respectively.  These
+  columns are now renamed to `word_id` and `token_id` respectively.
+
 **NEW FEATURES**
 
 * `column_to_rownames` added to enable one to quickly add a column as rownames

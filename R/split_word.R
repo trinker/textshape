@@ -64,6 +64,6 @@ split_word.data.frame <- function(x, text.var = TRUE, lower = TRUE, ...) {
 
     express2 <- parse(text=paste0(".(", text.var, "=unlist(", text.var, "))"))
     z <- z[, eval(express2), by = c(colnames(z)[!colnames(z) %in% text.var])][, c(nms, "element_id"), with = FALSE]
-    z[, 'sentence_id' := 1:.N, by = list(element_id)][]
+    z[, 'word_id' := 1:.N, by = list(element_id)][]
 
 }
