@@ -38,7 +38,7 @@ split_token.default <- function(x, lower = TRUE, ...) {
     if (lower) {
         x <- stringi::stri_trans_tolower(x)
     }
-    stringi::stri_split_regex(x, "(\\s+)|(?!('|^))(?=[[:punct:]])")
+    stringi::stri_split_regex(x, "(\\s+)|(?!('|^))(?=(\\||[[:punct:]]))")
 }
 
 #' @export
