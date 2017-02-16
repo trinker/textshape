@@ -29,8 +29,7 @@ textshape 1.0.2 -
   column naming of `sentence_id` for word and token index respectively.  These
   columns are now renamed to `word_id` and `token_id` respectively.
 
-* `split_token` used a regex that extracted an empty space (i.e., "") as token
-  when a punctuation mark led the string.
+* `split_token` gets a more robust splitting algorithm.
 
 **NEW FEATURES**
 
