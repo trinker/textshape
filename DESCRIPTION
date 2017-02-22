@@ -11,7 +11,7 @@ Description: Tools that can be used to reshape and restructure text
 Depends: R (>= 3.2.2)
 Imports: data.table, slam, stringi, utils
 Suggests: testthat
-Date: 2017-02-15
+Date: 2017-02-21
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

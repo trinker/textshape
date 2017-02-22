@@ -17,7 +17,7 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-textshape 1.0.2 -
+textshape 1.0.2
 ----------------------------------------------------------------
 
 BUG FIXES
@@ -39,10 +39,6 @@ NEW FEATURES
 
 * `tidy_list` picks up the ability to tidy a list of named vectors into three
   columns.
-
-MINOR FEATURES
-
-IMPROVEMENTS
 
 CHANGES
 

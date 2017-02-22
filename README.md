@@ -67,114 +67,114 @@ Most of the functions split, expand, or tidy a `vector`, `list`,
 `mtabulate` functions are notable exceptions. The table below describes
 the functions and their use:
 
-<table style="width:160%;">
+<table style="width:100%;">
 <colgroup>
-<col width="26%" />
-<col width="45%" />
-<col width="87%" />
+<col width="16%" />
+<col width="28%" />
+<col width="54%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Function</th>
-<th align="left">Used On</th>
-<th align="left">Description</th>
+<th>Function</th>
+<th>Used On</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>combine</code></td>
-<td align="left"><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
-<td align="left">Combine and collapse elements</td>
+<td><code>combine</code></td>
+<td><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
+<td>Combine and collapse elements</td>
 </tr>
 <tr class="even">
-<td align="left"><code>tidy_list</code></td>
-<td align="left"><code>list</code> of <code>vector</code>s or <code>data.frame</code>s</td>
-<td align="left">Row bind a list and repeat list names as id column</td>
+<td><code>tidy_list</code></td>
+<td><code>list</code> of <code>vector</code>s or <code>data.frame</code>s</td>
+<td>Row bind a list and repeat list names as id column</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>tidy_vector</code></td>
-<td align="left"><code>vector</code></td>
-<td align="left">Column bind a named atomic <code>vector</code>'s names and values</td>
+<td><code>tidy_vector</code></td>
+<td><code>vector</code></td>
+<td>Column bind a named atomic <code>vector</code>'s names and values</td>
 </tr>
 <tr class="even">
-<td align="left"><code>tidy_table</code></td>
-<td align="left"><code>table</code></td>
-<td align="left">Column bind a <code>table</code>'s names and values</td>
+<td><code>tidy_table</code></td>
+<td><code>table</code></td>
+<td>Column bind a <code>table</code>'s names and values</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>tidy_dtm</code>/<code>tidy_tdm</code></td>
-<td align="left"><code>DocumentTermMatrix</code></td>
-<td align="left">Tidy format <code>DocumentTermMatrix</code>/<code>TermDocumentMatrix</code></td>
+<td><code>tidy_dtm</code>/<code>tidy_tdm</code></td>
+<td><code>DocumentTermMatrix</code></td>
+<td>Tidy format <code>DocumentTermMatrix</code>/<code>TermDocumentMatrix</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>tidy_colo_dtm</code>/<code>tidy_colo_tdm</code></td>
-<td align="left"><code>DocumentTermMatrix</code></td>
-<td align="left">Tidy format of collocating words from a <code>DocumentTermMatrix</code>/<code>TermDocumentMatrix</code></td>
+<td><code>tidy_colo_dtm</code>/<code>tidy_colo_tdm</code></td>
+<td><code>DocumentTermMatrix</code></td>
+<td>Tidy format of collocating words from a <code>DocumentTermMatrix</code>/<code>TermDocumentMatrix</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>duration</code></td>
-<td align="left"><code>vector</code>, <code>data.frame</code></td>
-<td align="left">Get duration (start-end times) for turns of talk in n words</td>
+<td><code>duration</code></td>
+<td><code>vector</code>, <code>data.frame</code></td>
+<td>Get duration (start-end times) for turns of talk in n words</td>
 </tr>
 <tr class="even">
-<td align="left"><code>from_to</code></td>
-<td align="left"><code>vector</code>, <code>data.frame</code></td>
-<td align="left">Prepare speaker data for a flow network</td>
+<td><code>from_to</code></td>
+<td><code>vector</code>, <code>data.frame</code></td>
+<td>Prepare speaker data for a flow network</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>mtabulate</code></td>
-<td align="left"><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
-<td align="left">Dataframe/list version of <code>tabulate</code> to produce count matrix</td>
+<td><code>mtabulate</code></td>
+<td><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
+<td>Dataframe/list version of <code>tabulate</code> to produce count matrix</td>
 </tr>
 <tr class="even">
-<td align="left"><code>split_index</code></td>
-<td align="left"><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
-<td align="left">Split at specified indices</td>
+<td><code>split_index</code></td>
+<td><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
+<td>Split at specified indices</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>split_match</code></td>
-<td align="left"><code>vector</code></td>
-<td align="left">Split vector at specified character/regex match</td>
+<td><code>split_match</code></td>
+<td><code>vector</code></td>
+<td>Split vector at specified character/regex match</td>
 </tr>
 <tr class="even">
-<td align="left"><code>split_portion</code></td>
-<td align="left"><code>vector</code>*</td>
-<td align="left">Split data into portioned chunks</td>
+<td><code>split_portion</code></td>
+<td><code>vector</code>*</td>
+<td>Split data into portioned chunks</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>split_run</code></td>
-<td align="left"><code>vector</code>, <code>data.frame</code></td>
-<td align="left">Split runs (e.g., &quot;aaabbbbcdddd&quot;)</td>
+<td><code>split_run</code></td>
+<td><code>vector</code>, <code>data.frame</code></td>
+<td>Split runs (e.g., &quot;aaabbbbcdddd&quot;)</td>
 </tr>
 <tr class="even">
-<td align="left"><code>split_sentence</code></td>
-<td align="left"><code>vector</code>, <code>data.frame</code></td>
-<td align="left">Split sentences</td>
+<td><code>split_sentence</code></td>
+<td><code>vector</code>, <code>data.frame</code></td>
+<td>Split sentences</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>split_speaker</code></td>
-<td align="left"><code>data.frame</code></td>
-<td align="left">Split combined speakers (e.g., &quot;Josh, Jake, Jim&quot;)</td>
+<td><code>split_speaker</code></td>
+<td><code>data.frame</code></td>
+<td>Split combined speakers (e.g., &quot;Josh, Jake, Jim&quot;)</td>
 </tr>
 <tr class="even">
-<td align="left"><code>split_token</code></td>
-<td align="left"><code>vector</code>, <code>data.frame</code></td>
-<td align="left">Split words and punctuation</td>
+<td><code>split_token</code></td>
+<td><code>vector</code>, <code>data.frame</code></td>
+<td>Split words and punctuation</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>split_transcript</code></td>
-<td align="left"><code>vector</code></td>
-<td align="left">Split speaker and dialogue (e.g., &quot;greg: Who me&quot;)</td>
+<td><code>split_transcript</code></td>
+<td><code>vector</code></td>
+<td>Split speaker and dialogue (e.g., &quot;greg: Who me&quot;)</td>
 </tr>
 <tr class="even">
-<td align="left"><code>split_word</code></td>
-<td align="left"><code>vector</code>, <code>data.frame</code></td>
-<td align="left">Split words</td>
+<td><code>split_word</code></td>
+<td><code>vector</code>, <code>data.frame</code></td>
+<td>Split words</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>column_to_rownames</code></td>
-<td align="left"><code>data.frame</code></td>
-<td align="left">Add a column as rownames</td>
+<td><code>column_to_rownames</code></td>
+<td><code>data.frame</code></td>
+<td>Add a column as rownames</td>
 </tr>
 </tbody>
 </table>
@@ -286,17 +286,17 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_vector(x)
 
     ##               id content
-    ##    1:     Alaska       B
-    ##    2:     Alaska       F
-    ##    3: California       F
-    ##    4:    Alabama       E
-    ##    5:    Arizona       E
+    ##    1: California       C
+    ##    2:    Alabama       D
+    ##    3:    Alabama       F
+    ##    4:     Alaska       F
+    ##    5: California       B
     ##   ---                   
-    ##  996: California       B
-    ##  997: California       A
-    ##  998:   Arkansas       A
-    ##  999:    Arizona       E
-    ## 1000:    Alabama       A
+    ##  996:    Alabama       F
+    ##  997:    Alabama       C
+    ##  998: California       E
+    ##  999:    Alabama       A
+    ## 1000:    Arizona       B
 
 #### A Table
 
@@ -304,12 +304,12 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     177
-    ## 2:  B     159
-    ## 3:  C     165
-    ## 4:  D     176
-    ## 5:  E     156
-    ## 6:  F     167
+    ## 1:  A     171
+    ## 2:  B     167
+    ## 3:  C     178
+    ## 4:  D     155
+    ## 5:  E     169
+    ## 6:  F     160
 
 #### A DocumentTermMatrix
 
@@ -338,7 +338,7 @@ or `TermDocumentMatrix` into a tidied data set.
             facet_wrap(~time, ncol=2, scales = 'free_y') +
             scale_y_discrete(labels = function(x) gsub("__.+$", "", x))
 
-    ## # A tibble: 42,057 x 7
+    ## # A tibble: 42,057 × 7
     ##     time  turn sentence         term     n     i     j
     ##    <dbl> <dbl>    <dbl>        <chr> <dbl> <int> <int>
     ## 1      1     1        1        we'll     1     1     1
@@ -491,28 +491,28 @@ counts.
 
     ##    X1 X2 X3
     ## 1   A  A  A
-    ## 2   B  A  B
-    ## 3   A  A  B
-    ## 4   B  A  B
-    ## 5   B  A  B
+    ## 2   A  A  A
+    ## 3   A  A  A
+    ## 4   A  A  B
+    ## 5   B  A  A
     ## 6   B  B  A
-    ## 7   B  B  B
-    ## 8   B  A  B
-    ## 9   A  A  A
-    ## 10  B  B  B
+    ## 7   A  A  B
+    ## 8   A  A  A
+    ## 9   B  B  B
+    ## 10  A  A  A
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 3 7
-    ## X2 7 3
-    ## X3 3 7
+    ## X1 7 3
+    ## X2 8 2
+    ## X3 7 3
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  3  7  3
-    ## B  7  3  7
+    ## A  7  8  7
+    ## B  3  2  3
 
 Spanning
 --------
@@ -1208,78 +1208,78 @@ The `split_token` function split data into words and punctuation.
 
      split_token(DATA)
 
-    ##         person sex adult    state code element_id sentence_id
-    ##  1:        sam   m     0 computer   K1          1           1
-    ##  2:        sam   m     0       is   K1          1           2
-    ##  3:        sam   m     0      fun   K1          1           3
-    ##  4:        sam   m     0        .   K1          1           4
-    ##  5:        sam   m     0      not   K1          1           5
-    ##  6:        sam   m     0      too   K1          1           6
-    ##  7:        sam   m     0      fun   K1          1           7
-    ##  8:        sam   m     0        .   K1          1           8
-    ##  9:       greg   m     0       no   K2          2           1
-    ## 10:       greg   m     0     it's   K2          2           2
-    ## 11:       greg   m     0      not   K2          2           3
-    ## 12:       greg   m     0        ,   K2          2           4
-    ## 13:       greg   m     0     it's   K2          2           5
-    ## 14:       greg   m     0     dumb   K2          2           6
-    ## 15:       greg   m     0        .   K2          2           7
-    ## 16:    teacher   m     1     what   K3          3           1
-    ## 17:    teacher   m     1   should   K3          3           2
-    ## 18:    teacher   m     1       we   K3          3           3
-    ## 19:    teacher   m     1       do   K3          3           4
-    ## 20:    teacher   m     1        ?   K3          3           5
-    ## 21:        sam   m     0      you   K4          4           1
-    ## 22:        sam   m     0     liar   K4          4           2
-    ## 23:        sam   m     0        ,   K4          4           3
-    ## 24:        sam   m     0       it   K4          4           4
-    ## 25:        sam   m     0   stinks   K4          4           5
-    ## 26:        sam   m     0        !   K4          4           6
-    ## 27:       greg   m     0        i   K5          5           1
-    ## 28:       greg   m     0       am   K5          5           2
-    ## 29:       greg   m     0  telling   K5          5           3
-    ## 30:       greg   m     0      the   K5          5           4
-    ## 31:       greg   m     0    truth   K5          5           5
-    ## 32:       greg   m     0        !   K5          5           6
-    ## 33:      sally   f     0      how   K6          6           1
-    ## 34:      sally   f     0      can   K6          6           2
-    ## 35:      sally   f     0       we   K6          6           3
-    ## 36:      sally   f     0       be   K6          6           4
-    ## 37:      sally   f     0  certain   K6          6           5
-    ## 38:      sally   f     0        ?   K6          6           6
-    ## 39:       greg   m     0    there   K7          7           1
-    ## 40:       greg   m     0       is   K7          7           2
-    ## 41:       greg   m     0       no   K7          7           3
-    ## 42:       greg   m     0      way   K7          7           4
-    ## 43:       greg   m     0        .   K7          7           5
-    ## 44:        sam   m     0        i   K8          8           1
-    ## 45:        sam   m     0 distrust   K8          8           2
-    ## 46:        sam   m     0      you   K8          8           3
-    ## 47:        sam   m     0        .   K8          8           4
-    ## 48:      sally   f     0     what   K9          9           1
-    ## 49:      sally   f     0      are   K9          9           2
-    ## 50:      sally   f     0      you   K9          9           3
-    ## 51:      sally   f     0  talking   K9          9           4
-    ## 52:      sally   f     0    about   K9          9           5
-    ## 53:      sally   f     0        ?   K9          9           6
-    ## 54: researcher   f     1    shall  K10         10           1
-    ## 55: researcher   f     1       we  K10         10           2
-    ## 56: researcher   f     1     move  K10         10           3
-    ## 57: researcher   f     1       on  K10         10           4
-    ## 58: researcher   f     1        ?  K10         10           5
-    ## 59: researcher   f     1     good  K10         10           6
-    ## 60: researcher   f     1     then  K10         10           7
-    ## 61: researcher   f     1        .  K10         10           8
-    ## 62:       greg   m     0      i'm  K11         11           1
-    ## 63:       greg   m     0   hungry  K11         11           2
-    ## 64:       greg   m     0        .  K11         11           3
-    ## 65:       greg   m     0    let's  K11         11           4
-    ## 66:       greg   m     0      eat  K11         11           5
-    ## 67:       greg   m     0        .  K11         11           6
-    ## 68:       greg   m     0      you  K11         11           7
-    ## 69:       greg   m     0  already  K11         11           8
-    ## 70:       greg   m     0        ?  K11         11           9
-    ##         person sex adult    state code element_id sentence_id
+    ##         person sex adult    state code element_id token_id
+    ##  1:        sam   m     0 computer   K1          1        1
+    ##  2:        sam   m     0       is   K1          1        2
+    ##  3:        sam   m     0      fun   K1          1        3
+    ##  4:        sam   m     0        .   K1          1        4
+    ##  5:        sam   m     0      not   K1          1        5
+    ##  6:        sam   m     0      too   K1          1        6
+    ##  7:        sam   m     0      fun   K1          1        7
+    ##  8:        sam   m     0        .   K1          1        8
+    ##  9:       greg   m     0       no   K2          2        1
+    ## 10:       greg   m     0     it's   K2          2        2
+    ## 11:       greg   m     0      not   K2          2        3
+    ## 12:       greg   m     0        ,   K2          2        4
+    ## 13:       greg   m     0     it's   K2          2        5
+    ## 14:       greg   m     0     dumb   K2          2        6
+    ## 15:       greg   m     0        .   K2          2        7
+    ## 16:    teacher   m     1     what   K3          3        1
+    ## 17:    teacher   m     1   should   K3          3        2
+    ## 18:    teacher   m     1       we   K3          3        3
+    ## 19:    teacher   m     1       do   K3          3        4
+    ## 20:    teacher   m     1        ?   K3          3        5
+    ## 21:        sam   m     0      you   K4          4        1
+    ## 22:        sam   m     0     liar   K4          4        2
+    ## 23:        sam   m     0        ,   K4          4        3
+    ## 24:        sam   m     0       it   K4          4        4
+    ## 25:        sam   m     0   stinks   K4          4        5
+    ## 26:        sam   m     0        !   K4          4        6
+    ## 27:       greg   m     0        i   K5          5        1
+    ## 28:       greg   m     0       am   K5          5        2
+    ## 29:       greg   m     0  telling   K5          5        3
+    ## 30:       greg   m     0      the   K5          5        4
+    ## 31:       greg   m     0    truth   K5          5        5
+    ## 32:       greg   m     0        !   K5          5        6
+    ## 33:      sally   f     0      how   K6          6        1
+    ## 34:      sally   f     0      can   K6          6        2
+    ## 35:      sally   f     0       we   K6          6        3
+    ## 36:      sally   f     0       be   K6          6        4
+    ## 37:      sally   f     0  certain   K6          6        5
+    ## 38:      sally   f     0        ?   K6          6        6
+    ## 39:       greg   m     0    there   K7          7        1
+    ## 40:       greg   m     0       is   K7          7        2
+    ## 41:       greg   m     0       no   K7          7        3
+    ## 42:       greg   m     0      way   K7          7        4
+    ## 43:       greg   m     0        .   K7          7        5
+    ## 44:        sam   m     0        i   K8          8        1
+    ## 45:        sam   m     0 distrust   K8          8        2
+    ## 46:        sam   m     0      you   K8          8        3
+    ## 47:        sam   m     0        .   K8          8        4
+    ## 48:      sally   f     0     what   K9          9        1
+    ## 49:      sally   f     0      are   K9          9        2
+    ## 50:      sally   f     0      you   K9          9        3
+    ## 51:      sally   f     0  talking   K9          9        4
+    ## 52:      sally   f     0    about   K9          9        5
+    ## 53:      sally   f     0        ?   K9          9        6
+    ## 54: researcher   f     1    shall  K10         10        1
+    ## 55: researcher   f     1       we  K10         10        2
+    ## 56: researcher   f     1     move  K10         10        3
+    ## 57: researcher   f     1       on  K10         10        4
+    ## 58: researcher   f     1        ?  K10         10        5
+    ## 59: researcher   f     1     good  K10         10        6
+    ## 60: researcher   f     1     then  K10         10        7
+    ## 61: researcher   f     1        .  K10         10        8
+    ## 62:       greg   m     0      i'm  K11         11        1
+    ## 63:       greg   m     0   hungry  K11         11        2
+    ## 64:       greg   m     0        .  K11         11        3
+    ## 65:       greg   m     0    let's  K11         11        4
+    ## 66:       greg   m     0      eat  K11         11        5
+    ## 67:       greg   m     0        .  K11         11        6
+    ## 68:       greg   m     0      you  K11         11        7
+    ## 69:       greg   m     0  already  K11         11        8
+    ## 70:       greg   m     0        ?  K11         11        9
+    ##         person sex adult    state code element_id token_id
 
 ### Transcript
 
@@ -1349,61 +1349,61 @@ The `split_word` function splits data into words.
 
      split_word(DATA)
 
-    ##         person sex adult    state code element_id sentence_id
-    ##  1:        sam   m     0 computer   K1          1           1
-    ##  2:        sam   m     0       is   K1          1           2
-    ##  3:        sam   m     0      fun   K1          1           3
-    ##  4:        sam   m     0      not   K1          1           4
-    ##  5:        sam   m     0      too   K1          1           5
-    ##  6:        sam   m     0      fun   K1          1           6
-    ##  7:       greg   m     0       no   K2          2           1
-    ##  8:       greg   m     0     it's   K2          2           2
-    ##  9:       greg   m     0      not   K2          2           3
-    ## 10:       greg   m     0     it's   K2          2           4
-    ## 11:       greg   m     0     dumb   K2          2           5
-    ## 12:    teacher   m     1     what   K3          3           1
-    ## 13:    teacher   m     1   should   K3          3           2
-    ## 14:    teacher   m     1       we   K3          3           3
-    ## 15:    teacher   m     1       do   K3          3           4
-    ## 16:        sam   m     0      you   K4          4           1
-    ## 17:        sam   m     0     liar   K4          4           2
-    ## 18:        sam   m     0       it   K4          4           3
-    ## 19:        sam   m     0   stinks   K4          4           4
-    ## 20:       greg   m     0        i   K5          5           1
-    ## 21:       greg   m     0       am   K5          5           2
-    ## 22:       greg   m     0  telling   K5          5           3
-    ## 23:       greg   m     0      the   K5          5           4
-    ## 24:       greg   m     0    truth   K5          5           5
-    ## 25:      sally   f     0      how   K6          6           1
-    ## 26:      sally   f     0      can   K6          6           2
-    ## 27:      sally   f     0       we   K6          6           3
-    ## 28:      sally   f     0       be   K6          6           4
-    ## 29:      sally   f     0  certain   K6          6           5
-    ## 30:       greg   m     0    there   K7          7           1
-    ## 31:       greg   m     0       is   K7          7           2
-    ## 32:       greg   m     0       no   K7          7           3
-    ## 33:       greg   m     0      way   K7          7           4
-    ## 34:        sam   m     0        i   K8          8           1
-    ## 35:        sam   m     0 distrust   K8          8           2
-    ## 36:        sam   m     0      you   K8          8           3
-    ## 37:      sally   f     0     what   K9          9           1
-    ## 38:      sally   f     0      are   K9          9           2
-    ## 39:      sally   f     0      you   K9          9           3
-    ## 40:      sally   f     0  talking   K9          9           4
-    ## 41:      sally   f     0    about   K9          9           5
-    ## 42: researcher   f     1    shall  K10         10           1
-    ## 43: researcher   f     1       we  K10         10           2
-    ## 44: researcher   f     1     move  K10         10           3
-    ## 45: researcher   f     1       on  K10         10           4
-    ## 46: researcher   f     1     good  K10         10           5
-    ## 47: researcher   f     1     then  K10         10           6
-    ## 48:       greg   m     0      i'm  K11         11           1
-    ## 49:       greg   m     0   hungry  K11         11           2
-    ## 50:       greg   m     0    let's  K11         11           3
-    ## 51:       greg   m     0      eat  K11         11           4
-    ## 52:       greg   m     0      you  K11         11           5
-    ## 53:       greg   m     0  already  K11         11           6
-    ##         person sex adult    state code element_id sentence_id
+    ##         person sex adult    state code element_id word_id
+    ##  1:        sam   m     0 computer   K1          1       1
+    ##  2:        sam   m     0       is   K1          1       2
+    ##  3:        sam   m     0      fun   K1          1       3
+    ##  4:        sam   m     0      not   K1          1       4
+    ##  5:        sam   m     0      too   K1          1       5
+    ##  6:        sam   m     0      fun   K1          1       6
+    ##  7:       greg   m     0       no   K2          2       1
+    ##  8:       greg   m     0     it's   K2          2       2
+    ##  9:       greg   m     0      not   K2          2       3
+    ## 10:       greg   m     0     it's   K2          2       4
+    ## 11:       greg   m     0     dumb   K2          2       5
+    ## 12:    teacher   m     1     what   K3          3       1
+    ## 13:    teacher   m     1   should   K3          3       2
+    ## 14:    teacher   m     1       we   K3          3       3
+    ## 15:    teacher   m     1       do   K3          3       4
+    ## 16:        sam   m     0      you   K4          4       1
+    ## 17:        sam   m     0     liar   K4          4       2
+    ## 18:        sam   m     0       it   K4          4       3
+    ## 19:        sam   m     0   stinks   K4          4       4
+    ## 20:       greg   m     0        i   K5          5       1
+    ## 21:       greg   m     0       am   K5          5       2
+    ## 22:       greg   m     0  telling   K5          5       3
+    ## 23:       greg   m     0      the   K5          5       4
+    ## 24:       greg   m     0    truth   K5          5       5
+    ## 25:      sally   f     0      how   K6          6       1
+    ## 26:      sally   f     0      can   K6          6       2
+    ## 27:      sally   f     0       we   K6          6       3
+    ## 28:      sally   f     0       be   K6          6       4
+    ## 29:      sally   f     0  certain   K6          6       5
+    ## 30:       greg   m     0    there   K7          7       1
+    ## 31:       greg   m     0       is   K7          7       2
+    ## 32:       greg   m     0       no   K7          7       3
+    ## 33:       greg   m     0      way   K7          7       4
+    ## 34:        sam   m     0        i   K8          8       1
+    ## 35:        sam   m     0 distrust   K8          8       2
+    ## 36:        sam   m     0      you   K8          8       3
+    ## 37:      sally   f     0     what   K9          9       1
+    ## 38:      sally   f     0      are   K9          9       2
+    ## 39:      sally   f     0      you   K9          9       3
+    ## 40:      sally   f     0  talking   K9          9       4
+    ## 41:      sally   f     0    about   K9          9       5
+    ## 42: researcher   f     1    shall  K10         10       1
+    ## 43: researcher   f     1       we  K10         10       2
+    ## 44: researcher   f     1     move  K10         10       3
+    ## 45: researcher   f     1       on  K10         10       4
+    ## 46: researcher   f     1     good  K10         10       5
+    ## 47: researcher   f     1     then  K10         10       6
+    ## 48:       greg   m     0      i'm  K11         11       1
+    ## 49:       greg   m     0   hungry  K11         11       2
+    ## 50:       greg   m     0    let's  K11         11       3
+    ## 51:       greg   m     0      eat  K11         11       4
+    ## 52:       greg   m     0      you  K11         11       5
+    ## 53:       greg   m     0  already  K11         11       6
+    ##         person sex adult    state code element_id word_id
 
 Putting It Together
 -------------------
