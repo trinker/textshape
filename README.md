@@ -10,7 +10,7 @@ Status](https://travis-ci.org/trinker/textshape.svg?branch=master)](https://trav
 [![Coverage
 Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/r/trinker/textshape?branch=master)
 [![](http://cranlogs.r-pkg.org/badges/textshape)](https://cran.r-project.org/package=textshape)
-<a href="https://img.shields.io/badge/Version-1.0.2-orange.svg"><img src="https://img.shields.io/badge/Version-1.0.2-orange.svg" alt="Version"/></a>
+<a href="https://img.shields.io/badge/Version-1.1.0-orange.svg"><img src="https://img.shields.io/badge/Version-1.1.0-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/textshape_logo/r_textshape.png" width="200" alt="textshape Logo">
 
@@ -286,17 +286,17 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_vector(x)
 
     ##               id content
-    ##    1: California       C
-    ##    2:    Alabama       D
-    ##    3:    Alabama       F
-    ##    4:     Alaska       F
-    ##    5: California       B
+    ##    1:   Arkansas       E
+    ##    2:    Alabama       F
+    ##    3:    Alabama       E
+    ##    4: California       A
+    ##    5:    Arizona       F
     ##   ---                   
-    ##  996:    Alabama       F
-    ##  997:    Alabama       C
-    ##  998: California       E
-    ##  999:    Alabama       A
-    ## 1000:    Arizona       B
+    ##  996:     Alaska       F
+    ##  997:    Arizona       B
+    ##  998:    Alabama       D
+    ##  999:    Arizona       E
+    ## 1000:     Alaska       C
 
 #### A Table
 
@@ -304,12 +304,12 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     171
-    ## 2:  B     167
-    ## 3:  C     178
-    ## 4:  D     155
-    ## 5:  E     169
-    ## 6:  F     160
+    ## 1:  A     143
+    ## 2:  B     155
+    ## 3:  C     181
+    ## 4:  D     157
+    ## 5:  E     188
+    ## 6:  F     176
 
 #### A DocumentTermMatrix
 
@@ -490,29 +490,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  A  A
-    ## 2   A  A  A
+    ## 1   A  A  B
+    ## 2   B  B  A
     ## 3   A  A  A
-    ## 4   A  A  B
+    ## 4   B  A  B
     ## 5   B  A  A
-    ## 6   B  B  A
-    ## 7   A  A  B
-    ## 8   A  A  A
+    ## 6   A  B  A
+    ## 7   A  B  A
+    ## 8   A  B  A
     ## 9   B  B  B
-    ## 10  A  A  A
+    ## 10  B  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 7 3
-    ## X2 8 2
-    ## X3 7 3
+    ## X1 5 5
+    ## X2 4 6
+    ## X3 6 4
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  7  8  7
-    ## B  3  2  3
+    ## A  5  4  6
+    ## B  5  6  4
 
 Spanning
 --------
