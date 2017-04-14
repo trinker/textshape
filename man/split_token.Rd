@@ -2,8 +2,8 @@
 % Please edit documentation in R/split_token.R
 \name{split_token}
 \alias{split_token}
-\alias{split_token.data.frame}
 \alias{split_token.default}
+\alias{split_token.data.frame}
 \title{Split Tokens}
 \usage{
 split_token(x, ...)
@@ -45,4 +45,3 @@ split_token(DATA, lower=FALSE)
 ## Larger data set
 split_token(hamlet)
 }
-

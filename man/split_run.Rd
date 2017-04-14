@@ -2,8 +2,8 @@
 % Please edit documentation in R/split_run.R
 \name{split_run}
 \alias{split_run}
-\alias{split_run.data.frame}
 \alias{split_run.default}
+\alias{split_run.data.frame}
 \title{Split Runs}
 \usage{
 split_run(x, ...)
@@ -44,4 +44,3 @@ split_run(x)
 DATA[["run.col"]] <- x
 split_run(DATA, "run.col")
 }
-

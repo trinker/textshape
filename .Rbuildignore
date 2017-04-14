@@ -14,7 +14,9 @@ inst/build.R
 README.Rmd
 README.R
 travis.yml
-inst/textshape_logo
+tools/textshape_logo/r_textshapea.png
+tools/textshape_logo/r_textshape.pptx
+tools/textshape_logo/resize_icon.txt
 inst/staticdocs
 inst/extra_statdoc
 inst/maintenance.R

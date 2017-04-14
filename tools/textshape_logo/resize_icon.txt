@@ -1,0 +1,2 @@
+cd C:\Users\Tyler\GitHub\textshape\tools\textshape_logo
+ffmpeg -i r_textshapea.png -vf scale=150:-1 r_textshape.png

@@ -22,4 +22,3 @@ A dataset containing a simple \code{\link[tm]{DocumentTermMatrix}}.
 }
 }
 \keyword{datasets}
-

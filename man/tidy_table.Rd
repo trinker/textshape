@@ -30,4 +30,3 @@ from the \code{\link[base]{table}} as an \code{id} column.
 x <- table(sample(LETTERS[1:6], 1000, TRUE))
 tidy_table(x)
 }
-

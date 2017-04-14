@@ -2,10 +2,10 @@
 % Please edit documentation in R/from_to.R
 \name{from_to}
 \alias{from_to}
-\alias{from_to.character}
-\alias{from_to.data.frame}
 \alias{from_to.default}
+\alias{from_to.character}
 \alias{from_to.numeric}
+\alias{from_to.data.frame}
 \alias{from_to_summarize}
 \title{Prepare Discourse Data for Network Plotting}
 \usage{
@@ -80,4 +80,3 @@ dat \%>\%
         xlim(c(-0.05, 1.05))
 }
 }
-

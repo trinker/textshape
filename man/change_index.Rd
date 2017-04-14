@@ -32,4 +32,3 @@ split_index(CO2[["Plant"]], p_chng)
 \seealso{
 \code{\link[textshape]{split_index}}
 }
-

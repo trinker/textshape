@@ -58,4 +58,3 @@ with(hamlet, split_portion(dialogue, list(act, scene, person), n.words = 300))
 \keyword{chunks}
 \keyword{group}
 \keyword{text}
-

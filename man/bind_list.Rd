@@ -52,4 +52,3 @@ lapply(debates, function(x){
     textshape::bind_list("location")
 }
 }
-

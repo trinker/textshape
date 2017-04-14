@@ -1,10 +1,7 @@
 language: r
 sudo: false
 cache: packages
-r_build_args: "--resave-data=best"
-env:
-   global:
-     - DISPLAY=:99.0
+
 
 r_github_packages: jimhester/covr
 
@@ -13,3 +10,11 @@ before_install:
 
 after_success:
   - Rscript -e 'covr::coveralls()'
+
+r_build_args: "--resave-data=best"
+r_check_args: "--as-cran"
+
+env:
+   global:
+     - DISPLAY=:99.0
+     - BOOTSTRAP_LATEX=1

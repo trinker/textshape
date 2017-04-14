@@ -2,8 +2,8 @@
 % Please edit documentation in R/split_word.R
 \name{split_word}
 \alias{split_word}
-\alias{split_word.data.frame}
 \alias{split_word.default}
+\alias{split_word.data.frame}
 \title{Split Words}
 \usage{
 split_word(x, ...)
@@ -45,4 +45,3 @@ split_word(DATA, lower=FALSE)
 ## Larger data set
 split_word(hamlet)
 }
-

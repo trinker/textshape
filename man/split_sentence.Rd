@@ -2,8 +2,8 @@
 % Please edit documentation in R/split_sentence.R
 \name{split_sentence}
 \alias{split_sentence}
-\alias{split_sentence.data.frame}
 \alias{split_sentence.default}
+\alias{split_sentence.data.frame}
 \title{Split Sentences}
 \usage{
 split_sentence(x, ...)
@@ -37,4 +37,3 @@ split_sentence(x)
 data(DATA)
 split_sentence(DATA)
 }
-

@@ -2,11 +2,11 @@
 % Please edit documentation in R/duration.R
 \name{duration}
 \alias{duration}
-\alias{duration.data.frame}
 \alias{duration.default}
+\alias{duration.data.frame}
 \alias{duration.numeric}
-\alias{ends}
 \alias{starts}
+\alias{ends}
 \title{Duration of Turns of Talk}
 \usage{
 duration(x, ...)
@@ -70,4 +70,3 @@ duration(x)
 starts(x)
 ends(x)
 }
-

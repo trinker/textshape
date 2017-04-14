@@ -59,4 +59,3 @@ tidy_dtm(my_dtm) \%>\%
         scale_y_discrete(labels = function(x) gsub("__.+$", "", x))
 }
 }
-

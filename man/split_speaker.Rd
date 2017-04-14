@@ -39,4 +39,3 @@ split_speaker(DATA, sep = c(".", "_", ";"))
 DATA <- textshape::DATA  #reset DATA
 }
 }
-

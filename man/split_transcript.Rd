@@ -49,4 +49,3 @@ lapply(debates, function(x){
 })
 }
 }
-

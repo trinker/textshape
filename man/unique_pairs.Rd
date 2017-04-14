@@ -2,8 +2,8 @@
 % Please edit documentation in R/unique_pairs.R
 \name{unique_pairs}
 \alias{unique_pairs}
-\alias{unique_pairs.data.table}
 \alias{unique_pairs.default}
+\alias{unique_pairs.data.table}
 \title{Extract Only Unique Pairs of Collocating Words in \code{\link[textshape]{tidy_colo_dtm}}}
 \usage{
 unique_pairs(x, col1 = "term_1", col2 = "term_2", ...)
@@ -43,4 +43,3 @@ unique_pairs(dat)
 \seealso{
 \code{\link[textshape]{tidy_colo_dtm}}
 }
-

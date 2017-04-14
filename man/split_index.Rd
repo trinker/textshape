@@ -2,13 +2,13 @@
 % Please edit documentation in R/split_index.R
 \name{split_index}
 \alias{split_index}
-\alias{split_index.character}
-\alias{split_index.data.frame}
-\alias{split_index.default}
-\alias{split_index.factor}
 \alias{split_index.list}
+\alias{split_index.data.frame}
 \alias{split_index.matrix}
 \alias{split_index.numeric}
+\alias{split_index.factor}
+\alias{split_index.character}
+\alias{split_index.default}
 \title{Split Data Forms at Specified Indices}
 \usage{
 split_index(x, indices = if (is.atomic(x)) {     NULL } else {    
@@ -83,4 +83,3 @@ split_index(mat, c(3, 6, 10))
 \seealso{
 \code{\link[textshape]{change_index}}
 }
-

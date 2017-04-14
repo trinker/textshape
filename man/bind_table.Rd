@@ -30,4 +30,3 @@ x <- table(sample(LETTERS[1:6], 1000, TRUE))
 bind_table(x)
 }
 }
-

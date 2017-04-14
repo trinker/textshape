@@ -71,4 +71,3 @@ lapply(debates, function(x){
     textshape::tidy_list("location")
 }
 }
-

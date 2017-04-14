@@ -2,11 +2,10 @@
 % Please edit documentation in R/textshape-package.R
 \docType{package}
 \name{textshape}
-\alias{package-textshape}
 \alias{textshape}
+\alias{package-textshape}
 \alias{textshape-package}
 \title{Tools for Reshaping Text}
 \description{
 Tools that can be used to reshape and restructure text data.
 }
-

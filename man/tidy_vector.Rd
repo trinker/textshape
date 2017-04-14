@@ -30,4 +30,3 @@ with its \code{\link[base]{names}} to form \code{id} (from the names) and
 x <- setNames(sample(LETTERS[1:6], 1000, TRUE), sample(state.name[1:5], 1000, TRUE))
 tidy_vector(x)
 }
-

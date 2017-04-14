@@ -30,4 +30,3 @@ x <- setNames(sample(LETTERS[1:6], 1000, TRUE), sample(state.name[1:5], 1000, TR
 bind_vector(x)
 }
 }
-

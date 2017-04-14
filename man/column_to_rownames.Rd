@@ -28,4 +28,3 @@ state_dat <- data.frame(state.name, state.area, state.center, state.division)
 column_to_rownames(state_dat)
 column_to_rownames(state_dat, 'state.name')
 }
-

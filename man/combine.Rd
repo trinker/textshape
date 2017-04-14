@@ -2,8 +2,8 @@
 % Please edit documentation in R/combine.R
 \name{combine}
 \alias{combine}
-\alias{combine.data.frame}
 \alias{combine.default}
+\alias{combine.data.frame}
 \title{Combine Elements}
 \usage{
 combine(x, ...)
@@ -47,4 +47,3 @@ combine(x3)
 ## Dropping the non-group variable column
 combine(x3[, 1:5, with=FALSE])
 }
-
