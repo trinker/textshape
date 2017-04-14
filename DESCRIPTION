@@ -7,7 +7,7 @@ Authors@R: c(person("Tyler", "Rinker", email =
         "Flickinger", role = "ctb"))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
 Description: Tools that can be used to reshape and restructure text data.
-Depends: R (>= 3.2.2)
+Depends: R (>= 3.3.2)
 Imports: data.table, slam, stringi, utils
 Suggests: testthat
 Date: 2017-04-14
