@@ -6,8 +6,7 @@ Authors@R: c(person("Tyler", "Rinker", email =
         person("Joran", "Elias", role = "ctb"), person("Matthew",
         "Flickinger", role = "ctb"))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
-Description: Tools that can be used to reshape and restructure text
-        data.
+Description: Tools that can be used to reshape and restructure text data.
 Depends: R (>= 3.2.2)
 Imports: data.table, slam, stringi, utils
 Suggests: testthat
