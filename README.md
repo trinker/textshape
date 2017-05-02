@@ -1,4 +1,4 @@
-textshape   [![Follow](https://img.shields.io/twitter/follow/tylerrinker.svg?style=social)](https://twitter.com/intent/follow?screen_name=tylerrinker)
+textshape   
 ============
 
 
@@ -10,8 +10,6 @@ Status](https://travis-ci.org/trinker/textshape.svg?branch=master)](https://trav
 [![Coverage
 Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/r/trinker/textshape?branch=master)
 [![](http://cranlogs.r-pkg.org/badges/textshape)](https://cran.r-project.org/package=textshape)
-<a href="https://img.shields.io/badge/Version-1.1.0-orange.svg"><img src="https://img.shields.io/badge/Version-1.1.0-orange.svg" alt="Version"/></a>
-</p>
 
 ![](tools/textshape_logo/r_textshape.png)
 
@@ -287,17 +285,17 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_vector(x)
 
     ##               id content
-    ##    1:     Alaska       A
-    ##    2:   Arkansas       E
-    ##    3:    Alabama       C
-    ##    4:    Alabama       E
-    ##    5:   Arkansas       F
+    ##    1:   Arkansas       E
+    ##    2:    Alabama       F
+    ##    3:    Alabama       E
+    ##    4: California       A
+    ##    5:    Arizona       F
     ##   ---                   
-    ##  996: California       C
-    ##  997: California       D
-    ##  998:    Arizona       C
-    ##  999:     Alaska       D
-    ## 1000: California       B
+    ##  996:     Alaska       F
+    ##  997:    Arizona       B
+    ##  998:    Alabama       D
+    ##  999:    Arizona       E
+    ## 1000:     Alaska       C
 
 #### A Table
 
@@ -305,12 +303,12 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     166
-    ## 2:  B     182
-    ## 3:  C     153
-    ## 4:  D     165
-    ## 5:  E     156
-    ## 6:  F     178
+    ## 1:  A     143
+    ## 2:  B     155
+    ## 3:  C     181
+    ## 4:  D     157
+    ## 5:  E     188
+    ## 6:  F     176
 
 #### A DocumentTermMatrix
 
@@ -318,6 +316,9 @@ The `tidy_dtm` and `tidy_tdm` functions convert a `DocumentTermMatrix`
 or `TermDocumentMatrix` into a tidied data set.
 
     my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
+
+    ## Warning: argument "removeNumbers" is deprecated: use "remove_numbers"
+    ## instead.
 
     tidy_dtm(my_dtm) %>%
         tidyr::extract(doc, c("time", "turn", "sentence"), "(\\d)_(\\d+)\\.(\\d+)") %>%
@@ -364,6 +365,9 @@ and then a tidied data set.
 
     my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
 
+    ## Warning: argument "removeNumbers" is deprecated: use "remove_numbers"
+    ## instead.
+
     tidy_colo_dtm(my_dtm) %>%
         tbl_df() %>%
         filter(!term_1 %in% c('i', lexicon::sw_onix) & !term_2 %in% lexicon::sw_onix) %>%
@@ -396,22 +400,38 @@ within grouping variables.
 
     (dat <- split_sentence(DATA))
 
-    ##         person sex adult                       state code element_id sentence_id
-    ##  1:        sam   m     0            Computer is fun.   K1          1           1
-    ##  2:        sam   m     0                Not too fun.   K1          1           2
-    ##  3:       greg   m     0     No it's not, it's dumb.   K2          2           1
-    ##  4:    teacher   m     1          What should we do?   K3          3           1
-    ##  5:        sam   m     0        You liar, it stinks!   K4          4           1
-    ##  6:       greg   m     0     I am telling the truth!   K5          5           1
-    ##  7:      sally   f     0      How can we be certain?   K6          6           1
-    ##  8:       greg   m     0            There is no way.   K7          7           1
-    ##  9:        sam   m     0             I distrust you.   K8          8           1
-    ## 10:      sally   f     0 What are you talking about?   K9          9           1
-    ## 11: researcher   f     1           Shall we move on?  K10         10           1
-    ## 12: researcher   f     1                  Good then.  K10         10           2
-    ## 13:       greg   m     0                 I'm hungry.  K11         11           1
-    ## 14:       greg   m     0                  Let's eat.  K11         11           2
-    ## 15:       greg   m     0                You already?  K11         11           3
+    ##         person sex adult                       state code element_id
+    ##  1:        sam   m     0            Computer is fun.   K1          1
+    ##  2:        sam   m     0                Not too fun.   K1          1
+    ##  3:       greg   m     0     No it's not, it's dumb.   K2          2
+    ##  4:    teacher   m     1          What should we do?   K3          3
+    ##  5:        sam   m     0        You liar, it stinks!   K4          4
+    ##  6:       greg   m     0     I am telling the truth!   K5          5
+    ##  7:      sally   f     0      How can we be certain?   K6          6
+    ##  8:       greg   m     0            There is no way.   K7          7
+    ##  9:        sam   m     0             I distrust you.   K8          8
+    ## 10:      sally   f     0 What are you talking about?   K9          9
+    ## 11: researcher   f     1           Shall we move on?  K10         10
+    ## 12: researcher   f     1                  Good then.  K10         10
+    ## 13:       greg   m     0                 I'm hungry.  K11         11
+    ## 14:       greg   m     0                  Let's eat.  K11         11
+    ## 15:       greg   m     0                You already?  K11         11
+    ##     sentence_id
+    ##  1:           1
+    ##  2:           2
+    ##  3:           1
+    ##  4:           1
+    ##  5:           1
+    ##  6:           1
+    ##  7:           1
+    ##  8:           1
+    ##  9:           1
+    ## 10:           1
+    ## 11:           1
+    ## 12:           2
+    ## 13:           1
+    ## 14:           2
+    ## 15:           3
 
     combine(dat[, 1:5, with=FALSE])
 
@@ -445,8 +465,8 @@ counts.
     ## [1] "a" "b" "c" "d" "e"
     ## 
     ## $z
-    ##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x"
-    ## [25] "y" "z"
+    ##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q"
+    ## [18] "r" "s" "t" "u" "v" "w" "x" "y" "z"
 
     mtabulate(x)
 
@@ -475,35 +495,35 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  B  A
-    ## 2   A  A  A
+    ## 1   A  A  B
+    ## 2   B  B  A
     ## 3   A  A  A
-    ## 4   A  A  B
-    ## 5   A  A  A
-    ## 6   B  A  A
-    ## 7   B  B  B
+    ## 4   B  A  B
+    ## 5   B  A  A
+    ## 6   A  B  A
+    ## 7   A  B  A
     ## 8   A  B  A
-    ## 9   B  A  A
-    ## 10  A  B  B
+    ## 9   B  B  B
+    ## 10  B  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 7 3
-    ## X2 6 4
-    ## X3 7 3
+    ## X1 5 5
+    ## X2 4 6
+    ## X3 6 4
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  7  6  7
-    ## B  3  4  3
+    ## A  5  4  6
+    ## B  5  6  4
 
 Spanning
 --------
 
 Often it is useful to know the duration (start-end) of turns of talk.
-The `duration` function calculations start-end durations as n words.
+The `duration` function calculates start-end durations as n words.
 
 #### A Vector
 
@@ -519,36 +539,56 @@ The `duration` function calculations start-end durations as n words.
 
     duration(x)
 
-    ##    all word.count start end                                                   text.var
-    ## 1: all         10     1  10         Mr. Brown comes! He says hello. i give him coffee.
-    ## 2: all         12    11  22 I'll go at 5 p. m. eastern time.  Or somewhere in between!
-    ## 3: all          2    23  24                                                   go there
+    ##    all word.count start end
+    ## 1: all         10     1  10
+    ## 2: all         12    11  22
+    ## 3: all          2    23  24
+    ##                                                      text.var
+    ## 1:         Mr. Brown comes! He says hello. i give him coffee.
+    ## 2: I'll go at 5 p. m. eastern time.  Or somewhere in between!
+    ## 3:                                                   go there
 
     # With grouping variables
     groups <- list(group1 = c("A", "B", "A"), group2 = c("red", "red", "green"))
     duration(x, groups)
 
-    ##    group1 group2 word.count start end                                                   text.var
-    ## 1:      A    red         10     1  10         Mr. Brown comes! He says hello. i give him coffee.
-    ## 2:      B    red         12    11  22 I'll go at 5 p. m. eastern time.  Or somewhere in between!
-    ## 3:      A  green          2    23  24                                                   go there
+    ##    group1 group2 word.count start end
+    ## 1:      A    red         10     1  10
+    ## 2:      B    red         12    11  22
+    ## 3:      A  green          2    23  24
+    ##                                                      text.var
+    ## 1:         Mr. Brown comes! He says hello. i give him coffee.
+    ## 2: I'll go at 5 p. m. eastern time.  Or somewhere in between!
+    ## 3:                                                   go there
 
 #### A Dataframe
 
     duration(DATA)
 
-    ##         person sex adult code word.count start end                                 state
-    ##  1:        sam   m     0   K1          6     1   6         Computer is fun. Not too fun.
-    ##  2:       greg   m     0   K2          5     7  11               No it's not, it's dumb.
-    ##  3:    teacher   m     1   K3          4    12  15                    What should we do?
-    ##  4:        sam   m     0   K4          4    16  19                  You liar, it stinks!
-    ##  5:       greg   m     0   K5          5    20  24               I am telling the truth!
-    ##  6:      sally   f     0   K6          5    25  29                How can we be certain?
-    ##  7:       greg   m     0   K7          4    30  33                      There is no way.
-    ##  8:        sam   m     0   K8          3    34  36                       I distrust you.
-    ##  9:      sally   f     0   K9          5    37  41           What are you talking about?
-    ## 10: researcher   f     1  K10          6    42  47         Shall we move on?  Good then.
-    ## 11:       greg   m     0  K11          6    48  53 I'm hungry.  Let's eat.  You already?
+    ##         person sex adult code word.count start end
+    ##  1:        sam   m     0   K1          6     1   6
+    ##  2:       greg   m     0   K2          5     7  11
+    ##  3:    teacher   m     1   K3          4    12  15
+    ##  4:        sam   m     0   K4          4    16  19
+    ##  5:       greg   m     0   K5          5    20  24
+    ##  6:      sally   f     0   K6          5    25  29
+    ##  7:       greg   m     0   K7          4    30  33
+    ##  8:        sam   m     0   K8          3    34  36
+    ##  9:      sally   f     0   K9          5    37  41
+    ## 10: researcher   f     1  K10          6    42  47
+    ## 11:       greg   m     0  K11          6    48  53
+    ##                                     state
+    ##  1:         Computer is fun. Not too fun.
+    ##  2:               No it's not, it's dumb.
+    ##  3:                    What should we do?
+    ##  4:                  You liar, it stinks!
+    ##  5:               I am telling the truth!
+    ##  6:                How can we be certain?
+    ##  7:                      There is no way.
+    ##  8:                       I distrust you.
+    ##  9:           What are you talking about?
+    ## 10:         Shall we move on?  Good then.
+    ## 11: I'm hungry.  Let's eat.  You already?
 
 #### Gantt Plot
 
@@ -685,8 +725,8 @@ expression match.
     set.seed(15)
     (x <- sample(c("", LETTERS[1:10]), 25, TRUE, prob=c(.2, rep(.08, 10))))
 
-    ##  [1] "C" ""  "A" "C" "D" "A" "I" "B" "H" "I" ""  "C" "E" "H" "J" "J" "E" "A" ""  "I" "I" "I" "G" "" 
-    ## [25] "F"
+    ##  [1] "C" ""  "A" "C" "D" "A" "I" "B" "H" "I" ""  "C" "E" "H" "J" "J" "E"
+    ## [18] "A" ""  "I" "I" "I" "G" ""  "F"
 
     split_match(x)
 
@@ -795,14 +835,16 @@ capital letter I as the first character.
     split_match(DATA[["state"]], "^I", regex=TRUE, include = 1)
 
     ## $`1`
-    ## [1] "Computer is fun. Not too fun." "No it's not, it's dumb."       "What should we do?"           
-    ## [4] "You liar, it stinks!"         
+    ## [1] "Computer is fun. Not too fun." "No it's not, it's dumb."      
+    ## [3] "What should we do?"            "You liar, it stinks!"         
     ## 
     ## $`2`
-    ## [1] "I am telling the truth!" "How can we be certain?"  "There is no way."       
+    ## [1] "I am telling the truth!" "How can we be certain?" 
+    ## [3] "There is no way."       
     ## 
     ## $`3`
-    ## [1] "I distrust you."               "What are you talking about?"   "Shall we move on?  Good then."
+    ## [1] "I distrust you."               "What are you talking about?"  
+    ## [3] "Shall we move on?  Good then."
     ## 
     ## $`4`
     ## [1] "I'm hungry.  Let's eat.  You already?"
@@ -908,108 +950,108 @@ variable (via `n.chunks`) or into chunks of n length (via `n.words`).
     DATA[["run.col"]] <- x
     split_run(DATA)
 
-    ##         person sex adult                                 state code              run.col element_id
-    ##  1:        sam   m     0         Computer is fun. Not too fun.   K1                    1          1
-    ##  2:        sam   m     0         Computer is fun. Not too fun.   K1                   22          1
-    ##  3:        sam   m     0         Computer is fun. Not too fun.   K1                  333          1
-    ##  4:        sam   m     0         Computer is fun. Not too fun.   K1                 4444          1
-    ##  5:        sam   m     0         Computer is fun. Not too fun.   K1                55555          1
-    ##  6:        sam   m     0         Computer is fun. Not too fun.   K1               666666          1
-    ##  7:        sam   m     0         Computer is fun. Not too fun.   K1                               1
-    ##  8:       greg   m     0               No it's not, it's dumb.   K2                   NA          2
-    ##  9:    teacher   m     1                    What should we do?   K3                    a          3
-    ## 10:    teacher   m     1                    What should we do?   K3                   bb          3
-    ## 11:    teacher   m     1                    What should we do?   K3                  ccc          3
-    ## 12:    teacher   m     1                    What should we do?   K3                 dddd          3
-    ## 13:    teacher   m     1                    What should we do?   K3                eeeee          3
-    ## 14:    teacher   m     1                    What should we do?   K3               ffffff          3
-    ## 15:    teacher   m     1                    What should we do?   K3                               3
-    ## 16:        sam   m     0                  You liar, it stinks!   K4                    s          4
-    ## 17:        sam   m     0                  You liar, it stinks!   K4                   dd          4
-    ## 18:        sam   m     0                  You liar, it stinks!   K4                    f          4
-    ## 19:        sam   m     0                  You liar, it stinks!   K4                    g          4
-    ## 20:        sam   m     0                  You liar, it stinks!   K4                               4
-    ## 21:       greg   m     0               I am telling the truth!   K5                 1111          5
-    ## 22:       greg   m     0               I am telling the truth!   K5                 2222          5
-    ## 23:       greg   m     0               I am telling the truth!   K5                  333          5
-    ## 24:       greg   m     0               I am telling the truth!   K5                               5
-    ## 25:      sally   f     0                How can we be certain?   K6                    1          6
-    ## 26:      sally   f     0                How can we be certain?   K6                   22          6
-    ## 27:      sally   f     0                How can we be certain?   K6                  333          6
-    ## 28:      sally   f     0                How can we be certain?   K6                 4444          6
-    ## 29:      sally   f     0                How can we be certain?   K6                55555          6
-    ## 30:      sally   f     0                How can we be certain?   K6               666666          6
-    ## 31:      sally   f     0                How can we be certain?   K6                               6
-    ## 32:       greg   m     0                      There is no way.   K7                   NA          7
-    ## 33:        sam   m     0                       I distrust you.   K8                    a          8
-    ## 34:        sam   m     0                       I distrust you.   K8                   bb          8
-    ## 35:        sam   m     0                       I distrust you.   K8                  ccc          8
-    ## 36:        sam   m     0                       I distrust you.   K8                 dddd          8
-    ## 37:        sam   m     0                       I distrust you.   K8                eeeee          8
-    ## 38:        sam   m     0                       I distrust you.   K8               ffffff          8
-    ## 39:        sam   m     0                       I distrust you.   K8                               8
-    ## 40:      sally   f     0           What are you talking about?   K9                    s          9
-    ## 41:      sally   f     0           What are you talking about?   K9                   dd          9
-    ## 42:      sally   f     0           What are you talking about?   K9                    f          9
-    ## 43:      sally   f     0           What are you talking about?   K9                    g          9
-    ## 44:      sally   f     0           What are you talking about?   K9                               9
-    ## 45: researcher   f     1         Shall we move on?  Good then.  K10                 1111         10
-    ## 46: researcher   f     1         Shall we move on?  Good then.  K10                 2222         10
-    ## 47: researcher   f     1         Shall we move on?  Good then.  K10                  333         10
-    ## 48: researcher   f     1         Shall we move on?  Good then.  K10                              10
-    ## 49:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11 >>???,,,,....::::;[[         11
-    ##         person sex adult                                 state code              run.col element_id
-    ##     sentence_id
-    ##  1:           1
-    ##  2:           2
-    ##  3:           3
-    ##  4:           4
-    ##  5:           5
-    ##  6:           6
-    ##  7:           7
-    ##  8:           1
-    ##  9:           1
-    ## 10:           2
-    ## 11:           3
-    ## 12:           4
-    ## 13:           5
-    ## 14:           6
-    ## 15:           7
-    ## 16:           1
-    ## 17:           2
-    ## 18:           3
-    ## 19:           4
-    ## 20:           5
-    ## 21:           1
-    ## 22:           2
-    ## 23:           3
-    ## 24:           4
-    ## 25:           1
-    ## 26:           2
-    ## 27:           3
-    ## 28:           4
-    ## 29:           5
-    ## 30:           6
-    ## 31:           7
-    ## 32:           1
-    ## 33:           1
-    ## 34:           2
-    ## 35:           3
-    ## 36:           4
-    ## 37:           5
-    ## 38:           6
-    ## 39:           7
-    ## 40:           1
-    ## 41:           2
-    ## 42:           3
-    ## 43:           4
-    ## 44:           5
-    ## 45:           1
-    ## 46:           2
-    ## 47:           3
-    ## 48:           4
-    ## 49:           1
-    ##     sentence_id
+    ##         person sex adult                                 state code
+    ##  1:        sam   m     0         Computer is fun. Not too fun.   K1
+    ##  2:        sam   m     0         Computer is fun. Not too fun.   K1
+    ##  3:        sam   m     0         Computer is fun. Not too fun.   K1
+    ##  4:        sam   m     0         Computer is fun. Not too fun.   K1
+    ##  5:        sam   m     0         Computer is fun. Not too fun.   K1
+    ##  6:        sam   m     0         Computer is fun. Not too fun.   K1
+    ##  7:        sam   m     0         Computer is fun. Not too fun.   K1
+    ##  8:       greg   m     0               No it's not, it's dumb.   K2
+    ##  9:    teacher   m     1                    What should we do?   K3
+    ## 10:    teacher   m     1                    What should we do?   K3
+    ## 11:    teacher   m     1                    What should we do?   K3
+    ## 12:    teacher   m     1                    What should we do?   K3
+    ## 13:    teacher   m     1                    What should we do?   K3
+    ## 14:    teacher   m     1                    What should we do?   K3
+    ## 15:    teacher   m     1                    What should we do?   K3
+    ## 16:        sam   m     0                  You liar, it stinks!   K4
+    ## 17:        sam   m     0                  You liar, it stinks!   K4
+    ## 18:        sam   m     0                  You liar, it stinks!   K4
+    ## 19:        sam   m     0                  You liar, it stinks!   K4
+    ## 20:        sam   m     0                  You liar, it stinks!   K4
+    ## 21:       greg   m     0               I am telling the truth!   K5
+    ## 22:       greg   m     0               I am telling the truth!   K5
+    ## 23:       greg   m     0               I am telling the truth!   K5
+    ## 24:       greg   m     0               I am telling the truth!   K5
+    ## 25:      sally   f     0                How can we be certain?   K6
+    ## 26:      sally   f     0                How can we be certain?   K6
+    ## 27:      sally   f     0                How can we be certain?   K6
+    ## 28:      sally   f     0                How can we be certain?   K6
+    ## 29:      sally   f     0                How can we be certain?   K6
+    ## 30:      sally   f     0                How can we be certain?   K6
+    ## 31:      sally   f     0                How can we be certain?   K6
+    ## 32:       greg   m     0                      There is no way.   K7
+    ## 33:        sam   m     0                       I distrust you.   K8
+    ## 34:        sam   m     0                       I distrust you.   K8
+    ## 35:        sam   m     0                       I distrust you.   K8
+    ## 36:        sam   m     0                       I distrust you.   K8
+    ## 37:        sam   m     0                       I distrust you.   K8
+    ## 38:        sam   m     0                       I distrust you.   K8
+    ## 39:        sam   m     0                       I distrust you.   K8
+    ## 40:      sally   f     0           What are you talking about?   K9
+    ## 41:      sally   f     0           What are you talking about?   K9
+    ## 42:      sally   f     0           What are you talking about?   K9
+    ## 43:      sally   f     0           What are you talking about?   K9
+    ## 44:      sally   f     0           What are you talking about?   K9
+    ## 45: researcher   f     1         Shall we move on?  Good then.  K10
+    ## 46: researcher   f     1         Shall we move on?  Good then.  K10
+    ## 47: researcher   f     1         Shall we move on?  Good then.  K10
+    ## 48: researcher   f     1         Shall we move on?  Good then.  K10
+    ## 49:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11
+    ##         person sex adult                                 state code
+    ##                  run.col element_id sentence_id
+    ##  1:                    1          1           1
+    ##  2:                   22          1           2
+    ##  3:                  333          1           3
+    ##  4:                 4444          1           4
+    ##  5:                55555          1           5
+    ##  6:               666666          1           6
+    ##  7:                               1           7
+    ##  8:                   NA          2           1
+    ##  9:                    a          3           1
+    ## 10:                   bb          3           2
+    ## 11:                  ccc          3           3
+    ## 12:                 dddd          3           4
+    ## 13:                eeeee          3           5
+    ## 14:               ffffff          3           6
+    ## 15:                               3           7
+    ## 16:                    s          4           1
+    ## 17:                   dd          4           2
+    ## 18:                    f          4           3
+    ## 19:                    g          4           4
+    ## 20:                               4           5
+    ## 21:                 1111          5           1
+    ## 22:                 2222          5           2
+    ## 23:                  333          5           3
+    ## 24:                               5           4
+    ## 25:                    1          6           1
+    ## 26:                   22          6           2
+    ## 27:                  333          6           3
+    ## 28:                 4444          6           4
+    ## 29:                55555          6           5
+    ## 30:               666666          6           6
+    ## 31:                               6           7
+    ## 32:                   NA          7           1
+    ## 33:                    a          8           1
+    ## 34:                   bb          8           2
+    ## 35:                  ccc          8           3
+    ## 36:                 dddd          8           4
+    ## 37:                eeeee          8           5
+    ## 38:               ffffff          8           6
+    ## 39:                               8           7
+    ## 40:                    s          9           1
+    ## 41:                   dd          9           2
+    ## 42:                    f          9           3
+    ## 43:                    g          9           4
+    ## 44:                               9           5
+    ## 45:                 1111         10           1
+    ## 46:                 2222         10           2
+    ## 47:                  333         10           3
+    ## 48:                              10           4
+    ## 49: >>???,,,,....::::;[[         11           1
+    ##                  run.col element_id sentence_id
 
     ## Reset the DATA dataset
     DATA <- textshape::DATA
@@ -1040,22 +1082,38 @@ accurate than a simple regular expression approach alone.
 
     split_sentence(DATA)
 
-    ##         person sex adult                       state code element_id sentence_id
-    ##  1:        sam   m     0            Computer is fun.   K1          1           1
-    ##  2:        sam   m     0                Not too fun.   K1          1           2
-    ##  3:       greg   m     0     No it's not, it's dumb.   K2          2           1
-    ##  4:    teacher   m     1          What should we do?   K3          3           1
-    ##  5:        sam   m     0        You liar, it stinks!   K4          4           1
-    ##  6:       greg   m     0     I am telling the truth!   K5          5           1
-    ##  7:      sally   f     0      How can we be certain?   K6          6           1
-    ##  8:       greg   m     0            There is no way.   K7          7           1
-    ##  9:        sam   m     0             I distrust you.   K8          8           1
-    ## 10:      sally   f     0 What are you talking about?   K9          9           1
-    ## 11: researcher   f     1           Shall we move on?  K10         10           1
-    ## 12: researcher   f     1                  Good then.  K10         10           2
-    ## 13:       greg   m     0                 I'm hungry.  K11         11           1
-    ## 14:       greg   m     0                  Let's eat.  K11         11           2
-    ## 15:       greg   m     0                You already?  K11         11           3
+    ##         person sex adult                       state code element_id
+    ##  1:        sam   m     0            Computer is fun.   K1          1
+    ##  2:        sam   m     0                Not too fun.   K1          1
+    ##  3:       greg   m     0     No it's not, it's dumb.   K2          2
+    ##  4:    teacher   m     1          What should we do?   K3          3
+    ##  5:        sam   m     0        You liar, it stinks!   K4          4
+    ##  6:       greg   m     0     I am telling the truth!   K5          5
+    ##  7:      sally   f     0      How can we be certain?   K6          6
+    ##  8:       greg   m     0            There is no way.   K7          7
+    ##  9:        sam   m     0             I distrust you.   K8          8
+    ## 10:      sally   f     0 What are you talking about?   K9          9
+    ## 11: researcher   f     1           Shall we move on?  K10         10
+    ## 12: researcher   f     1                  Good then.  K10         10
+    ## 13:       greg   m     0                 I'm hungry.  K11         11
+    ## 14:       greg   m     0                  Let's eat.  K11         11
+    ## 15:       greg   m     0                You already?  K11         11
+    ##     sentence_id
+    ##  1:           1
+    ##  2:           2
+    ##  3:           1
+    ##  4:           1
+    ##  5:           1
+    ##  6:           1
+    ##  7:           1
+    ##  8:           1
+    ##  9:           1
+    ## 10:           1
+    ## 11:           1
+    ## 12:           2
+    ## 13:           1
+    ## 14:           2
+    ## 15:           3
 
 ### Speakers
 
@@ -1084,22 +1142,38 @@ speaker. The `split_speaker` function accomplishes this.
 
     split_speaker(DATA)
 
-    ##         person sex adult                                 state code element_id split_id
-    ##  1:       greg   m     0         Computer is fun. Not too fun.   K1          1        1
-    ##  2:      sally   m     0         Computer is fun. Not too fun.   K1          1        2
-    ##  3:        sam   m     0         Computer is fun. Not too fun.   K1          1        3
-    ##  4:       greg   m     0               No it's not, it's dumb.   K2          2        1
-    ##  5:    teacher   m     1                    What should we do?   K3          3        1
-    ##  6:       greg   m     0                  You liar, it stinks!   K4          4        1
-    ##  7:      sally   m     0                  You liar, it stinks!   K4          4        2
-    ##  8:       greg   m     0               I am telling the truth!   K5          5        1
-    ##  9:        sam   f     0                How can we be certain?   K6          6        1
-    ## 10:      sally   f     0                How can we be certain?   K6          6        2
-    ## 11:       greg   m     0                      There is no way.   K7          7        1
-    ## 12:        sam   m     0                       I distrust you.   K8          8        1
-    ## 13:      sally   f     0           What are you talking about?   K9          9        1
-    ## 14: researcher   f     1         Shall we move on?  Good then.  K10         10        1
-    ## 15:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11         11        1
+    ##         person sex adult                                 state code
+    ##  1:       greg   m     0         Computer is fun. Not too fun.   K1
+    ##  2:      sally   m     0         Computer is fun. Not too fun.   K1
+    ##  3:        sam   m     0         Computer is fun. Not too fun.   K1
+    ##  4:       greg   m     0               No it's not, it's dumb.   K2
+    ##  5:    teacher   m     1                    What should we do?   K3
+    ##  6:       greg   m     0                  You liar, it stinks!   K4
+    ##  7:      sally   m     0                  You liar, it stinks!   K4
+    ##  8:       greg   m     0               I am telling the truth!   K5
+    ##  9:        sam   f     0                How can we be certain?   K6
+    ## 10:      sally   f     0                How can we be certain?   K6
+    ## 11:       greg   m     0                      There is no way.   K7
+    ## 12:        sam   m     0                       I distrust you.   K8
+    ## 13:      sally   f     0           What are you talking about?   K9
+    ## 14: researcher   f     1         Shall we move on?  Good then.  K10
+    ## 15:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11
+    ##     element_id split_id
+    ##  1:          1        1
+    ##  2:          1        2
+    ##  3:          1        3
+    ##  4:          2        1
+    ##  5:          3        1
+    ##  6:          4        1
+    ##  7:          4        2
+    ##  8:          5        1
+    ##  9:          6        1
+    ## 10:          6        2
+    ## 11:          7        1
+    ## 12:          8        1
+    ## 13:          9        1
+    ## 14:         10        1
+    ## 15:         11        1
 
     ## Reset the DATA dataset
     DATA <- textshape::DATA
@@ -1123,12 +1197,14 @@ The `split_token` function split data into words and punctuation.
     split_token(x)
 
     ## [[1]]
-    ##  [1] "mr"     "."      "brown"  "comes"  "!"      "he"     "says"   "hello"  "."      "i"     
-    ## [11] "give"   "him"    "coffee" "."     
+    ##  [1] "mr"     "."      "brown"  "comes"  "!"      "he"     "says"  
+    ##  [8] "hello"  "."      "i"      "give"   "him"    "coffee" "."     
     ## 
     ## [[2]]
-    ##  [1] "i'll"      "go"        "at"        "5"         "p"         "."         "m"         "."        
-    ##  [9] "eastern"   "time"      "."         "or"        "somewhere" "in"        "between"   "!"        
+    ##  [1] "i'll"      "go"        "at"        "5"         "p"        
+    ##  [6] "."         "m"         "."         "eastern"   "time"     
+    ## [11] "."         "or"        "somewhere" "in"        "between"  
+    ## [16] "!"        
     ## 
     ## [[3]]
     ## [1] "go"    "there"
@@ -1227,9 +1303,12 @@ The `split_transcript` function splits `vector`s with speaker prefixes
         "dan: Ok let's meet at 4:30 pm for drinks"
     ))
 
-    ## [1] "greg: Who me"                             "sarah: yes you!"                         
-    ## [3] "greg: well why didn't you say so?"        "sarah: I did but you weren't listening." 
-    ## [5] "greg: oh :-/ I see..."                    "dan: Ok let's meet at 4:30 pm for drinks"
+    ## [1] "greg: Who me"                            
+    ## [2] "sarah: yes you!"                         
+    ## [3] "greg: well why didn't you say so?"       
+    ## [4] "sarah: I did but you weren't listening." 
+    ## [5] "greg: oh :-/ I see..."                   
+    ## [6] "dan: Ok let's meet at 4:30 pm for drinks"
 
     split_transcript(x)
 
@@ -1260,11 +1339,13 @@ The `split_word` function splits data into words.
     split_word(x)
 
     ## [[1]]
-    ##  [1] "mr"     "brown"  "comes"  "he"     "says"   "hello"  "i"      "give"   "him"    "coffee"
+    ##  [1] "mr"     "brown"  "comes"  "he"     "says"   "hello"  "i"     
+    ##  [8] "give"   "him"    "coffee"
     ## 
     ## [[2]]
-    ##  [1] "i'll"      "go"        "at"        "5"         "p"         "m"         "eastern"   "time"     
-    ##  [9] "or"        "somewhere" "in"        "between"  
+    ##  [1] "i'll"      "go"        "at"        "5"         "p"        
+    ##  [6] "m"         "eastern"   "time"      "or"        "somewhere"
+    ## [11] "in"        "between"  
     ## 
     ## [[3]]
     ## [1] "go"    "there"
