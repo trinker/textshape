@@ -28,6 +28,10 @@ MINOR FEATURES
 
 IMPROVEMENTS
 
+* `tidy_list` now uses **data.table**'s `rbind` for lists of `data.frame`s.  
+  This means column ordering does not need to match and missing columns are 
+  automatically filled with `NA`s.
+
 CHANGES
 
 

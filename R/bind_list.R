@@ -61,6 +61,8 @@ bind_list_df <- function (x, id.name = "id"){
         names(x) <- seq_along(x)
     }
     list.names <- rep(names(x), sapply(x, nrow))
+    x <- lapply(x, data.table::as.data.table)
+    x[['fill']] <- TRUE    
     out <- data.frame(list.names, do.call(rbind, x),
         row.names = NULL, check.names = FALSE, stringsAsFactors = FALSE)
     colnames(out)[1] <- id.name
