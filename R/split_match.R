@@ -1,6 +1,7 @@
 #' Split a Vector By Split Points
 #'
-#' Splits a \code{vector} into a list of vectors based on split points.
+#' \code{split_match} - Splits a \code{vector} into a list of vectors based on
+#' split points.
 #'
 #' @param x A vector with split points.
 #' @param split A vector of places (elements) to split on or a regular
@@ -17,6 +18,7 @@
 #' @author Matthew Flickinger and Tyler Rinker <tyler.rinker@@gmail.com>.
 #' @references \url{http://stackoverflow.com/a/24319217/1000343}
 #' @export
+#' @rdname split_match
 #' @examples
 #' set.seed(15)
 #' x <- sample(c("", LETTERS[1:10]), 25, TRUE, prob=c(.2, rep(.08, 10)))
@@ -70,6 +72,18 @@ split_match <- function(x, split = "", include = FALSE, regex = FALSE, ...) {
             x[ind]
         })
     }
+}
+
+
+#' Split a Vector By Split Points
+#'
+#' \code{split_match_regex} - \code{split_match} with \code{regex = TRUE}.
+#' @rdname split_match
+#'
+#' @export
+#' @rdname split_match
+split_match_regex <- function(x, split = "", include = FALSE, ...){
+    split_match(x, split = "", include = FALSE, regex = TRUE, ...)
 }
 
 

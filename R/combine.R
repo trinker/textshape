@@ -42,7 +42,7 @@ combine.default <- function(x, fix.punctuation = TRUE, ...) {
     if (isTRUE(fix.punctuation)){
         x <- gsub("(\\s+(?=[,.?!;:%-]))|((?<=[$-])\\s+)", "", x, perl = TRUE)
     }
-    x
+    unname(x)
 }
 
 #' @export

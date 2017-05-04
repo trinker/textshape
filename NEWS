@@ -26,13 +26,19 @@ NEW FEATURES
 
 MINOR FEATURES
 
+* `split_match_regex` added as a version of `split_match` with `regex = TRUE` by
+  default.  This makes it easier to reason about what the function call is doing.
+
 IMPROVEMENTS
 
-* `tidy_list` now uses **data.table**'s `rbind` for lists of `data.frame`s.  
-  This means column ordering does not need to match and missing columns are 
+* `tidy_list` now uses **data.table**'s `rbind` for lists of `data.frame`s.
+  This means column ordering does not need to match and missing columns are
   automatically filled with `NA`s.
 
 CHANGES
+
+* `combine.default` included element names by default.  This has been removed to
+  include only the elements.
 
 
 textshape 1.0.2
