@@ -83,7 +83,7 @@ split_match <- function(x, split = "", include = FALSE, regex = FALSE, ...) {
 #' @export
 #' @rdname split_match
 split_match_regex <- function(x, split = "", include = FALSE, ...){
-    split_match(x, split = "", include = FALSE, regex = TRUE, ...)
+    split_match(x =x, split = split, include = include, regex = TRUE, ...)
 }
 
 

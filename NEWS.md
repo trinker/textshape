@@ -17,7 +17,7 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-textshape 1.1.0
+textshape 1.1.0 -
 ----------------------------------------------------------------
 
 **BUG FIXES**
@@ -26,9 +26,23 @@ textshape 1.1.0
 
 **MINOR FEATURES**
 
+* `split_match_regex` added as a version of `split_match` with `regex = TRUE` by
+  default.  This makes it easier to reason about what the function call is doing.
+
+* `split_match_regex_to_transcript` added to directly split a text by a person
+  regex and convert to a two column transcript of person and dialogue.
+
+
 **IMPROVEMENTS**
 
+* `tidy_list` now uses **data.table**'s `rbind` for lists of `data.frame`s.
+  This means column ordering does not need to match and missing columns are
+  automatically filled with `NA`s.
+
 **CHANGES**
+
+* `combine.default` included element names by default.  This has been removed to
+  include only the elements.
 
 
 textshape 1.0.2
