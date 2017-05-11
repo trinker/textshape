@@ -40,8 +40,9 @@ split_transcript <- function(x, delim = ":", colnames = c("person", "dialogue"),
 
     V1 <- V2 <- NULL
     x <- sub(delim, "textshapesplithere", x)
-    dat <- data.table::data.table(do.call(rbind,strsplit(x , "textshapesplithere")))[, V1 := trimws(V1)
-        ][,V2 := trimws(V2)][]
+    dat <- data.table::data.table(do.call(rbind, strsplit(x , "textshapesplithere")))[,
+        V1 := trimws(V1)][,
+        V2 := trimws(V2)][]
     data.table::setnames(dat, c("V1", "V2"), colnames)
     dat
 }
