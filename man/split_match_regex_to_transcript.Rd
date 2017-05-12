@@ -44,7 +44,7 @@ variables.
 }
 \examples{
 \dontrun{
-system.file("docs/Simpsons_Roasting_on_an_Open_Fire_Script.pdf", package = "textshape")
+system.file("docs/Simpsons_Roasting_on_an_Open_Fire_Script.pdf", package = "textshape") \%>\%
     textreadr::read_document() \%>\%
     split_match_regex_to_transcript("^[A-Z]{3,}", skip = 2)
 }
