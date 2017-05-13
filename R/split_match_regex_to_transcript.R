@@ -3,7 +3,8 @@
 #' A wrapper for \code{\link[textshape]{split_match_regex}} and \pkg{textreadr}'s
 #' \code{as_transript} to detect person variable, split the text into turns of
 #' talk, and convert to a data.frame with \code{person} and \code{dialogue}
-#' variables.
+#' variables.  There is a bit of cleansing that is closer to \code{as_transript}
+#' than \code{\link[textshape]{split_transcript}}.
 #'
 #' @param x A vector with split points.
 #' @param person.regex A vector of places (elements) to split on or a regular
