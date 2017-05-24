@@ -62,10 +62,10 @@ tidy_list <- function(x, id.name= "id", content.name = "content",
         tidy_list_df(x = x, id.name = id.name)
     } else {
 
-        if (is.vector(x[[1]])){
+        if (is.atomic(x[[1]])){
             tidy_list_vector(x = x, id.name = id.name, content.name = content.name)
         } else {
-            stop("`x` must be a list of `data.frame`s or `vector`s")
+            stop("`x` must be a list of `data.frame`s or atomic `vector`s")
         }
     }
 }
