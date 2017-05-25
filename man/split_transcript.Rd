@@ -4,14 +4,20 @@
 \alias{split_transcript}
 \title{Split a Transcript Style Vector on Delimiter & Coerce to Dataframe}
 \usage{
-split_transcript(x, delim = ":", colnames = c("person", "dialogue"), ...)
+split_transcript(x, delim = ":", colnames = c("person", "dialogue"),
+  max.delim = 15, ...)
 }
 \arguments{
 \item{x}{A transcript style vector (e.g., \code{c("greg: Who me", "sarah: yes you!")}.}
 
 \item{delim}{The delimiter to split on.}
 
-\item{colnames}{The column names to use for the \code{\link[data.table]{data.table}} output.}
+\item{colnames}{The column names to use for the \code{\link[data.table]{data.table}}
+output.}
+
+\item{max.delim}{An integer stating how many characters may come before a
+delimiter is found.  This is useful for the case when a colon is the delimiter
+but time stamps are also found in the text.}
 
 \item{\ldots}{Ignored.}
 }
