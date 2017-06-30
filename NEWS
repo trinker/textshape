@@ -22,6 +22,8 @@ textshape 1.1.0 -
 
 BUG FIXES
 
+* `tidy_list` did not add `content.attribute.name` for lists of named vectors.
+
 NEW FEATURES
 
 MINOR FEATURES
