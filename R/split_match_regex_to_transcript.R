@@ -104,7 +104,7 @@ text2transcript <- function(text, person.regex = NULL,
     reps <- c(lbrac, rbrac, "'", "'", "'", "'", ellipsis, dash, dash, "a", "e", "half")
 
     Encoding(x[[text.var]]) <-"latin1"
-    x[[text.var]] <- clean(mgsub(ser, reps, x[[text.var]]))
+    x[[text.var]] <- clean(.mgsub(ser, reps, x[[text.var]]))
     if(rm.empty.rows) {
         x <- rm_empty_row(x)
     }
@@ -122,16 +122,26 @@ text2transcript <- function(text, person.regex = NULL,
     x
 }
 
+clean <- function (text.var) {
+    gsub("\\s+", " ", gsub("\\\\r|\\\\n|\\n|\\\\t", " ", text.var))
+}
 
 rm_na_row <- function(x, remove = TRUE) {
     if (!remove) return(x)
     x[rowSums(is.na(x)) != ncol(x), ]
 }
 
+rm_empty_row <- function(dataframe) {
+    x <- paste2(dataframe, sep = "")
+    x <- gsub("\\s+", "", x)
+    ind <- x != ""
+    return(dataframe[ind, , drop = FALSE])
+}
 
 #Helper function used in read.transcript
 #' @importFrom data.table :=
 combine_tot <- function(x){
+    person <- NULL
     nms <- colnames(x)
     colnames(x) <- c('person', 'z')
     x <- data.table::data.table(x)

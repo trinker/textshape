@@ -1,6 +1,6 @@
 Package: textshape
 Title: Tools for Reshaping Text
-Version: 1.1.1
+Version: 1.2.0
 Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")), person("Joran",
             "Elias", role = "ctb"), person("Matthew", "Flickinger", role = "ctb"))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
