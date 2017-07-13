@@ -22,6 +22,8 @@ textshape 1.1.0 -
 
 **BUG FIXES**
 
+* `tidy_list` did not add `content.attribute.name` for lists of named vectors.
+
 **NEW FEATURES**
 
 **MINOR FEATURES**
@@ -38,6 +40,13 @@ textshape 1.1.0 -
 * `tidy_list` now uses **data.table**'s `rbind` for lists of `data.frame`s.
   This means column ordering does not need to match and missing columns are
   automatically filled with `NA`s.
+
+* `split_sentence` has better handling for the 'No.' abbreviation that
+  distinguishes between 'No.' followed by digits (assumed to be and abbreviation)
+  and when no digits follow (assumed to be a complete sentence).
+
+* `split_sentence` has better handling for quoted material (i.e., a punctuation
+  mark followed by single or double quotes that is not followed by a comma).
 
 **CHANGES**
 

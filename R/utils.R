@@ -42,7 +42,7 @@ abbr_rep <- lapply(list(
 
   Days     = c('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'),
 
-  Misc     = c('vs', 'etc', 'no', 'esp', 'cf', 'al', 'mt'),
+  Misc     = c('vs', 'etc', 'esp', 'cf', 'al', 'mt'),
 
   Streets  = c('ave', 'bld', 'blvd', 'cl', 'ct', 'cres', 'dr', 'rd', 'st')
 ), function(x){
@@ -70,7 +70,22 @@ sent_regex <- sprintf("((?<=\\b(%s))\\.)|%s|(%s)",
 
 get_sents2 <- function(x) {
     y <- stringi::stri_replace_all_regex(trimws(x), sent_regex, "<<<TEMP>>>")
-    stringi::stri_split_regex(y, "(?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|\\!)(\\s|(?=[a-zA-Z][a-zA-Z]*\\s))")
+    y <- stringi::stri_replace_all_regex(y, '(\\b[Nn]o)(\\.)(\\s+\\d)', '$1<<<NOTEMP>>>$3')
+    y <- stringi::stri_replace_all_regex(y, '([?.!]+)([\'])([^,])', '<<<SQUOTE>>>$1  $3')
+    y <- stringi::stri_replace_all_regex(y, '([?.!]+)(["])([^,])', '<<<DQUOTE>>>$1  $3')
+    y <- stringi::stri_split_regex(y, "((?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|\\!)(\\s|(?=[a-zA-Z][a-zA-Z]*\\s)))|(?<=No\\.)\\s+")
+
+    lens <- cumsum(lengths(y)) + 1
+    locs <- lens[seq_len(length(lens) - 1)]
+
+    y <- trimws(unlist(y))
+
+    y <- stringi::stri_replace_all_fixed(y, "<<<TEMP>>>", ".")
+    y <- stringi::stri_replace_all_fixed(y, "<<<NOTEMP>>>", ".")
+    y <- stringi::stri_replace_all_regex(y, "(<<<DQUOTE>>>)([?.!]+)", "$2\"")
+    y <- stringi::stri_replace_all_regex(y, "(<<<SQUOTE>>>)([?.!]+)", "$2'")
+
+    split_index(y, locs)
 }
 
 get_sentences2 <- function(x, ...) {

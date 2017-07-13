@@ -36,4 +36,30 @@ split_sentence(x)
 
 data(DATA)
 split_sentence(DATA)
+
+y <- c(paste(
+    "\\x91He has asked the Administration to be sent there,\\x92 said the",
+    "other, \\x91with the idea of showing what he could do; and I was instructed",
+    "accordingly.\\x92 They both agreed it was frightful, then made several",
+    "bizarre remarks: \\x91Make rain and fine weather—one man—the Council—by the",
+    "nose\\x92—bits of absurd sentences that got the better of my drowsiness when",
+    "the uncle said, \\x91The climate may do away with this difficulty for you.",
+    "And one more, \\x93How bout that!\\x94 But still there is \\x93another.\\x94,",
+    "but who?  No. 3 will.  No.  He will not!",
+    collapse = ' '
+), "I said no.  Now stop!", "I will not!  Yes you will.")
+Encoding(y) <- "latin1"
+y
+## doesn't work as expected because of encoding issue
+split_sentence(y)
+
+\dontrun{
+library(textclean)
+replace_curly <- function(x, ...){
+    replaces <- c('\\x91', '\\x92', '\\x93', '\\x94')
+    Encoding(replaces) <- "latin1"
+    textclean::mgsub(x, replaces, c("'", "'", "\\"", "\\""))
+}
+split_sentence(replace_curly(y))
+}
 }
