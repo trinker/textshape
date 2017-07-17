@@ -62,6 +62,84 @@ split_sentence.data.frame <- function(x, text.var = TRUE, ...) {
 
 
 
+#get_sents <- function(x) {
+#    x <- stringi::stri_replace_all_regex(stringi::stri_trans_tolower(x), sent_regex, "")
+#    stringi::stri_split_regex(x, "(?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|\\!)\\s")
+#}
+abbr_rep <- lapply(list(
+  Titles   = c('jr', 'mr', 'mrs', 'ms', 'dr', 'prof', 'sr', 'sen', 'rep',
+         'rev', 'gov', 'atty', 'supt', 'det', 'rev', 'col','gen', 'lt',
+         'cmdr', 'adm', 'capt', 'sgt', 'cpl', 'maj'),
 
+  Entities = c('dept', 'univ', 'uni', 'assn', 'bros', 'inc', 'ltd', 'co',
+         'corp', 'plc'),
+
+  Months   = c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul',
+         'aug', 'sep', 'oct', 'nov', 'dec', 'sept'),
+
+  Days     = c('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'),
+
+  Misc     = c('vs', 'etc', 'esp', 'cf', 'al', 'mt'),
+
+  Streets  = c('ave', 'bld', 'blvd', 'cl', 'ct', 'cres', 'dr', 'rd', 'st')
+), function(x){
+    fl <- sub("(^[a-z])(.+)", "\\1", x)
+    sprintf("[%s%s]%s", fl, toupper(fl), sub("(^[a-z])(.+)", "\\2", x))
+})
+
+period_reg <- paste0(
+    "(?:(?<=[a-z])\\.\\s(?=[a-z]\\.))",
+        "|",
+    "(?:(?<=([ .][a-z]))\\.)(?!(?:\\s[A-Z]|$)|(?:\\s\\s))",
+        "|",
+    "(?:(?<=[A-Z])\\.(?=\\s??[A-Z]\\.))",
+        "|",
+    "(?:(?<=[A-Z])\\.(?!\\s+[A-Z][A-Za-z]))"
+)
+
+
+sent_regex <- sprintf("((?<=\\b(%s))\\.)|%s|(%s)",
+    paste(unlist(abbr_rep), collapse = "|"),
+    period_reg,
+	'\\.(?=\\d+)'
+)
+
+
+get_sents2 <- function(x) {
+    y <- stringi::stri_replace_all_regex(trimws(x), sent_regex, "<<<TEMP>>>")
+    y <- stringi::stri_replace_all_regex(y, '(\\b[Nn]o)(\\.)(\\s+\\d)', '$1<<<NOTEMP>>>$3')
+    y <- stringi::stri_replace_all_regex(y, '([?.!]+)([\'])([^,])', '<<<SQUOTE>>>$1  $3')
+    y <- stringi::stri_replace_all_regex(y, '([?.!]+)(["])([^,])', '<<<DQUOTE>>>$1  $3')
+    y <- stringi::stri_split_regex(y, "((?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|\\!)(\\s|(?=[a-zA-Z][a-zA-Z]*\\s)))|(?<=No\\.)\\s+")
+
+    ## midde name handling
+    y <- stringi::stri_replace_all_regex(y,
+        '(\\b[A-Z][a-z]+\\s[A-Z])(\\.)(\\s[A-Z][a-z]+\\b)',
+        '$1<<<TEMP>>>$3'
+    )
+
+    #2 middle names
+    y <- stringi::stri_replace_all_regex(y,
+        '(\\b[A-Z][a-z]+\\s[A-Z])(\\.)(\\s[A-Z])(\\.)(\\s[A-Z][a-z]+\\b)',
+        '$1<<<TEMP>>>$3<<<TEMP>>>$5'
+    )
+
+    lens <- cumsum(lengths(y)) + 1
+    locs <- lens[seq_len(length(lens) - 1)]
+
+    y <- trimws(unlist(y))
+
+    y <- stringi::stri_replace_all_fixed(y, "<<<TEMP>>>", ".")
+    y <- stringi::stri_replace_all_fixed(y, "<<<NOTEMP>>>", ".")
+    y <- stringi::stri_replace_all_regex(y, "(<<<DQUOTE>>>)([?.!]+)", "$2\"")
+    y <- stringi::stri_replace_all_regex(y, "(<<<SQUOTE>>>)([?.!]+)", "$2'")
+
+    split_index(y, locs)
+}
+
+get_sentences2 <- function(x, ...) {
+    lapply(lapply(get_sents2(trimws(x)), function(x) gsub("<<<TEMP>>>", ".", x)),
+        function(x) gsub("^\\s+|\\s+$", "", x))
+}
 
 

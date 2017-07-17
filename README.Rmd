@@ -8,6 +8,7 @@ output:
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
+combine <- textshape::combine
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(tidyverse, magrittr, ggstance, textshape)
 pacman::p_load_current_gh('trinker/gofastr')

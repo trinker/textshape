@@ -48,6 +48,10 @@ IMPROVEMENTS
 * `split_sentence` has better handling for quoted material (i.e., a punctuation
   mark followed by single or double quotes that is not followed by a comma).
 
+* `split_sentence` has better handling for single and double middle names
+  presented as initials.
+
+
 CHANGES
 
 * `combine.default` included element names by default.  This has been removed to
