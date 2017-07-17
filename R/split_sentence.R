@@ -12,10 +12,15 @@
 #' @return Returns a list of vectors of sentences or a expanded
 #' \code{\link[base]{data.frame}} with sentences split apart.
 #' @examples
-#' (x <- paste0(
+#' (x <- c(paste0(
 #'     "Mr. Brown comes! He says hello. i give him coffee.  i will ",
 #'     "go at 5 p. m. eastern time.  Or somewhere in between!go there"
-#' ))
+#' ),
+#' paste0(
+#'     "Marvin K. Mooney Will You Please Go Now!", "The time has come.",
+#'     "The time has come. The time is now. Just go. Go. GO!",
+#'     "I don't care how."
+#' )))
 #' split_sentence(x)
 #'
 #' data(DATA)
@@ -106,12 +111,11 @@ sent_regex <- sprintf("((?<=\\b(%s))\\.)|%s|(%s)",
 
 
 get_sents2 <- function(x) {
+
     y <- stringi::stri_replace_all_regex(trimws(x), sent_regex, "<<<TEMP>>>")
     y <- stringi::stri_replace_all_regex(y, '(\\b[Nn]o)(\\.)(\\s+\\d)', '$1<<<NOTEMP>>>$3')
     y <- stringi::stri_replace_all_regex(y, '([?.!]+)([\'])([^,])', '<<<SQUOTE>>>$1  $3')
     y <- stringi::stri_replace_all_regex(y, '([?.!]+)(["])([^,])', '<<<DQUOTE>>>$1  $3')
-    y <- stringi::stri_split_regex(y, "((?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|\\!)(\\s|(?=[a-zA-Z][a-zA-Z]*\\s)))|(?<=No\\.)\\s+")
-
     ## midde name handling
     y <- stringi::stri_replace_all_regex(y,
         '(\\b[A-Z][a-z]+\\s[A-Z])(\\.)(\\s[A-Z][a-z]+\\b)',
@@ -123,6 +127,9 @@ get_sents2 <- function(x) {
         '(\\b[A-Z][a-z]+\\s[A-Z])(\\.)(\\s[A-Z])(\\.)(\\s[A-Z][a-z]+\\b)',
         '$1<<<TEMP>>>$3<<<TEMP>>>$5'
     )
+    y <- stringi::stri_split_regex(y, "((?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|\\!)(\\s|(?=[a-zA-Z][a-zA-Z]*\\s)))|(?<=[A-Z][a-z][.?!])\\s+")
+
+
 
     lens <- cumsum(lengths(y)) + 1
     locs <- lens[seq_len(length(lens) - 1)]
