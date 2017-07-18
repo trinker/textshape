@@ -32,7 +32,7 @@
 #' library(magrittr)
 #'
 #' golden_rules %$%
-#     split_sentence(Text)
+#'     split_sentence(Text)
 #' }
 split_sentence <- function(x, ...) {
     UseMethod("split_sentence")
@@ -122,8 +122,10 @@ period_reg <- paste0(
     "(?:(?<=[A-Z])\\.(?!\\s+[A-Z][A-Za-z]))"
 )
 
+# gsub("(((?<=\\b(%s))\\.)(\\s+(?![A-Z])))", '[[[]]]',
+#     'With the co. in hand they were Co. parts in co. I want', perl=TRUE)
 
-sent_regex <- sprintf("((?<=\\b(%s))\\.)|(((?<=\\b(%s))\\.)\\s*(?![A-Z]))|%s|(%s)",
+sent_regex <- sprintf("((?<=\\b(%s))\\.)|((?<=\\b(%s))\\.(?!\\s+[A-Z]))|%s|(%s)",
     paste(unlist(abbr_rep_1), collapse = "|"),
     paste(unlist(abbr_rep_2), collapse = "|"),
     period_reg,

@@ -48,5 +48,6 @@ data(golden_rules)
 library(magrittr)
 
 golden_rules \%$\%
+    split_sentence(Text)
 }
 }
