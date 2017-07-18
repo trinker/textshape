@@ -125,7 +125,7 @@ period_reg <- paste0(
 
 sent_regex <- sprintf("((?<=\\b(%s))\\.)|(((?<=\\b(%s))\\.)\\s*(?![A-Z]))|%s|(%s)",
     paste(unlist(abbr_rep_1), collapse = "|"),
-    paste(unlist(abbr_rep_1), collapse = "|"),
+    paste(unlist(abbr_rep_2), collapse = "|"),
     period_reg,
 	'\\.(?=\\d+)'
 )
