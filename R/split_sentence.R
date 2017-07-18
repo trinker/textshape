@@ -25,6 +25,15 @@
 #'
 #' data(DATA)
 #' split_sentence(DATA)
+#'
+#' \dontrun{
+#' ## Kevin S. Dias' sentence boundary disambiguation test set
+#' data(golden_rules)
+#' library(magrittr)
+#'
+#' golden_rules %$%
+#     split_sentence(Text)
+#' }
 split_sentence <- function(x, ...) {
     UseMethod("split_sentence")
 }

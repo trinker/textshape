@@ -74,3 +74,27 @@ NULL
 #' @usage data(simple_dtm)
 #' @format A list with 6 elements
 NULL
+
+
+#' Sentence Boundary Disambiguation Edge Cases
+#'
+#' A slightly filtered dataset containing Dias's sentence boundary
+#' disambiguation edge cases.  This is a nested data set with the outcome
+#' column as a nested list of desired splits.  The non-ASCII cases and spaced
+#' ellipsis examples have been removed.
+#'
+#' @details
+#' \itemize{
+#'   \item Rule. The name of the rule to test
+#'   \item Text. The testing text
+#'   \item Outcome. The desired outcome of the sentence disambiguation
+#' }
+#'
+#' @docType data
+#' @keywords datasets
+#' @name golden_rules
+#' @usage data(golden_rules)
+#' @format A data frame with 45 rows and 3 variables
+#' @references Dias, Kevin S. 2015. Golden Rules (English).
+#' Retrieved: https://s3.amazonaws.com/tm-town-nlp-resources/golden_rules.txt
+NULL

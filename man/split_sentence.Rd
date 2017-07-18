@@ -41,4 +41,12 @@ split_sentence(x)
 
 data(DATA)
 split_sentence(DATA)
+
+\dontrun{
+## Kevin S. Dias' sentence boundary disambiguation test set
+data(golden_rules)
+library(magrittr)
+
+golden_rules \%$\%
+}
 }
