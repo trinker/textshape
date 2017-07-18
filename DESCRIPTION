@@ -8,7 +8,7 @@ Description: Tools that can be used to reshape and restructure text data.
 Depends: R (>= 3.3.2)
 Imports: data.table, slam, stringi, utils
 Suggests: testthat
-Date: 2017-07-16
+Date: 2017-07-17
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

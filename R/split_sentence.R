@@ -71,26 +71,37 @@ split_sentence.data.frame <- function(x, text.var = TRUE, ...) {
 #    x <- stringi::stri_replace_all_regex(stringi::stri_trans_tolower(x), sent_regex, "")
 #    stringi::stri_split_regex(x, "(?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|\\!)\\s")
 #}
-abbr_rep <- lapply(list(
+abbr_rep_1 <- lapply(list(
   Titles   = c('jr', 'mr', 'mrs', 'ms', 'dr', 'prof', 'sr', 'sen', 'rep',
          'rev', 'gov', 'atty', 'supt', 'det', 'rev', 'col','gen', 'lt',
          'cmdr', 'adm', 'capt', 'sgt', 'cpl', 'maj'),
 
-  Entities = c('dept', 'univ', 'uni', 'assn', 'bros', 'inc', 'ltd', 'co',
-         'corp', 'plc'),
+  Entities = c('dept', 'univ', 'uni', 'assn'),
+
+  Misc     = c('vs', 'mt'),
+
+  Streets  = c('st')
+), function(x){
+    fl <- sub("(^[a-z])(.+)", "\\1", x)
+    sprintf("[%s%s]%s", fl, toupper(fl), sub("(^[a-z])(.+)", "\\2", x))
+})
+
+abbr_rep_2 <- lapply(list(
+  Entities = c('bros', 'inc', 'ltd', 'co', 'corp', 'plc'),
 
   Months   = c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul',
          'aug', 'sep', 'oct', 'nov', 'dec', 'sept'),
 
   Days     = c('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'),
 
-  Misc     = c('vs', 'etc', 'esp', 'cf', 'al', 'mt'),
+  Misc     = c('etc', 'esp', 'cf', 'al'),
 
-  Streets  = c('ave', 'bld', 'blvd', 'cl', 'ct', 'cres', 'dr', 'rd', 'st')
+  Streets  = c('ave', 'bld', 'blvd', 'cl', 'ct', 'cres', 'dr', 'rd')
 ), function(x){
     fl <- sub("(^[a-z])(.+)", "\\1", x)
     sprintf("[%s%s]%s", fl, toupper(fl), sub("(^[a-z])(.+)", "\\2", x))
 })
+
 
 period_reg <- paste0(
     "(?:(?<=[a-z])\\.\\s(?=[a-z]\\.))",
@@ -103,8 +114,9 @@ period_reg <- paste0(
 )
 
 
-sent_regex <- sprintf("((?<=\\b(%s))\\.)|%s|(%s)",
-    paste(unlist(abbr_rep), collapse = "|"),
+sent_regex <- sprintf("((?<=\\b(%s))\\.)|(((?<=\\b(%s))\\.)\\s*(?![A-Z]))|%s|(%s)",
+    paste(unlist(abbr_rep_1), collapse = "|"),
+    paste(unlist(abbr_rep_1), collapse = "|"),
     period_reg,
 	'\\.(?=\\d+)'
 )
