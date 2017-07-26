@@ -80,32 +80,41 @@ split_sentence.data.frame <- function(x, text.var = TRUE, ...) {
 #    x <- stringi::stri_replace_all_regex(stringi::stri_trans_tolower(x), sent_regex, "")
 #    stringi::stri_split_regex(x, "(?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|\\!)\\s")
 #}
+
+
 abbr_rep_1 <- lapply(list(
-  Titles   = c('jr', 'mr', 'mrs', 'ms', 'dr', 'prof', 'sr', 'sen', 'rep',
-         'rev', 'gov', 'atty', 'supt', 'det', 'rev', 'col','gen', 'lt',
-         'cmdr', 'adm', 'capt', 'sgt', 'cpl', 'maj'),
+    Titles   = c('mr', 'mrs', 'ms', 'dr', 'prof', 'sen', 'rep',
+                 'rev', 'gov', 'atty', 'supt', 'det', 'rev', 'col','gen', 'lt',
+                 'cmdr', 'adm', 'capt', 'sgt', 'cpl', 'maj'),
 
-  Entities = c('dept', 'univ', 'uni', 'assn'),
+    Entities = c('dept', 'univ', 'uni', 'assn'),
 
-  Misc     = c('vs', 'mt'),
+    Misc     = c('vs', 'mt'),
 
-  Streets  = c('st')
+    Streets  = c('st')
 ), function(x){
     fl <- sub("(^[a-z])(.+)", "\\1", x)
     sprintf("[%s%s]%s", fl, toupper(fl), sub("(^[a-z])(.+)", "\\2", x))
 })
 
 abbr_rep_2 <- lapply(list(
-  Entities = c('bros', 'inc', 'ltd', 'co', 'corp', 'plc'),
+    Titles      = c('jr', 'sr'),
+    
+    Entities    = c('bros', 'inc', 'ltd', 'co', 'corp', 'plc'),
 
-  Months   = c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul',
-         'aug', 'sep', 'oct', 'nov', 'dec', 'sept'),
+    Months      = c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul',
+                    'aug', 'sep', 'oct', 'nov', 'dec', 'sept'),
+  
+    Days        = c('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'),
 
-  Days     = c('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'),
+    Misc        = c('etc', 'esp', 'cf', 'al'),
 
-  Misc     = c('etc', 'esp', 'cf', 'al'),
-
-  Streets  = c('ave', 'bld', 'blvd', 'cl', 'ct', 'cres', 'dr', 'rd')
+    Streets     = c('ave', 'bld', 'blvd', 'cl', 'ct', 'cres', 'rd'),
+    
+    ## measures from:http://englishplus.com/grammar/00000058.htm
+    ## excluded b/c likely to overlap with actual words: {'in', 'oz'}
+    Measurement = c('ft', 'gal', 'mi', 't', 'tbsp', 'tsp', 'yd', 'qt', 
+                    'sq', 'pt', 'lb', 'lbs')
 ), function(x){
     fl <- sub("(^[a-z])(.+)", "\\1", x)
     sprintf("[%s%s]%s", fl, toupper(fl), sub("(^[a-z])(.+)", "\\2", x))
@@ -125,6 +134,11 @@ period_reg <- paste0(
 # gsub("(((?<=\\b(%s))\\.)(\\s+(?![A-Z])))", '[[[]]]',
 #     'With the co. in hand they were Co. parts in co. I want', perl=TRUE)
 
+## there are 2 sets of abbreviation lists abbr_rep_1 & abbr_rep_2.  This is 
+## because the first set will likely have a proper noun following them (e.g. 
+## Dr. Rinker) while the latter will not and if they are followed by a capital
+## letter then the abbreviation likely ends the sentence and a split should
+## occur there.  This is baked into the replacement logic for splitting.
 sent_regex <- sprintf("((?<=\\b(%s))\\.)|((?<=\\b(%s))\\.(?!\\s+[A-Z]))|%s|(%s)",
     paste(unlist(abbr_rep_1), collapse = "|"),
     paste(unlist(abbr_rep_2), collapse = "|"),
