@@ -113,7 +113,7 @@ abbr_rep_2 <- lapply(list(
     
     ## measures from:http://englishplus.com/grammar/00000058.htm
     ## excluded b/c likely to overlap with actual words: {'in', 'oz'}
-    Measurement = c('ft', 'gal', 'mi', 't', 'tbsp', 'tsp', 'yd', 'qt', 
+    Measurement = c('ft', 'gal', 'mi', 'tbsp', 'tsp', 'yd', 'qt', 
                     'sq', 'pt', 'lb', 'lbs')
 ), function(x){
     fl <- sub("(^[a-z])(.+)", "\\1", x)

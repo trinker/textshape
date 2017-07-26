@@ -24,7 +24,6 @@ textshape 1.1.0 -
 
 * `tidy_list` did not add `content.attribute.name` for lists of named vectors.
 
-**NEW FEATURES**
 
 **MINOR FEATURES**
 
@@ -51,7 +50,8 @@ textshape 1.1.0 -
 * `split_sentence` has better handling for single and double middle names
   presented as initials.
 
-
+* `split_sentence` has better handling for abbreviated English units of measure.
+  
 **CHANGES**
 
 * `combine.default` included element names by default.  This has been removed to

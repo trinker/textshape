@@ -17,14 +17,13 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-textshape 1.1.0 -
+textshape 1.1.0 - 1.3.0
 ----------------------------------------------------------------
 
 BUG FIXES
 
 * `tidy_list` did not add `content.attribute.name` for lists of named vectors.
 
-NEW FEATURES
 
 MINOR FEATURES
 
@@ -51,7 +50,8 @@ IMPROVEMENTS
 * `split_sentence` has better handling for single and double middle names
   presented as initials.
 
-
+* `split_sentence` has better handling for abbreviated English units of measure.
+  
 CHANGES
 
 * `combine.default` included element names by default.  This has been removed to

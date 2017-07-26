@@ -285,17 +285,17 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_vector(x)
 
     ##               id content
-    ##    1:   Arkansas       F
-    ##    2:     Alaska       D
-    ##    3:    Alabama       A
-    ##    4:     Alaska       A
-    ##    5:    Arizona       E
+    ##    1:   Arkansas       C
+    ##    2:   Arkansas       B
+    ##    3:     Alaska       B
+    ##    4:   Arkansas       A
+    ##    5:    Alabama       D
     ##   ---                   
     ##  996:    Arizona       B
-    ##  997:     Alaska       C
-    ##  998: California       E
-    ##  999:    Arizona       E
-    ## 1000:    Alabama       E
+    ##  997:   Arkansas       B
+    ##  998:    Arizona       A
+    ##  999:    Alabama       C
+    ## 1000: California       B
 
 #### A Table
 
@@ -303,12 +303,12 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     165
-    ## 2:  B     157
-    ## 3:  C     169
-    ## 4:  D     141
-    ## 5:  E     198
-    ## 6:  F     170
+    ## 1:  A     164
+    ## 2:  B     181
+    ## 3:  C     175
+    ## 4:  D     174
+    ## 5:  E     150
+    ## 6:  F     156
 
 #### A DocumentTermMatrix
 
@@ -337,22 +337,34 @@ or `TermDocumentMatrix` into a tidied data set.
             facet_wrap(~time, ncol=2, scales = 'free_y') +
             scale_y_discrete(labels = function(x) gsub("__.+$", "", x))
 
-    ## # A tibble: 42,057 × 7
+    ## # A tibble: 42,057 x 7
     ##     time  turn sentence         term     n     i     j
     ##    <dbl> <dbl>    <dbl>        <chr> <dbl> <int> <int>
-    ## 1      1     1        1        we'll     1     1     1
-    ## 2      1     1        1         talk     1     1     2
-    ## 3      1     1        1        about     2     1     3
-    ## 4      1     1        1 specifically     1     1     4
-    ## 5      1     1        1       health     1     1     5
-    ## 6      1     1        1         care     1     1     6
-    ## 7      1     1        1           in     1     1     7
-    ## 8      1     1        1            a     1     1     8
-    ## 9      1     1        1       moment     1     1     9
+    ##  1     1     1        1        we'll     1     1     1
+    ##  2     1     1        1         talk     1     1     2
+    ##  3     1     1        1        about     2     1     3
+    ##  4     1     1        1 specifically     1     1     4
+    ##  5     1     1        1       health     1     1     5
+    ##  6     1     1        1         care     1     1     6
+    ##  7     1     1        1           in     1     1     7
+    ##  8     1     1        1            a     1     1     8
+    ##  9     1     1        1       moment     1     1     9
     ## 10     1     1        1            .     1     1    10
     ## # ... with 42,047 more rows
 
-![](tools/figure/unnamed-chunk-8-1.png)
+    ## Warning in mutate_impl(.data, dots): Unequal factor levels: coercing to
+    ## character
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+![](tools/figure/unnamed-chunk-7-1.png)
 
 #### A DocumentTermMatrix of Collocations
 
@@ -374,7 +386,7 @@ and then a tidied data set.
             scale_fill_gradient(low= 'white', high = 'red') +
             theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-![](tools/figure/unnamed-chunk-9-1.png)
+![](tools/figure/unnamed-chunk-8-1.png)
 
 Combining
 ---------
@@ -394,57 +406,53 @@ within grouping variables.
 
     (dat <- split_sentence(DATA))
 
-    ##         person sex adult                                            state
-    ##  1:        sam   m     0            c("Computer is fun.", "Not too fun.")
-    ##  2:       greg   m     0                          No it's not, it's dumb.
-    ##  3:    teacher   m     1                               What should we do?
-    ##  4:        sam   m     0                             You liar, it stinks!
-    ##  5:       greg   m     0                          I am telling the truth!
-    ##  6:      sally   f     0                           How can we be certain?
-    ##  7:       greg   m     0                                 There is no way.
-    ##  8:        sam   m     0                                  I distrust you.
-    ##  9:      sally   f     0                      What are you talking about?
-    ## 10: researcher   f     1            c("Shall we move on?", " Good then.")
-    ## 11:       greg   m     0 c("I'm hungry.", " Let's eat.", " You already?")
-    ##     code element_id sentence_id
-    ##  1:   K1          1           1
-    ##  2:   K2          2           1
-    ##  3:   K3          3           1
-    ##  4:   K4          4           1
-    ##  5:   K5          5           1
-    ##  6:   K6          6           1
-    ##  7:   K7          7           1
-    ##  8:   K8          8           1
-    ##  9:   K9          9           1
-    ## 10:  K10         10           1
-    ## 11:  K11         11           1
+    ##         person sex adult                       state code element_id
+    ##  1:        sam   m     0            Computer is fun.   K1          1
+    ##  2:        sam   m     0                Not too fun.   K1          1
+    ##  3:       greg   m     0     No it's not, it's dumb.   K2          2
+    ##  4:    teacher   m     1          What should we do?   K3          3
+    ##  5:        sam   m     0        You liar, it stinks!   K4          4
+    ##  6:       greg   m     0     I am telling the truth!   K5          5
+    ##  7:      sally   f     0      How can we be certain?   K6          6
+    ##  8:       greg   m     0            There is no way.   K7          7
+    ##  9:        sam   m     0             I distrust you.   K8          8
+    ## 10:      sally   f     0 What are you talking about?   K9          9
+    ## 11: researcher   f     1           Shall we move on?  K10         10
+    ## 12: researcher   f     1                  Good then.  K10         10
+    ## 13:       greg   m     0                 I'm hungry.  K11         11
+    ## 14:       greg   m     0                  Let's eat.  K11         11
+    ## 15:       greg   m     0                You already?  K11         11
+    ##     sentence_id
+    ##  1:           1
+    ##  2:           2
+    ##  3:           1
+    ##  4:           1
+    ##  5:           1
+    ##  6:           1
+    ##  7:           1
+    ##  8:           1
+    ##  9:           1
+    ## 10:           1
+    ## 11:           1
+    ## 12:           2
+    ## 13:           1
+    ## 14:           2
+    ## 15:           3
 
     combine(dat[, 1:5, with=FALSE])
 
-    ##         person sex adult                                            state
-    ##  1:        sam   m     0            c("Computer is fun.", "Not too fun.")
-    ##  2:       greg   m     0                          No it's not, it's dumb.
-    ##  3:    teacher   m     1                               What should we do?
-    ##  4:        sam   m     0                             You liar, it stinks!
-    ##  5:       greg   m     0                          I am telling the truth!
-    ##  6:      sally   f     0                           How can we be certain?
-    ##  7:       greg   m     0                                 There is no way.
-    ##  8:        sam   m     0                                  I distrust you.
-    ##  9:      sally   f     0                      What are you talking about?
-    ## 10: researcher   f     1            c("Shall we move on?", " Good then.")
-    ## 11:       greg   m     0 c("I'm hungry.", " Let's eat.", " You already?")
-    ##     code
-    ##  1:   K1
-    ##  2:   K2
-    ##  3:   K3
-    ##  4:   K4
-    ##  5:   K5
-    ##  6:   K6
-    ##  7:   K7
-    ##  8:   K8
-    ##  9:   K9
-    ## 10:  K10
-    ## 11:  K11
+    ##         person sex adult                               state code
+    ##  1:        sam   m     0       Computer is fun. Not too fun.   K1
+    ##  2:       greg   m     0             No it's not, it's dumb.   K2
+    ##  3:    teacher   m     1                  What should we do?   K3
+    ##  4:        sam   m     0                You liar, it stinks!   K4
+    ##  5:       greg   m     0             I am telling the truth!   K5
+    ##  6:      sally   f     0              How can we be certain?   K6
+    ##  7:       greg   m     0                    There is no way.   K7
+    ##  8:        sam   m     0                     I distrust you.   K8
+    ##  9:      sally   f     0         What are you talking about?   K9
+    ## 10: researcher   f     1        Shall we move on? Good then.  K10
+    ## 11:       greg   m     0 I'm hungry. Let's eat. You already?  K11
 
 Tabulating
 ----------
@@ -493,29 +501,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   B  A  B
-    ## 2   B  B  A
-    ## 3   B  A  A
-    ## 4   B  B  B
-    ## 5   A  B  B
-    ## 6   B  A  B
-    ## 7   B  B  B
-    ## 8   A  B  B
-    ## 9   B  A  A
-    ## 10  A  A  A
+    ## 1   B  B  B
+    ## 2   B  A  A
+    ## 3   A  A  A
+    ## 4   A  B  B
+    ## 5   A  A  A
+    ## 6   B  A  A
+    ## 7   B  A  B
+    ## 8   B  B  A
+    ## 9   B  A  B
+    ## 10  A  A  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 3 7
-    ## X2 5 5
-    ## X3 4 6
+    ## X1 4 6
+    ## X2 7 3
+    ## X3 5 5
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  3  5  4
-    ## B  7  5  6
+    ## A  4  7  5
+    ## B  6  3  5
 
 Spanning
 --------
@@ -596,7 +604,7 @@ The `duration` function calculates start-end durations as n words.
         xlab("Duration (Words)") +
         ylab("Person")
 
-![](tools/figure/unnamed-chunk-16-1.png)
+![](tools/figure/unnamed-chunk-15-1.png)
 
 Splitting
 ---------
@@ -1072,36 +1080,46 @@ accurate than a simple regular expression approach alone.
     split_sentence(x)
 
     ## [[1]]
-    ## [1] "c(\"Mr. Brown comes!\", \"He says hello.\", \"i give him coffee.\", \" i will go at 5 p.m. eastern time.\", \" Or somewhere in between!\", \"go there\")"
+    ## [1] "Mr. Brown comes!"                  "He says hello."                   
+    ## [3] "i give him coffee."                "i will go at 5 p.m. eastern time."
+    ## [5] "Or somewhere in between!"          "go there"
 
 #### A Dataframe
 
     split_sentence(DATA)
 
-    ##         person sex adult                                            state
-    ##  1:        sam   m     0            c("Computer is fun.", "Not too fun.")
-    ##  2:       greg   m     0                          No it's not, it's dumb.
-    ##  3:    teacher   m     1                               What should we do?
-    ##  4:        sam   m     0                             You liar, it stinks!
-    ##  5:       greg   m     0                          I am telling the truth!
-    ##  6:      sally   f     0                           How can we be certain?
-    ##  7:       greg   m     0                                 There is no way.
-    ##  8:        sam   m     0                                  I distrust you.
-    ##  9:      sally   f     0                      What are you talking about?
-    ## 10: researcher   f     1            c("Shall we move on?", " Good then.")
-    ## 11:       greg   m     0 c("I'm hungry.", " Let's eat.", " You already?")
-    ##     code element_id sentence_id
-    ##  1:   K1          1           1
-    ##  2:   K2          2           1
-    ##  3:   K3          3           1
-    ##  4:   K4          4           1
-    ##  5:   K5          5           1
-    ##  6:   K6          6           1
-    ##  7:   K7          7           1
-    ##  8:   K8          8           1
-    ##  9:   K9          9           1
-    ## 10:  K10         10           1
-    ## 11:  K11         11           1
+    ##         person sex adult                       state code element_id
+    ##  1:        sam   m     0            Computer is fun.   K1          1
+    ##  2:        sam   m     0                Not too fun.   K1          1
+    ##  3:       greg   m     0     No it's not, it's dumb.   K2          2
+    ##  4:    teacher   m     1          What should we do?   K3          3
+    ##  5:        sam   m     0        You liar, it stinks!   K4          4
+    ##  6:       greg   m     0     I am telling the truth!   K5          5
+    ##  7:      sally   f     0      How can we be certain?   K6          6
+    ##  8:       greg   m     0            There is no way.   K7          7
+    ##  9:        sam   m     0             I distrust you.   K8          8
+    ## 10:      sally   f     0 What are you talking about?   K9          9
+    ## 11: researcher   f     1           Shall we move on?  K10         10
+    ## 12: researcher   f     1                  Good then.  K10         10
+    ## 13:       greg   m     0                 I'm hungry.  K11         11
+    ## 14:       greg   m     0                  Let's eat.  K11         11
+    ## 15:       greg   m     0                You already?  K11         11
+    ##     sentence_id
+    ##  1:           1
+    ##  2:           2
+    ##  3:           1
+    ##  4:           1
+    ##  5:           1
+    ##  6:           1
+    ##  7:           1
+    ##  8:           1
+    ##  9:           1
+    ## 10:           1
+    ## 11:           1
+    ## 12:           2
+    ## 13:           1
+    ## 14:           2
+    ## 15:           3
 
 ### Speakers
 
@@ -1438,36 +1456,36 @@ scraping with **textshape** replacements.
     ##        location     person
     ##    1: wisconsin MODERATORS
     ##    2: wisconsin     CAVUTO
-    ##    3: wisconsin  BARTIROMO
-    ##    4: wisconsin      BAKER
-    ##    5: wisconsin     CAVUTO
+    ##    3: wisconsin     CAVUTO
+    ##    4: wisconsin     CAVUTO
+    ##    5: wisconsin  BARTIROMO
     ##   ---                     
-    ## 1777:      ohio      TRUMP
-    ## 1778:      ohio      BAIER
-    ## 1779:      ohio      KELLY
-    ## 1780:      ohio      BAIER
-    ## 1781:      ohio      KELLY
-    ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     dialogue
-    ##    1:                                                                                                                                                                                                                                                                                                                                                                   Gerard Baker (The Wall Street Journal);Maria Bartiromo (Fox Business Network); andNeil Cavuto (Fox Business Network)
-    ##    2:                                                                                                                                                                             c("It is 9:00 p.m. on the East Coast, 8:00 p.m. here inside the Milwaukee theater.", "Welcome to the Republican presidential debate here on the Fox Business Network.", "I'm Neil Cavuto, alongside my co-moderators, Maria Bartiromo, and the editor-in-chief of the Wall Street Journal, Gerard Baker.")
-    ##    3:                                                                                                                          c("Tonight we're partnering with the Wall Street Journal to ask questions on the economy that voters want answered.", "We're also working with Facebook, who tells us that since the first Republican debate, more than 58 million people have joined the political conversation online.", "More than 9 million are talking specifically about the economy.")
-    ##    4:                                                                                                                                                                             c("The candidates on stage tonight were selected based on their standing in an average of four national polls.", "Those standings determining their position on the stage.", "And here they are.", "At center stage, businessman Donald Trump.", "[applause]  Neurosurgeon Dr. Ben Carson.", "[applause]")
-    ##    5:                                                                                                                                                                                                                                                                                                                                                c("Florida Senator Marco Rubio.", "[applause]  Texas Senator Ted Cruz.", "[applause]  Former Florida Governor Jeb Bush.", "[applause]")
-    ##   ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-    ## 1777: c("Our country is in serious trouble.", "We don't win anymore.", " We don't beat China in trade.", "We don't beat Japan, with their millions and millions of cars coming into this country, in trade.", "We can't beat Mexico, at the border or in trade.", " We can't do anything right.", "Our military has to be strengthened.", "Our vets have to be taken care of.", "We have to end Obamacare, and we have to make our country great again, and I will do that.", " Thank you.")
-    ## 1778:                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Gentlemen, thank you.
-    ## 1779:                                                                                                                                                                                                                                                                                                                                                                                                                                                                             It's over!
-    ## 1780:                                                                                                                                                                                                                                                                                                                                                                                                                                                                             That's it.
-    ## 1781:                                                                                                                                             c("Are you relieved?", "You were nervous before, they--they don't look relieved.", "They look \\"get me outta here."", "   Thank you all very much, and that will do it for the first Republican primary debate night of the 2016 presidential race.", "Our thanks to the candidates, who will now be joined by their families on stage.")
+    ## 7502:      ohio      KELLY
+    ## 7503:      ohio      KELLY
+    ## 7504:      ohio      KELLY
+    ## 7505:      ohio      KELLY
+    ## 7506:      ohio      KELLY
+    ##                                                                                                                              dialogue
+    ##    1:            Gerard Baker (The Wall Street Journal);Maria Bartiromo (Fox Business Network); andNeil Cavuto (Fox Business Network)
+    ##    2:                                                 It is 9:00 p.m. on the East Coast, 8:00 p.m. here inside the Milwaukee theater.
+    ##    3:                                                 Welcome to the Republican presidential debate here on the Fox Business Network.
+    ##    4: I'm Neil Cavuto, alongside my co-moderators, Maria Bartiromo, and the editor-in-chief of the Wall Street Journal, Gerard Baker.
+    ##    5:                Tonight we're partnering with the Wall Street Journal to ask questions on the economy that voters want answered.
+    ##   ---                                                                                                                                
+    ## 7502:                                                                                                               Are you relieved?
+    ## 7503:                                                                        You were nervous before, they--they don't look relieved.
+    ## 7504:                                                                                                  They look "get me outta here."
+    ## 7505:       Thank you all very much, and that will do it for the first Republican primary debate night of the 2016 presidential race.
+    ## 7506:                                                Our thanks to the candidates, who will now be joined by their families on stage.
     ##       element_id sentence_id
     ##    1:          1           1
     ##    2:          2           1
-    ##    3:          3           1
-    ##    4:          4           1
-    ##    5:          5           1
+    ##    3:          2           2
+    ##    4:          2           3
+    ##    5:          3           1
     ##   ---                       
-    ## 1777:        298           1
-    ## 1778:        299           1
-    ## 1779:        300           1
-    ## 1780:        301           1
-    ## 1781:        302           1
+    ## 7502:        302           1
+    ## 7503:        302           2
+    ## 7504:        302           3
+    ## 7505:        302           4
+    ## 7506:        302           5
