@@ -53,6 +53,7 @@ mtabulate <- function(vects) {
 as_list <- function(mat, nm = rownames(mat)) {
     nms <- colnames(mat)
     lst <- apply(mat, 1, function(x) rep(nms, x))
+    if (nrow(mat) == 1) lst <- list(c(lst))                 
     if (!is.list(lst) & is.atomic(lst)) lst <- as.list(lst)    
     if(!is.list(lst)) lst <- lapply(1:ncol(lst), function(i) lst[, i])
     stats::setNames(lst,  nm = nm)
