@@ -2,13 +2,13 @@ Package: textshape
 Title: Tools for Reshaping Text
 Version: 1.3.1
 Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")), person("Joran", "Elias", role = "ctb"),
-               person("Matthew", "Flickinger", role = "ctb"))
+                person("Matthew", "Flickinger", role = "ctb"))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
 Description: Tools that can be used to reshape and restructure text data.
 Depends: R (>= 3.3.2)
 Imports: data.table, slam, stringi, utils
 Suggests: testthat
-Date: 2017-07-26
+Date: 2017-08-04
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

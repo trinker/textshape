@@ -63,7 +63,7 @@ split_sentence.data.frame <- function(x, text.var = TRUE, ...) {
     }
 
     z[, element_id := 1:.N]
-    express1 <- parse(text=paste0(text.var, " := get_sents2(", text.var, ")"))
+    express1 <- parse(text=paste0(text.var, " := list(get_sents2(", text.var, "))"))
     z[, eval(express1)]
 
     express2 <- parse(text=paste0(".(", text.var, "=unlist(", text.var, "))"))

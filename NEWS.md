@@ -17,7 +17,23 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-textshape 1.1.0 -
+textshape 1.3.1 -
+----------------------------------------------------------------
+
+**BUG FIXES**
+
+* split_sentence`, `split_word`, & `split_token` did not handle single row 
+  data.frames properly resulting in loss of data.  This has been fixed.
+
+**MINOR FEATURES**
+
+**IMPROVEMENTS**
+
+**CHANGES**
+
+
+
+textshape 1.1.0 - 1.3.0
 ----------------------------------------------------------------
 
 **BUG FIXES**

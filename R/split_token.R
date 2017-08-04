@@ -61,7 +61,7 @@ split_token.data.frame <- function(x, text.var = TRUE, lower = TRUE, ...) {
     }
 
     z[, element_id := 1:.N]
-    express1 <- parse(text=paste0(text.var, " := split_token.default(", text.var, ", lower = ", lower, ")"))
+    express1 <- parse(text=paste0(text.var, " := list(split_token.default(", text.var, ", lower = ", lower, "))"))
     z[, eval(express1)]
 
     express2 <- parse(text=paste0(".(", text.var, "=unlist(", text.var, "))"))
