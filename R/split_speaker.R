@@ -58,7 +58,7 @@ splittify <- function(x, y) {
 
     y <- .mgsub(esc, paste0('\\', esc), y, perl = FALSE)
 
-    sapply(x, function(z) {
+    lapply(x, function(z) {
         trimws(
             grep("^\\s*$",
                 strsplit(as.character(z), paste(paste(y), collapse="|"))[[1]],

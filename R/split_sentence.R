@@ -99,21 +99,21 @@ abbr_rep_1 <- lapply(list(
 
 abbr_rep_2 <- lapply(list(
     Titles      = c('jr', 'sr'),
-    
+
     Entities    = c('bros', 'inc', 'ltd', 'co', 'corp', 'plc'),
 
     Months      = c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul',
                     'aug', 'sep', 'oct', 'nov', 'dec', 'sept'),
-  
+
     Days        = c('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'),
 
     Misc        = c('etc', 'esp', 'cf', 'al'),
 
     Streets     = c('ave', 'bld', 'blvd', 'cl', 'ct', 'cres', 'rd'),
-    
+
     ## measures from:http://englishplus.com/grammar/00000058.htm
     ## excluded b/c likely to overlap with actual words: {'in', 'oz'}
-    Measurement = c('ft', 'gal', 'mi', 'tbsp', 'tsp', 'yd', 'qt', 
+    Measurement = c('ft', 'gal', 'mi', 'tbsp', 'tsp', 'yd', 'qt',
                     'sq', 'pt', 'lb', 'lbs')
 ), function(x){
     fl <- sub("(^[a-z])(.+)", "\\1", x)
@@ -134,8 +134,8 @@ period_reg <- paste0(
 # gsub("(((?<=\\b(%s))\\.)(\\s+(?![A-Z])))", '[[[]]]',
 #     'With the co. in hand they were Co. parts in co. I want', perl=TRUE)
 
-## there are 2 sets of abbreviation lists abbr_rep_1 & abbr_rep_2.  This is 
-## because the first set will likely have a proper noun following them (e.g. 
+## there are 2 sets of abbreviation lists abbr_rep_1 & abbr_rep_2.  This is
+## because the first set will likely have a proper noun following them (e.g.
 ## Dr. Rinker) while the latter will not and if they are followed by a capital
 ## letter then the abbreviation likely ends the sentence and a split should
 ## occur there.  This is baked into the replacement logic for splitting.

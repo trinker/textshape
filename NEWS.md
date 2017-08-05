@@ -17,13 +17,17 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-textshape 1.3.1 -
+textshape 1.4.0 -
 ----------------------------------------------------------------
 
 **BUG FIXES**
 
-* split_sentence`, `split_word`, & `split_token` did not handle single row 
-  data.frames properly resulting in loss of data.  This has been fixed.
+* split_sentence`, `split_word`, `split_token`, & `split_speaker` did not handle
+  single row data.frames properly resulting in loss of data.  This has been fixed.
+
+**NEW FEATURES**
+* `split_sentence_token` added as a shortcut to split into sentences, add a
+  sentence index, and then split into tokens and add a token index.
 
 **MINOR FEATURES**
 
@@ -67,7 +71,7 @@ textshape 1.1.0 - 1.3.0
   presented as initials.
 
 * `split_sentence` has better handling for abbreviated English units of measure.
-  
+
 **CHANGES**
 
 * `combine.default` included element names by default.  This has been removed to
