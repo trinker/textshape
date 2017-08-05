@@ -6,7 +6,7 @@
 \alias{split_sentence_token.data.frame}
 \title{Split Sentences & Tokens}
 \usage{
-split_sentence_token(x, lower = TRUE, ...)
+split_sentence_token(x, ...)
 
 \method{split_sentence_token}{default}(x, lower = TRUE, ...)
 

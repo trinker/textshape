@@ -35,7 +35,7 @@
 #' golden_rules %$%
 #'     split_sentence_token(Text)
 #' }
-split_sentence_token <- function(x, lower = TRUE, ...) {
+split_sentence_token <- function(x,  ...) {
     UseMethod("split_sentence_token")
 }
 
@@ -51,6 +51,7 @@ split_sentence_token.default <- function(x, lower = TRUE, ...) {
 #' @method split_sentence_token data.frame
 split_sentence_token.data.frame <- function(x, text.var = TRUE, lower = TRUE, ...) {
 
+    element_id <- NULL
     z <- split_sentence(x, text.var = text.var, ...)
 
     nms <- colnames(z)
