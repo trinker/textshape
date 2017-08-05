@@ -7,7 +7,7 @@ Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
 Description: Tools that can be used to reshape and restructure text data.
 Depends: R (>= 3.3.2)
 Imports: data.table, slam, stringi, utils
-Suggests: testthat
+Suggests: testthat, tm, textreadr
 Date: 2017-08-05
 License: GPL-2
 LazyData: TRUE
