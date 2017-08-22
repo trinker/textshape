@@ -2,13 +2,13 @@
 % Please edit documentation in R/tidy_matrix.R
 \name{tidy_matrix}
 \alias{tidy_matrix}
-\alias{tidy_adjaceny_matrix}
+\alias{tidy_adjacency_matrix}
 \title{Convert a Matrix into Tidy Form}
 \usage{
 tidy_matrix(x, row.name = "row", col.name = "col", value.name = "value",
   ...)
 
-tidy_adjaceny_matrix(x, ...)
+tidy_adjacency_matrix(x, ...)
 }
 \arguments{
 \item{x}{A matrix.}
@@ -28,7 +28,7 @@ Returns a tidied data.frame.
 \code{tidy_matrix} - Converts matrices into a tidy data set.  Essentially, a
 stacking of the matrix columns and repeating row/column names as necessary.
 
-\code{tidy_adjaceny_matrix} - A wrapper for \code{tidy_matrix} with the 
+\code{tidy_adjacency_matrix} - A wrapper for \code{tidy_matrix} with the 
 \code{row.name}, \code{col.name}, & \code{value.name} all set to \code{"from"},
 \code{"to"}, & \code{"n"}, assuming peparation for network analysis.
 }
@@ -37,6 +37,6 @@ data(simple_dtm)
 tidy_matrix(as.matrix(simple_dtm), 'doc', 'term', 'n')
 
 X <- as.matrix(simple_dtm[1:10, 1:10])
-tidy_adjaceny_matrix(crossprod(X))
-tidy_adjaceny_matrix(crossprod(t(X)))
+tidy_adjacency_matrix(crossprod(X))
+tidy_adjacency_matrix(crossprod(t(X)))
 }
