@@ -440,18 +440,6 @@ or `TermDocumentMatrix` into a tidied data set.
     ## 10     1     1        1            .     1     1    10
     ## # ... with 42,047 more rows
 
-    ## Warning in mutate_impl(.data, dots): Unequal factor levels: coercing to
-    ## character
-
-    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
-    ## coercing into character vector
-
-    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
-    ## coercing into character vector
-
-    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
-    ## coercing into character vector
-
 ![](tools/figure/unnamed-chunk-8-1.png)
 
 #### A DocumentTermMatrix of Collocations

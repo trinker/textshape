@@ -10,7 +10,7 @@ output:
 library(knitr)
 combine <- textshape::combine
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(tidyverse, magrittr, ggstance, textshape)
+pacman::p_load(tidyverse, magrittr, ggstance, textshape, gridExtra, viridis)
 pacman::p_load_current_gh('trinker/gofastr')
 
 desc <- suppressWarnings(readLines("DESCRIPTION"))
@@ -204,7 +204,7 @@ gridExtra::grid.arrange(wo, w, ncol = 2)
 
 The `tidy_dtm` and `tidy_tdm` functions convert a `DocumentTermMatrix` or `TermDocumentMatrix` into a tidied data set.  
 
-```{r}
+```{r, warning=FALSE}
 my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
 
 tidy_dtm(my_dtm) %>%
