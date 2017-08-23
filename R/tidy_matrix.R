@@ -8,10 +8,18 @@
 #' @param col.name A string to use for the column names that are now a column.
 #' @param value.name A string to use for the values that are now a column.
 #' @param \ldots ignored.
-#' @return Returns a tidied data.frame.
+#' @return Returns a tidied \code{data.frame}.
 #' @export
 #' @rdname tidy_matrix
 #' @examples
+#' mat <- matrix(1:16, nrow = 4,
+#'     dimnames = list(LETTERS[1:4], LETTERS[23:26])
+#' )
+#' 
+#' mat
+#' tidy_matrix(mat)
+#' 
+#' 
 #' data(simple_dtm)
 #' tidy_matrix(as.matrix(simple_dtm), 'doc', 'term', 'n')
 #' 

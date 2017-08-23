@@ -52,6 +52,7 @@ Most of the functions split, expand, or tidy a `vector`, `list`, `data.frame`, o
 | `tidy_list`      | `list` of `vector`s or `data.frame`s | Row bind a list and repeat list names as id column     |
 | `tidy_vector`    | `vector`                       | Column bind a named atomic `vector`'s names and values       |
 | `tidy_table`     | `table`                        | Column bind a `table`'s names and values                     |
+| `tidy_matrix`    | `matrix`                       | Stack values, repeat column row names accordingly            |
 | `tidy_dtm`/`tidy_tdm` | `DocumentTermMatrix`      | Tidy format `DocumentTermMatrix`/`TermDocumentMatrix`        |
 | `tidy_colo_dtm`/`tidy_colo_tdm` | `DocumentTermMatrix`      | Tidy format of collocating words  from a `DocumentTermMatrix`/`TermDocumentMatrix`        |
 | `duration`       | `vector`, `data.frame`         | Get duration (start-end times) for turns of talk in n words  |
@@ -67,6 +68,8 @@ Most of the functions split, expand, or tidy a `vector`, `list`, `data.frame`, o
 | `split_transcript` | `vector`                     | Split speaker and dialogue (e.g., "greg: Who me")            |
 | `split_word`     | `vector`, `data.frame`         | Split words                                                  |
 | `column_to_rownames` | `data.frame`               | Add a column as rownames                                     |
+| `cluster_matrix` | `matrix`                       | Reorder column/rows of a matrix via hierarchical clustering  |
+
 
 \****Note:*** *Text vector accompanied by aggregating `grouping.var` argument, which can be in the form of a `vector`, `list`, or  `data.frame`*
 
@@ -99,7 +102,7 @@ The main shaping functions can be broken into the categories of (a) binding, (b)
 
 ```r
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(tidyverse, magrittr, ggstance)
+pacman::p_load(tidyverse, magrittr, ggstance, viridis, gridExtra)
 pacman::p_load_current_gh('trinker/gofastr', 'trinker/textshape')
 ```
 
@@ -139,6 +142,63 @@ tidy_vector(x)
 x <- table(sample(LETTERS[1:6], 1000, TRUE))
 tidy_table(x)
 ```
+
+#### A Matrix
+
+```{r}
+mat <- matrix(1:16, nrow = 4,
+    dimnames = list(LETTERS[1:4], LETTERS[23:26])
+)
+
+mat
+
+tidy_matrix(mat)
+```
+
+With clustering (column and row reordering) via the `cluster_matrix` function. 
+
+```
+## plot heatmap w/o clustering
+wo <- mtcars %>%
+    cor() %>%
+    tidy_matrix('car', 'var') %>%
+    ggplot(aes(var, car, fill = value)) +
+         geom_tile() +
+         scale_fill_viridis(name = expression(r[xy])) +
+         theme(
+             axis.text.y = element_text(size = 8)   ,
+             axis.text.x = element_text(size = 8, hjust = 1, vjust = 1, angle = 45),   
+             legend.position = 'bottom',
+             legend.key.height = grid::unit(.1, 'cm'),
+             legend.key.width = grid::unit(.5, 'cm')
+         ) +
+         labs(subtitle = "With Out Clustering")
+
+## plot heatmap w clustering
+w <- mtcars %>%
+    cor() %>%
+    cluster_matrix() %>%
+    tidy_matrix('car', 'var') %>%
+    mutate(
+        var = factor(var, levels = unique(var)),
+        car = factor(car, levels = unique(car))        
+    ) %>%
+    group_by(var) %>%
+    ggplot(aes(var, car, fill = value)) +
+         geom_tile() +
+         scale_fill_viridis(name = expression(r[xy])) +
+         theme(
+             axis.text.y = element_text(size = 8)   ,
+             axis.text.x = element_text(size = 8, hjust = 1, vjust = 1, angle = 45),   
+             legend.position = 'bottom',
+             legend.key.height = grid::unit(.1, 'cm'),
+             legend.key.width = grid::unit(.5, 'cm')               
+         ) +
+         labs(subtitle = "With Clustering")
+
+gridExtra::grid.arrange(wo, w, ncol = 2)
+```
+
 
 #### A DocumentTermMatrix
 

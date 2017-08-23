@@ -22,7 +22,7 @@ tidy_adjacency_matrix(x, ...)
 \item{\ldots}{ignored.}
 }
 \value{
-Returns a tidied data.frame.
+Returns a tidied \code{data.frame}.
 }
 \description{
 \code{tidy_matrix} - Converts matrices into a tidy data set.  Essentially, a
@@ -33,6 +33,14 @@ stacking of the matrix columns and repeating row/column names as necessary.
 \code{"to"}, & \code{"n"}, assuming peparation for network analysis.
 }
 \examples{
+mat <- matrix(1:16, nrow = 4,
+    dimnames = list(LETTERS[1:4], LETTERS[23:26])
+)
+
+mat
+tidy_matrix(mat)
+
+
 data(simple_dtm)
 tidy_matrix(as.matrix(simple_dtm), 'doc', 'term', 'n')
 
