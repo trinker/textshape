@@ -8,6 +8,7 @@ output:
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
+knitr::opts_chunk$set(fig.path = "tools/figure/")
 combine <- textshape::combine
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(tidyverse, magrittr, ggstance, textshape, gridExtra, viridis)
@@ -29,7 +30,6 @@ knit_hooks$set(htmlcap = function(before, options, envir) {
     }
     })
 knitr::opts_knit$set(self.contained = TRUE, cache = FALSE)
-knitr::opts_chunk$set(fig.path = "tools/figure/")
 ```
 
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
@@ -157,7 +157,7 @@ tidy_matrix(mat)
 
 With clustering (column and row reordering) via the `cluster_matrix` function. 
 
-```
+```{r}
 ## plot heatmap w/o clustering
 wo <- mtcars %>%
     cor() %>%
@@ -196,7 +196,8 @@ w <- mtcars %>%
          ) +
          labs(subtitle = "With Clustering")
 
-gridExtra::grid.arrange(wo, w, ncol = 2)
+grid.arrange(wo, w, ncol = 2)
+
 ```
 
 

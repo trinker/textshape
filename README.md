@@ -396,7 +396,9 @@ function.
              ) +
              labs(subtitle = "With Clustering")
 
-    gridExtra::grid.arrange(wo, w, ncol = 2)
+    grid.arrange(wo, w, ncol = 2)
+
+![](tools/figure/unnamed-chunk-8-1.png)
 
 #### A DocumentTermMatrix
 
@@ -440,7 +442,7 @@ or `TermDocumentMatrix` into a tidied data set.
     ## 10     1     1        1            .     1     1    10
     ## # ... with 42,047 more rows
 
-![](tools/figure/unnamed-chunk-8-1.png)
+![](tools/figure/unnamed-chunk-9-1.png)
 
 #### A DocumentTermMatrix of Collocations
 
@@ -462,7 +464,7 @@ and then a tidied data set.
             scale_fill_gradient(low= 'white', high = 'red') +
             theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-![](tools/figure/unnamed-chunk-9-1.png)
+![](tools/figure/unnamed-chunk-10-1.png)
 
 Combining
 ---------
@@ -680,7 +682,7 @@ The `duration` function calculates start-end durations as n words.
         xlab("Duration (Words)") +
         ylab("Person")
 
-![](tools/figure/unnamed-chunk-16-1.png)
+![](tools/figure/unnamed-chunk-17-1.png)
 
 Splitting
 ---------
