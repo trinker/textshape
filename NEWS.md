@@ -26,8 +26,15 @@ textshape 1.4.0 -
   single row data.frames properly resulting in loss of data.  This has been fixed.
 
 **NEW FEATURES**
+
 * `split_sentence_token` added as a shortcut to split into sentences, add a
   sentence index, and then split into tokens and add a token index.
+  
+* `tidy_matrix` and `tidy_adjacency_matrix` added to provide easy tidy 
+  representations of these data types.
+  
+* `cluster_matrix` added for reordering the columns/rows of matrices via 
+  hierarchical clustering.
 
 **MINOR FEATURES**
 
