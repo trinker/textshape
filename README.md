@@ -33,6 +33,7 @@ Table of Contents
         -   [A Dataframe](#a-dataframe)
         -   [A Named Vector](#a-named-vector)
         -   [A Table](#a-table)
+        -   [A Matrix](#a-matrix)
         -   [A DocumentTermMatrix](#a-documenttermmatrix)
         -   [A DocumentTermMatrix of Collocations](#a-documenttermmatrix-of-collocations)
     -   [Combining](#combining)
@@ -101,79 +102,89 @@ the functions and their use:
 <td>Column bind a <code>table</code>'s names and values</td>
 </tr>
 <tr class="odd">
+<td><code>tidy_matrix</code></td>
+<td><code>matrix</code></td>
+<td>Stack values, repeat column row names accordingly</td>
+</tr>
+<tr class="even">
 <td><code>tidy_dtm</code>/<code>tidy_tdm</code></td>
 <td><code>DocumentTermMatrix</code></td>
 <td>Tidy format <code>DocumentTermMatrix</code>/<code>TermDocumentMatrix</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>tidy_colo_dtm</code>/<code>tidy_colo_tdm</code></td>
 <td><code>DocumentTermMatrix</code></td>
 <td>Tidy format of collocating words from a <code>DocumentTermMatrix</code>/<code>TermDocumentMatrix</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>duration</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Get duration (start-end times) for turns of talk in n words</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>from_to</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Prepare speaker data for a flow network</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>mtabulate</code></td>
 <td><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
 <td>Dataframe/list version of <code>tabulate</code> to produce count matrix</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>split_index</code></td>
 <td><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
 <td>Split at specified indices</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>split_match</code></td>
 <td><code>vector</code></td>
 <td>Split vector at specified character/regex match</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>split_portion</code></td>
 <td><code>vector</code>*</td>
 <td>Split data into portioned chunks</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>split_run</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Split runs (e.g., &quot;aaabbbbcdddd&quot;)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>split_sentence</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Split sentences</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>split_speaker</code></td>
 <td><code>data.frame</code></td>
 <td>Split combined speakers (e.g., &quot;Josh, Jake, Jim&quot;)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>split_token</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Split words and punctuation</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>split_transcript</code></td>
 <td><code>vector</code></td>
 <td>Split speaker and dialogue (e.g., &quot;greg: Who me&quot;)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>split_word</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Split words</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>column_to_rownames</code></td>
 <td><code>data.frame</code></td>
 <td>Add a column as rownames</td>
+</tr>
+<tr class="odd">
+<td><code>cluster_matrix</code></td>
+<td><code>matrix</code></td>
+<td>Reorder column/rows of a matrix via hierarchical clustering</td>
 </tr>
 </tbody>
 </table>
@@ -219,7 +230,7 @@ Loading Dependencies
 ====================
 
     if (!require("pacman")) install.packages("pacman")
-    pacman::p_load(tidyverse, magrittr, ggstance)
+    pacman::p_load(tidyverse, magrittr, ggstance, viridis, gridExtra)
     pacman::p_load_current_gh('trinker/gofastr', 'trinker/textshape')
 
 Tidying
@@ -285,17 +296,17 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_vector(x)
 
     ##               id content
-    ##    1:   Arkansas       C
-    ##    2:   Arkansas       B
-    ##    3:     Alaska       B
-    ##    4:   Arkansas       A
-    ##    5:    Alabama       D
+    ##    1:   Arkansas       E
+    ##    2:    Alabama       F
+    ##    3:    Alabama       E
+    ##    4: California       A
+    ##    5:    Arizona       F
     ##   ---                   
-    ##  996:    Arizona       B
-    ##  997:   Arkansas       B
-    ##  998:    Arizona       A
-    ##  999:    Alabama       C
-    ## 1000: California       B
+    ##  996:     Alaska       F
+    ##  997:    Arizona       B
+    ##  998:    Alabama       D
+    ##  999:    Arizona       E
+    ## 1000:     Alaska       C
 
 #### A Table
 
@@ -303,12 +314,91 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     164
-    ## 2:  B     181
-    ## 3:  C     175
-    ## 4:  D     174
-    ## 5:  E     150
-    ## 6:  F     156
+    ## 1:  A     143
+    ## 2:  B     155
+    ## 3:  C     181
+    ## 4:  D     157
+    ## 5:  E     188
+    ## 6:  F     176
+
+#### A Matrix
+
+    mat <- matrix(1:16, nrow = 4,
+        dimnames = list(LETTERS[1:4], LETTERS[23:26])
+    )
+
+    mat
+
+    ##   W X  Y  Z
+    ## A 1 5  9 13
+    ## B 2 6 10 14
+    ## C 3 7 11 15
+    ## D 4 8 12 16
+
+    tidy_matrix(mat)
+
+    ##     row col value
+    ##  1:   A   W     1
+    ##  2:   B   W     2
+    ##  3:   C   W     3
+    ##  4:   D   W     4
+    ##  5:   A   X     5
+    ##  6:   B   X     6
+    ##  7:   C   X     7
+    ##  8:   D   X     8
+    ##  9:   A   Y     9
+    ## 10:   B   Y    10
+    ## 11:   C   Y    11
+    ## 12:   D   Y    12
+    ## 13:   A   Z    13
+    ## 14:   B   Z    14
+    ## 15:   C   Z    15
+    ## 16:   D   Z    16
+
+With clustering (column and row reordering) via the `cluster_matrix`
+function.
+
+    ## plot heatmap w/o clustering
+    wo <- mtcars %>%
+        cor() %>%
+        tidy_matrix('car', 'var') %>%
+        ggplot(aes(var, car, fill = value)) +
+             geom_tile() +
+             scale_fill_viridis(name = expression(r[xy])) +
+             theme(
+                 axis.text.y = element_text(size = 8)   ,
+                 axis.text.x = element_text(size = 8, hjust = 1, vjust = 1, angle = 45),   
+                 legend.position = 'bottom',
+                 legend.key.height = grid::unit(.1, 'cm'),
+                 legend.key.width = grid::unit(.5, 'cm')
+             ) +
+             labs(subtitle = "With Out Clustering")
+
+    ## plot heatmap w clustering
+    w <- mtcars %>%
+        cor() %>%
+        cluster_matrix() %>%
+        tidy_matrix('car', 'var') %>%
+        mutate(
+            var = factor(var, levels = unique(var)),
+            car = factor(car, levels = unique(car))        
+        ) %>%
+        group_by(var) %>%
+        ggplot(aes(var, car, fill = value)) +
+             geom_tile() +
+             scale_fill_viridis(name = expression(r[xy])) +
+             theme(
+                 axis.text.y = element_text(size = 8)   ,
+                 axis.text.x = element_text(size = 8, hjust = 1, vjust = 1, angle = 45),   
+                 legend.position = 'bottom',
+                 legend.key.height = grid::unit(.1, 'cm'),
+                 legend.key.width = grid::unit(.5, 'cm')               
+             ) +
+             labs(subtitle = "With Clustering")
+
+    grid.arrange(wo, w, ncol = 2)
+
+![](tools/figure/unnamed-chunk-8-1.png)
 
 #### A DocumentTermMatrix
 
@@ -352,19 +442,7 @@ or `TermDocumentMatrix` into a tidied data set.
     ## 10     1     1        1            .     1     1    10
     ## # ... with 42,047 more rows
 
-    ## Warning in mutate_impl(.data, dots): Unequal factor levels: coercing to
-    ## character
-
-    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
-    ## coercing into character vector
-
-    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
-    ## coercing into character vector
-
-    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
-    ## coercing into character vector
-
-![](tools/figure/unnamed-chunk-7-1.png)
+![](tools/figure/unnamed-chunk-9-1.png)
 
 #### A DocumentTermMatrix of Collocations
 
@@ -386,7 +464,7 @@ and then a tidied data set.
             scale_fill_gradient(low= 'white', high = 'red') +
             theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-![](tools/figure/unnamed-chunk-8-1.png)
+![](tools/figure/unnamed-chunk-10-1.png)
 
 Combining
 ---------
@@ -501,29 +579,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   B  B  B
-    ## 2   B  A  A
+    ## 1   A  A  B
+    ## 2   B  B  A
     ## 3   A  A  A
-    ## 4   A  B  B
-    ## 5   A  A  A
-    ## 6   B  A  A
-    ## 7   B  A  B
-    ## 8   B  B  A
-    ## 9   B  A  B
-    ## 10  A  A  B
+    ## 4   B  A  B
+    ## 5   B  A  A
+    ## 6   A  B  A
+    ## 7   A  B  A
+    ## 8   A  B  A
+    ## 9   B  B  B
+    ## 10  B  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 4 6
-    ## X2 7 3
-    ## X3 5 5
+    ## X1 5 5
+    ## X2 4 6
+    ## X3 6 4
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  4  7  5
-    ## B  6  3  5
+    ## A  5  4  6
+    ## B  5  6  4
 
 Spanning
 --------
@@ -604,7 +682,7 @@ The `duration` function calculates start-end durations as n words.
         xlab("Duration (Words)") +
         ylab("Person")
 
-![](tools/figure/unnamed-chunk-15-1.png)
+![](tools/figure/unnamed-chunk-17-1.png)
 
 Splitting
 ---------
