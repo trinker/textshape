@@ -33,6 +33,10 @@ textshape 1.4.0 -
 
 **IMPROVEMENTS**
 
+* `split_sentence` now handles digit(s) + inch (in.) abbreviation if not
+  followed  by a capital letter.  Previously, this was split on.  Additionally,
+  post script (p.s.) is no longer split on.
+
 **CHANGES**
 
 

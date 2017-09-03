@@ -149,8 +149,10 @@ sent_regex <- sprintf("((?<=\\b(%s))\\.)|((?<=\\b(%s))\\.(?!\\s+[A-Z]))|%s|(%s)"
 
 get_sents2 <- function(x) {
 
-    y <- stringi::stri_replace_all_regex(trimws(x), sent_regex, "<<<TEMP>>>")
-    y <- stringi::stri_replace_all_regex(y, '(\\b[Nn]o)(\\.)(\\s+\\d)', '$1<<<NOTEMP>>>$3')
+    y <- stringi::stri_replace_all_regex(trimws(x), '([Pp])(\\.)(\\s*[Ss])(\\.)', '$1<<<TEMP>>>$3<<<TEMP>>>')
+    y <- stringi::stri_replace_all_regex(y, sent_regex, "<<<TEMP>>>")
+    y <- stringi::stri_replace_all_regex(y, '(\\b[Nn]o)(\\.)(\\s+\\d)', '$1<<<TEMP>>>$3')
+    y <- stringi::stri_replace_all_regex(y, '(\\b\\d+\\s+in)(\\.)(\\s[a-z])', '$1<<<TEMP>>>$3')
     y <- stringi::stri_replace_all_regex(y, '([?.!]+)([\'])([^,])', '<<<SQUOTE>>>$1  $3')
     y <- stringi::stri_replace_all_regex(y, '([?.!]+)(["])([^,])', '<<<DQUOTE>>>$1  $3')
     ## midde name handling
@@ -174,7 +176,6 @@ get_sents2 <- function(x) {
     y <- trimws(unlist(y))
 
     y <- stringi::stri_replace_all_fixed(y, "<<<TEMP>>>", ".")
-    y <- stringi::stri_replace_all_fixed(y, "<<<NOTEMP>>>", ".")
     y <- stringi::stri_replace_all_regex(y, "(<<<DQUOTE>>>)([?.!]+)", "$2\"")
     y <- stringi::stri_replace_all_regex(y, "(<<<SQUOTE>>>)([?.!]+)", "$2'")
 
