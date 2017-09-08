@@ -17,7 +17,7 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-textshape 1.4.0 -
+textshape 1.4.0 - 1.5.0
 ----------------------------------------------------------------
 
 **BUG FIXES**
@@ -36,15 +36,11 @@ textshape 1.4.0 -
 * `cluster_matrix` added for reordering the columns/rows of matrices via
   hierarchical clustering.
 
-**MINOR FEATURES**
-
 **IMPROVEMENTS**
 
 * `split_sentence` now handles digit(s) + inch (in.) abbreviation if not
   followed by a capital letter.  Previously, this was split on.  Additionally,
   post script (p.s.) is no longer split on.
-
-**CHANGES**
 
 
 

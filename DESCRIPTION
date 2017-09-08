@@ -1,10 +1,9 @@
 Package: textshape
-Date: 2017-09-03
+Date: 2017-09-07
 Title: Tools for Reshaping Text
 Version: 1.5.0
-Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut",
-          "cre")), person("Joran", "Elias", role = "ctb"), person("Matthew", "Flickinger",
-          role = "ctb"))
+Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")),
+            person("Joran", "Elias", role = "ctb"), person("Matthew", "Flickinger", role = "ctb"))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
 Description: Tools that can be used to reshape and restructure text data.
 Depends: R (>= 3.3.2)

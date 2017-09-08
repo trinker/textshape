@@ -427,7 +427,7 @@ or `TermDocumentMatrix` into a tidied data set.
             facet_wrap(~time, ncol=2, scales = 'free_y') +
             scale_y_discrete(labels = function(x) gsub("__.+$", "", x))
 
-    ## # A tibble: 42,057 x 7
+    ## # A tibble: 42,058 x 7
     ##     time  turn sentence         term     n     i     j
     ##    <dbl> <dbl>    <dbl>        <chr> <dbl> <int> <int>
     ##  1     1     1        1        we'll     1     1     1
@@ -440,7 +440,7 @@ or `TermDocumentMatrix` into a tidied data set.
     ##  8     1     1        1            a     1     1     8
     ##  9     1     1        1       moment     1     1     9
     ## 10     1     1        1            .     1     1    10
-    ## # ... with 42,047 more rows
+    ## # ... with 42,048 more rows
 
 ![](tools/figure/unnamed-chunk-9-1.png)
 
