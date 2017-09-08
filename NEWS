@@ -29,11 +29,11 @@ NEW FEATURES
 
 * `split_sentence_token` added as a shortcut to split into sentences, add a
   sentence index, and then split into tokens and add a token index.
-  
-* `tidy_matrix` and `tidy_adjacency_matrix` added to provide easy tidy 
+
+* `tidy_matrix` and `tidy_adjacency_matrix` added to provide easy tidy
   representations of these data types.
-  
-* `cluster_matrix` added for reordering the columns/rows of matrices via 
+
+* `cluster_matrix` added for reordering the columns/rows of matrices via
   hierarchical clustering.
 
 MINOR FEATURES
@@ -41,7 +41,7 @@ MINOR FEATURES
 IMPROVEMENTS
 
 * `split_sentence` now handles digit(s) + inch (in.) abbreviation if not
-  followed  by a capital letter.  Previously, this was split on.  Additionally,
+  followed by a capital letter.  Previously, this was split on.  Additionally,
   post script (p.s.) is no longer split on.
 
 CHANGES
