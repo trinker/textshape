@@ -5,11 +5,11 @@ citEntry(entry = "manual",
     title = "{textshape}: Tools for Reshaping Text",
     author = "Tyler W. Rinker",
     address = "Buffalo, New York",
-    note = "version 1.5.0",
+    note = "version 1.5.1",
     year = "2017",
     url = "https://github.com/trinker/textshape",
     textVersion  = paste("Rinker, T. W. (2017).",
         "textshape: Tools for Reshaping Text",
-        "version 1.5.0. Buffalo, New York.",
+        "version 1.5.1. Buffalo, New York.",
         "https://github.com/trinker/textshape")
 )
