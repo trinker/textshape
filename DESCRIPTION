@@ -1,5 +1,5 @@
 Package: textshape
-Date: 2017-12-11
+Date: 2018-01-21
 Title: Tools for Reshaping Text
 Version: 1.5.1
 Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut",

@@ -58,6 +58,7 @@ Most of the functions split, expand, or tidy a `vector`, `list`, `data.frame`, o
 | `duration`       | `vector`, `data.frame`         | Get duration (start-end times) for turns of talk in n words  |
 | `from_to`        | `vector`, `data.frame`         | Prepare speaker data for a flow network                      |
 | `mtabulate`      | `vector`, `list`, `data.frame` | Dataframe/list version of `tabulate` to produce count matrix |
+| `flatten`        | `list`                         | Flatten nested, named list to single tier                    |
 | `split_index`    | `vector`, `list`, `data.frame` | Split at specified indices                                   |
 | `split_match`    | `vector`                       | Split vector at specified character/regex match              |
 | `split_portion`  | `vector`\*                     | Split data into portioned chunks                             |

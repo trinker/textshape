@@ -24,6 +24,11 @@ textshape 1.5.1 -
 
 **NEW FEATURES**
 
+* `flatten` added for flattening nested, named lists into single tiered lists
+  using the concatenated list/atomic vector names as the names of the single
+  tiered list.
+
+
 **MINOR FEATURES**
 
 **IMPROVEMENTS**
