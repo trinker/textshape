@@ -11,7 +11,7 @@ library(knitr)
 knitr::opts_chunk$set(fig.path = "tools/figure/")
 combine <- textshape::combine
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(tidyverse, magrittr, ggstance, textshape, gridExtra, viridis)
+pacman::p_load(tidyverse, magrittr, ggstance, textshape, gridExtra, viridis, quanteda, textreadr)
 pacman::p_load_current_gh('trinker/gofastr')
 
 desc <- suppressWarnings(readLines("DESCRIPTION"))
@@ -44,7 +44,7 @@ knitr::opts_knit$set(self.contained = TRUE, cache = FALSE)
 
 # Functions
 
-Most of the functions split, expand, or tidy a `vector`, `list`, `data.frame`, or `DocumentTermMatrix`.  The `combine`, `duration`, & `mtabulate` functions are notable exceptions.  The table below describes the functions and their use:
+Most of the functions split, expand, or tidy a `vector`, `list`, `data.frame`, or `DocumentTermMatrix`.  The `combine`, `duration`, `mtabulate`, & `flatten` functions are notable exceptions.  The table below describes the functions and their use:
 
 | Function         | Used On                        |  Description                                                 |
 |------------------|--------------------------------|--------------------------------------------------------------|
@@ -103,7 +103,7 @@ The main shaping functions can be broken into the categories of (a) binding, (b)
 
 ```r
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(tidyverse, magrittr, ggstance, viridis, gridExtra)
+pacman::p_load(tidyverse, magrittr, ggstance, viridis, gridExtra, textreadr, quanteda)
 pacman::p_load_current_gh('trinker/gofastr', 'trinker/textshape')
 ```
 
@@ -291,6 +291,28 @@ mtabulate(mtcars$cyl[1:10])
 (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 mtabulate(dat)
 t(mtabulate(dat))
+```
+
+## Flattening
+
+`flatten` allows the user to flatten a named, nested list of atomic vectors to a single level using the concatenated list/atomic vector names as the names of the single tiered list.  This is particularly useful for flattening dictionaries as seen below.  First we see the **quanteda** dictionary.
+
+```{r}
+mydict <- textreadr::download("https://provalisresearch.com/Download/LaverGarry.zip") %>%
+    unzip(exdir = (td <- tempdir())) %>%
+    `[`(1) %>%
+    quanteda::dictionary(file = .)
+
+mydict
+```
+
+
+And now we coerce the dictionary to a list and flatten it.  This could have been combined with the chain above but I wanted the user to see the original dictionary structure as well.
+
+```{r}
+mydict %>%
+    as.list() %>%
+    flatten()
 ```
 
 ## Spanning

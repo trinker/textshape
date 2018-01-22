@@ -42,6 +42,7 @@ Table of Contents
     -   [Tabulating](#tabulating)
         -   [A Vector](#a-vector-2)
         -   [A Dataframe](#a-dataframe-2)
+    -   [Flattening](#flattening)
     -   [Spanning](#spanning)
         -   [A Vector](#a-vector-3)
         -   [A Dataframe](#a-dataframe-3)
@@ -63,9 +64,9 @@ Functions
 
 
 Most of the functions split, expand, or tidy a `vector`, `list`,
-`data.frame`, or `DocumentTermMatrix`. The `combine`, `duration`, &
-`mtabulate` functions are notable exceptions. The table below describes
-the functions and their use:
+`data.frame`, or `DocumentTermMatrix`. The `combine`, `duration`,
+`mtabulate`, & `flatten` functions are notable exceptions. The table
+below describes the functions and their use:
 
 <table style="width:100%;">
 <colgroup>
@@ -132,56 +133,61 @@ the functions and their use:
 <td>Dataframe/list version of <code>tabulate</code> to produce count matrix</td>
 </tr>
 <tr class="odd">
+<td><code>flatten</code></td>
+<td><code>list</code></td>
+<td>Flatten nested, named list to single tier</td>
+</tr>
+<tr class="even">
 <td><code>split_index</code></td>
 <td><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
 <td>Split at specified indices</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>split_match</code></td>
 <td><code>vector</code></td>
 <td>Split vector at specified character/regex match</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>split_portion</code></td>
 <td><code>vector</code>*</td>
 <td>Split data into portioned chunks</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>split_run</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Split runs (e.g., &quot;aaabbbbcdddd&quot;)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>split_sentence</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Split sentences</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>split_speaker</code></td>
 <td><code>data.frame</code></td>
 <td>Split combined speakers (e.g., &quot;Josh, Jake, Jim&quot;)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>split_token</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Split words and punctuation</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>split_transcript</code></td>
 <td><code>vector</code></td>
 <td>Split speaker and dialogue (e.g., &quot;greg: Who me&quot;)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>split_word</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Split words</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>column_to_rownames</code></td>
 <td><code>data.frame</code></td>
 <td>Add a column as rownames</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>cluster_matrix</code></td>
 <td><code>matrix</code></td>
 <td>Reorder column/rows of a matrix via hierarchical clustering</td>
@@ -230,7 +236,7 @@ Loading Dependencies
 ====================
 
     if (!require("pacman")) install.packages("pacman")
-    pacman::p_load(tidyverse, magrittr, ggstance, viridis, gridExtra)
+    pacman::p_load(tidyverse, magrittr, ggstance, viridis, gridExtra, textreadr, quanteda)
     pacman::p_load_current_gh('trinker/gofastr', 'trinker/textshape')
 
 Tidying
@@ -296,17 +302,17 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_vector(x)
 
     ##               id content
-    ##    1:   Arkansas       E
+    ##    1: California       B
     ##    2:    Alabama       F
-    ##    3:    Alabama       E
-    ##    4: California       A
-    ##    5:    Arizona       F
+    ##    3:   Arkansas       F
+    ##    4:   Arkansas       F
+    ##    5:    Arizona       B
     ##   ---                   
-    ##  996:     Alaska       F
-    ##  997:    Arizona       B
-    ##  998:    Alabama       D
-    ##  999:    Arizona       E
-    ## 1000:     Alaska       C
+    ##  996: California       F
+    ##  997:    Arizona       F
+    ##  998:     Alaska       E
+    ##  999: California       F
+    ## 1000:    Arizona       D
 
 #### A Table
 
@@ -314,12 +320,12 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     143
-    ## 2:  B     155
+    ## 1:  A     149
+    ## 2:  B     166
     ## 3:  C     181
-    ## 4:  D     157
-    ## 5:  E     188
-    ## 6:  F     176
+    ## 4:  D     180
+    ## 5:  E     163
+    ## 6:  F     161
 
 #### A Matrix
 
@@ -428,18 +434,18 @@ or `TermDocumentMatrix` into a tidied data set.
             scale_y_discrete(labels = function(x) gsub("__.+$", "", x))
 
     ## # A tibble: 42,058 x 7
-    ##     time  turn sentence         term     n     i     j
-    ##    <dbl> <dbl>    <dbl>        <chr> <dbl> <int> <int>
-    ##  1     1     1        1        we'll     1     1     1
-    ##  2     1     1        1         talk     1     1     2
-    ##  3     1     1        1        about     2     1     3
-    ##  4     1     1        1 specifically     1     1     4
-    ##  5     1     1        1       health     1     1     5
-    ##  6     1     1        1         care     1     1     6
-    ##  7     1     1        1           in     1     1     7
-    ##  8     1     1        1            a     1     1     8
-    ##  9     1     1        1       moment     1     1     9
-    ## 10     1     1        1            .     1     1    10
+    ##     time  turn sentence term             n     i     j
+    ##    <dbl> <dbl>    <dbl> <chr>        <dbl> <int> <int>
+    ##  1  1.00  1.00     1.00 we'll         1.00     1     1
+    ##  2  1.00  1.00     1.00 talk          1.00     1     2
+    ##  3  1.00  1.00     1.00 about         2.00     1     3
+    ##  4  1.00  1.00     1.00 specifically  1.00     1     4
+    ##  5  1.00  1.00     1.00 health        1.00     1     5
+    ##  6  1.00  1.00     1.00 care          1.00     1     6
+    ##  7  1.00  1.00     1.00 in            1.00     1     7
+    ##  8  1.00  1.00     1.00 a             1.00     1     8
+    ##  9  1.00  1.00     1.00 moment        1.00     1     9
+    ## 10  1.00  1.00     1.00 .             1.00     1    10
     ## # ... with 42,048 more rows
 
 ![](tools/figure/unnamed-chunk-9-1.png)
@@ -579,29 +585,257 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  A  B
-    ## 2   B  B  A
-    ## 3   A  A  A
-    ## 4   B  A  B
-    ## 5   B  A  A
-    ## 6   A  B  A
-    ## 7   A  B  A
-    ## 8   A  B  A
+    ## 1   A  B  B
+    ## 2   B  B  B
+    ## 3   A  B  A
+    ## 4   A  A  A
+    ## 5   A  A  A
+    ## 6   B  B  B
+    ## 7   A  A  B
+    ## 8   A  B  B
     ## 9   B  B  B
-    ## 10  B  B  B
+    ## 10  A  A  A
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 5 5
+    ## X1 7 3
     ## X2 4 6
-    ## X3 6 4
+    ## X3 4 6
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  5  4  6
-    ## B  5  6  4
+    ## A  7  4  4
+    ## B  3  6  6
+
+Flattening
+----------
+
+`flatten` allows the user to flatten a named, nested list of atomic
+vectors to a single level using the concatenated list/atomic vector
+names as the names of the single tiered list. This is particularly
+useful for flattening dictionaries as seen below. First we see the
+**quanteda** dictionary.
+
+    mydict <- textreadr::download("https://provalisresearch.com/Download/LaverGarry.zip") %>%
+        unzip(exdir = (td <- tempdir())) %>%
+        `[`(1) %>%
+        quanteda::dictionary(file = .)
+
+    ## LaverGarry.zip read into C:\Users\Tyler\AppData\Local\Temp\RtmpeSKRCe
+
+    mydict
+
+    ## Dictionary object with 9 primary key entries and 2 nested levels.
+    ## - [CULTURE]:
+    ##   - people, war_in_iraq, civil_war
+    ##   - [CULTURE-HIGH]:
+    ##     - art, artistic, dance, galler*, museum*, music*, opera*, theatre*
+    ##   - [CULTURE-POPULAR]:
+    ##     - media
+    ##   - [SPORT]:
+    ##     - angler*
+    ## - [ECONOMY]:
+    ##   - [+STATE+]:
+    ##     - accommodation, age, ambulance, assist, benefit, care, carer*, child*, class, classes, clinics, collective*, contribution*, cooperative*, co-operative*, deprivation, disabilities, disadvantaged, educat*, elderly, equal*, establish, fair*, guarantee*, hardship, health*, homeless*, hospital*, hunger, inequal*, invest, investing, investment, means-test*, nurse*, patients, pension, poor, poorer, poorest, poverty, rehouse*, re-house*, school, teach*, transport, underfund*, unemploy*, vulnerable, widow*
+    ##   - [=STATE=]:
+    ##     - accountant, accounting, accounts, advert*, airline*, airport*, audit*, bank*, bargaining, breadwinner*, budget*, buy*, cartel*, cash*, charge*, commerce*, compensat*, consum*, cost*, credit*, customer*, debt*, deficit*, dwelling*, earn*, econ*, electricity, estate*, export*, fee, fees, financ*, hous*, import, imports, industr*, jobs, lease*, loan*, manufactur*, mortgage*, negotiat*, opportunity, partnership*, passenger*, pay*, performance, port*, productivity, profession*, purchas*, railway*, rebate*, recession*, research*, revenue*, salar*, sell*, settlement, software, supplier*, supply, telecom*, telephon*, tenan*, touris*, trade, train*, wage*, welfare, work*
+    ##   - [-STATE-]:
+    ##     - assets, autonomy, barrier*, bid, bidders, bidding, burden*, charit*, choice*, compet*, confidence, confiscatory, constrain*, contracting*, contractor*, controlled, controlling, controls, corporate, corporation*, deregulating, dismantl*, entrepreneur*, expensive, flexib*, franchise*, fundhold*, fund-holding, homestead*, initiative, intrusive, investor*, liberali*, market*, monetary, money, own*, private, privately, privatisations, privatised, privatising, produce*, profitable, regulat*, retail*, risk, risks, savings, sell*, shares, simplif*, spend*, sponsorship, taxable, taxes, tax-free, thrift*, trading, value, volunt*, voucher*
+    ## - [ENVIRONMENT]:
+    ##   - [CON ENVIRONMENT]:
+    ##     - produc*
+    ##   - [PRO ENVIRONMENT]:
+    ##     - car, catalytic, chemical*, chimney*, clean*, congestion, cyclist*, deplet*, ecolog*, emission*, energy-saving, environment*, fur, green, habitat*, hedgerow*, husbanded, litter*, opencast, open-cast*, ozone, planet, population, recycl*, re-cycl*, re-use, toxic, warming
+    ## - [GROUPS]:
+    ##   - [ETHNIC]:
+    ##     - asian*, buddhist*, ethnic*, race, raci*
+    ##   - [WOMEN]:
+    ##     - girls, woman, women
+    ## - [INSTITUTIONS]:
+    ##   - [CONSERVATIVE]:
+    ##     - authority, continu*, disrupt*, inspect*, jurisdiction*, legitimate, manag*, moratorium, rul*, strike*, whitehall
+    ##   - [NEUTRAL]:
+    ##     - administr*, advis*, agenc*, amalgamat*, appoint*, assembly, chair*, commission*, committee*, constituen*, council*, department*, directorate*, executive*, headquarters, legislat*, mechanism*, minister*, office, offices, official, operat*, opposition, organisation*, parliament*, presiden*, procedur*, process*, queen, regist*, scheme*, secretariat*, sovereign*, subcommittee*, tribunal*, vote*, voting, westminster
+    ##   - [RADICAL]:
+    ##     - abolition, accountable, answerable, consult*, corrupt*, democratic*, elect*, implement*, modern*, monitor*, rebuild*, reexamine*, reform*, re-organi*, repeal*, replace*, representat*, scandal*, scrap, scrap*, scrutin*, transform*, voice*
+    ## - [LAW_AND_ORDER]:
+    ##   - [LAW-CONSERVATIVE]:
+    ##     - assaults, bail, burglar*, constab*, convict*, court, courts, custod*, dealing, delinquen*, deter, deter*, disorder, drug*, fine, fines, firmness, force*, fraud*, guard*, hooligan*, illegal*, intimidat*, joy-ride*, lawless*, magistrat*, offence*, officer*, penal*, police, policemen, policing, prison*, probation, prosecution, punish*, re-offend, ruc, seiz*, sentence*, shop-lifting, squatting, terror*, theft*, thug*, tough*, trafficker*, uniformed, unlawful, vandal*, victim*, vigilan*
+    ##   - [LAW-LIBERAL]:
+    ##     - harassment, non-custodial
+    ## - [RURAL]:
+    ##   - agricultur*, badgers, bird*, countryside, farm*, feed, fish*, forest*, hens, horse*, landscape*, lane*, livestock, meadows, village*, wildlife
+    ## - [URBAN]:
+    ##   - town*
+    ## - [VALUES]:
+    ##   - [CONSERVATIVE]:
+    ##     - defend, defended, defending, discipline, glories, glorious, grammar, heritage, histor*, honour*, immigra*, inherit*, integrity, jubilee*, leader*, maintain, majesty, marriage, obscen*, past, pornograph*, preserv*, pride, principl*, probity, professionalism, proud, punctual*, recapture*, reliab*, threat*, tradition*
+    ##   - [LIBERAL]:
+    ##     - cruel*, discriminat*, human*, injustice*, innocent, inter_racial, minorit*, repressi*, rights, sex*
+
+And now we coerce the dictionary to a list and flatten it. This could
+have been combined with the chain above but I wanted the user to see the
+original dictionary structure as well.
+
+    mydict %>%
+        as.list() %>%
+        flatten()
+
+    ## $CULTURE___
+    ## [1] "people"      "war_in_iraq" "civil_war"  
+    ## 
+    ## $`CULTURE_CULTURE-HIGH`
+    ## [1] "art"      "artistic" "dance"    "galler*"  "museum*"  "music*"  
+    ## [7] "opera*"   "theatre*"
+    ## 
+    ## $`CULTURE_CULTURE-POPULAR`
+    ## [1] "media"
+    ## 
+    ## $CULTURE_SPORT
+    ## [1] "angler*"
+    ## 
+    ## $`ECONOMY_-STATE-`
+    ##  [1] "assets"         "autonomy"       "barrier*"       "bid"           
+    ##  [5] "bidders"        "bidding"        "burden*"        "charit*"       
+    ##  [9] "choice*"        "compet*"        "confidence"     "confiscatory"  
+    ## [13] "constrain*"     "contracting*"   "contractor*"    "controlled"    
+    ## [17] "controlling"    "controls"       "corporate"      "corporation*"  
+    ## [21] "deregulating"   "dismantl*"      "entrepreneur*"  "expensive"     
+    ## [25] "flexib*"        "franchise*"     "fundhold*"      "fund-holding"  
+    ## [29] "homestead*"     "initiative"     "intrusive"      "investor*"     
+    ## [33] "liberali*"      "market*"        "monetary"       "money"         
+    ## [37] "own*"           "private"        "privately"      "privatisations"
+    ## [41] "privatised"     "privatising"    "produce*"       "profitable"    
+    ## [45] "regulat*"       "retail*"        "risk"           "risks"         
+    ## [49] "savings"        "sell*"          "shares"         "simplif*"      
+    ## [53] "spend*"         "sponsorship"    "taxable"        "taxes"         
+    ## [57] "tax-free"       "thrift*"        "trading"        "value"         
+    ## [61] "volunt*"        "voucher*"      
+    ## 
+    ## $`ECONOMY_+STATE+`
+    ##  [1] "accommodation" "age"           "ambulance"     "assist"       
+    ##  [5] "benefit"       "care"          "carer*"        "child*"       
+    ##  [9] "class"         "classes"       "clinics"       "collective*"  
+    ## [13] "contribution*" "cooperative*"  "co-operative*" "deprivation"  
+    ## [17] "disabilities"  "disadvantaged" "educat*"       "elderly"      
+    ## [21] "equal*"        "establish"     "fair*"         "guarantee*"   
+    ## [25] "hardship"      "health*"       "homeless*"     "hospital*"    
+    ## [29] "hunger"        "inequal*"      "invest"        "investing"    
+    ## [33] "investment"    "means-test*"   "nurse*"        "patients"     
+    ## [37] "pension"       "poor"          "poorer"        "poorest"      
+    ## [41] "poverty"       "rehouse*"      "re-house*"     "school"       
+    ## [45] "teach*"        "transport"     "underfund*"    "unemploy*"    
+    ## [49] "vulnerable"    "widow*"       
+    ## 
+    ## $`ECONOMY_=STATE=`
+    ##  [1] "accountant"   "accounting"   "accounts"     "advert*"     
+    ##  [5] "airline*"     "airport*"     "audit*"       "bank*"       
+    ##  [9] "bargaining"   "breadwinner*" "budget*"      "buy*"        
+    ## [13] "cartel*"      "cash*"        "charge*"      "commerce*"   
+    ## [17] "compensat*"   "consum*"      "cost*"        "credit*"     
+    ## [21] "customer*"    "debt*"        "deficit*"     "dwelling*"   
+    ## [25] "earn*"        "econ*"        "electricity"  "estate*"     
+    ## [29] "export*"      "fee"          "fees"         "financ*"     
+    ## [33] "hous*"        "import"       "imports"      "industr*"    
+    ## [37] "jobs"         "lease*"       "loan*"        "manufactur*" 
+    ## [41] "mortgage*"    "negotiat*"    "opportunity"  "partnership*"
+    ## [45] "passenger*"   "pay*"         "performance"  "port*"       
+    ## [49] "productivity" "profession*"  "purchas*"     "railway*"    
+    ## [53] "rebate*"      "recession*"   "research*"    "revenue*"    
+    ## [57] "salar*"       "sell*"        "settlement"   "software"    
+    ## [61] "supplier*"    "supply"       "telecom*"     "telephon*"   
+    ## [65] "tenan*"       "touris*"      "trade"        "train*"      
+    ## [69] "wage*"        "welfare"      "work*"       
+    ## 
+    ## $`ENVIRONMENT_CON ENVIRONMENT`
+    ## [1] "produc*"
+    ## 
+    ## $`ENVIRONMENT_PRO ENVIRONMENT`
+    ##  [1] "car"           "catalytic"     "chemical*"     "chimney*"     
+    ##  [5] "clean*"        "congestion"    "cyclist*"      "deplet*"      
+    ##  [9] "ecolog*"       "emission*"     "energy-saving" "environment*" 
+    ## [13] "fur"           "green"         "habitat*"      "hedgerow*"    
+    ## [17] "husbanded"     "litter*"       "opencast"      "open-cast*"   
+    ## [21] "ozone"         "planet"        "population"    "recycl*"      
+    ## [25] "re-cycl*"      "re-use"        "toxic"         "warming"      
+    ## 
+    ## $GROUPS_ETHNIC
+    ## [1] "asian*"    "buddhist*" "ethnic*"   "race"      "raci*"    
+    ## 
+    ## $GROUPS_WOMEN
+    ## [1] "girls" "woman" "women"
+    ## 
+    ## $INSTITUTIONS_CONSERVATIVE
+    ##  [1] "authority"     "continu*"      "disrupt*"      "inspect*"     
+    ##  [5] "jurisdiction*" "legitimate"    "manag*"        "moratorium"   
+    ##  [9] "rul*"          "strike*"       "whitehall"    
+    ## 
+    ## $INSTITUTIONS_NEUTRAL
+    ##  [1] "administr*"    "advis*"        "agenc*"        "amalgamat*"   
+    ##  [5] "appoint*"      "assembly"      "chair*"        "commission*"  
+    ##  [9] "committee*"    "constituen*"   "council*"      "department*"  
+    ## [13] "directorate*"  "executive*"    "headquarters"  "legislat*"    
+    ## [17] "mechanism*"    "minister*"     "office"        "offices"      
+    ## [21] "official"      "operat*"       "opposition"    "organisation*"
+    ## [25] "parliament*"   "presiden*"     "procedur*"     "process*"     
+    ## [29] "queen"         "regist*"       "scheme*"       "secretariat*" 
+    ## [33] "sovereign*"    "subcommittee*" "tribunal*"     "vote*"        
+    ## [37] "voting"        "westminster"  
+    ## 
+    ## $INSTITUTIONS_RADICAL
+    ##  [1] "abolition"    "accountable"  "answerable"   "consult*"    
+    ##  [5] "corrupt*"     "democratic*"  "elect*"       "implement*"  
+    ##  [9] "modern*"      "monitor*"     "rebuild*"     "reexamine*"  
+    ## [13] "reform*"      "re-organi*"   "repeal*"      "replace*"    
+    ## [17] "representat*" "scandal*"     "scrap"        "scrap*"      
+    ## [21] "scrutin*"     "transform*"   "voice*"      
+    ## 
+    ## $`LAW_AND_ORDER_LAW-CONSERVATIVE`
+    ##  [1] "assaults"     "bail"         "burglar*"     "constab*"    
+    ##  [5] "convict*"     "court"        "courts"       "custod*"     
+    ##  [9] "dealing"      "delinquen*"   "deter"        "deter*"      
+    ## [13] "disorder"     "drug*"        "fine"         "fines"       
+    ## [17] "firmness"     "force*"       "fraud*"       "guard*"      
+    ## [21] "hooligan*"    "illegal*"     "intimidat*"   "joy-ride*"   
+    ## [25] "lawless*"     "magistrat*"   "offence*"     "officer*"    
+    ## [29] "penal*"       "police"       "policemen"    "policing"    
+    ## [33] "prison*"      "probation"    "prosecution"  "punish*"     
+    ## [37] "re-offend"    "ruc"          "seiz*"        "sentence*"   
+    ## [41] "shop-lifting" "squatting"    "terror*"      "theft*"      
+    ## [45] "thug*"        "tough*"       "trafficker*"  "uniformed"   
+    ## [49] "unlawful"     "vandal*"      "victim*"      "vigilan*"    
+    ## 
+    ## $`LAW_AND_ORDER_LAW-LIBERAL`
+    ## [1] "harassment"    "non-custodial"
+    ## 
+    ## $RURAL
+    ##  [1] "agricultur*" "badgers"     "bird*"       "countryside" "farm*"      
+    ##  [6] "feed"        "fish*"       "forest*"     "hens"        "horse*"     
+    ## [11] "landscape*"  "lane*"       "livestock"   "meadows"     "village*"   
+    ## [16] "wildlife"   
+    ## 
+    ## $URBAN
+    ## [1] "town*"
+    ## 
+    ## $VALUES_CONSERVATIVE
+    ##  [1] "defend"          "defended"        "defending"      
+    ##  [4] "discipline"      "glories"         "glorious"       
+    ##  [7] "grammar"         "heritage"        "histor*"        
+    ## [10] "honour*"         "immigra*"        "inherit*"       
+    ## [13] "integrity"       "jubilee*"        "leader*"        
+    ## [16] "maintain"        "majesty"         "marriage"       
+    ## [19] "obscen*"         "past"            "pornograph*"    
+    ## [22] "preserv*"        "pride"           "principl*"      
+    ## [25] "probity"         "professionalism" "proud"          
+    ## [28] "punctual*"       "recapture*"      "reliab*"        
+    ## [31] "threat*"         "tradition*"     
+    ## 
+    ## $VALUES_LIBERAL
+    ##  [1] "cruel*"       "discriminat*" "human*"       "injustice*"  
+    ##  [5] "innocent"     "inter_racial" "minorit*"     "repressi*"   
+    ##  [9] "rights"       "sex*"
 
 Spanning
 --------
@@ -682,7 +916,7 @@ The `duration` function calculates start-end durations as n words.
         xlab("Duration (Words)") +
         ylab("Person")
 
-![](tools/figure/unnamed-chunk-17-1.png)
+![](tools/figure/unnamed-chunk-19-1.png)
 
 Splitting
 ---------
