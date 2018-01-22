@@ -302,17 +302,17 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_vector(x)
 
     ##               id content
-    ##    1: California       B
+    ##    1:   Arkansas       E
     ##    2:    Alabama       F
-    ##    3:   Arkansas       F
-    ##    4:   Arkansas       F
-    ##    5:    Arizona       B
+    ##    3:    Alabama       E
+    ##    4: California       A
+    ##    5:    Arizona       F
     ##   ---                   
-    ##  996: California       F
-    ##  997:    Arizona       F
-    ##  998:     Alaska       E
-    ##  999: California       F
-    ## 1000:    Arizona       D
+    ##  996:     Alaska       F
+    ##  997:    Arizona       B
+    ##  998:    Alabama       D
+    ##  999:    Arizona       E
+    ## 1000:     Alaska       C
 
 #### A Table
 
@@ -320,12 +320,12 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     149
-    ## 2:  B     166
+    ## 1:  A     143
+    ## 2:  B     155
     ## 3:  C     181
-    ## 4:  D     180
-    ## 5:  E     163
-    ## 6:  F     161
+    ## 4:  D     157
+    ## 5:  E     188
+    ## 6:  F     176
 
 #### A Matrix
 
@@ -585,29 +585,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  B  B
-    ## 2   B  B  B
-    ## 3   A  B  A
-    ## 4   A  A  A
-    ## 5   A  A  A
-    ## 6   B  B  B
-    ## 7   A  A  B
-    ## 8   A  B  B
+    ## 1   A  A  B
+    ## 2   B  B  A
+    ## 3   A  A  A
+    ## 4   B  A  B
+    ## 5   B  A  A
+    ## 6   A  B  A
+    ## 7   A  B  A
+    ## 8   A  B  A
     ## 9   B  B  B
-    ## 10  A  A  A
+    ## 10  B  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 7 3
+    ## X1 5 5
     ## X2 4 6
-    ## X3 4 6
+    ## X3 6 4
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  7  4  4
-    ## B  3  6  6
+    ## A  5  4  6
+    ## B  5  6  4
 
 Flattening
 ----------
@@ -619,7 +619,7 @@ useful for flattening dictionaries as seen below. First we see the
 **quanteda** dictionary.
 
     mydict <- textreadr::download("https://provalisresearch.com/Download/LaverGarry.zip") %>%
-        unzip(exdir = (td <- tempdir())) %>%
+        unzip(exdir = tempdir()) %>%
         `[`(1) %>%
         quanteda::dictionary(file = .)
 

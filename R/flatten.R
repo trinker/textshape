@@ -53,7 +53,7 @@
 #' ## dictionary from quanteda
 #' require(quanteda); library(textreadr); library(dplyr)
 #' mydict <- textreadr::download("https://provalisresearch.com/Download/LaverGarry.zip") %>%
-#'     unzip(exdir = (td <- tempdir())) %>%
+#'     unzip(exdir = tempdir()) %>%
 #'     `[`(1) %>%
 #'     quanteda::dictionary(file = .)
 #'
