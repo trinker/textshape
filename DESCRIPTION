@@ -1,13 +1,13 @@
 Package: textshape
 Date: 2018-01-21
 Title: Tools for Reshaping Text
-Version: 1.5.1
+Version: 1.5.2
 Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut",
           "cre")), person("Joran", "Elias", role = "ctb"), person("Matthew", "Flickinger",
-          role = "ctb"))
+          role = "ctb"), person('Paul', 'Foster', role = "ctb"))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
 Description: Tools that can be used to reshape and restructure text data.
-Depends: R (>= 3.3.2)
+Depends: R (>= 3.4.0)
 Imports: data.table, slam, stats, stringi, utils
 Suggests: testthat
 License: GPL-2
