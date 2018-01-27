@@ -22,6 +22,9 @@ textshape 1.5.1 -
 
 BUG FIXES
 
+* `split_match_regex_to_transcript` gave warnings about `perl = TRUE` that were
+  due to `gsub` with a `fixed = TRUE` clashing with the `perl = TRUE`.
+
 NEW FEATURES
 
 * `flatten` added for flattening nested, named lists into single tiered lists

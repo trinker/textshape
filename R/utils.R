@@ -1,5 +1,5 @@
 .mgsub <- function (pattern, replacement, text.var, fixed = TRUE,
-	order.pattern = fixed, perl = TRUE, ...) {
+	order.pattern = fixed, perl = !fixed, ...) {
 
     if (fixed && order.pattern) {
         ord <- rev(order(nchar(pattern)))
