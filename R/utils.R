@@ -117,3 +117,18 @@ sprintf_ish <- function(x, padding, type){
 #     set_tibble(x)
 # }
 
+is_numeric_doc_names <- function(x, ...){
+    UseMethod('is_numeric_doc_names')
+}
+
+
+is_numeric_doc_names.TermDocumentMatrix <- function(x, ...){
+    colnames_numeric <- suppressWarnings(as.integer(colnames(x)))
+    !anyNA(colnames_numeric) && isTRUE(all.equal(stats::sd(diff(colnames_numeric)), 0))
+}
+
+
+is_numeric_doc_names.DocumentTermMatrix <- function(x, ...){
+    rownames_numeric <- suppressWarnings(as.integer(rownames(x)))
+    !anyNA(rownames_numeric) && isTRUE(all.equal(stats::sd(diff(rownames_numeric)), 0))
+}

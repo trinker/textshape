@@ -10,6 +10,7 @@
 #' @param \ldots ignored.
 #' @return Returns a tidied data.frame.
 #' @rdname tidy_dtm
+#' @include utils.R
 #' @export
 #' @examples
 #' data(simple_dtm)
@@ -37,6 +38,7 @@
 #'     group_by(time) %>%
 #'     arrange(desc(n)) %>%
 #'     slice(1:10) %>%
+#'     ungroup() %>%
 #'     mutate(
 #'         term = factor(paste(term, time, sep = "__"),
 #'             levels = rev(paste(term, time, sep = "__")))
@@ -50,13 +52,15 @@ tidy_dtm <- function(x, ...){
 
     doc <- NULL
 
+    docfun <- function(docs) if (is_numeric_doc_names(x)) {as.integer(docs)} else {docs}
+
     data.table::data.table(
         doc = x[['dimnames']][['Docs']][x[['i']]],
         term = x[['dimnames']][['Terms']][x[['j']]],
         n = x[['v']],
         i = x[['i']],
         j = x[['j']]
-    )[order(doc), ]
+    )[, doc := docfun(doc)][order(doc), ][]
 }
 
 
@@ -67,11 +71,13 @@ tidy_tdm <- function(x, ...){
 
     doc <- NULL
 
+    docfun <- function(docs) if (is_numeric_doc_names(x)) {as.integer(docs)} else {docs}
+
     data.table::data.table(
         doc = x[['dimnames']][['Docs']][x[['j']]],
         term = x[['dimnames']][['Terms']][x[['i']]],
         n = x[['v']],
         i = x[['j']],
         j = x[['i']]
-    )[order(doc), ]
+    )[, doc := docfun(doc)][order(doc), ][]
 }

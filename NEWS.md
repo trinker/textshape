@@ -36,6 +36,9 @@ textshape 1.5.1 -
 
 **IMPROVEMENTS**
 
+* `tidy_dtm`/`tidy_tdm` did not order unnamed matrices as expected (e.g.,
+  `{1, 2, ..., 1}` was ordered as `{1, 10, 2, ...}`).  This has been corrected.
+
 **CHANGES**
 
 

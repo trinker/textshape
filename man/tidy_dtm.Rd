@@ -49,6 +49,7 @@ tidy_dtm(my_dtm) \%>\%
     group_by(time) \%>\%
     arrange(desc(n)) \%>\%
     slice(1:10) \%>\%
+    ungroup() \%>\%
     mutate(
         term = factor(paste(term, time, sep = "__"),
             levels = rev(paste(term, time, sep = "__")))

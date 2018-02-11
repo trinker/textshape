@@ -1,10 +1,10 @@
 Package: textshape
-Date: 2018-01-27
+Date: 2018-02-11
 Title: Tools for Reshaping Text
 Version: 1.5.2
-Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")),
-            person("Joran", "Elias", role = "ctb"), person("Matthew", "Flickinger", role = "ctb"),
-            person('Paul', 'Foster', role = "ctb"))
+Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")), person("Joran",
+             "Elias", role = "ctb"), person("Matthew", "Flickinger", role = "ctb"), person('Paul', 'Foster', role =
+             "ctb"))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
 Description: Tools that can be used to reshape and restructure text data.
 Depends: R (>= 3.4.0)
@@ -16,3 +16,36 @@ Roxygen: list(wrap = FALSE)
 RoxygenNote: 6.0.1
 URL: http://github.com/trinker/textshape
 BugReports: http://github.com/trinker/textshape/issues
+Collate: 
+    'bind_list.R'
+    'bind_table.R'
+    'bind_vector.R'
+    'change_index.R'
+    'cluster_matrix.R'
+    'column_to_rownames.R'
+    'combine.R'
+    'duration.R'
+    'flatten.R'
+    'from_to.R'
+    'mtabulate.R'
+    'set_output.R'
+    'split_index.R'
+    'split_match.R'
+    'split_match_regex_to_transcript.R'
+    'split_portion.R'
+    'split_run.R'
+    'split_sentence.R'
+    'split_sentence_token.R'
+    'split_speaker.R'
+    'split_token.R'
+    'split_transcript.R'
+    'split_word.R'
+    'textshape-package.R'
+    'tidy_colo_dtm.R'
+    'utils.R'
+    'tidy_dtm.R'
+    'tidy_list.R'
+    'tidy_matrix.R'
+    'tidy_table.R'
+    'tidy_vector.R'
+    'unique_pairs.R'
