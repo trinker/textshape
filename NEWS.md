@@ -31,6 +31,7 @@ textshape 1.5.1 -
   using the concatenated list/atomic vector names as the names of the single
   tiered list.
 
+* `unnest_text` added to located and unnest nested text columns in a data.frame.
 
 **MINOR FEATURES**
 

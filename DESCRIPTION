@@ -1,7 +1,6 @@
 Package: textshape
-Date: 2018-02-11
 Title: Tools for Reshaping Text
-Version: 1.5.2
+Version: 1.5.3
 Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")), person("Joran",
              "Elias", role = "ctb"), person("Matthew", "Flickinger", role = "ctb"), person('Paul', 'Foster', role =
              "ctb"))
@@ -49,3 +48,4 @@ Collate:
     'tidy_table.R'
     'tidy_vector.R'
     'unique_pairs.R'
+    'unnest_text.R'

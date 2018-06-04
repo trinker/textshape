@@ -59,6 +59,7 @@ Most of the functions split, expand, or tidy a `vector`, `list`, `data.frame`, o
 | `from_to`        | `vector`, `data.frame`         | Prepare speaker data for a flow network                      |
 | `mtabulate`      | `vector`, `list`, `data.frame` | Dataframe/list version of `tabulate` to produce count matrix |
 | `flatten`        | `list`                         | Flatten nested, named list to single tier                    |
+| `unnest_text`    | `data.frame`                   | Unnest a nested text column                                  |
 | `split_index`    | `vector`, `list`, `data.frame` | Split at specified indices                                   |
 | `split_match`    | `vector`                       | Split vector at specified character/regex match              |
 | `split_portion`  | `vector`\*                     | Split data into portioned chunks                             |
@@ -237,10 +238,15 @@ The `tidy_colo_dtm` and `tidy_colo_tdm` functions convert a `DocumentTermMatrix`
 
 ```{r}
 my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
+sw <- unique(c(
+    lexicon::sw_jockers, 
+    lexicon::sw_loughran_mcdonald_long, 
+    lexicon::sw_fry_1000
+))
 
 tidy_colo_dtm(my_dtm) %>%
     tbl_df() %>%
-    filter(!term_1 %in% c('i', lexicon::sw_onix) & !term_2 %in% lexicon::sw_onix) %>%
+    filter(!term_1 %in% c('i', sw) & !term_2 %in% sw) %>%
     filter(term_1 != term_2) %>%
     unique_pairs() %>%
     filter(n > 15) %>%

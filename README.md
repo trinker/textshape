@@ -2,6 +2,9 @@ textshape
 ============
 
 
+    ## package 'rlang' successfully unpacked and MD5 sums checked
+    ## package 'utf8' successfully unpacked and MD5 sums checked
+
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
@@ -138,56 +141,61 @@ below describes the functions and their use:
 <td>Flatten nested, named list to single tier</td>
 </tr>
 <tr class="even">
+<td><code>unnest_text</code></td>
+<td><code>data.frame</code></td>
+<td>Unnest a nested text column</td>
+</tr>
+<tr class="odd">
 <td><code>split_index</code></td>
 <td><code>vector</code>, <code>list</code>, <code>data.frame</code></td>
 <td>Split at specified indices</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>split_match</code></td>
 <td><code>vector</code></td>
 <td>Split vector at specified character/regex match</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>split_portion</code></td>
 <td><code>vector</code>*</td>
 <td>Split data into portioned chunks</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>split_run</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Split runs (e.g., &quot;aaabbbbcdddd&quot;)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>split_sentence</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Split sentences</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>split_speaker</code></td>
 <td><code>data.frame</code></td>
 <td>Split combined speakers (e.g., &quot;Josh, Jake, Jim&quot;)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>split_token</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Split words and punctuation</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>split_transcript</code></td>
 <td><code>vector</code></td>
 <td>Split speaker and dialogue (e.g., &quot;greg: Who me&quot;)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>split_word</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Split words</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>column_to_rownames</code></td>
 <td><code>data.frame</code></td>
 <td>Add a column as rownames</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>cluster_matrix</code></td>
 <td><code>matrix</code></td>
 <td>Reorder column/rows of a matrix via hierarchical clustering</td>
@@ -302,17 +310,17 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_vector(x)
 
     ##               id content
-    ##    1:   Arkansas       E
-    ##    2:    Alabama       F
-    ##    3:    Alabama       E
-    ##    4: California       A
-    ##    5:    Arizona       F
+    ##    1:    Alabama       B
+    ##    2:     Alaska       F
+    ##    3: California       A
+    ##    4:   Arkansas       F
+    ##    5:    Arizona       E
     ##   ---                   
-    ##  996:     Alaska       F
-    ##  997:    Arizona       B
-    ##  998:    Alabama       D
-    ##  999:    Arizona       E
-    ## 1000:     Alaska       C
+    ##  996: California       D
+    ##  997: California       F
+    ##  998:    Arizona       A
+    ##  999: California       F
+    ## 1000: California       A
 
 #### A Table
 
@@ -320,12 +328,12 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     143
-    ## 2:  B     155
-    ## 3:  C     181
-    ## 4:  D     157
-    ## 5:  E     188
-    ## 6:  F     176
+    ## 1:  A     158
+    ## 2:  B     175
+    ## 3:  C     161
+    ## 4:  D     174
+    ## 5:  E     171
+    ## 6:  F     161
 
 #### A Matrix
 
@@ -404,7 +412,7 @@ function.
 
     grid.arrange(wo, w, ncol = 2)
 
-![](tools/figure/unnamed-chunk-8-1.png)
+![](tools/figure/unnamed-chunk-16-1.png)
 
 #### A DocumentTermMatrix
 
@@ -436,19 +444,19 @@ or `TermDocumentMatrix` into a tidied data set.
     ## # A tibble: 42,058 x 7
     ##     time  turn sentence term             n     i     j
     ##    <dbl> <dbl>    <dbl> <chr>        <dbl> <int> <int>
-    ##  1  1.00  1.00     1.00 we'll         1.00     1     1
-    ##  2  1.00  1.00     1.00 talk          1.00     1     2
-    ##  3  1.00  1.00     1.00 about         2.00     1     3
-    ##  4  1.00  1.00     1.00 specifically  1.00     1     4
-    ##  5  1.00  1.00     1.00 health        1.00     1     5
-    ##  6  1.00  1.00     1.00 care          1.00     1     6
-    ##  7  1.00  1.00     1.00 in            1.00     1     7
-    ##  8  1.00  1.00     1.00 a             1.00     1     8
-    ##  9  1.00  1.00     1.00 moment        1.00     1     9
-    ## 10  1.00  1.00     1.00 .             1.00     1    10
+    ##  1     1     1        1 we'll            1     1     1
+    ##  2     1     1        1 talk             1     1     2
+    ##  3     1     1        1 about            2     1     3
+    ##  4     1     1        1 specifically     1     1     4
+    ##  5     1     1        1 health           1     1     5
+    ##  6     1     1        1 care             1     1     6
+    ##  7     1     1        1 in               1     1     7
+    ##  8     1     1        1 a                1     1     8
+    ##  9     1     1        1 moment           1     1     9
+    ## 10     1     1        1 .                1     1    10
     ## # ... with 42,048 more rows
 
-![](tools/figure/unnamed-chunk-9-1.png)
+![](tools/figure/unnamed-chunk-17-1.png)
 
 #### A DocumentTermMatrix of Collocations
 
@@ -457,10 +465,15 @@ The `tidy_colo_dtm` and `tidy_colo_tdm` functions convert a
 and then a tidied data set.
 
     my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
+    sw <- unique(c(
+        lexicon::sw_jockers, 
+        lexicon::sw_loughran_mcdonald_long, 
+        lexicon::sw_fry_1000
+    ))
 
     tidy_colo_dtm(my_dtm) %>%
         tbl_df() %>%
-        filter(!term_1 %in% c('i', lexicon::sw_onix) & !term_2 %in% lexicon::sw_onix) %>%
+        filter(!term_1 %in% c('i', sw) & !term_2 %in% sw) %>%
         filter(term_1 != term_2) %>%
         unique_pairs() %>%
         filter(n > 15) %>%
@@ -470,7 +483,7 @@ and then a tidied data set.
             scale_fill_gradient(low= 'white', high = 'red') +
             theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-![](tools/figure/unnamed-chunk-10-1.png)
+![](tools/figure/unnamed-chunk-18-1.png)
 
 Combining
 ---------
@@ -585,29 +598,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  A  B
-    ## 2   B  B  A
+    ## 1   A  A  A
+    ## 2   A  A  B
     ## 3   A  A  A
-    ## 4   B  A  B
+    ## 4   A  A  B
     ## 5   B  A  A
-    ## 6   A  B  A
-    ## 7   A  B  A
-    ## 8   A  B  A
-    ## 9   B  B  B
-    ## 10  B  B  B
+    ## 6   B  B  B
+    ## 7   B  B  B
+    ## 8   A  A  B
+    ## 9   A  A  B
+    ## 10  B  A  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 5 5
-    ## X2 4 6
-    ## X3 6 4
+    ## X1 6 4
+    ## X2 8 2
+    ## X3 3 7
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  5  4  6
-    ## B  5  6  4
+    ## A  6  8  3
+    ## B  4  2  7
 
 Flattening
 ----------
@@ -623,7 +636,7 @@ useful for flattening dictionaries as seen below. First we see the
         `[`(1) %>%
         quanteda::dictionary(file = .)
 
-    ## LaverGarry.zip read into C:\Users\Tyler\AppData\Local\Temp\RtmpeSKRCe
+    ## LaverGarry.zip read into C:\Users\trinker\AppData\Local\Temp\Rtmpam3YUK
 
     mydict
 
@@ -683,38 +696,20 @@ original dictionary structure as well.
         as.list() %>%
         flatten()
 
-    ## $CULTURE___
-    ## [1] "people"      "war_in_iraq" "civil_war"  
-    ## 
-    ## $`CULTURE_CULTURE-HIGH`
+    ## $`CULTURE-HIGH`
     ## [1] "art"      "artistic" "dance"    "galler*"  "museum*"  "music*"  
     ## [7] "opera*"   "theatre*"
     ## 
-    ## $`CULTURE_CULTURE-POPULAR`
+    ## $`CULTURE-POPULAR`
     ## [1] "media"
     ## 
-    ## $CULTURE_SPORT
+    ## $SPORT
     ## [1] "angler*"
     ## 
-    ## $`ECONOMY_-STATE-`
-    ##  [1] "assets"         "autonomy"       "barrier*"       "bid"           
-    ##  [5] "bidders"        "bidding"        "burden*"        "charit*"       
-    ##  [9] "choice*"        "compet*"        "confidence"     "confiscatory"  
-    ## [13] "constrain*"     "contracting*"   "contractor*"    "controlled"    
-    ## [17] "controlling"    "controls"       "corporate"      "corporation*"  
-    ## [21] "deregulating"   "dismantl*"      "entrepreneur*"  "expensive"     
-    ## [25] "flexib*"        "franchise*"     "fundhold*"      "fund-holding"  
-    ## [29] "homestead*"     "initiative"     "intrusive"      "investor*"     
-    ## [33] "liberali*"      "market*"        "monetary"       "money"         
-    ## [37] "own*"           "private"        "privately"      "privatisations"
-    ## [41] "privatised"     "privatising"    "produce*"       "profitable"    
-    ## [45] "regulat*"       "retail*"        "risk"           "risks"         
-    ## [49] "savings"        "sell*"          "shares"         "simplif*"      
-    ## [53] "spend*"         "sponsorship"    "taxable"        "taxes"         
-    ## [57] "tax-free"       "thrift*"        "trading"        "value"         
-    ## [61] "volunt*"        "voucher*"      
+    ## $`__`
+    ## [1] "people"      "war_in_iraq" "civil_war"  
     ## 
-    ## $`ECONOMY_+STATE+`
+    ## $`+STATE+`
     ##  [1] "accommodation" "age"           "ambulance"     "assist"       
     ##  [5] "benefit"       "care"          "carer*"        "child*"       
     ##  [9] "class"         "classes"       "clinics"       "collective*"  
@@ -729,7 +724,7 @@ original dictionary structure as well.
     ## [45] "teach*"        "transport"     "underfund*"    "unemploy*"    
     ## [49] "vulnerable"    "widow*"       
     ## 
-    ## $`ECONOMY_=STATE=`
+    ## $`=STATE=`
     ##  [1] "accountant"   "accounting"   "accounts"     "advert*"     
     ##  [5] "airline*"     "airport*"     "audit*"       "bank*"       
     ##  [9] "bargaining"   "breadwinner*" "budget*"      "buy*"        
@@ -749,10 +744,28 @@ original dictionary structure as well.
     ## [65] "tenan*"       "touris*"      "trade"        "train*"      
     ## [69] "wage*"        "welfare"      "work*"       
     ## 
-    ## $`ENVIRONMENT_CON ENVIRONMENT`
+    ## $`-STATE-`
+    ##  [1] "assets"         "autonomy"       "barrier*"       "bid"           
+    ##  [5] "bidders"        "bidding"        "burden*"        "charit*"       
+    ##  [9] "choice*"        "compet*"        "confidence"     "confiscatory"  
+    ## [13] "constrain*"     "contracting*"   "contractor*"    "controlled"    
+    ## [17] "controlling"    "controls"       "corporate"      "corporation*"  
+    ## [21] "deregulating"   "dismantl*"      "entrepreneur*"  "expensive"     
+    ## [25] "flexib*"        "franchise*"     "fundhold*"      "fund-holding"  
+    ## [29] "homestead*"     "initiative"     "intrusive"      "investor*"     
+    ## [33] "liberali*"      "market*"        "monetary"       "money"         
+    ## [37] "own*"           "private"        "privately"      "privatisations"
+    ## [41] "privatised"     "privatising"    "produce*"       "profitable"    
+    ## [45] "regulat*"       "retail*"        "risk"           "risks"         
+    ## [49] "savings"        "sell*"          "shares"         "simplif*"      
+    ## [53] "spend*"         "sponsorship"    "taxable"        "taxes"         
+    ## [57] "tax-free"       "thrift*"        "trading"        "value"         
+    ## [61] "volunt*"        "voucher*"      
+    ## 
+    ## $`CON ENVIRONMENT`
     ## [1] "produc*"
     ## 
-    ## $`ENVIRONMENT_PRO ENVIRONMENT`
+    ## $`PRO ENVIRONMENT`
     ##  [1] "car"           "catalytic"     "chemical*"     "chimney*"     
     ##  [5] "clean*"        "congestion"    "cyclist*"      "deplet*"      
     ##  [9] "ecolog*"       "emission*"     "energy-saving" "environment*" 
@@ -761,18 +774,18 @@ original dictionary structure as well.
     ## [21] "ozone"         "planet"        "population"    "recycl*"      
     ## [25] "re-cycl*"      "re-use"        "toxic"         "warming"      
     ## 
-    ## $GROUPS_ETHNIC
+    ## $ETHNIC
     ## [1] "asian*"    "buddhist*" "ethnic*"   "race"      "raci*"    
     ## 
-    ## $GROUPS_WOMEN
+    ## $WOMEN
     ## [1] "girls" "woman" "women"
     ## 
-    ## $INSTITUTIONS_CONSERVATIVE
+    ## $CONSERVATIVE
     ##  [1] "authority"     "continu*"      "disrupt*"      "inspect*"     
     ##  [5] "jurisdiction*" "legitimate"    "manag*"        "moratorium"   
     ##  [9] "rul*"          "strike*"       "whitehall"    
     ## 
-    ## $INSTITUTIONS_NEUTRAL
+    ## $NEUTRAL
     ##  [1] "administr*"    "advis*"        "agenc*"        "amalgamat*"   
     ##  [5] "appoint*"      "assembly"      "chair*"        "commission*"  
     ##  [9] "committee*"    "constituen*"   "council*"      "department*"  
@@ -784,7 +797,7 @@ original dictionary structure as well.
     ## [33] "sovereign*"    "subcommittee*" "tribunal*"     "vote*"        
     ## [37] "voting"        "westminster"  
     ## 
-    ## $INSTITUTIONS_RADICAL
+    ## $RADICAL
     ##  [1] "abolition"    "accountable"  "answerable"   "consult*"    
     ##  [5] "corrupt*"     "democratic*"  "elect*"       "implement*"  
     ##  [9] "modern*"      "monitor*"     "rebuild*"     "reexamine*"  
@@ -792,7 +805,7 @@ original dictionary structure as well.
     ## [17] "representat*" "scandal*"     "scrap"        "scrap*"      
     ## [21] "scrutin*"     "transform*"   "voice*"      
     ## 
-    ## $`LAW_AND_ORDER_LAW-CONSERVATIVE`
+    ## $`LAW-CONSERVATIVE`
     ##  [1] "assaults"     "bail"         "burglar*"     "constab*"    
     ##  [5] "convict*"     "court"        "courts"       "custod*"     
     ##  [9] "dealing"      "delinquen*"   "deter"        "deter*"      
@@ -807,19 +820,61 @@ original dictionary structure as well.
     ## [45] "thug*"        "tough*"       "trafficker*"  "uniformed"   
     ## [49] "unlawful"     "vandal*"      "victim*"      "vigilan*"    
     ## 
-    ## $`LAW_AND_ORDER_LAW-LIBERAL`
+    ## $`LAW-LIBERAL`
     ## [1] "harassment"    "non-custodial"
     ## 
-    ## $RURAL
-    ##  [1] "agricultur*" "badgers"     "bird*"       "countryside" "farm*"      
-    ##  [6] "feed"        "fish*"       "forest*"     "hens"        "horse*"     
-    ## [11] "landscape*"  "lane*"       "livestock"   "meadows"     "village*"   
-    ## [16] "wildlife"   
+    ## [[17]]
+    ## [1] "agricultur*"
+    ## 
+    ## [[18]]
+    ## [1] "badgers"
+    ## 
+    ## [[19]]
+    ## [1] "bird*"
+    ## 
+    ## [[20]]
+    ## [1] "countryside"
+    ## 
+    ## [[21]]
+    ## [1] "farm*"
+    ## 
+    ## [[22]]
+    ## [1] "feed"
+    ## 
+    ## [[23]]
+    ## [1] "fish*"
+    ## 
+    ## [[24]]
+    ## [1] "forest*"
+    ## 
+    ## [[25]]
+    ## [1] "hens"
+    ## 
+    ## [[26]]
+    ## [1] "horse*"
+    ## 
+    ## [[27]]
+    ## [1] "landscape*"
+    ## 
+    ## [[28]]
+    ## [1] "lane*"
+    ## 
+    ## [[29]]
+    ## [1] "livestock"
+    ## 
+    ## [[30]]
+    ## [1] "meadows"
+    ## 
+    ## [[31]]
+    ## [1] "village*"
+    ## 
+    ## [[32]]
+    ## [1] "wildlife"
     ## 
     ## $URBAN
     ## [1] "town*"
     ## 
-    ## $VALUES_CONSERVATIVE
+    ## $CONSERVATIVE
     ##  [1] "defend"          "defended"        "defending"      
     ##  [4] "discipline"      "glories"         "glorious"       
     ##  [7] "grammar"         "heritage"        "histor*"        
@@ -832,7 +887,7 @@ original dictionary structure as well.
     ## [28] "punctual*"       "recapture*"      "reliab*"        
     ## [31] "threat*"         "tradition*"     
     ## 
-    ## $VALUES_LIBERAL
+    ## $LIBERAL
     ##  [1] "cruel*"       "discriminat*" "human*"       "injustice*"  
     ##  [5] "innocent"     "inter_racial" "minorit*"     "repressi*"   
     ##  [9] "rights"       "sex*"
@@ -916,7 +971,7 @@ The `duration` function calculates start-end durations as n words.
         xlab("Duration (Words)") +
         ylab("Person")
 
-![](tools/figure/unnamed-chunk-19-1.png)
+![](tools/figure/unnamed-chunk-27-1.png)
 
 Splitting
 ---------
@@ -1327,7 +1382,7 @@ variable (via `n.chunks`) or into chunks of n length (via `n.words`).
     ##  5:                55555          1           5
     ##  6:               666666          1           6
     ##  7:                               1           7
-    ##  8:                   NA          2           1
+    ##  8:                 <NA>          2           1
     ##  9:                    a          3           1
     ## 10:                   bb          3           2
     ## 11:                  ccc          3           3
@@ -1351,7 +1406,7 @@ variable (via `n.chunks`) or into chunks of n length (via `n.words`).
     ## 29:                55555          6           5
     ## 30:               666666          6           6
     ## 31:                               6           7
-    ## 32:                   NA          7           1
+    ## 32:                 <NA>          7           1
     ## 33:                    a          8           1
     ## 34:                   bb          8           2
     ## 35:                  ccc          8           3
@@ -1765,39 +1820,51 @@ scraping with **textshape** replacements.
     }) %>%
         textshape::tidy_list("location")
 
-    ##        location     person
-    ##    1: wisconsin MODERATORS
-    ##    2: wisconsin     CAVUTO
-    ##    3: wisconsin     CAVUTO
-    ##    4: wisconsin     CAVUTO
-    ##    5: wisconsin  BARTIROMO
-    ##   ---                     
-    ## 7502:      ohio      KELLY
-    ## 7503:      ohio      KELLY
-    ## 7504:      ohio      KELLY
-    ## 7505:      ohio      KELLY
-    ## 7506:      ohio      KELLY
-    ##                                                                                                                              dialogue
-    ##    1:            Gerard Baker (The Wall Street Journal);Maria Bartiromo (Fox Business Network); andNeil Cavuto (Fox Business Network)
-    ##    2:                                                 It is 9:00 p.m. on the East Coast, 8:00 p.m. here inside the Milwaukee theater.
-    ##    3:                                                 Welcome to the Republican presidential debate here on the Fox Business Network.
-    ##    4: I'm Neil Cavuto, alongside my co-moderators, Maria Bartiromo, and the editor-in-chief of the Wall Street Journal, Gerard Baker.
-    ##    5:                Tonight we're partnering with the Wall Street Journal to ask questions on the economy that voters want answered.
-    ##   ---                                                                                                                                
-    ## 7502:                                                                                                               Are you relieved?
-    ## 7503:                                                                        You were nervous before, they--they don't look relieved.
-    ## 7504:                                                                                                  They look "get me outta here."
-    ## 7505:       Thank you all very much, and that will do it for the first Republican primary debate night of the 2016 presidential race.
-    ## 7506:                                                Our thanks to the candidates, who will now be joined by their families on stage.
+    ##        location
+    ##    1: wisconsin
+    ##    2: wisconsin
+    ##    3: wisconsin
+    ##    4: wisconsin
+    ##    5: wisconsin
+    ##   ---          
+    ## 7514:      ohio
+    ## 7515:      ohio
+    ## 7516:      ohio
+    ## 7517:      ohio
+    ## 7518:      ohio
+    ##                                                                                                                                                                                                                                                                                              person
+    ##    1: ** NOTE: The American Presidency Project will soon launch a new website with a more contemporary look and improved search capability. While we continue "beta testing" the new site, please excuse lapses in updating this site.\r\n          We expect to have the new site on-line in June.
+    ##    2: ** NOTE: The American Presidency Project will soon launch a new website with a more contemporary look and improved search capability. While we continue "beta testing" the new site, please excuse lapses in updating this site.\r\n          We expect to have the new site on-line in June.
+    ##    3: ** NOTE: The American Presidency Project will soon launch a new website with a more contemporary look and improved search capability. While we continue "beta testing" the new site, please excuse lapses in updating this site.\r\n          We expect to have the new site on-line in June.
+    ##    4:                                                                                                                                                                                                                                                                                    MODERATORS
+    ##    5:                                                                                                                                                                                                                                                                                        CAVUTO
+    ##   ---                                                                                                                                                                                                                                                                                              
+    ## 7514:                                                                                                                                                                                                                                                                                         KELLY
+    ## 7515:                                                                                                                                                                                                                                                                                         KELLY
+    ## 7516:                                                                                                                                                                                                                                                                                         KELLY
+    ## 7517:                                                                                                                                                                                                                                                                                         KELLY
+    ## 7518:                                                                                                                                                                                                                                                                                         KELLY
+    ##                                                                                                                                    dialogue
+    ##    1: ** NOTE: The American Presidency Project will soon launch a new website with a more contemporary look and improved search capability.
+    ##    2:                                            While we continue "beta testing" the new site, please excuse lapses in updating this site.
+    ##    3:                                                                                       We expect to have the new site on-line in June.
+    ##    4:                  Gerard Baker (The Wall Street Journal);Maria Bartiromo (Fox Business Network); andNeil Cavuto (Fox Business Network)
+    ##    5:                                                       It is 9:00 p.m. on the East Coast, 8:00 p.m. here inside the Milwaukee theater.
+    ##   ---                                                                                                                                      
+    ## 7514:                                                                                                                     Are you relieved?
+    ## 7515:                                                                              You were nervous before, they--they don't look relieved.
+    ## 7516:                                                                                                        They look "get me outta here."
+    ## 7517:             Thank you all very much, and that will do it for the first Republican primary debate night of the 2016 presidential race.
+    ## 7518:                                                      Our thanks to the candidates, who will now be joined by their families on stage.
     ##       element_id sentence_id
     ##    1:          1           1
-    ##    2:          2           1
-    ##    3:          2           2
-    ##    4:          2           3
+    ##    2:          1           2
+    ##    3:          1           3
+    ##    4:          2           1
     ##    5:          3           1
     ##   ---                       
-    ## 7502:        302           1
-    ## 7503:        302           2
-    ## 7504:        302           3
-    ## 7505:        302           4
-    ## 7506:        302           5
+    ## 7514:        303           1
+    ## 7515:        303           2
+    ## 7516:        303           3
+    ## 7517:        303           4
+    ## 7518:        303           5
