@@ -1,10 +1,6 @@
 textshape   
 ============
 
-
-    ## package 'rlang' successfully unpacked and MD5 sums checked
-    ## package 'utf8' successfully unpacked and MD5 sums checked
-
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
