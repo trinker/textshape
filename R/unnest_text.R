@@ -1,15 +1,15 @@
-#' Unnest Nested Text Columns
+#' Un-nest Nested Text Columns
 #' 
-#' Unnest nested text columns in a data.frame.   Attempts to locate the nested 
+#' Un-nest nested text columns in a data.frame.   Attempts to locate the nested 
 #' text column without specifying. 
 #' 
 #' @param dataframe A dataframe object.
 #' @param column Column name to search for markers/terms. 
-#' @param integer.rownames logical.  If \code{TRUE} then the rownames are numbered
-#' 1 through number of rows, otherwise the original row number is retained 
-#' follwed by a period and the element number from the list.
+#' @param integer.rownames logical.  If \code{TRUE} then the rownames are 
+#' numbered 1 through number of rows, otherwise the original row number is 
+#' retained followed by a period and the element number from the list.
 #' @param \ldots ignored.
-#' @return Returns an unnested data.frame.
+#' @return Returns an un-nested data.frame.
 #' @export
 #' @examples
 #' dat <- DATA
@@ -46,10 +46,24 @@
 unnest_text <- function(dataframe, column, integer.rownames = TRUE, ...){
 
     if (missing(column)) {
-        column <- names(dataframe)[!unlist(lapply(as.data.frame(dataframe), is.atomic))]
-        if (length(column) == 0) stop("There appears to be no nested columns.  Please supply `column` explicitly.")
-        if (length(column) > 1) stop("There appears to be multiple nested columns.  Please supply `column` explicitly.")  
-        message(sprintf('Nested column detected, unnesting: %s', column))
+        
+        column <- names(dataframe)[!unlist(lapply(as.data.frame(dataframe), 
+            is.atomic))]
+        if (length(column) == 0) {
+            stop(paste(
+                "There appears to be no nested columns.", 
+                "Please supply `column` explicitly."
+            ), call. = FALSE)
+        }
+        
+        if (length(column) > 1) {
+            stop(paste(
+                "There appears to be multiple nested columns.", 
+                "Please supply `column` explicitly."
+            ), call. = FALSE)
+        }
+        message(sprintf('Nested column detected, un-nesting: %s', column))
+        
     }
 
     nms <- colnames(dataframe)
@@ -58,8 +72,16 @@ unnest_text <- function(dataframe, column, integer.rownames = TRUE, ...){
     col <- unlist(dataframe[[column]])
 
     if (!is.character(col)) {
-        warning(sprintf(paste0('Unnesting: `%s`\nThis is not a character column.\n\n', 
-            'Perhaps you want to use `tidyr::unnest` instead?'), column), call. = FALSE)
+        warning(
+            sprintf(
+                paste0(
+                    'Un-nesting: `%s`\nThis is not a character column.\n\n', 
+                    'Perhaps you want to use `tidyr::unnest` instead?'
+                ), 
+                column
+            ), 
+            call. = FALSE
+        )
     }
     
     dataframe[[column]] <- NA

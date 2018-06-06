@@ -1,9 +1,12 @@
 Package: textshape
 Title: Tools for Reshaping Text
-Version: 1.5.3
-Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")), person("Joran",
-             "Elias", role = "ctb"), person("Matthew", "Flickinger", role = "ctb"), person('Paul', 'Foster', role =
-             "ctb"))
+Version: 1.6.0
+Authors@R: c(
+        person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")), 
+        person("Joran", "Elias", role = "ctb"), 
+        person("Matthew", "Flickinger", role = "ctb"), 
+        person('Paul', 'Foster', role = "ctb")
+    )
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
 Description: Tools that can be used to reshape and restructure text data.
 Depends: R (>= 3.4.0)
@@ -27,7 +30,6 @@ Collate:
     'flatten.R'
     'from_to.R'
     'mtabulate.R'
-    'set_output.R'
     'split_index.R'
     'split_match.R'
     'split_match_regex_to_transcript.R'

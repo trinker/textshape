@@ -29,8 +29,9 @@ Returns a tidied \code{data.frame}.
 stacking of the matrix columns and repeating row/column names as necessary.
 
 \code{tidy_adjacency_matrix} - A wrapper for \code{tidy_matrix} with the 
-\code{row.name}, \code{col.name}, & \code{value.name} all set to \code{"from"},
-\code{"to"}, & \code{"n"}, assuming peparation for network analysis.
+\code{row.name}, \code{col.name}, & \code{value.name} all set to 
+\code{"from"},\code{"to"}, & \code{"n"}, assuming preparation for network 
+analysis.
 }
 \examples{
 mat <- matrix(1:16, nrow = 4,

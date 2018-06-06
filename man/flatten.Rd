@@ -63,7 +63,8 @@ flatten(x, ' -> ')
 \dontrun{
 ## dictionary from quanteda
 require(quanteda); library(textreadr); library(dplyr)
-mydict <- textreadr::download("https://provalisresearch.com/Download/LaverGarry.zip") \%>\%
+mydict <- https://provalisresearch.com/Download/LaverGarry.zip" \%>\%
+    textreadr::download(") \%>\%
     unzip(exdir = tempdir()) \%>\%
     `[`(1) \%>\%
     quanteda::dictionary(file = .)
@@ -77,5 +78,6 @@ flatten(as.list(mydict))
 \url{https://stackoverflow.com/a/48357114/1000343}
 }
 \author{
-StackOverflow user @Michael and Paul Foster and Tyler Rinker <tyler.rinker@gmail.com>.
+StackOverflow user @Michael and Paul Foster and Tyler 
+Rinker <tyler.rinker@gmail.com>.
 }

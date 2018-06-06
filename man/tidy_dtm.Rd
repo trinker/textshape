@@ -3,7 +3,8 @@
 \name{tidy_dtm}
 \alias{tidy_dtm}
 \alias{tidy_tdm}
-\title{Convert a \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}}
+\title{Convert a 
+\code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}}
 into Tidy Form}
 \usage{
 tidy_dtm(x, ...)
@@ -11,7 +12,8 @@ tidy_dtm(x, ...)
 tidy_tdm(x, ...)
 }
 \arguments{
-\item{x}{A \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}}.}
+\item{x}{A 
+\code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}}.}
 
 \item{\ldots}{ignored.}
 }
@@ -20,8 +22,8 @@ Returns a tidied data.frame.
 }
 \description{
 Converts non-zero elements of a
-\code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}} into
-a tidy data set.
+\code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}} 
+into a tidy data set.
 }
 \examples{
 data(simple_dtm)
@@ -33,10 +35,17 @@ if (!require("pacman")) install.packages("pacman")
 pacman::p_load_current_gh('trinker/gofastr')
 pacman::p_load(tidyverse, magrittr, ggstance)
 
-my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
+my_dtm <- with(
+    presidential_debates_2012, 
+    q_dtm(dialogue, paste(time, tot, sep = "_"))
+)
 
 tidy_dtm(my_dtm) \%>\%
-    tidyr::extract(doc, c("time", "turn", "sentence"), "(\\\\d)_(\\\\d+)\\\\.(\\\\d+)") \%>\%
+    tidyr::extract(
+        col = doc, 
+        into = c("time", "turn", "sentence"), 
+        regex = "(\\\\d)_(\\\\d+)\\\\.(\\\\d+)"
+    ) \%>\%
     mutate(
         time = as.numeric(time),
         turn = as.numeric(turn),

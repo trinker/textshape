@@ -52,20 +52,24 @@ split_token.data.frame <- function(x, text.var = TRUE, lower = TRUE, ...) {
     nms <- colnames(x)
     z <- data.table::data.table(data.frame(x, stringsAsFactors = FALSE))
 
-    if (isTRUE(text.var)) {
-        text.var <- names(which.max(sapply(as.data.frame(z), function(y) {
-            if(!is.character(y) && !is.factor(y)) return(0)
-            mean(nchar(as.character(y)), na.rm = TRUE)
-        }))[1])
-        if (length(text.var) == 0) stop("Could not detect `text.var`.  Please supply `text.var` explicitly.")
-    }
+    text.var <- detect_text_column(x, text.var)
 
     z[, element_id := 1:.N]
-    express1 <- parse(text=paste0(text.var, " := list(split_token.default(", text.var, ", lower = ", lower, "))"))
+    express1 <- parse(
+        text=paste0(
+            text.var, 
+            " := list(split_token.default(", 
+            text.var, 
+            ", lower = ", 
+            lower, 
+            "))"
+        )
+    )
     z[, eval(express1)]
 
     express2 <- parse(text=paste0(".(", text.var, "=unlist(", text.var, "))"))
-    z <- z[, eval(express2), by = c(colnames(z)[!colnames(z) %in% text.var])][, c(nms, "element_id"), with = FALSE]
+    z <- z[, eval(express2), by = c(colnames(z)[!colnames(z) %in% text.var])][, 
+        c(nms, "element_id"), with = FALSE]
     z[, 'token_id' := 1:.N, by = list(element_id)][]
 
 }

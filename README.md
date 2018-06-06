@@ -1,6 +1,7 @@
 textshape   
 ============
 
+
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
@@ -18,6 +19,22 @@ functions. Many of these functions are descended from tools in the
 brings reshaping tools under one roof with specific functionality of the
 package limited to text reshaping.
 
+Other R packages provide some of the same functionality. **textshape**
+differs from these packages in that it is designed to help the user take
+unstructured data (or implicitly structured), extract it into a
+structured format, and then restructure into common text analysis
+formats for use in the next stage of the text analysis pipeline. The
+implicit structure of seemingly unstructured data is often
+detectable/expressible by the researcher. **textshape** provides tools
+(e.g., `split_match`) to enable the researcher to convert this tacit
+knowledge into a form that can be used to reformat data into more
+structured formats. This package is meant to be used jointly with the
+[**textclean**](https://github.com/trinker/textclean) package, which
+provides cleaning and text normalization functionality. Additionally,
+the [**textreadr**](https://github.com/trinker/textreadr) package is
+designed to import various common text data sources into R for reshaping
+and cleaning.
+
 
 Table of Contents
 ============
@@ -25,6 +42,7 @@ Table of Contents
 -   [Functions](#functions)
 -   [Installation](#installation)
 -   [Contact](#contact)
+-   [Contributing](#contributing)
 -   [Examples](#examples)
 -   [Loading Dependencies](#loading-dependencies)
     -   [Tidying](#tidying)
@@ -220,11 +238,25 @@ the development version:
 Contact
 =======
 
-You are welcome to:    
-- submit suggestions and bug-reports at: <https://github.com/trinker/textshape/issues>    
-- send a pull request on: <https://github.com/trinker/textshape/>    
-- compose a friendly e-mail to: <tyler.rinker@gmail.com>    
+You are welcome to:
 
+-   submit suggestions and bug-reports at:
+    <https://github.com/trinker/textshape/issues>
+
+Contributing
+============
+
+Contributions are welcome from anyone subject to the following rules:
+
+-   Abide by the [code of conduct](CONDUCT.md).
+-   Follow the style conventions of the package (indentation, function &
+    argument naming, commenting, etc.)
+-   All contributions must be consistent with the package license
+    (GPL-2)
+-   Submit contributions as a pull request. Clearly state what the
+    changes are and try to keep the number of changes per pull request
+    as low as possible.
+-   If you make big changes, add your name to the 'Author' field.
 
 Examples
 ========
@@ -306,17 +338,17 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_vector(x)
 
     ##               id content
-    ##    1:    Alabama       B
-    ##    2:     Alaska       F
-    ##    3: California       A
-    ##    4:   Arkansas       F
-    ##    5:    Arizona       E
+    ##    1: California       B
+    ##    2:     Alaska       D
+    ##    3:     Alaska       E
+    ##    4:    Alabama       D
+    ##    5:     Alaska       A
     ##   ---                   
-    ##  996: California       D
-    ##  997: California       F
-    ##  998:    Arizona       A
-    ##  999: California       F
-    ## 1000: California       A
+    ##  996:    Alabama       C
+    ##  997: California       E
+    ##  998:     Alaska       F
+    ##  999:    Arizona       C
+    ## 1000: California       C
 
 #### A Table
 
@@ -324,12 +356,12 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     158
-    ## 2:  B     175
-    ## 3:  C     161
-    ## 4:  D     174
-    ## 5:  E     171
-    ## 6:  F     161
+    ## 1:  A     159
+    ## 2:  B     187
+    ## 3:  C     167
+    ## 4:  D     173
+    ## 5:  E     145
+    ## 6:  F     169
 
 #### A Matrix
 
@@ -408,7 +440,7 @@ function.
 
     grid.arrange(wo, w, ncol = 2)
 
-![](tools/figure/unnamed-chunk-16-1.png)
+![](tools/figure/unnamed-chunk-8-1.png)
 
 #### A DocumentTermMatrix
 
@@ -452,7 +484,7 @@ or `TermDocumentMatrix` into a tidied data set.
     ## 10     1     1        1 .                1     1    10
     ## # ... with 42,048 more rows
 
-![](tools/figure/unnamed-chunk-17-1.png)
+![](tools/figure/unnamed-chunk-9-1.png)
 
 #### A DocumentTermMatrix of Collocations
 
@@ -479,7 +511,7 @@ and then a tidied data set.
             scale_fill_gradient(low= 'white', high = 'red') +
             theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-![](tools/figure/unnamed-chunk-18-1.png)
+![](tools/figure/unnamed-chunk-10-1.png)
 
 Combining
 ---------
@@ -594,29 +626,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   A  A  A
-    ## 2   A  A  B
-    ## 3   A  A  A
-    ## 4   A  A  B
-    ## 5   B  A  A
-    ## 6   B  B  B
-    ## 7   B  B  B
-    ## 8   A  A  B
-    ## 9   A  A  B
-    ## 10  B  A  B
+    ## 1   B  B  A
+    ## 2   A  A  A
+    ## 3   A  B  A
+    ## 4   A  B  B
+    ## 5   A  A  B
+    ## 6   B  A  B
+    ## 7   A  B  B
+    ## 8   A  B  A
+    ## 9   A  B  A
+    ## 10  A  A  A
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 6 4
-    ## X2 8 2
-    ## X3 3 7
+    ## X1 8 2
+    ## X2 4 6
+    ## X3 6 4
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  6  8  3
-    ## B  4  2  7
+    ## A  8  4  6
+    ## B  2  6  4
 
 Flattening
 ----------
@@ -632,7 +664,7 @@ useful for flattening dictionaries as seen below. First we see the
         `[`(1) %>%
         quanteda::dictionary(file = .)
 
-    ## LaverGarry.zip read into C:\Users\trinker\AppData\Local\Temp\Rtmpam3YUK
+    ## LaverGarry.zip read into C:\Users\trinker\AppData\Local\Temp\RtmpywB1X0
 
     mydict
 
@@ -692,20 +724,38 @@ original dictionary structure as well.
         as.list() %>%
         flatten()
 
-    ## $`CULTURE-HIGH`
+    ## $CULTURE___
+    ## [1] "people"      "war_in_iraq" "civil_war"  
+    ## 
+    ## $`CULTURE_CULTURE-HIGH`
     ## [1] "art"      "artistic" "dance"    "galler*"  "museum*"  "music*"  
     ## [7] "opera*"   "theatre*"
     ## 
-    ## $`CULTURE-POPULAR`
+    ## $`CULTURE_CULTURE-POPULAR`
     ## [1] "media"
     ## 
-    ## $SPORT
+    ## $CULTURE_SPORT
     ## [1] "angler*"
     ## 
-    ## $`__`
-    ## [1] "people"      "war_in_iraq" "civil_war"  
+    ## $`ECONOMY_-STATE-`
+    ##  [1] "assets"         "autonomy"       "barrier*"       "bid"           
+    ##  [5] "bidders"        "bidding"        "burden*"        "charit*"       
+    ##  [9] "choice*"        "compet*"        "confidence"     "confiscatory"  
+    ## [13] "constrain*"     "contracting*"   "contractor*"    "controlled"    
+    ## [17] "controlling"    "controls"       "corporate"      "corporation*"  
+    ## [21] "deregulating"   "dismantl*"      "entrepreneur*"  "expensive"     
+    ## [25] "flexib*"        "franchise*"     "fundhold*"      "fund-holding"  
+    ## [29] "homestead*"     "initiative"     "intrusive"      "investor*"     
+    ## [33] "liberali*"      "market*"        "monetary"       "money"         
+    ## [37] "own*"           "private"        "privately"      "privatisations"
+    ## [41] "privatised"     "privatising"    "produce*"       "profitable"    
+    ## [45] "regulat*"       "retail*"        "risk"           "risks"         
+    ## [49] "savings"        "sell*"          "shares"         "simplif*"      
+    ## [53] "spend*"         "sponsorship"    "taxable"        "taxes"         
+    ## [57] "tax-free"       "thrift*"        "trading"        "value"         
+    ## [61] "volunt*"        "voucher*"      
     ## 
-    ## $`+STATE+`
+    ## $`ECONOMY_+STATE+`
     ##  [1] "accommodation" "age"           "ambulance"     "assist"       
     ##  [5] "benefit"       "care"          "carer*"        "child*"       
     ##  [9] "class"         "classes"       "clinics"       "collective*"  
@@ -720,7 +770,7 @@ original dictionary structure as well.
     ## [45] "teach*"        "transport"     "underfund*"    "unemploy*"    
     ## [49] "vulnerable"    "widow*"       
     ## 
-    ## $`=STATE=`
+    ## $`ECONOMY_=STATE=`
     ##  [1] "accountant"   "accounting"   "accounts"     "advert*"     
     ##  [5] "airline*"     "airport*"     "audit*"       "bank*"       
     ##  [9] "bargaining"   "breadwinner*" "budget*"      "buy*"        
@@ -740,28 +790,10 @@ original dictionary structure as well.
     ## [65] "tenan*"       "touris*"      "trade"        "train*"      
     ## [69] "wage*"        "welfare"      "work*"       
     ## 
-    ## $`-STATE-`
-    ##  [1] "assets"         "autonomy"       "barrier*"       "bid"           
-    ##  [5] "bidders"        "bidding"        "burden*"        "charit*"       
-    ##  [9] "choice*"        "compet*"        "confidence"     "confiscatory"  
-    ## [13] "constrain*"     "contracting*"   "contractor*"    "controlled"    
-    ## [17] "controlling"    "controls"       "corporate"      "corporation*"  
-    ## [21] "deregulating"   "dismantl*"      "entrepreneur*"  "expensive"     
-    ## [25] "flexib*"        "franchise*"     "fundhold*"      "fund-holding"  
-    ## [29] "homestead*"     "initiative"     "intrusive"      "investor*"     
-    ## [33] "liberali*"      "market*"        "monetary"       "money"         
-    ## [37] "own*"           "private"        "privately"      "privatisations"
-    ## [41] "privatised"     "privatising"    "produce*"       "profitable"    
-    ## [45] "regulat*"       "retail*"        "risk"           "risks"         
-    ## [49] "savings"        "sell*"          "shares"         "simplif*"      
-    ## [53] "spend*"         "sponsorship"    "taxable"        "taxes"         
-    ## [57] "tax-free"       "thrift*"        "trading"        "value"         
-    ## [61] "volunt*"        "voucher*"      
-    ## 
-    ## $`CON ENVIRONMENT`
+    ## $`ENVIRONMENT_CON ENVIRONMENT`
     ## [1] "produc*"
     ## 
-    ## $`PRO ENVIRONMENT`
+    ## $`ENVIRONMENT_PRO ENVIRONMENT`
     ##  [1] "car"           "catalytic"     "chemical*"     "chimney*"     
     ##  [5] "clean*"        "congestion"    "cyclist*"      "deplet*"      
     ##  [9] "ecolog*"       "emission*"     "energy-saving" "environment*" 
@@ -770,18 +802,18 @@ original dictionary structure as well.
     ## [21] "ozone"         "planet"        "population"    "recycl*"      
     ## [25] "re-cycl*"      "re-use"        "toxic"         "warming"      
     ## 
-    ## $ETHNIC
+    ## $GROUPS_ETHNIC
     ## [1] "asian*"    "buddhist*" "ethnic*"   "race"      "raci*"    
     ## 
-    ## $WOMEN
+    ## $GROUPS_WOMEN
     ## [1] "girls" "woman" "women"
     ## 
-    ## $CONSERVATIVE
+    ## $INSTITUTIONS_CONSERVATIVE
     ##  [1] "authority"     "continu*"      "disrupt*"      "inspect*"     
     ##  [5] "jurisdiction*" "legitimate"    "manag*"        "moratorium"   
     ##  [9] "rul*"          "strike*"       "whitehall"    
     ## 
-    ## $NEUTRAL
+    ## $INSTITUTIONS_NEUTRAL
     ##  [1] "administr*"    "advis*"        "agenc*"        "amalgamat*"   
     ##  [5] "appoint*"      "assembly"      "chair*"        "commission*"  
     ##  [9] "committee*"    "constituen*"   "council*"      "department*"  
@@ -793,7 +825,7 @@ original dictionary structure as well.
     ## [33] "sovereign*"    "subcommittee*" "tribunal*"     "vote*"        
     ## [37] "voting"        "westminster"  
     ## 
-    ## $RADICAL
+    ## $INSTITUTIONS_RADICAL
     ##  [1] "abolition"    "accountable"  "answerable"   "consult*"    
     ##  [5] "corrupt*"     "democratic*"  "elect*"       "implement*"  
     ##  [9] "modern*"      "monitor*"     "rebuild*"     "reexamine*"  
@@ -801,7 +833,7 @@ original dictionary structure as well.
     ## [17] "representat*" "scandal*"     "scrap"        "scrap*"      
     ## [21] "scrutin*"     "transform*"   "voice*"      
     ## 
-    ## $`LAW-CONSERVATIVE`
+    ## $`LAW_AND_ORDER_LAW-CONSERVATIVE`
     ##  [1] "assaults"     "bail"         "burglar*"     "constab*"    
     ##  [5] "convict*"     "court"        "courts"       "custod*"     
     ##  [9] "dealing"      "delinquen*"   "deter"        "deter*"      
@@ -816,61 +848,19 @@ original dictionary structure as well.
     ## [45] "thug*"        "tough*"       "trafficker*"  "uniformed"   
     ## [49] "unlawful"     "vandal*"      "victim*"      "vigilan*"    
     ## 
-    ## $`LAW-LIBERAL`
+    ## $`LAW_AND_ORDER_LAW-LIBERAL`
     ## [1] "harassment"    "non-custodial"
     ## 
-    ## [[17]]
-    ## [1] "agricultur*"
-    ## 
-    ## [[18]]
-    ## [1] "badgers"
-    ## 
-    ## [[19]]
-    ## [1] "bird*"
-    ## 
-    ## [[20]]
-    ## [1] "countryside"
-    ## 
-    ## [[21]]
-    ## [1] "farm*"
-    ## 
-    ## [[22]]
-    ## [1] "feed"
-    ## 
-    ## [[23]]
-    ## [1] "fish*"
-    ## 
-    ## [[24]]
-    ## [1] "forest*"
-    ## 
-    ## [[25]]
-    ## [1] "hens"
-    ## 
-    ## [[26]]
-    ## [1] "horse*"
-    ## 
-    ## [[27]]
-    ## [1] "landscape*"
-    ## 
-    ## [[28]]
-    ## [1] "lane*"
-    ## 
-    ## [[29]]
-    ## [1] "livestock"
-    ## 
-    ## [[30]]
-    ## [1] "meadows"
-    ## 
-    ## [[31]]
-    ## [1] "village*"
-    ## 
-    ## [[32]]
-    ## [1] "wildlife"
+    ## $RURAL
+    ##  [1] "agricultur*" "badgers"     "bird*"       "countryside" "farm*"      
+    ##  [6] "feed"        "fish*"       "forest*"     "hens"        "horse*"     
+    ## [11] "landscape*"  "lane*"       "livestock"   "meadows"     "village*"   
+    ## [16] "wildlife"   
     ## 
     ## $URBAN
     ## [1] "town*"
     ## 
-    ## $CONSERVATIVE
+    ## $VALUES_CONSERVATIVE
     ##  [1] "defend"          "defended"        "defending"      
     ##  [4] "discipline"      "glories"         "glorious"       
     ##  [7] "grammar"         "heritage"        "histor*"        
@@ -883,7 +873,7 @@ original dictionary structure as well.
     ## [28] "punctual*"       "recapture*"      "reliab*"        
     ## [31] "threat*"         "tradition*"     
     ## 
-    ## $LIBERAL
+    ## $VALUES_LIBERAL
     ##  [1] "cruel*"       "discriminat*" "human*"       "injustice*"  
     ##  [5] "innocent"     "inter_racial" "minorit*"     "repressi*"   
     ##  [9] "rights"       "sex*"
@@ -967,7 +957,7 @@ The `duration` function calculates start-end durations as n words.
         xlab("Duration (Words)") +
         ylab("Person")
 
-![](tools/figure/unnamed-chunk-27-1.png)
+![](tools/figure/unnamed-chunk-19-1.png)
 
 Splitting
 ---------
@@ -1319,108 +1309,30 @@ variable (via `n.chunks`) or into chunks of n length (via `n.words`).
     DATA[["run.col"]] <- x
     split_run(DATA)
 
-    ##         person sex adult                                 state code
-    ##  1:        sam   m     0         Computer is fun. Not too fun.   K1
-    ##  2:        sam   m     0         Computer is fun. Not too fun.   K1
-    ##  3:        sam   m     0         Computer is fun. Not too fun.   K1
-    ##  4:        sam   m     0         Computer is fun. Not too fun.   K1
-    ##  5:        sam   m     0         Computer is fun. Not too fun.   K1
-    ##  6:        sam   m     0         Computer is fun. Not too fun.   K1
-    ##  7:        sam   m     0         Computer is fun. Not too fun.   K1
-    ##  8:       greg   m     0               No it's not, it's dumb.   K2
-    ##  9:    teacher   m     1                    What should we do?   K3
-    ## 10:    teacher   m     1                    What should we do?   K3
-    ## 11:    teacher   m     1                    What should we do?   K3
-    ## 12:    teacher   m     1                    What should we do?   K3
-    ## 13:    teacher   m     1                    What should we do?   K3
-    ## 14:    teacher   m     1                    What should we do?   K3
-    ## 15:    teacher   m     1                    What should we do?   K3
-    ## 16:        sam   m     0                  You liar, it stinks!   K4
-    ## 17:        sam   m     0                  You liar, it stinks!   K4
-    ## 18:        sam   m     0                  You liar, it stinks!   K4
-    ## 19:        sam   m     0                  You liar, it stinks!   K4
-    ## 20:        sam   m     0                  You liar, it stinks!   K4
-    ## 21:       greg   m     0               I am telling the truth!   K5
-    ## 22:       greg   m     0               I am telling the truth!   K5
-    ## 23:       greg   m     0               I am telling the truth!   K5
-    ## 24:       greg   m     0               I am telling the truth!   K5
-    ## 25:      sally   f     0                How can we be certain?   K6
-    ## 26:      sally   f     0                How can we be certain?   K6
-    ## 27:      sally   f     0                How can we be certain?   K6
-    ## 28:      sally   f     0                How can we be certain?   K6
-    ## 29:      sally   f     0                How can we be certain?   K6
-    ## 30:      sally   f     0                How can we be certain?   K6
-    ## 31:      sally   f     0                How can we be certain?   K6
-    ## 32:       greg   m     0                      There is no way.   K7
-    ## 33:        sam   m     0                       I distrust you.   K8
-    ## 34:        sam   m     0                       I distrust you.   K8
-    ## 35:        sam   m     0                       I distrust you.   K8
-    ## 36:        sam   m     0                       I distrust you.   K8
-    ## 37:        sam   m     0                       I distrust you.   K8
-    ## 38:        sam   m     0                       I distrust you.   K8
-    ## 39:        sam   m     0                       I distrust you.   K8
-    ## 40:      sally   f     0           What are you talking about?   K9
-    ## 41:      sally   f     0           What are you talking about?   K9
-    ## 42:      sally   f     0           What are you talking about?   K9
-    ## 43:      sally   f     0           What are you talking about?   K9
-    ## 44:      sally   f     0           What are you talking about?   K9
-    ## 45: researcher   f     1         Shall we move on?  Good then.  K10
-    ## 46: researcher   f     1         Shall we move on?  Good then.  K10
-    ## 47: researcher   f     1         Shall we move on?  Good then.  K10
-    ## 48: researcher   f     1         Shall we move on?  Good then.  K10
-    ## 49:       greg   m     0 I'm hungry.  Let's eat.  You already?  K11
-    ##         person sex adult                                 state code
-    ##                  run.col element_id sentence_id
-    ##  1:                    1          1           1
-    ##  2:                   22          1           2
-    ##  3:                  333          1           3
-    ##  4:                 4444          1           4
-    ##  5:                55555          1           5
-    ##  6:               666666          1           6
-    ##  7:                               1           7
-    ##  8:                 <NA>          2           1
-    ##  9:                    a          3           1
-    ## 10:                   bb          3           2
-    ## 11:                  ccc          3           3
-    ## 12:                 dddd          3           4
-    ## 13:                eeeee          3           5
-    ## 14:               ffffff          3           6
-    ## 15:                               3           7
-    ## 16:                    s          4           1
-    ## 17:                   dd          4           2
-    ## 18:                    f          4           3
-    ## 19:                    g          4           4
-    ## 20:                               4           5
-    ## 21:                 1111          5           1
-    ## 22:                 2222          5           2
-    ## 23:                  333          5           3
-    ## 24:                               5           4
-    ## 25:                    1          6           1
-    ## 26:                   22          6           2
-    ## 27:                  333          6           3
-    ## 28:                 4444          6           4
-    ## 29:                55555          6           5
-    ## 30:               666666          6           6
-    ## 31:                               6           7
-    ## 32:                 <NA>          7           1
-    ## 33:                    a          8           1
-    ## 34:                   bb          8           2
-    ## 35:                  ccc          8           3
-    ## 36:                 dddd          8           4
-    ## 37:                eeeee          8           5
-    ## 38:               ffffff          8           6
-    ## 39:                               8           7
-    ## 40:                    s          9           1
-    ## 41:                   dd          9           2
-    ## 42:                    f          9           3
-    ## 43:                    g          9           4
-    ## 44:                               9           5
-    ## 45:                 1111         10           1
-    ## 46:                 2222         10           2
-    ## 47:                  333         10           3
-    ## 48:                              10           4
-    ## 49: >>???,,,,....::::;[[         11           1
-    ##                  run.col element_id sentence_id
+    ##      person sex adult state code               run.col element_id
+    ##   1:    sam   m     0     C   K1 122333444455555666666          1
+    ##   2:    sam   m     0     o   K1 122333444455555666666          1
+    ##   3:    sam   m     0     m   K1 122333444455555666666          1
+    ##   4:    sam   m     0     p   K1 122333444455555666666          1
+    ##   5:    sam   m     0     u   K1 122333444455555666666          1
+    ##  ---                                                             
+    ## 196:   greg   m     0     e  K11  >>???,,,,....::::;[[         11
+    ## 197:   greg   m     0     a  K11  >>???,,,,....::::;[[         11
+    ## 198:   greg   m     0     d  K11  >>???,,,,....::::;[[         11
+    ## 199:   greg   m     0     y  K11  >>???,,,,....::::;[[         11
+    ## 200:   greg   m     0     ?  K11  >>???,,,,....::::;[[         11
+    ##      sentence_id
+    ##   1:           1
+    ##   2:           2
+    ##   3:           3
+    ##   4:           4
+    ##   5:           5
+    ##  ---            
+    ## 196:          22
+    ## 197:          23
+    ## 198:          24
+    ## 199:          25
+    ## 200:          26
 
     ## Reset the DATA dataset
     DATA <- textshape::DATA

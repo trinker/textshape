@@ -1,12 +1,13 @@
 #' Indexing of Changes in Runs
 #'
-#' Find the indices of changes in runs in a vector.  This function pairs well with
-#' \code{split_index} and is the default for the \code{indices} in all \code{split_index}
-#' functions that act on atomic vectors.
+#' Find the indices of changes in runs in a vector.  This function pairs well 
+#' with \code{split_index} and is the default for the \code{indices} in all 
+#' \code{split_index} functions that act on atomic vectors.
 #'
 #' @param x A vector.
 #' @param \ldots ignored.
-#' @return Returns a vector of integer indices of where a vector initially changes.
+#' @return Returns a vector of integer indices of where a vector initially 
+#' changes.
 #' @export
 #' @seealso \code{\link[textshape]{split_index}}
 #' @examples

@@ -107,20 +107,17 @@ from_to_summarize <- function(x, from.var, id.vars = NULL, text.var = TRUE,
         w <- unique(z[, c(from.var, id.vars), with=FALSE])
     }
 
-    if (isTRUE(text.var)) {
-        text.var <- names(which.max(sapply(as.data.frame(z), function(y) {
-            if(!is.character(y) && !is.factor(y)) return(0)
-            mean(nchar(as.character(y)), na.rm = TRUE)
-        }))[1])
-        if (length(text.var) == 0) stop("Could not detect ` text.var`.  Please supply `text.var` explicitly.")
-    }
+    text.var <- detect_text_column(x, text.var)
 
-    express1 <- parse(text=paste0("word.count := stringi::stri_count_words(", text.var, ")"))
+    express1 <- parse(
+        text=paste0("word.count := stringi::stri_count_words(", text.var, ")")
+    )
 
     z <- z[, eval(express1)][,
         'word.count' := ifelse(is.na(word.count), 0, word.count)][]
 
-    out <- from_to(z, from.var)[, list(word.count = sum(word.count)), c('from', 'to')]
+    out <- from_to(z, from.var)[, 
+        list(word.count = sum(word.count)), c('from', 'to')]
 
     if (!is.null(id.vars)) {
        out <- merge(out, w, all.x=TRUE, by.x = 'from', by.y = from.var)

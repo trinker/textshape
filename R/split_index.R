@@ -39,8 +39,9 @@
 #' ## matrix
 #' (mat <- matrix(1:50, nrow=10))
 #' split_index(mat, c(3, 6, 10))
-split_index <-
-function(x, indices = if (is.atomic(x)) {NULL} else {change_index(x)}, names = NULL, ...) {
+split_index <- function(x, 
+    indices = if (is.atomic(x)) {NULL} else {change_index(x)}, names = NULL, 
+    ...) {
 
     indices
     names
@@ -51,8 +52,7 @@ function(x, indices = if (is.atomic(x)) {NULL} else {change_index(x)}, names = N
 #' @export
 #' @method split_index list
 #' @rdname split_index
-split_index.list <-
-function(x, indices, names = NULL, ...) {
+split_index.list <- function(x, indices, names = NULL, ...) {
 
     names <- name_len_check(indices, names)
     out <- split_index_vector(x, indices, ...)
@@ -63,8 +63,7 @@ function(x, indices, names = NULL, ...) {
 #' @export
 #' @method split_index data.frame
 #' @rdname split_index
-split_index.data.frame <-
-function(x, indices, names = NULL, ...) {
+split_index.data.frame <- function(x, indices, names = NULL, ...) {
 
     names <- name_len_check(indices, names)
     out <- split_index_mat(x, indices, ...)
@@ -75,8 +74,7 @@ function(x, indices, names = NULL, ...) {
 #' @export
 #' @method split_index matrix
 #' @rdname split_index
-split_index.matrix <-
-function(x, indices, names = NULL, ...) {
+split_index.matrix <- function(x, indices, names = NULL, ...) {
 
     names <- name_len_check(indices, names)
     out <- split_index_mat(x, indices, ...)
@@ -87,8 +85,8 @@ function(x, indices, names = NULL, ...) {
 #' @export
 #' @method split_index numeric
 #' @rdname split_index
-split_index.numeric <-
-function(x, indices = change_index(x), names = NULL, ...) {
+split_index.numeric <- function(x, indices = change_index(x), names = NULL, 
+    ...) {
 
     names <- name_len_check(indices, names)
     out <- split_index_vector(x, indices, ...)
@@ -99,8 +97,8 @@ function(x, indices = change_index(x), names = NULL, ...) {
 #' @export
 #' @method split_index factor
 #' @rdname split_index
-split_index.factor <-
-function(x, indices = change_index(x), names = NULL, ...) {
+split_index.factor <- function(x, indices = change_index(x), names = NULL, 
+    ...) {
 
     names <- name_len_check(indices, names)
     out <- split_index_vector(x, indices, ...)
@@ -111,8 +109,8 @@ function(x, indices = change_index(x), names = NULL, ...) {
 #' @export
 #' @method split_index character
 #' @rdname split_index
-split_index.character <-
-function(x, indices = change_index(x), names = NULL, ...) {
+split_index.character <- function(x, indices = change_index(x), 
+    names = NULL, ...) {
 
     names <- name_len_check(indices, names)
     out <- split_index_vector(x, indices, ...)
@@ -123,8 +121,8 @@ function(x, indices = change_index(x), names = NULL, ...) {
 #' @export
 #' @method split_index default
 #' @rdname split_index
-split_index.default <-
-function(x, indices = change_index(x), names = NULL, ...) {
+split_index.default <- function(x, indices = change_index(x), 
+    names = NULL, ...) {
 
     names <- name_len_check(indices, names)
     out <- split_index_vector(x, indices, ...)
@@ -142,12 +140,16 @@ split_index_vector <- function(x, indices){
 }
 
 
-split_index_mat <-
-function(x, indices, names = NULL, ...) {
+split_index_mat <- function(x, indices, names = NULL, ...) {
 
     indices <- indices[!indices %in% "1"]
     len <- nrow(x)
-    if (len < max(indices)) stop("One or more `indices` elements exceeds nrow of `x`")
+    if (len < max(indices)) {
+        stop(
+            "One or more `indices` elements exceeds nrow of `x`",
+            call. = FALSE
+        )
+    }
 
     starts <- c(1, indices)
     Map(function(s, e) {x[s:e, ,drop=FALSE]}, starts, c(indices - 1, nrow(x)))
@@ -160,7 +162,15 @@ name_len_check <- function(indices, names) {
 
     if (is.null(names)) return(names)
     check <- length(indices) + 1 == length(names)
-    if(!check) warning("length of `names` muse be equal to length of `indices` + 1; ignoring `names`")
+    if(!check) {
+        warning(
+            paste(
+                "length of `names` muse be equal to length", 
+                "of `indices` + 1; ignoring `names`", 
+            ),
+            call. = FALSE
+        )
+    }
     if (!check) NULL else names
 }
 

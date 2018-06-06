@@ -5,7 +5,8 @@
 #' @param x A matrix.
 #' @param dim The dimension to reorder (cluster); must be set to "row", "col", 
 #' or "both".
-#' @param method The agglomeration method to be used (see \code{\link[stats]{hclust}}).
+#' @param method The agglomeration method to be used (see 
+#' \code{\link[stats]{hclust}}).
 #' @param \ldots ignored.
 #' @return Returns a reordered matrix.
 #' @export
@@ -28,7 +29,12 @@
 #'          scale_fill_viridis(name = expression(r[xy])) +
 #'          theme(
 #'              axis.text.y = element_text(size = 8)   ,
-#'              axis.text.x = element_text(size = 8, hjust = 1, vjust = 1, angle = 45),   
+#'              axis.text.x = element_text(
+#'                  size = 8, 
+#'                  hjust = 1, 
+#'                  vjust = 1, 
+#'                  angle = 45
+#'              ),   
 #'              legend.position = 'bottom',
 #'              legend.key.height = grid::unit(.1, 'cm'),
 #'              legend.key.width = grid::unit(.5, 'cm')
@@ -50,7 +56,12 @@
 #'          scale_fill_viridis(name = expression(r[xy])) +
 #'          theme(
 #'              axis.text.y = element_text(size = 8)   ,
-#'              axis.text.x = element_text(size = 8, hjust = 1, vjust = 1, angle = 45),   
+#'              axis.text.x = element_text(
+#'                  size = 8, 
+#'                  hjust = 1, 
+#'                  vjust = 1, 
+#'                  angle = 45
+#'              ),   
 #'              legend.position = 'bottom',
 #'              legend.key.height = grid::unit(.1, 'cm'),
 #'              legend.key.width = grid::unit(.5, 'cm')               

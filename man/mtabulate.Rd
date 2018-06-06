@@ -18,17 +18,18 @@ as_list(mat, nm = rownames(mat))
 \item{nm}{A character vector of names to assign to the list.}
 }
 \value{
-\code{mtabulate} - Returns a \code{\link[base]{data.frame}} with columns equal to
-number of unique elements and the number of rows equal to the the original
-length of the \code{\link[base]{vector}}, \code{\link[base]{list}}, or
-\code{\link[base]{data.frame}} (length equals number of columns in
-\code{\link[base]{data.frame}}).  If list of vectors is named
-these will be the rownames of the dataframe.
+\code{mtabulate} - Returns a \code{\link[base]{data.frame}} with 
+columns equal to number of unique elements and the number of rows equal to 
+the the original length of the \code{\link[base]{vector}}, 
+\code{\link[base]{list}}, or \code{\link[base]{data.frame}} (length equals 
+number of columns in \code{\link[base]{data.frame}}).  If list of vectors is 
+named these will be the rownames of the dataframe.
 
 \code{as_list} - Returns a list of elements.
 }
 \description{
-\code{mtabulate} - Similar to \code{\link[base]{tabulate}} that works on multiple vectors.
+\code{mtabulate} - Similar to \code{\link[base]{tabulate}} that works on 
+multiple vectors.
 
 \code{as_list} - Convert a count matrix to a named list of elements.  The
 semantic inverse of \code{mtabulate}.

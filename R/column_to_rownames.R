@@ -17,9 +17,11 @@
 #' column_to_rownames(state_dat)
 #' column_to_rownames(state_dat, 'state.name')
 column_to_rownames <- function(x, loc = 1){
+    
     x <- as.data.frame(x, check.names = FALSE, stringsAsFactors = FALSE)
     if (!is.numeric(loc)) loc <- which(names(x) %in% loc)[1]
     rownames(x) <- x[[loc]]
     x[[loc]] <- NULL
     x
+    
 }

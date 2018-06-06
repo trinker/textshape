@@ -38,8 +38,8 @@ of 1 or more grouping variables.}
 Returns a vector or data frame of starts and/or ends.
 }
 \description{
-\code{duration} - Calculate duration (start and end times) for duration of turns
-of talk measured in words.
+\code{duration} - Calculate duration (start and end times) for duration of 
+turns of talk measured in words.
 
 \code{startss} - Calculate start times from a numeric vector.
 

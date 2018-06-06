@@ -2,20 +2,24 @@
 #'
 #' \code{\link[base]{rbind}} a named \code{\link[base]{list}} of
 #' \code{\link[base]{data.frame}}s or \code{\link[base]{vector}}s to
-#' output a single \code{\link[base]{data.frame}} with the \code{\link[base]{names}}
-#' from the \code{\link[base]{list}} as an \code{id} column.
+#' output a single \code{\link[base]{data.frame}} with the 
+#' \code{\link[base]{names}} from the \code{\link[base]{list}} as an \code{id} 
+#' column.
 #'
 #' @param x A named \code{\link[base]{list}} of
 #' \code{\link[base]{data.frame}}s or \code{\link[base]{vector}}.
-#' @param id.name The name to use for the column created from the \code{\link[base]{list}}.
-#' @param content.name The name to use for the column created from the \code{\link[base]{list}}
-#' of \code{\link[base]{vector}}s (only used if \code{x} is \code{\link[base]{vector}}).
+#' @param id.name The name to use for the column created from the 
+#' \code{\link[base]{list}}.
+#' @param content.name The name to use for the column created from the 
+#' \code{\link[base]{list}} of \code{\link[base]{vector}}s (only used if 
+#' \code{x} is \code{\link[base]{vector}}).
 #' @param content.attribute.name The name to use for the column created from the
 #' \code{\link[base]{list}} of names given to the \code{\link[base]{vector}}s
 #' (only used if \code{x} is named \code{\link[base]{vector}}).
 #' @param \ldots Ignored.
-#' @return Returns a \code{\link[data.table]{data.table}} with the \code{\link[base]{names}}
-#' from the \code{\link[base]{list}} as an \code{id} column.
+#' @return Returns a \code{\link[data.table]{data.table}} with the 
+#' \code{\link[base]{names}} from the \code{\link[base]{list}} as an \code{id} 
+#' column.
 #' @export
 #' @examples
 #' tidy_list(list(p=1:500, r=letters))
@@ -45,7 +49,8 @@
 #' )
 #'
 #' lapply(debates, function(x){
-#'     xml2::read_html(paste0("http://www.presidency.ucsb.edu/ws/index.php?pid=", x)) %>%
+#'     paste0("http://www.presidency.ucsb.edu/ws/index.php?pid=", x) %>%
+#'         xml2::read_html() %>%
 #'         rvest::html_nodes("p") %>%
 #'         rvest::html_text() %>%
 #'         textshape::split_index(grep("^[A-Z]+:", .)) %>%
@@ -63,7 +68,12 @@ tidy_list <- function(x, id.name= "id", content.name = "content",
     } else {
 
         if (is.atomic(x[[1]])){
-            tidy_list_vector(x = x, id.name = id.name, content.name = content.name, content.attribute.name = content.attribute.name)
+            
+            tidy_list_vector(x = x, id.name = id.name, 
+                content.name = content.name, 
+                content.attribute.name = content.attribute.name
+            )
+            
         } else {
             stop("`x` must be a list of `data.frame`s or atomic `vector`s")
         }
@@ -76,7 +86,7 @@ tidy_list_df <- function (x, id.name = "id"){
     if (is.null(names(x))) {
         names(x) <- seq_along(x)
     }
-    list.names <- rep(names(x), sapply(x, nrow))
+    list.names <- rep(names(x), sapply2(x, nrow))
     x <- lapply(x, data.table::as.data.table)
     x[['fill']] <- TRUE
     out <- data.frame(list.names, do.call(rbind, x),
@@ -92,14 +102,17 @@ tidy_list_vector <- function(x, id.name = "id",
         names(x) <- seq_along(x)
     }
 
-    if (all(!sapply(x, function(y) is.null(names(y))))){
+    if (all(!sapply2(x, function(y) is.null(names(y))))){
 
-        tidy_list(lapply(x, tidy_vector, content.attribute.name , content.name ), id.name)
+        tidy_list(
+            lapply(x, tidy_vector, content.attribute.name , content.name ), 
+            id.name
+        )
 
     } else {
 
         dat <- data.frame(
-            rep(names(x), sapply(x, length)),
+            rep(names(x), sapply2(x, length)),
             unlist(x, use.names = FALSE),
             stringsAsFactors = FALSE,
             check.names = FALSE,

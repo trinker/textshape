@@ -1,18 +1,19 @@
 #' Tabulate Frequency Counts for Multiple Vectors
 #'
-#' \code{mtabulate} - Similar to \code{\link[base]{tabulate}} that works on multiple vectors.
+#' \code{mtabulate} - Similar to \code{\link[base]{tabulate}} that works on 
+#' multiple vectors.
 #'
 #' @param vects A \code{\link[base]{vector}}, \code{\link[base]{list}}, or
 #' \code{\link[base]{data.frame}} of named/unnamed vectors.
 #' @keywords tabulate frequency
 #' @export
 #' @seealso \code{\link[base]{tabulate}}
-#' @return \code{mtabulate} - Returns a \code{\link[base]{data.frame}} with columns equal to
-#' number of unique elements and the number of rows equal to the the original
-#' length of the \code{\link[base]{vector}}, \code{\link[base]{list}}, or
-#' \code{\link[base]{data.frame}} (length equals number of columns in
-#' \code{\link[base]{data.frame}}).  If list of vectors is named
-#' these will be the rownames of the dataframe.
+#' @return \code{mtabulate} - Returns a \code{\link[base]{data.frame}} with 
+#' columns equal to number of unique elements and the number of rows equal to 
+#' the the original length of the \code{\link[base]{vector}}, 
+#' \code{\link[base]{list}}, or \code{\link[base]{data.frame}} (length equals 
+#' number of columns in \code{\link[base]{data.frame}}).  If list of vectors is 
+#' named these will be the rownames of the dataframe.
 #' @author Joran Elias and Tyler Rinker <tyler.rinker@@gmail.com>.
 #' @rdname mtabulate
 #' @references \url{http://stackoverflow.com/a/9961324/1000343}
@@ -30,12 +31,14 @@
 #' t(mtabulate(dat))
 #' as_list(t(mtabulate(dat)))
 mtabulate <- function(vects) {
+    
     lev <- sort(unique(unlist(vects)))
     dat <- do.call(rbind, lapply(vects, function(x, lev){
         tabulate(factor(x, levels = lev, ordered = TRUE),
         nbins = length(lev))}, lev = lev))
     colnames(dat) <- sort(lev)
     data.frame(dat, check.names = FALSE)
+    
 }
 
 
@@ -51,12 +54,14 @@ mtabulate <- function(vects) {
 #' @return \code{as_list} - Returns a list of elements.
 #' @export
 as_list <- function(mat, nm = rownames(mat)) {
+    
     nms <- colnames(mat)
     lst <- apply(mat, 1, function(x) rep(nms, x))
     if (nrow(mat) == 1) lst <- list(c(lst))                 
     if (!is.list(lst) & is.atomic(lst)) lst <- as.list(lst)    
-    if(!is.list(lst)) lst <- lapply(1:ncol(lst), function(i) lst[, i])
+    if(!is.list(lst)) lst <- lapply(seq_len(ncol(lst)), function(i) lst[, i])
     stats::setNames(lst,  nm = nm)
+    
 }
 
 

@@ -17,7 +17,7 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-textshape 1.5.1 -
+textshape 1.5.1 - 1.6.0
 ----------------------------------------------------------------
 
 **BUG FIXES**
@@ -31,17 +31,12 @@ textshape 1.5.1 -
   using the concatenated list/atomic vector names as the names of the single
   tiered list.
 
-* `unnest_text` added to located and unnest nested text columns in a data.frame.
-
-**MINOR FEATURES**
+* `unnest_text` added to located and un-nest nested text columns in a data.frame.
 
 **IMPROVEMENTS**
 
 * `tidy_dtm`/`tidy_tdm` did not order unnamed matrices as expected (e.g.,
   `{1, 2, ..., 1}` was ordered as `{1, 10, 2, ...}`).  This has been corrected.
-
-**CHANGES**
-
 
 
 

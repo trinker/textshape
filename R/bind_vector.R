@@ -18,9 +18,16 @@
 #' }
 bind_vector <- function(x, id.name= "id", content.name = "content", ...){
 
-    warning("Deprecated, use textshape::tidy_vector() instead.", call. = FALSE)
+    warning(
+        paste0(
+            "Deprecated, use textshape::tidy_vector() instead.\n`bind_vector()` ", 
+            "will be removed in the next version."
+        ), 
+        call. = FALSE
+    )
 
     stopifnot(is.atomic(x))
+    
     if (is.null(names)) {
         out <- data.table::as.data.table(x)
         data.table::setnames(out, id.name)

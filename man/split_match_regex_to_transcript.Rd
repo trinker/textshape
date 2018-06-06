@@ -20,10 +20,12 @@ transcript columns.}
 \item{dash}{A character string to replace the en and em dashes special
 characters (default is to remove).}
 
-\item{ellipsis}{A character string to replace the ellipsis special characters.}
+\item{ellipsis}{A character string to replace the ellipsis special 
+characters.}
 
-\item{quote2bracket}{logical. If \code{TRUE} replaces curly quotes with curly
-braces (default is \code{FALSE}).  If \code{FALSE} curly quotes are removed.}
+\item{quote2bracket}{logical. If \code{TRUE} replaces curly quotes with 
+curly braces (default is \code{FALSE}).  If \code{FALSE} curly quotes are 
+removed.}
 
 \item{rm.empty.rows}{logical.  If \code{TRUE}
 \code{\link[textreadr]{read_transcript}}  attempts to remove empty rows.}
@@ -37,15 +39,18 @@ beginning to read data.}
 Returns a data.frame of dialogue and people.
 }
 \description{
-A wrapper for \code{\link[textshape]{split_match_regex}} and \pkg{textreadr}'s
-\code{as_transript} to detect person variable, split the text into turns of
-talk, and convert to a data.frame with \code{person} and \code{dialogue}
-variables.  There is a bit of cleansing that is closer to \code{as_transript}
-than \code{\link[textshape]{split_transcript}}.
+A wrapper for \code{\link[textshape]{split_match_regex}} and 
+\pkg{textreadr}'s \code{as_transript} to detect person variable, split the 
+text into turns of talk, and convert to a data.frame with \code{person} and 
+\code{dialogue} variables.  There is a bit of cleansing that is closer to 
+\code{as_transript} than \code{\link[textshape]{split_transcript}}.
 }
 \examples{
 \dontrun{
-system.file("docs/Simpsons_Roasting_on_an_Open_Fire_Script.pdf", package = "textshape") \%>\%
+system.file(
+    "docs/Simpsons_Roasting_on_an_Open_Fire_Script.pdf", 
+    package = "textshape"
+) \%>\%
     textreadr::read_document() \%>\%
     split_match_regex_to_transcript("^[A-Z]{3,}", skip = 2)
 }

@@ -1,7 +1,7 @@
 #' Duration of Turns of Talk
 #'
-#' \code{duration} - Calculate duration (start and end times) for duration of turns
-#' of talk measured in words.
+#' \code{duration} - Calculate duration (start and end times) for duration of 
+#' turns of talk measured in words.
 #'
 #' @param x A \code{\link[base]{data.frame}} or character vector with a text
 #' variable or a numeric vector.
@@ -54,7 +54,7 @@ duration.default <- function(x, grouping.var = NULL, ...) {
     } else {
         if (is.list(grouping.var)) {
             m <- unlist(as.character(substitute(grouping.var))[-1])
-            m <- sapply(strsplit(m, "$", fixed=TRUE), function(x) {
+            m <- sapply2(strsplit(m, "$", fixed=TRUE), function(x) {
                     x[length(x)]
                 }
             )
@@ -95,15 +95,12 @@ duration.data.frame <- function(x, text.var = TRUE, ...) {
     nms <- colnames(x)
     z <- data.table::data.table(data.frame(x, stringsAsFactors = FALSE))
 
-    if (isTRUE(text.var)) {
-        text.var <- names(which.max(sapply(as.data.frame(z), function(y) {
-            if(!is.character(y) && !is.factor(y)) return(0)
-            mean(nchar(as.character(y)), na.rm = TRUE)
-        }))[1])
-        if (length(text.var) == 0) stop("Could not detect ` text.var`.  Please supply `text.var` explicitly.")
-    }
+    text.var <- detect_text_column(x, text.var)
 
-    express1 <- parse(text=paste0("word.count := stringi::stri_count_words(", text.var, ")"))
+    express1 <- parse(
+        text=paste0("word.count := stringi::stri_count_words(", text.var, ")")
+    )
+    
     z[, eval(express1)][,
         'word.count' := ifelse(is.na(word.count), 0, word.count)][,
         'end' := cumsum(word.count)]
@@ -112,7 +109,9 @@ duration.data.frame <- function(x, text.var = TRUE, ...) {
 
     colord <- c(nms[!nms %in% text.var], "word.count", "start", "end", text.var)
     data.table:: setcolorder(z, colord)
+    
     z[]
+    
 }
 
 

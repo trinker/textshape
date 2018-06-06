@@ -18,9 +18,16 @@
 #' }
 bind_table <- function(x, id.name= "id", content.name = "content", ...){
 
-    warning("Deprecated, use textshape::tidy_table() instead.", call. = FALSE)
+    warning(
+        paste0(
+            "Deprecated, use textshape::tidy_table() instead.\n`bind_table()` ", 
+            "will be removed in the next version."
+        ), 
+        call. = FALSE
+    )
 
     stopifnot(is.table(x))
+    
     out <- data.table::data.table(x = names(x), y = unname(c(x)))
     data.table::setnames(out, c(id.name, content.name))
     out

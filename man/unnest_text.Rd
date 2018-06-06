@@ -2,7 +2,7 @@
 % Please edit documentation in R/unnest_text.R
 \name{unnest_text}
 \alias{unnest_text}
-\title{Unnest Nested Text Columns}
+\title{Un-nest Nested Text Columns}
 \usage{
 unnest_text(dataframe, column, integer.rownames = TRUE, ...)
 }
@@ -11,17 +11,17 @@ unnest_text(dataframe, column, integer.rownames = TRUE, ...)
 
 \item{column}{Column name to search for markers/terms.}
 
-\item{integer.rownames}{logical.  If \code{TRUE} then the rownames are numbered
-1 through number of rows, otherwise the original row number is retained 
-follwed by a period and the element number from the list.}
+\item{integer.rownames}{logical.  If \code{TRUE} then the rownames are 
+numbered 1 through number of rows, otherwise the original row number is 
+retained followed by a period and the element number from the list.}
 
 \item{\ldots}{ignored.}
 }
 \value{
-Returns an unnested data.frame.
+Returns an un-nested data.frame.
 }
 \description{
-Unnest nested text columns in a data.frame.   Attempts to locate the nested 
+Un-nest nested text columns in a data.frame.   Attempts to locate the nested 
 text column without specifying.
 }
 \examples{

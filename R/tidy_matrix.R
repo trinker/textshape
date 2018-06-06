@@ -26,7 +26,8 @@
 #' X <- as.matrix(simple_dtm[1:10, 1:10])
 #' tidy_adjacency_matrix(crossprod(X))
 #' tidy_adjacency_matrix(crossprod(t(X)))
-tidy_matrix <- function(x, row.name = 'row', col.name = 'col', value.name = 'value', ...){
+tidy_matrix <- function(x, row.name = 'row', col.name = 'col', 
+    value.name = 'value', ...){
     
     stopifnot(is.matrix(x))
     
@@ -42,8 +43,9 @@ tidy_matrix <- function(x, row.name = 'row', col.name = 'col', value.name = 'val
 #' Convert a Matrix into Tidy Form
 #' 
 #' \code{tidy_adjacency_matrix} - A wrapper for \code{tidy_matrix} with the 
-#' \code{row.name}, \code{col.name}, & \code{value.name} all set to \code{"from"},
-#' \code{"to"}, & \code{"n"}, assuming peparation for network analysis.
+#' \code{row.name}, \code{col.name}, & \code{value.name} all set to 
+#' \code{"from"},\code{"to"}, & \code{"n"}, assuming preparation for network 
+#' analysis.
 #' 
 #' @export
 #' @rdname tidy_matrix

@@ -40,7 +40,10 @@ knitr::opts_knit$set(self.contained = TRUE, cache = FALSE)
 
 ![](tools/textshape_logo/r_textshape.png)
 
-**textshape** is small suite of text reshaping and restructuring functions.  Many of these functions are descended from tools in the [**qdapTools**](https://github.com/trinker/qdapTools) package.  This brings reshaping tools under one roof with specific functionality of the package limited to text reshaping.
+**textshape** is small suite of text reshaping and restructuring functions.  Many of these functions are descended from tools in the [**qdapTools**](https://github.com/trinker/qdapTools) package.  This brings reshaping tools under one roof with specific functionality of the package limited to text reshaping.  
+
+Other R packages provide some of the same functionality.  **textshape** differs from these packages in that it is designed to help the user take unstructured data (or implicitly structured), extract it into a structured format, and then restructure into common text analysis formats for use in the next stage of the text analysis pipeline.  The implicit structure of seemingly unstructured data is often detectable/expressible by the researcher.  **textshape** provides tools (e.g., `split_match`) to enable the researcher to convert this tacit knowledge into a form that can be used to reformat data into more structured formats.  This package is meant to be used jointly with the [**textclean**](https://github.com/trinker/textclean) package, which provides cleaning and text normalization functionality.  Additionally, the [**textreadr**](https://github.com/trinker/textreadr) package is designed to import various common text data sources into R for reshaping and cleaning.
+
 
 # Functions
 
@@ -91,10 +94,19 @@ pacman::p_load_gh("trinker/textshape")
 # Contact
 
 You are welcome to:
-* submit suggestions and bug-reports at: <https://github.com/trinker/textshape/issues>
-* send a pull request on: <https://github.com/trinker/textshape/>
-* compose a friendly e-mail to: <tyler.rinker@gmail.com>
 
+* submit suggestions and bug-reports at: <https://github.com/trinker/textshape/issues>
+
+
+# Contributing
+
+Contributions are welcome from anyone subject to the following rules:
+
+- Abide by the [code of conduct](CONDUCT.md).
+- Follow the style conventions of the package (indentation, function & argument naming, commenting, etc.)
+- All contributions must be consistent with the package license (GPL-2)
+- Submit contributions as a pull request. Clearly state what the changes are and try to keep the number of changes per pull request as low as possible.
+- If you make big changes, add your name to the 'Author' field.
 
 # Examples
 

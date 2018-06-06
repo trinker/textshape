@@ -12,12 +12,13 @@ change_index(x, ...)
 \item{\ldots}{ignored.}
 }
 \value{
-Returns a vector of integer indices of where a vector initially changes.
+Returns a vector of integer indices of where a vector initially 
+changes.
 }
 \description{
-Find the indices of changes in runs in a vector.  This function pairs well with
-\code{split_index} and is the default for the \code{indices} in all \code{split_index}
-functions that act on atomic vectors.
+Find the indices of changes in runs in a vector.  This function pairs well 
+with \code{split_index} and is the default for the \code{indices} in all 
+\code{split_index} functions that act on atomic vectors.
 }
 \examples{
 set.seed(10)

@@ -50,7 +50,7 @@ split_portion <- function(text.var, grouping.var = NULL, n.words, n.chunks,
     } else {
         if (is.list(grouping.var)) {
             m <- unlist(as.character(substitute(grouping.var))[-1])
-            m <- sapply(strsplit(m, "$", fixed=TRUE), function(x) {
+            m <- sapply2(strsplit(m, "$", fixed=TRUE), function(x) {
                     x[length(x)]
                 }
             )
@@ -73,7 +73,9 @@ split_portion <- function(text.var, grouping.var = NULL, n.words, n.chunks,
     }
 
     ## split into ordered words by grouping variable
-    dat <- lapply(split(as.character(text.var), grouping), function(x) unlist(stringi::stri_split_regex(x, "\\s+")))
+    dat <- lapply(split(as.character(text.var), grouping), function(x) {
+        unlist(stringi::stri_split_regex(x, "\\s+"))
+    })
 
 
     if (!missing(n.chunks)){
@@ -82,7 +84,13 @@ split_portion <- function(text.var, grouping.var = NULL, n.words, n.chunks,
         if (!is.Integer(n.chunks)){
             stop("`n.chunks` must be an integer")
         }
-        out <- lapply(dat, split_portion_help_groups, N = n.chunks, ub = as.string, rme = rm.unequal)
+        out <- lapply(
+            dat, 
+            split_portion_help_groups, 
+            N = n.chunks, 
+            ub = as.string, 
+            rme = rm.unequal
+        )
 
     } else {
 
@@ -90,7 +98,13 @@ split_portion <- function(text.var, grouping.var = NULL, n.words, n.chunks,
         if (!is.Integer(n.words)){
             stop("`n.words` must be an integer")
         }
-        out <- lapply(dat, split_portion_help_words, N = n.words, ub = as.string, rme = rm.unequal)
+        out <- lapply(
+            dat, 
+            split_portion_help_words, 
+            N = n.words, 
+            ub = as.string, 
+            rme = rm.unequal
+        )
     }
 
     grpvar <- stats::setNames(
@@ -134,7 +148,7 @@ split_portion_help_groups <- function(x, N, ub, rme){
         ylen <- length(y)
         ## if there is only one chunk it is returned
         if (ylen != 1) {
-            lens <- sapply(y, length)
+            lens <- lengths(y)
             if (!Reduce("==", utils::tail(lens, 2))) y <- y[1:(ylen-1)]
         }
     }

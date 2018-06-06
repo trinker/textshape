@@ -1,10 +1,13 @@
-#' Convert a \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}} into Collocating Words in Tidy Form
+#' Convert a 
+#' \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}} 
+#' into Collocating Words in Tidy Form
 #'
 #' Converts non-zero elements of a
-#' \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}} into
-#' a tidy data set made of collocating words.
+#' \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}} 
+#' into a tidy data set made of collocating words.
 #'
-#' @param x A \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}}.
+#' @param x A 
+#' \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}}.
 #' @param \ldots Ignored.
 #' @return Returns a tidied data.frame.
 #' @rdname tidy_colo_dtm
@@ -22,11 +25,16 @@
 #' pacman::p_load_current_gh('trinker/gofastr', 'trinker/lexicon')
 #' pacman::p_load(tidyverse, magrittr, ggstance)
 #'
-#' my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
+#' my_dtm <- with(
+#'     presidential_debates_2012, 
+#'     q_dtm(dialogue, paste(time, tot, sep = "_"))
+#' )
 #'
 #' tidy_colo_dtm(my_dtm) %>%
 #'     tbl_df() %>%
-#'     filter(!term_1 %in% c('i', lexicon::sw_onix) & !term_2 %in% lexicon::sw_onix) %>%
+#'     filter(!term_1 %in% c('i', lexicon::sw_onix) & 
+#'         !term_2 %in% lexicon::sw_onix
+#'     ) %>%
 #'     filter(term_1 != term_2) %>%
 #'     unique_pairs() %>%
 #'     filter(n > 15) %>%
@@ -40,7 +48,9 @@ tidy_colo_tdm <- function(x, ...){
 
     term_1 <- NULL
 
-    x <- slam::as.simple_triplet_matrix(slam::tcrossprod_simple_triplet_matrix(x, y = NULL))
+    x <- slam::as.simple_triplet_matrix(
+        slam::tcrossprod_simple_triplet_matrix(x, y = NULL)
+    )
 
     data.table::data.table(
         term_1 = x[['dimnames']][['Terms']][x[['i']]],
@@ -57,7 +67,9 @@ tidy_colo_dtm <- function(x, ...){
 
     term_1 <- NULL
 
-    x <- slam::as.simple_triplet_matrix(slam::crossprod_simple_triplet_matrix(x, y = NULL))
+    x <- slam::as.simple_triplet_matrix(
+        slam::crossprod_simple_triplet_matrix(x, y = NULL)
+    )
 
     data.table::data.table(
         term_1 = x[['dimnames']][['Terms']][x[['i']]],

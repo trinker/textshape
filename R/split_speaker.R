@@ -47,8 +47,15 @@ split_speaker <- function (dataframe, speaker.var = 1, sep = c("and", "&", ","),
 
     z[, eval(express1)]
 
-    express2 <- parse(text=paste0(".(", speaker.var, "=unlist(", speaker.var, "))"))
-    z <- z[, eval(express2), by = c(colnames(z)[!colnames(z) %in% speaker.var])][, c(nms, "element_id"), with = FALSE]
+    express2 <- parse(
+        text=paste0(".(", speaker.var, "=unlist(", speaker.var, "))")
+    )
+    
+    z <- z[, 
+            eval(express2), 
+            by = c(colnames(z)[!colnames(z) %in% speaker.var])
+        ][, 
+        c(nms, "element_id"), with = FALSE]
     z[, 'split_id' := 1:.N, by = list(element_id)][]
 
 }

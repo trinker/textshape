@@ -1,4 +1,5 @@
-#' Extract Only Unique Pairs of Collocating Words in \code{\link[textshape]{tidy_colo_dtm}}
+#' Extract Only Unique Pairs of Collocating Words in 
+#' \code{\link[textshape]{tidy_colo_dtm}}
 #'
 #' \code{\link[textshape]{tidy_colo_dtm}} utilizes the entire matrix to generate
 #' the tidied data.frame.  This means that the upper and lower triangles are
@@ -31,7 +32,11 @@ unique_pairs <- function(x, col1 = 'term_1', col2 = 'term_2', ...) {
 #' @method unique_pairs default
 unique_pairs.default <- function(x, col1 = 'term_1', col2 = 'term_2', ...) {
 
-    x[!duplicated(apply(data.table::data.table(x[, c(col1, col2)]), 1, sorter)),]
+    x[!duplicated(apply(
+        data.table::data.table(x[, c(col1, col2)]), 
+        1, 
+        sorter
+    )),]
 }
 
 #' @export
@@ -39,7 +44,11 @@ unique_pairs.default <- function(x, col1 = 'term_1', col2 = 'term_2', ...) {
 #' @method unique_pairs data.table
 unique_pairs.data.table <- function(x, col1 = 'term_1', col2 = 'term_2', ...) {
 
-    x[!duplicated(apply(data.table::data.table(x[, c(col1, col2), with = FALSE]), 1, sorter)),]
+    x[!duplicated(apply(
+        data.table::data.table(x[, c(col1, col2), with = FALSE]), 
+        1, 
+        sorter
+    )),]
 }
 
 sorter <- function(x) paste(sort(x), collapse = "")

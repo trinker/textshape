@@ -54,20 +54,17 @@ split_sentence.data.frame <- function(x, text.var = TRUE, ...) {
     nms <- colnames(x)
     z <- data.table::data.table(data.frame(x, stringsAsFactors = FALSE))
 
-    if (isTRUE(text.var)) {
-        text.var <- names(which.max(sapply(as.data.frame(z), function(y) {
-            if(!is.character(y) && !is.factor(y)) return(0)
-            mean(nchar(as.character(y)), na.rm = TRUE)
-        }))[1])
-        if (length(text.var) == 0) stop("Could not detect `text.var`.  Please supply `text.var` explicitly.")
-    }
+    text.var <- detect_text_column(x, text.var)
 
     z[, element_id := 1:.N]
-    express1 <- parse(text=paste0(text.var, " := list(get_sents2(", text.var, "))"))
+    express1 <- parse(
+        text=paste0(text.var, " := list(get_sents2(", text.var, "))")
+    )
     z[, eval(express1)]
 
     express2 <- parse(text=paste0(".(", text.var, "=unlist(", text.var, "))"))
-    z <- z[, eval(express2), by = c(colnames(z)[!colnames(z) %in% text.var])][, c(nms, "element_id"), with = FALSE]
+    z <- z[, eval(express2), by = c(colnames(z)[!colnames(z) %in% text.var])][, 
+        c(nms, "element_id"), with = FALSE]
     z[, 'sentence_id' := 1:.N, by = list(element_id)][]
 
 }
@@ -139,7 +136,8 @@ period_reg <- paste0(
 ## Dr. Rinker) while the latter will not and if they are followed by a capital
 ## letter then the abbreviation likely ends the sentence and a split should
 ## occur there.  This is baked into the replacement logic for splitting.
-sent_regex <- sprintf("((?<=\\b(%s))\\.)|((?<=\\b(%s))\\.(?!\\s+[A-Z]))|%s|(%s)",
+sent_regex <- sprintf(
+    "((?<=\\b(%s))\\.)|((?<=\\b(%s))\\.(?!\\s+[A-Z]))|%s|(%s)",
     paste(unlist(abbr_rep_1), collapse = "|"),
     paste(unlist(abbr_rep_2), collapse = "|"),
     period_reg,
@@ -149,12 +147,32 @@ sent_regex <- sprintf("((?<=\\b(%s))\\.)|((?<=\\b(%s))\\.(?!\\s+[A-Z]))|%s|(%s)"
 
 get_sents2 <- function(x) {
 
-    y <- stringi::stri_replace_all_regex(trimws(x), '([Pp])(\\.)(\\s*[Ss])(\\.)', '$1<<<TEMP>>>$3<<<TEMP>>>')
+    y <- stringi::stri_replace_all_regex(
+        trimws(x), 
+        '([Pp])(\\.)(\\s*[Ss])(\\.)', 
+        '$1<<<TEMP>>>$3<<<TEMP>>>'
+    )
     y <- stringi::stri_replace_all_regex(y, sent_regex, "<<<TEMP>>>")
-    y <- stringi::stri_replace_all_regex(y, '(\\b[Nn]o)(\\.)(\\s+\\d)', '$1<<<TEMP>>>$3')
-    y <- stringi::stri_replace_all_regex(y, '(\\b\\d+\\s+in)(\\.)(\\s[a-z])', '$1<<<TEMP>>>$3')
-    y <- stringi::stri_replace_all_regex(y, '([?.!]+)([\'])([^,])', '<<<SQUOTE>>>$1  $3')
-    y <- stringi::stri_replace_all_regex(y, '([?.!]+)(["])([^,])', '<<<DQUOTE>>>$1  $3')
+    y <- stringi::stri_replace_all_regex(
+        y, 
+        '(\\b[Nn]o)(\\.)(\\s+\\d)', 
+        '$1<<<TEMP>>>$3'
+    )
+    y <- stringi::stri_replace_all_regex(
+        y, 
+        '(\\b\\d+\\s+in)(\\.)(\\s[a-z])', 
+        '$1<<<TEMP>>>$3'
+    )
+    y <- stringi::stri_replace_all_regex(
+        y, 
+        '([?.!]+)([\'])([^,])', 
+        '<<<SQUOTE>>>$1  $3'
+    )
+    y <- stringi::stri_replace_all_regex(
+        y, 
+        '([?.!]+)(["])([^,])', 
+        '<<<DQUOTE>>>$1  $3'
+    )
     ## midde name handling
     y <- stringi::stri_replace_all_regex(y,
         '(\\b[A-Z][a-z]+\\s[A-Z])(\\.)(\\s[A-Z][a-z]+\\b)',
@@ -166,7 +184,13 @@ get_sents2 <- function(x) {
         '(\\b[A-Z][a-z]+\\s[A-Z])(\\.)(\\s[A-Z])(\\.)(\\s[A-Z][a-z]+\\b)',
         '$1<<<TEMP>>>$3<<<TEMP>>>$5'
     )
-    y <- stringi::stri_split_regex(y, "((?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|\\!)(\\s|(?=[a-zA-Z][a-zA-Z]*\\s)))|(?<=[A-Z][a-z][.?!])\\s+")
+    y <- stringi::stri_split_regex(
+        y, 
+        paste0(
+            "((?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|\\!)(\\s|", 
+            "(?=[a-zA-Z][a-zA-Z]*\\s)))|(?<=[A-Z][a-z][.?!])\\s+"
+        )
+    )
 
 
 
@@ -183,8 +207,17 @@ get_sents2 <- function(x) {
 }
 
 get_sentences2 <- function(x, ...) {
-    lapply(lapply(get_sents2(trimws(x)), function(x) gsub("<<<TEMP>>>", ".", x)),
-        function(x) gsub("^\\s+|\\s+$", "", x))
+    lapply(
+        lapply(
+            get_sents2(trimws(x)), 
+            function(x) {
+                gsub("<<<TEMP>>>", ".", x)
+            }
+        ),
+        function(x) {
+            gsub("^\\s+|\\s+$", "", x)
+        }
+    )
 }
 
 

@@ -11,10 +11,12 @@ tidy_list(x, id.name = "id", content.name = "content",
 \item{x}{A named \code{\link[base]{list}} of
 \code{\link[base]{data.frame}}s or \code{\link[base]{vector}}.}
 
-\item{id.name}{The name to use for the column created from the \code{\link[base]{list}}.}
+\item{id.name}{The name to use for the column created from the 
+\code{\link[base]{list}}.}
 
-\item{content.name}{The name to use for the column created from the \code{\link[base]{list}}
-of \code{\link[base]{vector}}s (only used if \code{x} is \code{\link[base]{vector}}).}
+\item{content.name}{The name to use for the column created from the 
+\code{\link[base]{list}} of \code{\link[base]{vector}}s (only used if 
+\code{x} is \code{\link[base]{vector}}).}
 
 \item{content.attribute.name}{The name to use for the column created from the
 \code{\link[base]{list}} of names given to the \code{\link[base]{vector}}s
@@ -23,14 +25,16 @@ of \code{\link[base]{vector}}s (only used if \code{x} is \code{\link[base]{vecto
 \item{\ldots}{Ignored.}
 }
 \value{
-Returns a \code{\link[data.table]{data.table}} with the \code{\link[base]{names}}
-from the \code{\link[base]{list}} as an \code{id} column.
+Returns a \code{\link[data.table]{data.table}} with the 
+\code{\link[base]{names}} from the \code{\link[base]{list}} as an \code{id} 
+column.
 }
 \description{
 \code{\link[base]{rbind}} a named \code{\link[base]{list}} of
 \code{\link[base]{data.frame}}s or \code{\link[base]{vector}}s to
-output a single \code{\link[base]{data.frame}} with the \code{\link[base]{names}}
-from the \code{\link[base]{list}} as an \code{id} column.
+output a single \code{\link[base]{data.frame}} with the 
+\code{\link[base]{names}} from the \code{\link[base]{list}} as an \code{id} 
+column.
 }
 \examples{
 tidy_list(list(p=1:500, r=letters))
@@ -60,7 +64,8 @@ debates <- c(
 )
 
 lapply(debates, function(x){
-    xml2::read_html(paste0("http://www.presidency.ucsb.edu/ws/index.php?pid=", x)) \%>\%
+    paste0("http://www.presidency.ucsb.edu/ws/index.php?pid=", x) \%>\%
+        xml2::read_html() \%>\%
         rvest::html_nodes("p") \%>\%
         rvest::html_text() \%>\%
         textshape::split_index(grep("^[A-Z]+:", .)) \%>\%

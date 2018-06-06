@@ -53,13 +53,7 @@ combine.data.frame <- function(x, text.var = TRUE, ...) {
     nms <- colnames(x)
     z <- data.table::data.table(data.frame(x, stringsAsFactors = FALSE))
 
-    if (isTRUE(text.var)) {
-        text.var <- names(which.max(sapply(as.data.frame(z), function(y) {
-            if(!is.character(y) && !is.factor(y)) return(0)
-            mean(nchar(as.character(y)))
-        }))[1])
-        if (length(text.var) == 0) stop("Could not detect ` text.var`.  Please supply `text.var` explicitly.")
-    }
+    text.var <- detect_text_column(x, text.var)
 
     group.vars <- nms[!nms %in% text.var]
 

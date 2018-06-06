@@ -40,7 +40,14 @@
 #' }
 bind_list <- function(x, id.name= "id", content.name = "content", ...){
 
-    warning("Deprecated, use textshape::tidy_list() instead.", call. = FALSE)
+    warning(
+        paste0(
+            "Deprecated, use textshape::tidy_list() instead.\n`bind_list()` ", 
+            "will be removed in the next version."
+        ), 
+        call. = FALSE
+    )
+
 
     if (is.data.frame(x[[1]])){
         bind_list_df(x = x, id.name = id.name)
@@ -60,7 +67,7 @@ bind_list_df <- function (x, id.name = "id"){
     if (is.null(names(x))) {
         names(x) <- seq_along(x)
     }
-    list.names <- rep(names(x), sapply(x, nrow))
+    list.names <- rep(names(x), sapply2(x, nrow))
     x <- lapply(x, data.table::as.data.table)
     x[['fill']] <- TRUE    
     out <- data.frame(list.names, do.call(rbind, x),
@@ -74,7 +81,7 @@ bind_list_vector <- function(x, id.name= "id", content.name = "content"){
         names(x) <- seq_along(x)
     }
     dat <- data.frame(
-        rep(names(x), sapply(x, length)),
+        rep(names(x), sapply2(x, length)),
         unlist(x, use.names = FALSE),
         stringsAsFactors = FALSE,
         check.names = FALSE,

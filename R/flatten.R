@@ -9,7 +9,8 @@
 #' nested list.
 #' @param \ldots ignored.
 #' @return Returns a flattened list.
-#' @author StackOverflow user @@Michael and Paul Foster and Tyler Rinker <tyler.rinker@@gmail.com>.
+#' @author StackOverflow user @@Michael and Paul Foster and Tyler 
+#' Rinker <tyler.rinker@@gmail.com>.
 #' @export
 #' @note The order of the list is sorted alphabetically.  Pull requests for the
 #' option to return the original order would be appreciated.
@@ -52,7 +53,8 @@
 #' \dontrun{
 #' ## dictionary from quanteda
 #' require(quanteda); library(textreadr); library(dplyr)
-#' mydict <- textreadr::download("https://provalisresearch.com/Download/LaverGarry.zip") %>%
+#' mydict <- https://provalisresearch.com/Download/LaverGarry.zip" %>%
+#'     textreadr::download(") %>%
 #'     unzip(exdir = tempdir()) %>%
 #'     `[`(1) %>%
 #'     quanteda::dictionary(file = .)
@@ -101,14 +103,6 @@ fix_names <- function(x) {
 }
 
 
-# fix_names <- function(x) UseMethod('fix_names')
-#
-# fix_names.list <- function(x) {
-#   names(x) <- gsub('\\.', 'unlikelystringtodupe', names(x))
-#   lapply(x, fix_names)
-# }
-#
-# fix_names.default <- function(x) x
 
 
 

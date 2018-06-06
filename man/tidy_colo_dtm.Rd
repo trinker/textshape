@@ -3,14 +3,17 @@
 \name{tidy_colo_tdm}
 \alias{tidy_colo_tdm}
 \alias{tidy_colo_dtm}
-\title{Convert a \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}} into Collocating Words in Tidy Form}
+\title{Convert a 
+\code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}} 
+into Collocating Words in Tidy Form}
 \usage{
 tidy_colo_tdm(x, ...)
 
 tidy_colo_dtm(x, ...)
 }
 \arguments{
-\item{x}{A \code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}}.}
+\item{x}{A 
+\code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}}.}
 
 \item{\ldots}{Ignored.}
 }
@@ -19,8 +22,8 @@ Returns a tidied data.frame.
 }
 \description{
 Converts non-zero elements of a
-\code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}} into
-a tidy data set made of collocating words.
+\code{\link[tm]{DocumentTermMatrix}}/\code{\link[tm]{TermDocumentMatrix}} 
+into a tidy data set made of collocating words.
 }
 \examples{
 data(simple_dtm)
@@ -34,11 +37,16 @@ if (!require("pacman")) install.packages("pacman")
 pacman::p_load_current_gh('trinker/gofastr', 'trinker/lexicon')
 pacman::p_load(tidyverse, magrittr, ggstance)
 
-my_dtm <- with(presidential_debates_2012, q_dtm(dialogue, paste(time, tot, sep = "_")))
+my_dtm <- with(
+    presidential_debates_2012, 
+    q_dtm(dialogue, paste(time, tot, sep = "_"))
+)
 
 tidy_colo_dtm(my_dtm) \%>\%
     tbl_df() \%>\%
-    filter(!term_1 \%in\% c('i', lexicon::sw_onix) & !term_2 \%in\% lexicon::sw_onix) \%>\%
+    filter(!term_1 \%in\% c('i', lexicon::sw_onix) & 
+        !term_2 \%in\% lexicon::sw_onix
+    ) \%>\%
     filter(term_1 != term_2) \%>\%
     unique_pairs() \%>\%
     filter(n > 15) \%>\%
