@@ -5,8 +5,8 @@
 \alias{tidy_adjacency_matrix}
 \title{Convert a Matrix into Tidy Form}
 \usage{
-tidy_matrix(x, row.name = "row", col.name = "col", value.name = "value",
-  ...)
+tidy_matrix(x, row.name = "row", col.name = "col",
+  value.name = "value", ...)
 
 tidy_adjacency_matrix(x, ...)
 }

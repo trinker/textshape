@@ -30,6 +30,8 @@ MINOR FEATURES
 
 IMPROVEMENTS
 
+* `split_transcript` now has more accurate regex group capturing.
+
 CHANGES
 
 

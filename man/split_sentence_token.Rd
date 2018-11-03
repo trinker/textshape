@@ -10,8 +10,8 @@ split_sentence_token(x, ...)
 
 \method{split_sentence_token}{default}(x, lower = TRUE, ...)
 
-\method{split_sentence_token}{data.frame}(x, text.var = TRUE, lower = TRUE,
-  ...)
+\method{split_sentence_token}{data.frame}(x, text.var = TRUE,
+  lower = TRUE, ...)
 }
 \arguments{
 \item{x}{A \code{\link[base]{data.frame}} or character vector with sentences.}

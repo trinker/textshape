@@ -20,17 +20,17 @@ split_index(x, indices = if (is.atomic(x)) {     NULL } else {
 
 \method{split_index}{matrix}(x, indices, names = NULL, ...)
 
-\method{split_index}{numeric}(x, indices = change_index(x), names = NULL,
-  ...)
+\method{split_index}{numeric}(x, indices = change_index(x),
+  names = NULL, ...)
 
-\method{split_index}{factor}(x, indices = change_index(x), names = NULL,
-  ...)
+\method{split_index}{factor}(x, indices = change_index(x),
+  names = NULL, ...)
 
-\method{split_index}{character}(x, indices = change_index(x), names = NULL,
-  ...)
+\method{split_index}{character}(x, indices = change_index(x),
+  names = NULL, ...)
 
-\method{split_index}{default}(x, indices = change_index(x), names = NULL,
-  ...)
+\method{split_index}{default}(x, indices = change_index(x),
+  names = NULL, ...)
 }
 \arguments{
 \item{x}{A data form (\code{list}, \code{vector}, \code{data.frame},
