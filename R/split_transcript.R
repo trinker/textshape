@@ -42,6 +42,7 @@
 split_transcript <- function(x, delim = ":", colnames = c("person", "dialogue"),
     max.delim = 15, ...){
 
+    V1 <- V2 <- NULL
     
     if (!is.null(max.delim)) {
         x <- gsub(

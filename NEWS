@@ -26,6 +26,10 @@ BUG FIXES
 
 NEW FEATURES
 
+* `grab_index` added to grab from a start up to an ending index.  
+
+* `grab_match` added to grab from a start up to an ending regex match.
+
 MINOR FEATURES
 
 IMPROVEMENTS

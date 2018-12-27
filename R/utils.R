@@ -20,6 +20,20 @@
 }
 
 
+nth <- function(x, ...){
+    if (is.null(x)) return(1)
+    if (is.numeric(x)) x <- as.integer(x)
+    if (is.integer(x) && x < 1) stop('`from.n` and `to.n` must be > 1')
+    if (is.integer(x)) return(x)
+    if (is.character(x)) {
+        switch(x,
+            first = 1,
+            last =,
+            n = Inf,
+            stop('If supplying a string to `from.n` or `to.n` must be one of: c("first", "last", or "n")')
+        )
+    }
+}
 
 mark_start <- function(class){
     sprintf("<mark class=\"%s\">", class)

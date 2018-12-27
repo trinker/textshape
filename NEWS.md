@@ -26,9 +26,15 @@ textshape 1.6.1 -
 
 **NEW FEATURES**
 
+* `grab_index` added to grab from a start up to an ending index.  
+
+* `grab_match` added to grab from a start up to an ending regex match.
+
 **MINOR FEATURES**
 
 **IMPROVEMENTS**
+
+* `split_transcript` now has more accurate regex group capturing.
 
 **CHANGES**
 

@@ -15,7 +15,7 @@ Suggests: testthat
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)
-RoxygenNote: 6.1.0.9000
+RoxygenNote: 6.1.1
 URL: http://github.com/trinker/textshape
 BugReports: http://github.com/trinker/textshape/issues
 Collate: 
@@ -29,6 +29,8 @@ Collate:
     'duration.R'
     'flatten.R'
     'from_to.R'
+    'grab_index.R'
+    'grab_match.R'
     'mtabulate.R'
     'split_index.R'
     'split_match.R'

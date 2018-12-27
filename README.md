@@ -80,7 +80,7 @@ Functions
 ============
 
 
-Most of the functions split, expand, or tidy a `vector`, `list`,
+Most of the functions split, expand, grab, or tidy a `vector`, `list`,
 `data.frame`, or `DocumentTermMatrix`. The `combine`, `duration`,
 `mtabulate`, & `flatten` functions are notable exceptions. The table
 below describes the functions and their use:
@@ -203,6 +203,16 @@ below describes the functions and their use:
 <td><code>split_word</code></td>
 <td><code>vector</code>, <code>data.frame</code></td>
 <td>Split words</td>
+</tr>
+<tr class="even">
+<td><code>grab_index</code></td>
+<td><code>vector</code>, <code>data.frame</code>, <code>list</code></td>
+<td>Grab from an index up to a second index</td>
+</tr>
+<tr class="odd">
+<td><code>grab_match</code></td>
+<td><code>vector</code>, <code>data.frame</code>, <code>list</code></td>
+<td>Grab from aregex match up to a second regex match</td>
 </tr>
 <tr class="even">
 <td><code>column_to_rownames</code></td>
@@ -338,17 +348,17 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_vector(x)
 
     ##               id content
-    ##    1: California       B
-    ##    2:     Alaska       D
-    ##    3:     Alaska       E
-    ##    4:    Alabama       D
-    ##    5:     Alaska       A
+    ##    1:   Arkansas       E
+    ##    2:    Alabama       F
+    ##    3:    Alabama       E
+    ##    4: California       A
+    ##    5:    Arizona       F
     ##   ---                   
-    ##  996:    Alabama       C
-    ##  997: California       E
-    ##  998:     Alaska       F
-    ##  999:    Arizona       C
-    ## 1000: California       C
+    ##  996:     Alaska       F
+    ##  997:    Arizona       B
+    ##  998:    Alabama       D
+    ##  999:    Arizona       E
+    ## 1000:     Alaska       C
 
 #### A Table
 
@@ -356,12 +366,12 @@ convenient ways to tidy a `DocumentTermMatrix` or `TermDocumentMatrix`.
     tidy_table(x)
 
     ##    id content
-    ## 1:  A     159
-    ## 2:  B     187
-    ## 3:  C     167
-    ## 4:  D     173
-    ## 5:  E     145
-    ## 6:  F     169
+    ## 1:  A     143
+    ## 2:  B     155
+    ## 3:  C     181
+    ## 4:  D     157
+    ## 5:  E     188
+    ## 6:  F     176
 
 #### A Matrix
 
@@ -469,7 +479,7 @@ or `TermDocumentMatrix` into a tidied data set.
             facet_wrap(~time, ncol=2, scales = 'free_y') +
             scale_y_discrete(labels = function(x) gsub("__.+$", "", x))
 
-    ## # A tibble: 42,058 x 7
+    ## # A tibble: 42,057 x 7
     ##     time  turn sentence term             n     i     j
     ##    <dbl> <dbl>    <dbl> <chr>        <dbl> <int> <int>
     ##  1     1     1        1 we'll            1     1     1
@@ -482,7 +492,7 @@ or `TermDocumentMatrix` into a tidied data set.
     ##  8     1     1        1 a                1     1     8
     ##  9     1     1        1 moment           1     1     9
     ## 10     1     1        1 .                1     1    10
-    ## # ... with 42,048 more rows
+    ## # ... with 42,047 more rows
 
 ![](tools/figure/unnamed-chunk-9-1.png)
 
@@ -626,29 +636,29 @@ counts.
     (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 
     ##    X1 X2 X3
-    ## 1   B  B  A
-    ## 2   A  A  A
-    ## 3   A  B  A
-    ## 4   A  B  B
-    ## 5   A  A  B
-    ## 6   B  A  B
-    ## 7   A  B  B
+    ## 1   A  A  B
+    ## 2   B  B  A
+    ## 3   A  A  A
+    ## 4   B  A  B
+    ## 5   B  A  A
+    ## 6   A  B  A
+    ## 7   A  B  A
     ## 8   A  B  A
-    ## 9   A  B  A
-    ## 10  A  A  A
+    ## 9   B  B  B
+    ## 10  B  B  B
 
     mtabulate(dat)
 
     ##    A B
-    ## X1 8 2
+    ## X1 5 5
     ## X2 4 6
     ## X3 6 4
 
     t(mtabulate(dat))
 
     ##   X1 X2 X3
-    ## A  8  4  6
-    ## B  2  6  4
+    ## A  5  4  6
+    ## B  5  6  4
 
 Flattening
 ----------
@@ -664,7 +674,7 @@ useful for flattening dictionaries as seen below. First we see the
         `[`(1) %>%
         quanteda::dictionary(file = .)
 
-    ## LaverGarry.zip read into C:\Users\trinker\AppData\Local\Temp\RtmpywB1X0
+    ## LaverGarry.zip read into C:\Users\trinker\AppData\Local\Temp\RtmpuKTQva
 
     mydict
 
@@ -724,38 +734,20 @@ original dictionary structure as well.
         as.list() %>%
         flatten()
 
-    ## $CULTURE___
-    ## [1] "people"      "war_in_iraq" "civil_war"  
-    ## 
-    ## $`CULTURE_CULTURE-HIGH`
+    ## $`CULTURE-HIGH`
     ## [1] "art"      "artistic" "dance"    "galler*"  "museum*"  "music*"  
     ## [7] "opera*"   "theatre*"
     ## 
-    ## $`CULTURE_CULTURE-POPULAR`
+    ## $`CULTURE-POPULAR`
     ## [1] "media"
     ## 
-    ## $CULTURE_SPORT
+    ## $SPORT
     ## [1] "angler*"
     ## 
-    ## $`ECONOMY_-STATE-`
-    ##  [1] "assets"         "autonomy"       "barrier*"       "bid"           
-    ##  [5] "bidders"        "bidding"        "burden*"        "charit*"       
-    ##  [9] "choice*"        "compet*"        "confidence"     "confiscatory"  
-    ## [13] "constrain*"     "contracting*"   "contractor*"    "controlled"    
-    ## [17] "controlling"    "controls"       "corporate"      "corporation*"  
-    ## [21] "deregulating"   "dismantl*"      "entrepreneur*"  "expensive"     
-    ## [25] "flexib*"        "franchise*"     "fundhold*"      "fund-holding"  
-    ## [29] "homestead*"     "initiative"     "intrusive"      "investor*"     
-    ## [33] "liberali*"      "market*"        "monetary"       "money"         
-    ## [37] "own*"           "private"        "privately"      "privatisations"
-    ## [41] "privatised"     "privatising"    "produce*"       "profitable"    
-    ## [45] "regulat*"       "retail*"        "risk"           "risks"         
-    ## [49] "savings"        "sell*"          "shares"         "simplif*"      
-    ## [53] "spend*"         "sponsorship"    "taxable"        "taxes"         
-    ## [57] "tax-free"       "thrift*"        "trading"        "value"         
-    ## [61] "volunt*"        "voucher*"      
+    ## $`__`
+    ## [1] "people"      "war_in_iraq" "civil_war"  
     ## 
-    ## $`ECONOMY_+STATE+`
+    ## $`+STATE+`
     ##  [1] "accommodation" "age"           "ambulance"     "assist"       
     ##  [5] "benefit"       "care"          "carer*"        "child*"       
     ##  [9] "class"         "classes"       "clinics"       "collective*"  
@@ -770,7 +762,7 @@ original dictionary structure as well.
     ## [45] "teach*"        "transport"     "underfund*"    "unemploy*"    
     ## [49] "vulnerable"    "widow*"       
     ## 
-    ## $`ECONOMY_=STATE=`
+    ## $`=STATE=`
     ##  [1] "accountant"   "accounting"   "accounts"     "advert*"     
     ##  [5] "airline*"     "airport*"     "audit*"       "bank*"       
     ##  [9] "bargaining"   "breadwinner*" "budget*"      "buy*"        
@@ -790,10 +782,28 @@ original dictionary structure as well.
     ## [65] "tenan*"       "touris*"      "trade"        "train*"      
     ## [69] "wage*"        "welfare"      "work*"       
     ## 
-    ## $`ENVIRONMENT_CON ENVIRONMENT`
+    ## $`-STATE-`
+    ##  [1] "assets"         "autonomy"       "barrier*"       "bid"           
+    ##  [5] "bidders"        "bidding"        "burden*"        "charit*"       
+    ##  [9] "choice*"        "compet*"        "confidence"     "confiscatory"  
+    ## [13] "constrain*"     "contracting*"   "contractor*"    "controlled"    
+    ## [17] "controlling"    "controls"       "corporate"      "corporation*"  
+    ## [21] "deregulating"   "dismantl*"      "entrepreneur*"  "expensive"     
+    ## [25] "flexib*"        "franchise*"     "fundhold*"      "fund-holding"  
+    ## [29] "homestead*"     "initiative"     "intrusive"      "investor*"     
+    ## [33] "liberali*"      "market*"        "monetary"       "money"         
+    ## [37] "own*"           "private"        "privately"      "privatisations"
+    ## [41] "privatised"     "privatising"    "produce*"       "profitable"    
+    ## [45] "regulat*"       "retail*"        "risk"           "risks"         
+    ## [49] "savings"        "sell*"          "shares"         "simplif*"      
+    ## [53] "spend*"         "sponsorship"    "taxable"        "taxes"         
+    ## [57] "tax-free"       "thrift*"        "trading"        "value"         
+    ## [61] "volunt*"        "voucher*"      
+    ## 
+    ## $`CON ENVIRONMENT`
     ## [1] "produc*"
     ## 
-    ## $`ENVIRONMENT_PRO ENVIRONMENT`
+    ## $`PRO ENVIRONMENT`
     ##  [1] "car"           "catalytic"     "chemical*"     "chimney*"     
     ##  [5] "clean*"        "congestion"    "cyclist*"      "deplet*"      
     ##  [9] "ecolog*"       "emission*"     "energy-saving" "environment*" 
@@ -802,18 +812,18 @@ original dictionary structure as well.
     ## [21] "ozone"         "planet"        "population"    "recycl*"      
     ## [25] "re-cycl*"      "re-use"        "toxic"         "warming"      
     ## 
-    ## $GROUPS_ETHNIC
+    ## $ETHNIC
     ## [1] "asian*"    "buddhist*" "ethnic*"   "race"      "raci*"    
     ## 
-    ## $GROUPS_WOMEN
+    ## $WOMEN
     ## [1] "girls" "woman" "women"
     ## 
-    ## $INSTITUTIONS_CONSERVATIVE
+    ## $CONSERVATIVE
     ##  [1] "authority"     "continu*"      "disrupt*"      "inspect*"     
     ##  [5] "jurisdiction*" "legitimate"    "manag*"        "moratorium"   
     ##  [9] "rul*"          "strike*"       "whitehall"    
     ## 
-    ## $INSTITUTIONS_NEUTRAL
+    ## $NEUTRAL
     ##  [1] "administr*"    "advis*"        "agenc*"        "amalgamat*"   
     ##  [5] "appoint*"      "assembly"      "chair*"        "commission*"  
     ##  [9] "committee*"    "constituen*"   "council*"      "department*"  
@@ -825,7 +835,7 @@ original dictionary structure as well.
     ## [33] "sovereign*"    "subcommittee*" "tribunal*"     "vote*"        
     ## [37] "voting"        "westminster"  
     ## 
-    ## $INSTITUTIONS_RADICAL
+    ## $RADICAL
     ##  [1] "abolition"    "accountable"  "answerable"   "consult*"    
     ##  [5] "corrupt*"     "democratic*"  "elect*"       "implement*"  
     ##  [9] "modern*"      "monitor*"     "rebuild*"     "reexamine*"  
@@ -833,7 +843,7 @@ original dictionary structure as well.
     ## [17] "representat*" "scandal*"     "scrap"        "scrap*"      
     ## [21] "scrutin*"     "transform*"   "voice*"      
     ## 
-    ## $`LAW_AND_ORDER_LAW-CONSERVATIVE`
+    ## $`LAW-CONSERVATIVE`
     ##  [1] "assaults"     "bail"         "burglar*"     "constab*"    
     ##  [5] "convict*"     "court"        "courts"       "custod*"     
     ##  [9] "dealing"      "delinquen*"   "deter"        "deter*"      
@@ -848,19 +858,61 @@ original dictionary structure as well.
     ## [45] "thug*"        "tough*"       "trafficker*"  "uniformed"   
     ## [49] "unlawful"     "vandal*"      "victim*"      "vigilan*"    
     ## 
-    ## $`LAW_AND_ORDER_LAW-LIBERAL`
+    ## $`LAW-LIBERAL`
     ## [1] "harassment"    "non-custodial"
     ## 
-    ## $RURAL
-    ##  [1] "agricultur*" "badgers"     "bird*"       "countryside" "farm*"      
-    ##  [6] "feed"        "fish*"       "forest*"     "hens"        "horse*"     
-    ## [11] "landscape*"  "lane*"       "livestock"   "meadows"     "village*"   
-    ## [16] "wildlife"   
+    ## [[17]]
+    ## [1] "agricultur*"
+    ## 
+    ## [[18]]
+    ## [1] "badgers"
+    ## 
+    ## [[19]]
+    ## [1] "bird*"
+    ## 
+    ## [[20]]
+    ## [1] "countryside"
+    ## 
+    ## [[21]]
+    ## [1] "farm*"
+    ## 
+    ## [[22]]
+    ## [1] "feed"
+    ## 
+    ## [[23]]
+    ## [1] "fish*"
+    ## 
+    ## [[24]]
+    ## [1] "forest*"
+    ## 
+    ## [[25]]
+    ## [1] "hens"
+    ## 
+    ## [[26]]
+    ## [1] "horse*"
+    ## 
+    ## [[27]]
+    ## [1] "landscape*"
+    ## 
+    ## [[28]]
+    ## [1] "lane*"
+    ## 
+    ## [[29]]
+    ## [1] "livestock"
+    ## 
+    ## [[30]]
+    ## [1] "meadows"
+    ## 
+    ## [[31]]
+    ## [1] "village*"
+    ## 
+    ## [[32]]
+    ## [1] "wildlife"
     ## 
     ## $URBAN
     ## [1] "town*"
     ## 
-    ## $VALUES_CONSERVATIVE
+    ## $CONSERVATIVE
     ##  [1] "defend"          "defended"        "defending"      
     ##  [4] "discipline"      "glories"         "glorious"       
     ##  [7] "grammar"         "heritage"        "histor*"        
@@ -873,7 +925,7 @@ original dictionary structure as well.
     ## [28] "punctual*"       "recapture*"      "reliab*"        
     ## [31] "threat*"         "tradition*"     
     ## 
-    ## $VALUES_LIBERAL
+    ## $LIBERAL
     ##  [1] "cruel*"       "discriminat*" "human*"       "injustice*"  
     ##  [5] "innocent"     "inter_racial" "minorit*"     "repressi*"   
     ##  [9] "rights"       "sex*"
@@ -1728,51 +1780,39 @@ scraping with **textshape** replacements.
     }) %>%
         textshape::tidy_list("location")
 
-    ##        location
-    ##    1: wisconsin
-    ##    2: wisconsin
-    ##    3: wisconsin
-    ##    4: wisconsin
-    ##    5: wisconsin
-    ##   ---          
-    ## 7514:      ohio
-    ## 7515:      ohio
-    ## 7516:      ohio
-    ## 7517:      ohio
-    ## 7518:      ohio
-    ##                                                                                                                                                                                                                                                                                              person
-    ##    1: ** NOTE: The American Presidency Project will soon launch a new website with a more contemporary look and improved search capability. While we continue "beta testing" the new site, please excuse lapses in updating this site.\r\n          We expect to have the new site on-line in June.
-    ##    2: ** NOTE: The American Presidency Project will soon launch a new website with a more contemporary look and improved search capability. While we continue "beta testing" the new site, please excuse lapses in updating this site.\r\n          We expect to have the new site on-line in June.
-    ##    3: ** NOTE: The American Presidency Project will soon launch a new website with a more contemporary look and improved search capability. While we continue "beta testing" the new site, please excuse lapses in updating this site.\r\n          We expect to have the new site on-line in June.
-    ##    4:                                                                                                                                                                                                                                                                                    MODERATORS
-    ##    5:                                                                                                                                                                                                                                                                                        CAVUTO
-    ##   ---                                                                                                                                                                                                                                                                                              
-    ## 7514:                                                                                                                                                                                                                                                                                         KELLY
-    ## 7515:                                                                                                                                                                                                                                                                                         KELLY
-    ## 7516:                                                                                                                                                                                                                                                                                         KELLY
-    ## 7517:                                                                                                                                                                                                                                                                                         KELLY
-    ## 7518:                                                                                                                                                                                                                                                                                         KELLY
-    ##                                                                                                                                    dialogue
-    ##    1: ** NOTE: The American Presidency Project will soon launch a new website with a more contemporary look and improved search capability.
-    ##    2:                                            While we continue "beta testing" the new site, please excuse lapses in updating this site.
-    ##    3:                                                                                       We expect to have the new site on-line in June.
-    ##    4:                  Gerard Baker (The Wall Street Journal);Maria Bartiromo (Fox Business Network); andNeil Cavuto (Fox Business Network)
-    ##    5:                                                       It is 9:00 p.m. on the East Coast, 8:00 p.m. here inside the Milwaukee theater.
-    ##   ---                                                                                                                                      
-    ## 7514:                                                                                                                     Are you relieved?
-    ## 7515:                                                                              You were nervous before, they--they don't look relieved.
-    ## 7516:                                                                                                        They look "get me outta here."
-    ## 7517:             Thank you all very much, and that will do it for the first Republican primary debate night of the 2016 presidential race.
-    ## 7518:                                                      Our thanks to the candidates, who will now be joined by their families on stage.
+    ##        location       person
+    ##    1: wisconsin About Search
+    ##    2: wisconsin PARTICIPANTS
+    ##    3: wisconsin   MODERATORS
+    ##    4: wisconsin       CAVUTO
+    ##    5: wisconsin       CAVUTO
+    ##   ---                       
+    ## 7527:      ohio        KELLY
+    ## 7528:      ohio        KELLY
+    ## 7529:      ohio         NOTE
+    ## 7530:      ohio         NOTE
+    ## 7531:      ohio         NOTE
+    ##                                                                                                                                                                                                                                                                                                                                                                                     dialogue
+    ##    1:                                                                                                                                                                                                                                                                                                                                                                           About Search
+    ##    2:                                                                                                                                                                                                     Former Governor Jeb Bush (FL);\nBen Carson;\nSenator Ted Cruz (TX);\nCarly Fiorina;\nGovernor John Kasich (OH);\nSenator Rand Paul (KY);\nSenator Marco Rubio (FL);\nDonald Trump;
+    ##    3:                                                                                                                                                                                                                                                               Gerard Baker (The Wall Street Journal);\nMaria Bartiromo (Fox Business Network); and\nNeil Cavuto (Fox Business Network)
+    ##    4:                                                                                                                                                                                                                                                                                                        It is 9:00 p.m. on the East Coast, 8:00 p.m. here inside the Milwaukee theater.
+    ##    5:                                                                                                                                                                                                                                                                                                        Welcome to the Republican presidential debate here on the Fox Business Network.
+    ##   ---                                                                                                                                                                                                                                                                                                                                                                                       
+    ## 7527:                                                                                                                                                                                                                                                              Thank you all very much, and that will do it for the first Republican primary debate night of the 2016 presidential race.
+    ## 7528:                                                                                                                                                                                                                                                                                                       Our thanks to the candidates, who will now be joined by their families on stage.
+    ## 7529:                                                                                                                                                                                                                                                                              A candidate must rank in the top ten candidates in Fox News polls in order to appear in this main debate.
+    ## 7530:                                                                                                                                                                                                                                                                                                             The remaining candidates were invited to appear in the "undercard" debate.
+    ## 7531: Presidential Candidate Debates, Republican Candidates Debate in Cleveland, Ohio Online by Gerhard Peters and John T. Woolley, The American Presidency Project https://www.presidency.ucsb.edu/node/310229 The American Presidency ProjectJohn Woolley and Gerhard PetersContact Twitter Facebook Copyright © The American Presidency ProjectTerms of Service | Privacy | Accessibility
     ##       element_id sentence_id
     ##    1:          1           1
-    ##    2:          1           2
-    ##    3:          1           3
-    ##    4:          2           1
-    ##    5:          3           1
+    ##    2:          2           1
+    ##    3:          3           1
+    ##    4:          4           1
+    ##    5:          4           2
     ##   ---                       
-    ## 7514:        303           1
-    ## 7515:        303           2
-    ## 7516:        303           3
-    ## 7517:        303           4
-    ## 7518:        303           5
+    ## 7527:        305           4
+    ## 7528:        305           5
+    ## 7529:        306           1
+    ## 7530:        306           2
+    ## 7531:        306           3

@@ -47,7 +47,7 @@ Other R packages provide some of the same functionality.  **textshape** differs 
 
 # Functions
 
-Most of the functions split, expand, or tidy a `vector`, `list`, `data.frame`, or `DocumentTermMatrix`.  The `combine`, `duration`, `mtabulate`, & `flatten` functions are notable exceptions.  The table below describes the functions and their use:
+Most of the functions split, expand, grab, or tidy a `vector`, `list`, `data.frame`, or `DocumentTermMatrix`.  The `combine`, `duration`, `mtabulate`, & `flatten` functions are notable exceptions.  The table below describes the functions and their use:
 
 | Function         | Used On                        |  Description                                                 |
 |------------------|--------------------------------|--------------------------------------------------------------|
@@ -72,6 +72,8 @@ Most of the functions split, expand, or tidy a `vector`, `list`, `data.frame`, o
 | `split_token`    | `vector`, `data.frame`         | Split words and punctuation                                  |
 | `split_transcript` | `vector`                     | Split speaker and dialogue (e.g., "greg: Who me")            |
 | `split_word`     | `vector`, `data.frame`         | Split words                                                  |
+| `grab_index`     | `vector`, `data.frame`, `list` | Grab from an index up to a second index                      |
+| `grab_match`     | `vector`, `data.frame`, `list` | Grab from aregex match up to a second regex match            |
 | `column_to_rownames` | `data.frame`               | Add a column as rownames                                     |
 | `cluster_matrix` | `matrix`                       | Reorder column/rows of a matrix via hierarchical clustering  |
 
