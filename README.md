@@ -74,6 +74,9 @@ Table of Contents
         -   [Tokens](#tokens)
         -   [Transcript](#transcript)
         -   [Words](#words)
+    -   [Grabbing](#grabbing)
+        -   [Indices](#indices-1)
+        -   [Matches](#matches-1)
     -   [Putting It Together](#putting-it-together)
 
 Functions
@@ -212,7 +215,7 @@ below describes the functions and their use:
 <tr class="odd">
 <td><code>grab_match</code></td>
 <td><code>vector</code>, <code>data.frame</code>, <code>list</code></td>
-<td>Grab from aregex match up to a second regex match</td>
+<td>Grab from a regex match up to a second regex match</td>
 </tr>
 <tr class="even">
 <td><code>column_to_rownames</code></td>
@@ -272,9 +275,9 @@ Examples
 ========
 
 The main shaping functions can be broken into the categories of (a)
-binding, (b) combining, (c) tabulating, (d) spanning, (e) splitting, &
-(f) tidying. The majority of functions in **textshape** fall into the
-category of splitting and expanding (the semantic opposite of
+binding, (b) combining, (c) tabulating, (d) spanning, (e) splitting, (f)
+grabbing & (e) tidying. The majority of functions in **textshape** fall
+into the category of splitting and expanding (the semantic opposite of
 combining). These sections will provide example uses of the functions
 from **textshape** within the three categories.
 
@@ -450,7 +453,7 @@ function.
 
     grid.arrange(wo, w, ncol = 2)
 
-![](tools/figure/unnamed-chunk-8-1.png)
+![](tools/figure/unnamed-chunk-21-1.png)
 
 #### A DocumentTermMatrix
 
@@ -494,7 +497,7 @@ or `TermDocumentMatrix` into a tidied data set.
     ## 10     1     1        1 .                1     1    10
     ## # ... with 42,047 more rows
 
-![](tools/figure/unnamed-chunk-9-1.png)
+![](tools/figure/unnamed-chunk-22-1.png)
 
 #### A DocumentTermMatrix of Collocations
 
@@ -521,7 +524,7 @@ and then a tidied data set.
             scale_fill_gradient(low= 'white', high = 'red') +
             theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-![](tools/figure/unnamed-chunk-10-1.png)
+![](tools/figure/unnamed-chunk-23-1.png)
 
 Combining
 ---------
@@ -734,20 +737,38 @@ original dictionary structure as well.
         as.list() %>%
         flatten()
 
-    ## $`CULTURE-HIGH`
+    ## $CULTURE___
+    ## [1] "people"      "war_in_iraq" "civil_war"  
+    ## 
+    ## $`CULTURE_CULTURE-HIGH`
     ## [1] "art"      "artistic" "dance"    "galler*"  "museum*"  "music*"  
     ## [7] "opera*"   "theatre*"
     ## 
-    ## $`CULTURE-POPULAR`
+    ## $`CULTURE_CULTURE-POPULAR`
     ## [1] "media"
     ## 
-    ## $SPORT
+    ## $CULTURE_SPORT
     ## [1] "angler*"
     ## 
-    ## $`__`
-    ## [1] "people"      "war_in_iraq" "civil_war"  
+    ## $`ECONOMY_-STATE-`
+    ##  [1] "assets"         "autonomy"       "barrier*"       "bid"           
+    ##  [5] "bidders"        "bidding"        "burden*"        "charit*"       
+    ##  [9] "choice*"        "compet*"        "confidence"     "confiscatory"  
+    ## [13] "constrain*"     "contracting*"   "contractor*"    "controlled"    
+    ## [17] "controlling"    "controls"       "corporate"      "corporation*"  
+    ## [21] "deregulating"   "dismantl*"      "entrepreneur*"  "expensive"     
+    ## [25] "flexib*"        "franchise*"     "fundhold*"      "fund-holding"  
+    ## [29] "homestead*"     "initiative"     "intrusive"      "investor*"     
+    ## [33] "liberali*"      "market*"        "monetary"       "money"         
+    ## [37] "own*"           "private"        "privately"      "privatisations"
+    ## [41] "privatised"     "privatising"    "produce*"       "profitable"    
+    ## [45] "regulat*"       "retail*"        "risk"           "risks"         
+    ## [49] "savings"        "sell*"          "shares"         "simplif*"      
+    ## [53] "spend*"         "sponsorship"    "taxable"        "taxes"         
+    ## [57] "tax-free"       "thrift*"        "trading"        "value"         
+    ## [61] "volunt*"        "voucher*"      
     ## 
-    ## $`+STATE+`
+    ## $`ECONOMY_+STATE+`
     ##  [1] "accommodation" "age"           "ambulance"     "assist"       
     ##  [5] "benefit"       "care"          "carer*"        "child*"       
     ##  [9] "class"         "classes"       "clinics"       "collective*"  
@@ -762,7 +783,7 @@ original dictionary structure as well.
     ## [45] "teach*"        "transport"     "underfund*"    "unemploy*"    
     ## [49] "vulnerable"    "widow*"       
     ## 
-    ## $`=STATE=`
+    ## $`ECONOMY_=STATE=`
     ##  [1] "accountant"   "accounting"   "accounts"     "advert*"     
     ##  [5] "airline*"     "airport*"     "audit*"       "bank*"       
     ##  [9] "bargaining"   "breadwinner*" "budget*"      "buy*"        
@@ -782,28 +803,10 @@ original dictionary structure as well.
     ## [65] "tenan*"       "touris*"      "trade"        "train*"      
     ## [69] "wage*"        "welfare"      "work*"       
     ## 
-    ## $`-STATE-`
-    ##  [1] "assets"         "autonomy"       "barrier*"       "bid"           
-    ##  [5] "bidders"        "bidding"        "burden*"        "charit*"       
-    ##  [9] "choice*"        "compet*"        "confidence"     "confiscatory"  
-    ## [13] "constrain*"     "contracting*"   "contractor*"    "controlled"    
-    ## [17] "controlling"    "controls"       "corporate"      "corporation*"  
-    ## [21] "deregulating"   "dismantl*"      "entrepreneur*"  "expensive"     
-    ## [25] "flexib*"        "franchise*"     "fundhold*"      "fund-holding"  
-    ## [29] "homestead*"     "initiative"     "intrusive"      "investor*"     
-    ## [33] "liberali*"      "market*"        "monetary"       "money"         
-    ## [37] "own*"           "private"        "privately"      "privatisations"
-    ## [41] "privatised"     "privatising"    "produce*"       "profitable"    
-    ## [45] "regulat*"       "retail*"        "risk"           "risks"         
-    ## [49] "savings"        "sell*"          "shares"         "simplif*"      
-    ## [53] "spend*"         "sponsorship"    "taxable"        "taxes"         
-    ## [57] "tax-free"       "thrift*"        "trading"        "value"         
-    ## [61] "volunt*"        "voucher*"      
-    ## 
-    ## $`CON ENVIRONMENT`
+    ## $`ENVIRONMENT_CON ENVIRONMENT`
     ## [1] "produc*"
     ## 
-    ## $`PRO ENVIRONMENT`
+    ## $`ENVIRONMENT_PRO ENVIRONMENT`
     ##  [1] "car"           "catalytic"     "chemical*"     "chimney*"     
     ##  [5] "clean*"        "congestion"    "cyclist*"      "deplet*"      
     ##  [9] "ecolog*"       "emission*"     "energy-saving" "environment*" 
@@ -812,18 +815,18 @@ original dictionary structure as well.
     ## [21] "ozone"         "planet"        "population"    "recycl*"      
     ## [25] "re-cycl*"      "re-use"        "toxic"         "warming"      
     ## 
-    ## $ETHNIC
+    ## $GROUPS_ETHNIC
     ## [1] "asian*"    "buddhist*" "ethnic*"   "race"      "raci*"    
     ## 
-    ## $WOMEN
+    ## $GROUPS_WOMEN
     ## [1] "girls" "woman" "women"
     ## 
-    ## $CONSERVATIVE
+    ## $INSTITUTIONS_CONSERVATIVE
     ##  [1] "authority"     "continu*"      "disrupt*"      "inspect*"     
     ##  [5] "jurisdiction*" "legitimate"    "manag*"        "moratorium"   
     ##  [9] "rul*"          "strike*"       "whitehall"    
     ## 
-    ## $NEUTRAL
+    ## $INSTITUTIONS_NEUTRAL
     ##  [1] "administr*"    "advis*"        "agenc*"        "amalgamat*"   
     ##  [5] "appoint*"      "assembly"      "chair*"        "commission*"  
     ##  [9] "committee*"    "constituen*"   "council*"      "department*"  
@@ -835,7 +838,7 @@ original dictionary structure as well.
     ## [33] "sovereign*"    "subcommittee*" "tribunal*"     "vote*"        
     ## [37] "voting"        "westminster"  
     ## 
-    ## $RADICAL
+    ## $INSTITUTIONS_RADICAL
     ##  [1] "abolition"    "accountable"  "answerable"   "consult*"    
     ##  [5] "corrupt*"     "democratic*"  "elect*"       "implement*"  
     ##  [9] "modern*"      "monitor*"     "rebuild*"     "reexamine*"  
@@ -843,7 +846,7 @@ original dictionary structure as well.
     ## [17] "representat*" "scandal*"     "scrap"        "scrap*"      
     ## [21] "scrutin*"     "transform*"   "voice*"      
     ## 
-    ## $`LAW-CONSERVATIVE`
+    ## $`LAW_AND_ORDER_LAW-CONSERVATIVE`
     ##  [1] "assaults"     "bail"         "burglar*"     "constab*"    
     ##  [5] "convict*"     "court"        "courts"       "custod*"     
     ##  [9] "dealing"      "delinquen*"   "deter"        "deter*"      
@@ -858,61 +861,19 @@ original dictionary structure as well.
     ## [45] "thug*"        "tough*"       "trafficker*"  "uniformed"   
     ## [49] "unlawful"     "vandal*"      "victim*"      "vigilan*"    
     ## 
-    ## $`LAW-LIBERAL`
+    ## $`LAW_AND_ORDER_LAW-LIBERAL`
     ## [1] "harassment"    "non-custodial"
     ## 
-    ## [[17]]
-    ## [1] "agricultur*"
-    ## 
-    ## [[18]]
-    ## [1] "badgers"
-    ## 
-    ## [[19]]
-    ## [1] "bird*"
-    ## 
-    ## [[20]]
-    ## [1] "countryside"
-    ## 
-    ## [[21]]
-    ## [1] "farm*"
-    ## 
-    ## [[22]]
-    ## [1] "feed"
-    ## 
-    ## [[23]]
-    ## [1] "fish*"
-    ## 
-    ## [[24]]
-    ## [1] "forest*"
-    ## 
-    ## [[25]]
-    ## [1] "hens"
-    ## 
-    ## [[26]]
-    ## [1] "horse*"
-    ## 
-    ## [[27]]
-    ## [1] "landscape*"
-    ## 
-    ## [[28]]
-    ## [1] "lane*"
-    ## 
-    ## [[29]]
-    ## [1] "livestock"
-    ## 
-    ## [[30]]
-    ## [1] "meadows"
-    ## 
-    ## [[31]]
-    ## [1] "village*"
-    ## 
-    ## [[32]]
-    ## [1] "wildlife"
+    ## $RURAL
+    ##  [1] "agricultur*" "badgers"     "bird*"       "countryside" "farm*"      
+    ##  [6] "feed"        "fish*"       "forest*"     "hens"        "horse*"     
+    ## [11] "landscape*"  "lane*"       "livestock"   "meadows"     "village*"   
+    ## [16] "wildlife"   
     ## 
     ## $URBAN
     ## [1] "town*"
     ## 
-    ## $CONSERVATIVE
+    ## $VALUES_CONSERVATIVE
     ##  [1] "defend"          "defended"        "defending"      
     ##  [4] "discipline"      "glories"         "glorious"       
     ##  [7] "grammar"         "heritage"        "histor*"        
@@ -925,7 +886,7 @@ original dictionary structure as well.
     ## [28] "punctual*"       "recapture*"      "reliab*"        
     ## [31] "threat*"         "tradition*"     
     ## 
-    ## $LIBERAL
+    ## $VALUES_LIBERAL
     ##  [1] "cruel*"       "discriminat*" "human*"       "injustice*"  
     ##  [5] "innocent"     "inter_racial" "minorit*"     "repressi*"   
     ##  [9] "rights"       "sex*"
@@ -1009,7 +970,7 @@ The `duration` function calculates start-end durations as n words.
         xlab("Duration (Words)") +
         ylab("Person")
 
-![](tools/figure/unnamed-chunk-19-1.png)
+![](tools/figure/unnamed-chunk-32-1.png)
 
 Splitting
 ---------
@@ -1024,7 +985,11 @@ split a data type.
 
 #### A Vector
 
-    split_index(LETTERS, c(4, 10, 16), c("dog", "cat", "chicken", "rabbit"))
+    split_index(
+        LETTERS, 
+        indices = c(4, 10, 16), 
+        names = c("dog", "cat", "chicken", "rabbit")
+    )
 
     ## $dog
     ## [1] "A" "B" "C"
@@ -1050,7 +1015,7 @@ vector](http://arrgh.tim-smith.us/atomic.html).
 
     ##  [1]  3  5  6  7  8 12 18 22 26 27 28 29 32
 
-    split_index(mtcars, vs_change)
+    split_index(mtcars, indices = vs_change)
 
     ## [[1]]
     ##               mpg cyl disp  hp drat    wt  qsec vs am gear carb
@@ -1156,7 +1121,7 @@ expression match.
     ## $`5`
     ## [1] "F"
 
-    split_match(x, "C")
+    split_match(x, split = "C")
 
     ## $`1`
     ## [1] ""  "A"
@@ -1167,7 +1132,7 @@ expression match.
     ## $`3`
     ##  [1] "E" "H" "J" "J" "E" "A" ""  "I" "I" "I" "G" ""  "F"
 
-    split_match(x, c("", "C"))
+    split_match(x, split = c("", "C"))
 
     ## $`1`
     ## [1] "A"
@@ -1243,7 +1208,7 @@ expression match.
 Here I use the regex `"^I"` to break on any vectors containing the
 capital letter I as the first character.
 
-    split_match(DATA[["state"]], "^I", regex=TRUE, include = 1)
+    split_match(DATA[["state"]], split = "^I", regex=TRUE, include = 1)
 
     ## $`1`
     ## [1] "Computer is fun. Not too fun." "No it's not, it's dumb."      
@@ -1742,6 +1707,108 @@ The `split_word` function splits data into words.
     ## 52:       greg   m     0      you  K11         11       5
     ## 53:       greg   m     0  already  K11         11       6
     ##         person sex adult    state code element_id word_id
+
+Grabbing
+--------
+
+The following section provides examples of available grabbing (from a
+starting point up to an ending point) functions.
+
+### Indices
+
+`grab_index` allows the user to supply the integer indices of where to
+grab (from - up to) a data type.
+
+#### A Vector
+
+    grab_index(DATA$state, from = 2, to = 4)
+
+    ## [1] "No it's not, it's dumb." "What should we do?"     
+    ## [3] "You liar, it stinks!"
+
+    grab_index(DATA$state, from = 9)
+
+    ## [1] "What are you talking about?"          
+    ## [2] "Shall we move on?  Good then."        
+    ## [3] "I'm hungry.  Let's eat.  You already?"
+
+    grab_index(DATA$state, to = 3)
+
+    ## [1] "Computer is fun. Not too fun." "No it's not, it's dumb."      
+    ## [3] "What should we do?"
+
+#### A Dataframe
+
+    grab_index(DATA, from = 2, to = 4)
+
+    ##    person sex adult                   state code
+    ## 2    greg   m     0 No it's not, it's dumb.   K2
+    ## 3 teacher   m     1      What should we do?   K3
+    ## 4     sam   m     0    You liar, it stinks!   K4
+
+#### A List
+
+    grab_index(as.list(DATA$state), from = 2, to = 4)
+
+    ## [[1]]
+    ## [1] "No it's not, it's dumb."
+    ## 
+    ## [[2]]
+    ## [1] "What should we do?"
+    ## 
+    ## [[3]]
+    ## [1] "You liar, it stinks!"
+
+### Matches
+
+`grab_match` grabs (from - up to) elements that match a regular
+expression.
+
+#### A Vector
+
+    grab_match(DATA$state, from = 'dumb', to = 'liar')
+
+    ## [1] "No it's not, it's dumb." "What should we do?"     
+    ## [3] "You liar, it stinks!"
+
+    grab_match(DATA$state, from = '^What are')
+
+    ## [1] "What are you talking about?"          
+    ## [2] "Shall we move on?  Good then."        
+    ## [3] "I'm hungry.  Let's eat.  You already?"
+
+    grab_match(DATA$state, to = 'we do[?]')
+
+    ## [1] "Computer is fun. Not too fun." "No it's not, it's dumb."      
+    ## [3] "What should we do?"
+
+    grab_match(DATA$state, from = 'no', to = 'the', ignore.case = TRUE, 
+        from.n = 'last', to.n = 'first')
+
+    ## [1] "There is no way."        "How can we be certain?" 
+    ## [3] "I am telling the truth!"
+
+#### A Dataframe
+
+    grab_match(DATA, from = 'dumb', to = 'liar')
+
+    ##    person sex adult                   state code
+    ## 2    greg   m     0 No it's not, it's dumb.   K2
+    ## 3 teacher   m     1      What should we do?   K3
+    ## 4     sam   m     0    You liar, it stinks!   K4
+
+#### A List
+
+    grab_match(as.list(DATA$state), from = 'dumb', to = 'liar')
+
+    ## [[1]]
+    ## [1] "No it's not, it's dumb."
+    ## 
+    ## [[2]]
+    ## [1] "What should we do?"
+    ## 
+    ## [[3]]
+    ## [1] "You liar, it stinks!"
 
 Putting It Together
 -------------------

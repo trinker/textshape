@@ -73,7 +73,7 @@ Most of the functions split, expand, grab, or tidy a `vector`, `list`, `data.fra
 | `split_transcript` | `vector`                     | Split speaker and dialogue (e.g., "greg: Who me")            |
 | `split_word`     | `vector`, `data.frame`         | Split words                                                  |
 | `grab_index`     | `vector`, `data.frame`, `list` | Grab from an index up to a second index                      |
-| `grab_match`     | `vector`, `data.frame`, `list` | Grab from aregex match up to a second regex match            |
+| `grab_match`     | `vector`, `data.frame`, `list` | Grab from a regex match up to a second regex match           |
 | `column_to_rownames` | `data.frame`               | Add a column as rownames                                     |
 | `cluster_matrix` | `matrix`                       | Reorder column/rows of a matrix via hierarchical clustering  |
 
@@ -112,7 +112,7 @@ Contributions are welcome from anyone subject to the following rules:
 
 # Examples
 
-The main shaping functions can be broken into the categories of (a) binding, (b) combining, &#40;c) tabulating, (d) spanning, (e) splitting, & (f) tidying.  The majority of functions in **textshape** fall into the category of splitting and expanding (the semantic opposite of combining).  These sections will provide example uses of the functions from **textshape** within the three categories.
+The main shaping functions can be broken into the categories of (a) binding, (b) combining, &#40;c) tabulating, (d) spanning, (e) splitting, (f) grabbing & (e) tidying.  The majority of functions in **textshape** fall into the category of splitting and expanding (the semantic opposite of combining).  These sections will provide example uses of the functions from **textshape** within the three categories.
 
 # Loading Dependencies
 
@@ -382,7 +382,11 @@ The following section provides examples of available splitting functions.
 #### A Vector
 
 ```{r}
-split_index(LETTERS, c(4, 10, 16), c("dog", "cat", "chicken", "rabbit"))
+split_index(
+    LETTERS, 
+    indices = c(4, 10, 16), 
+    names = c("dog", "cat", "chicken", "rabbit")
+)
 ```
 
 #### A Dataframe
@@ -391,7 +395,7 @@ Here I calculate the indices of every time the `vs` variable in the `mtcars` dat
 
 ```{r}
 (vs_change <- change_index(mtcars[["vs"]]))
-split_index(mtcars, vs_change)
+split_index(mtcars, indices = vs_change)
 ```
 
 ### Matches
@@ -405,8 +409,8 @@ set.seed(15)
 (x <- sample(c("", LETTERS[1:10]), 25, TRUE, prob=c(.2, rep(.08, 10))))
 
 split_match(x)
-split_match(x, "C")
-split_match(x, c("", "C"))
+split_match(x, split = "C")
+split_match(x, split = c("", "C"))
 ## Don't include
 split_match(x, include = 0)
 ## Include at beginning
@@ -420,7 +424,7 @@ split_match(x, include = 2)
 Here I use the regex `"^I"` to break on any vectors containing the capital letter I as the first character.
 
 ```{r}
-split_match(DATA[["state"]], "^I", regex=TRUE, include = 1)
+split_match(DATA[["state"]], split = "^I", regex=TRUE, include = 1)
 ```
 
 
@@ -567,6 +571,60 @@ split_word(x)
  split_word(DATA)
 ```
 
+## Grabbing
+
+The following section provides examples of available grabbing (from a starting point up to an ending point) functions.
+
+### Indices
+
+`grab_index` allows the user to supply the integer indices of where to grab (from - up to) a data type.
+
+#### A Vector 
+
+```{r}
+grab_index(DATA$state, from = 2, to = 4)
+grab_index(DATA$state, from = 9)
+grab_index(DATA$state, to = 3)
+```
+
+#### A Dataframe
+
+```{r}
+grab_index(DATA, from = 2, to = 4)
+```
+
+#### A List
+
+```{r}
+grab_index(as.list(DATA$state), from = 2, to = 4)
+```
+
+### Matches
+
+`grab_match` grabs (from - up to) elements that match a regular expression.
+
+
+#### A Vector 
+
+```{r}
+grab_match(DATA$state, from = 'dumb', to = 'liar')
+grab_match(DATA$state, from = '^What are')
+grab_match(DATA$state, to = 'we do[?]')
+grab_match(DATA$state, from = 'no', to = 'the', ignore.case = TRUE, 
+    from.n = 'last', to.n = 'first')
+```
+
+#### A Dataframe
+
+```{r}
+grab_match(DATA, from = 'dumb', to = 'liar')
+```
+
+#### A List
+
+```{r}
+grab_match(as.list(DATA$state), from = 'dumb', to = 'liar')
+```
 
 ## Putting It Together 
 
