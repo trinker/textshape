@@ -9,14 +9,19 @@
 \usage{
 grab_match(x, from = NULL, to = NULL, from.n = 1, to.n = 1, ...)
 
-\method{grab_match}{character}(x, from = NULL, to = NULL, from.n = 1,
-  to.n = 1, ...)
+\method{grab_match}{character}(x, from = NULL, to = NULL, from.n = 1, to.n = 1, ...)
 
-\method{grab_match}{list}(x, from = NULL, to = NULL, from.n = 1,
-  to.n = 1, ...)
+\method{grab_match}{list}(x, from = NULL, to = NULL, from.n = 1, to.n = 1, ...)
 
-\method{grab_match}{data.frame}(x, from = NULL, to = NULL,
-  from.n = 1, to.n = 1, text.var = TRUE, ...)
+\method{grab_match}{data.frame}(
+  x,
+  from = NULL,
+  to = NULL,
+  from.n = 1,
+  to.n = 1,
+  text.var = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{A character vector, \code{\link[base]{data.frame}}, or list.}

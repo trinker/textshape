@@ -18,11 +18,36 @@ And constructed with the following guidelines:
 
 
 
-textshape 1.6.1 - 
+textshape 1.7.1 - 
+----------------------------------------------------------------
+
+
+
+BUG FIXES
+
+
+NEW FEATURES
+
+
+MINOR FEATURES
+
+
+IMPROVEMENTS
+
+
+CHANGES
+
+
+
+textshape 1.6.1 - 1.7.0
 ----------------------------------------------------------------
 
 
 BUG FIXES
+
+`as_list` contained a bug because it relies on `apply` which can simplfy lists
+  to a data.frame when the lists contain equal numbers of each eleement.
+
 
 NEW FEATURES
 
@@ -30,13 +55,10 @@ NEW FEATURES
 
 * `grab_match` added to grab from a start up to an ending regex match.
 
-MINOR FEATURES
 
 IMPROVEMENTS
 
 * `split_transcript` now has more accurate regex group capturing.
-
-CHANGES
 
 
 

@@ -4,8 +4,13 @@
 \alias{split_transcript}
 \title{Split a Transcript Style Vector on Delimiter & Coerce to Dataframe}
 \usage{
-split_transcript(x, delim = ":", colnames = c("person", "dialogue"),
-  max.delim = 15, ...)
+split_transcript(
+  x,
+  delim = ":",
+  colnames = c("person", "dialogue"),
+  max.delim = 15,
+  ...
+)
 }
 \arguments{
 \item{x}{A transcript style vector (e.g., \code{c("greg: Who me", "sarah: yes you!")}.}

@@ -4,8 +4,16 @@
 \alias{split_portion}
 \title{Break Text Into Ordered Word Chunks}
 \usage{
-split_portion(text.var, grouping.var = NULL, n.words, n.chunks,
-  as.string = TRUE, rm.unequal = FALSE, as.table = TRUE, ...)
+split_portion(
+  text.var,
+  grouping.var = NULL,
+  n.words,
+  n.chunks,
+  as.string = TRUE,
+  rm.unequal = FALSE,
+  as.table = TRUE,
+  ...
+)
 }
 \arguments{
 \item{text.var}{The text variable}

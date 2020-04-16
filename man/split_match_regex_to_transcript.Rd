@@ -4,9 +4,17 @@
 \alias{split_match_regex_to_transcript}
 \title{Split Text by Regex Into a Transcript}
 \usage{
-split_match_regex_to_transcript(x, person.regex = "^[A-Z]{3,}",
-  col.names = c("Person", "Dialogue"), dash = "", ellipsis = "...",
-  quote2bracket = FALSE, rm.empty.rows = TRUE, skip = 0, ...)
+split_match_regex_to_transcript(
+  x,
+  person.regex = "^[A-Z]{3,}",
+  col.names = c("Person", "Dialogue"),
+  dash = "",
+  ellipsis = "...",
+  quote2bracket = FALSE,
+  rm.empty.rows = TRUE,
+  skip = 0,
+  ...
+)
 }
 \arguments{
 \item{x}{A vector with split points.}

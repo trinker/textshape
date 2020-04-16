@@ -4,8 +4,13 @@
 \alias{tidy_list}
 \title{Tidy a List of Named Dataframes or Named Vectors or Vectors}
 \usage{
-tidy_list(x, id.name = "id", content.name = "content",
-  content.attribute.name = "attribute", ...)
+tidy_list(
+  x,
+  id.name = "id",
+  content.name = "content",
+  content.attribute.name = "attribute",
+  ...
+)
 }
 \arguments{
 \item{x}{A named \code{\link[base]{list}} of

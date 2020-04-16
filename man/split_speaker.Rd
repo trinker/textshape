@@ -4,8 +4,7 @@
 \alias{split_speaker}
 \title{Break and Stretch if Multiple Persons per Cell}
 \usage{
-split_speaker(dataframe, speaker.var = 1, sep = c("and", "&", ","),
-  ...)
+split_speaker(dataframe, speaker.var = 1, sep = c("and", "&", ","), ...)
 }
 \arguments{
 \item{dataframe}{A dataframe that contains the person variable.}

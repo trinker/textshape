@@ -4,7 +4,9 @@
 \name{simple_dtm}
 \alias{simple_dtm}
 \title{Simple \code{\link[tm]{DocumentTermMatrix}}}
-\format{A list with 6 elements}
+\format{
+A list with 6 elements
+}
 \usage{
 data(simple_dtm)
 }

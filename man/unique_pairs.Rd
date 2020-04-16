@@ -9,11 +9,9 @@
 \usage{
 unique_pairs(x, col1 = "term_1", col2 = "term_2", ...)
 
-\method{unique_pairs}{default}(x, col1 = "term_1", col2 = "term_2",
-  ...)
+\method{unique_pairs}{default}(x, col1 = "term_1", col2 = "term_2", ...)
 
-\method{unique_pairs}{data.table}(x, col1 = "term_1", col2 = "term_2",
-  ...)
+\method{unique_pairs}{data.table}(x, col1 = "term_1", col2 = "term_2", ...)
 }
 \arguments{
 \item{x}{A \code{\link[base]{data.frame}} with two columns that contain

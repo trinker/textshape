@@ -4,7 +4,9 @@
 \name{golden_rules}
 \alias{golden_rules}
 \title{Sentence Boundary Disambiguation Edge Cases}
-\format{A data frame with 45 rows and 3 variables}
+\format{
+A data frame with 45 rows and 3 variables
+}
 \usage{
 data(golden_rules)
 }

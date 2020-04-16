@@ -78,8 +78,7 @@ split_match <- function(x, split = "", include = FALSE, regex = FALSE, ...) {
 #' Split a Vector By Split Points
 #'
 #' \code{split_match_regex} - \code{split_match} with \code{regex = TRUE}.
-#' @rdname split_match
-#'
+#' 
 #' @export
 #' @rdname split_match
 split_match_regex <- function(x, split = "", include = FALSE, ...){

@@ -56,13 +56,13 @@ mtabulate <- function(vects) {
 as_list <- function(mat, nm = rownames(mat)) {
     
     nms <- colnames(mat)
-    lst <- apply(mat, 1, function(x) rep(nms, x))
-    if (nrow(mat) == 1) lst <- list(c(lst))                 
+
+    lst <- lapply(seq_len(nrow(mat)), function(i) rep(nms, mat[i, , drop =FALSE]))
+
+    #if (nrow(mat) == 1) lst <- list(c(lst))                 
     if (!is.list(lst) & is.atomic(lst)) lst <- as.list(lst)    
     if(!is.list(lst)) lst <- lapply(seq_len(ncol(lst)), function(i) lst[, i])
     stats::setNames(lst,  nm = nm)
     
 }
-
-
 
