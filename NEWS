@@ -19,9 +19,27 @@ And constructed with the following guidelines:
 
 
 
-textshape 1.7.2
+
+textshape 1.7.4 - 
 ----------------------------------------------------------------
 
+ BUG FIXES
+
+NEW FEATURES
+
+MINOR FEATURES
+
+IMPROVEMENTS
+
+CHANGES 
+
+
+
+
+textshape 1.7.2 - 1.7.3
+----------------------------------------------------------------
+
+BUG FIXES
   
 * `split_token` would keep quote apostrophes with the leading/ending words of the 
   quote.  These are now stripped off as individual tokens.  Apostrophes are still  

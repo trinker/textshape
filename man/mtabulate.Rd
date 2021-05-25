@@ -49,7 +49,7 @@ t(mtabulate(dat))
 as_list(t(mtabulate(dat)))
 }
 \references{
-\url{http://stackoverflow.com/a/9961324/1000343}
+\url{https://stackoverflow.com/a/9961324/1000343}
 }
 \seealso{
 \code{\link[base]{tabulate}}

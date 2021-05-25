@@ -52,7 +52,7 @@ x <- sample(1:11, 25, TRUE, prob=c(.2, rep(.08, 10)))
 split_match(x, 1)
 }
 \references{
-\url{http://stackoverflow.com/a/24319217/1000343}
+\url{https://stackoverflow.com/a/24319217/1000343}
 }
 \author{
 Matthew Flickinger and Tyler Rinker <tyler.rinker@gmail.com>.

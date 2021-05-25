@@ -16,7 +16,7 @@
 #' \code{\link[base]{grepl}}.
 #' @return Returns a list of vectors.
 #' @author Matthew Flickinger and Tyler Rinker <tyler.rinker@@gmail.com>.
-#' @references \url{http://stackoverflow.com/a/24319217/1000343}
+#' @references \url{https://stackoverflow.com/a/24319217/1000343}
 #' @export
 #' @rdname split_match
 #' @examples

@@ -1,6 +1,6 @@
 Package: textshape
 Title: Tools for Reshaping Text
-Version: 1.7.2
+Version: 1.7.4
 Authors@R: c(
         person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")), 
         person("Joran", "Elias", role = "ctb"), 
@@ -15,8 +15,8 @@ Suggests: testthat
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 7.1.1
-URL: http://github.com/trinker/textshape
-BugReports: http://github.com/trinker/textshape/issues
+URL: https://github.com/trinker/textshape
+BugReports: https://github.com/trinker/textshape/issues
 Collate: 
     'bind_list.R'
     'bind_table.R'

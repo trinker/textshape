@@ -3,11 +3,11 @@ textshape
 
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
-developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
+developed.](https://www.repostatus.org/badges/0.1.0/active.svg)](https://www.repostatus.org/#active)
 [![Build
 Status](https://travis-ci.org/trinker/textshape.svg?branch=master)](https://travis-ci.org/trinker/textshape)
 [![Coverage
-Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/r/trinker/textshape?branch=master)
+Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/github/trinker/textshape)
 [![](http://cranlogs.r-pkg.org/badges/textshape)](https://cran.r-project.org/package=textshape)
 
 ![](tools/textshape_logo/r_textshape.png)
@@ -1774,11 +1774,11 @@ Putting It Together
 
 Eduardo Flores blogged about [What the candidates say, analyzing
 republican debates using
-R](https://www.r-bloggers.com/what-the-candidates-say-analyzing-republican-debates-using-r)
+R](https://www.r-bloggers.com/2015/11/what-the-candidates-say-analyzing-republican-debates-using-r/)
 where he demonstrated some scraping and analysis techniques. Here I
 highlight a combination usage of **textshape** tools to scrape and
 structure the text from 4 of the 2015 Republican debates within a
-[**magrittr**](https://github.com/smbache/magrittr) pipeline. The result
+[**magrittr**](https://github.com/tidyverse/magrittr) pipeline. The result
 is a single [**data.table**](https://github.com/Rdatatable/data.table)
 containing the dialogue from all 4 debates. The code highlights the
 conciseness and readability of **textshape** by restructuring Flores

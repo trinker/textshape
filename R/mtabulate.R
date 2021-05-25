@@ -16,7 +16,7 @@
 #' named these will be the rownames of the dataframe.
 #' @author Joran Elias and Tyler Rinker <tyler.rinker@@gmail.com>.
 #' @rdname mtabulate
-#' @references \url{http://stackoverflow.com/a/9961324/1000343}
+#' @references \url{https://stackoverflow.com/a/9961324/1000343}
 #' @examples
 #' mtabulate(list(w=letters[1:10], x=letters[1:5], z=letters))
 #' mtabulate(list(mtcars$cyl[1:10]))
