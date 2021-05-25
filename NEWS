@@ -18,28 +18,17 @@ And constructed with the following guidelines:
 
 
 
-textshape 1.7.1 - 
+
+textshape 1.7.2
 ----------------------------------------------------------------
 
+  
+* `split_token` would keep quote apostrophes with the leading/ending words of the 
+  quote.  These are now stripped off as individual tokens.  Apostrophes are still  
+  preserved inside of words (e.g., possessives and contractions)
 
 
-BUG FIXES
-
-
-NEW FEATURES
-
-
-MINOR FEATURES
-
-
-IMPROVEMENTS
-
-
-CHANGES
-
-
-
-textshape 1.6.1 - 1.7.0
+textshape 1.6.1 - 1.7.1
 ----------------------------------------------------------------
 
 
@@ -48,6 +37,13 @@ BUG FIXES
 `as_list` contained a bug because it relies on `apply` which can simplfy lists
   to a data.frame when the lists contain equal numbers of each eleement.
 
+`split_run` relies on **stringi** which had a change in API that caused the 
+  strings to no longer split correctly (a space was added at the end).  This has 
+  been fixed.
+  
+* `split_token` would keep quote apostrophes with the leading/ending words of the 
+  quote.  These are now stripped off as individual tokens.  Apostrophes are still  
+  preserved inside of words (e.g., possessives and contractions)
 
 NEW FEATURES
 
@@ -181,7 +177,7 @@ CHANGES
 
 * `as.tibble` removed from all function arguments.  This was a nice interactive
   feature that made programming very difficult to reason about.  Having an
-  environment dependant output would result in no adoption of the **textshape**
+  environment dependent output would result in no adoption of the **textshape**
   package as a dependency.  Additionally, `set_output` and `tibble_output`,
   two complementary function have been removed without being deprecated.  The
   problem was so egregious and the package infant enough, that removal without

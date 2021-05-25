@@ -35,9 +35,11 @@ split_token <- function(x, ...) {
 #' @rdname split_token
 #' @method split_token default
 split_token.default <- function(x, lower = TRUE, ...) {
+
     if (lower) {
         x <- stringi::stri_trans_tolower(x)
     }
+    x <- stringi::stri_replace_all_regex(x, "(^|\\s)(')(\\w.+?)(')(\\s|$)", "$1$2 $3 $4$5")
     x <- trimws(stringi::stri_replace_all_regex(x, "([^'[:^punct:]])", " $1 "))
     stringi::stri_split_regex(x, "\\s+")
 }

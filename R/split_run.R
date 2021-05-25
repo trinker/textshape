@@ -35,7 +35,7 @@ split_run <- function(x, ...) {
 #' @rdname split_run
 #' @method split_run default
 split_run.default <- function(x, ...) {
-    stringi::stri_split_regex(x,  "(?<=(\\w))(?!\\1)")
+    strsplit(x, "(?<=([\\S^]))(?!\\1)", perl = TRUE)
 }
 
 #' @export
@@ -54,7 +54,7 @@ split_run.data.frame <- function(x, text.var = TRUE, ...) {
         text=paste0(text.var, " := list(split_run.default(", text.var, "))")
     )
     z[, eval(express1)]
-
+# browser()
     express2 <- parse(text=paste0(".(", text.var, "=unlist(", text.var, "))"))
     z <- z[, eval(express2), by = c(colnames(z)[!colnames(z) %in% text.var])][, 
         c(nms, "element_id"), with = FALSE]

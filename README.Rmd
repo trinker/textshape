@@ -10,9 +10,16 @@ output:
 library(knitr)
 knitr::opts_chunk$set(fig.path = "tools/figure/")
 combine <- textshape::combine
-if (!require("pacman")) install.packages("pacman")
-pacman::p_load(tidyverse, magrittr, ggstance, textshape, gridExtra, viridis, quanteda, textreadr)
-pacman::p_load_current_gh('trinker/gofastr')
+
+library(tidyverse)
+library(magrittr)
+library(ggstance)
+library(textshape)
+library(gridExtra)
+library(viridis)
+library(quanteda)
+library(textreadr)
+library(gofastr)
 
 desc <- suppressWarnings(readLines("DESCRIPTION"))
 regex <- "(^Version:\\s+)(\\d+\\.\\d+\\.\\d+)"
@@ -104,7 +111,7 @@ You are welcome to:
 
 Contributions are welcome from anyone subject to the following rules:
 
-- Abide by the [code of conduct](CONDUCT.md).
+- Abide by the [code of conduct](https://github.com/trinker/textshape/blob/master/CODE_OF_CONDUCT.md).
 - Follow the style conventions of the package (indentation, function & argument naming, commenting, etc.)
 - All contributions must be consistent with the package license (GPL-2)
 - Submit contributions as a pull request. Clearly state what the changes are and try to keep the number of changes per pull request as low as possible.
@@ -391,7 +398,7 @@ split_index(
 
 #### A Dataframe
 
-Here I calculate the indices of every time the `vs` variable in the `mtcars` data set changes and then split the dataframe on those indices.  The `change_index` function is handy for extracting the indices of changes in runs within an [atomic vector](http://arrgh.tim-smith.us/atomic.html).
+Here I calculate the indices of every time the `vs` variable in the `mtcars` data set changes and then split the dataframe on those indices.  The `change_index` function is handy for extracting the indices of changes in runs within an atomic vector.
 
 ```{r}
 (vs_change <- change_index(mtcars[["vs"]]))
