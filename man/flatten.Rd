@@ -59,25 +59,12 @@ x
 
 flatten(x)
 flatten(x, ' -> ')
-
-\dontrun{
-## dictionary from quanteda
-require(quanteda); library(textreadr); library(dplyr)
-mydict <- https://provalisresearch.com/Download/LaverGarry.zip" \%>\%
-    textreadr::download(") \%>\%
-    unzip(exdir = tempdir()) \%>\%
-    `[`(1) \%>\%
-    quanteda::dictionary(file = .)
-
-mydict
-flatten(as.list(mydict))
-}
 }
 \references{
 \url{https://stackoverflow.com/a/41882883/1000343} \cr
 \url{https://stackoverflow.com/a/48357114/1000343}
 }
 \author{
-StackOverflow user @Michael and Paul Foster and Tyler 
+StackOverflow user @Michael and Paul Foster and Tyler
 Rinker <tyler.rinker@gmail.com>.
 }

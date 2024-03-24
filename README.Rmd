@@ -18,15 +18,14 @@ library(textshape)
 library(gridExtra)
 library(viridis)
 library(quanteda)
-library(textreadr)
 library(gofastr)
 
-desc <- suppressWarnings(readLines("DESCRIPTION"))
-regex <- "(^Version:\\s+)(\\d+\\.\\d+\\.\\d+)"
-loc <- grep(regex, desc)
-ver <- gsub(regex, "\\2", desc[loc])
-verbadge <- sprintf('<a href="https://img.shields.io/badge/Version-%s-orange.svg"><img src="https://img.shields.io/badge/Version-%s-orange.svg" alt="Version"/></a></p>', ver, ver)
-verbadge <- ''
+## desc <- suppressWarnings(readLines("DESCRIPTION"))
+## regex <- "(^Version:\\s+)(\\d+\\.\\d+\\.\\d+)"
+## loc <- grep(regex, desc)
+## ver <- gsub(regex, "\\2", desc[loc])
+## verbadge <- sprintf('<a href="https://img.shields.io/badge/Version-%s-orange.svg"><img ## src="https://img.shields.io/badge/Version-%s-orange.svg" alt="Version"/></a></p>', ver, ver)
+## verbadge <- ''
 ```
 
 
@@ -39,18 +38,15 @@ knit_hooks$set(htmlcap = function(before, options, envir) {
 knitr::opts_knit$set(self.contained = TRUE, cache = FALSE)
 ```
 
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/0.1.0/active.svg)](https://www.repostatus.org/#active)
-[![Build Status](https://travis-ci.org/trinker/textshape.svg?branch=master)](https://travis-ci.org/trinker/textshape)
-[![Coverage Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/github/trinker/textshape)
+[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](http://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/)
 [![](http://cranlogs.r-pkg.org/badges/textshape)](https://cran.r-project.org/package=textshape)
-`r verbadge`
+
 
 ![](tools/textshape_logo/r_textshape.png)
 
 **textshape** is small suite of text reshaping and restructuring functions.  Many of these functions are descended from tools in the [**qdapTools**](https://github.com/trinker/qdapTools) package.  This brings reshaping tools under one roof with specific functionality of the package limited to text reshaping.  
 
-Other R packages provide some of the same functionality.  **textshape** differs from these packages in that it is designed to help the user take unstructured data (or implicitly structured), extract it into a structured format, and then restructure into common text analysis formats for use in the next stage of the text analysis pipeline.  The implicit structure of seemingly unstructured data is often detectable/expressible by the researcher.  **textshape** provides tools (e.g., `split_match`) to enable the researcher to convert this tacit knowledge into a form that can be used to reformat data into more structured formats.  This package is meant to be used jointly with the [**textclean**](https://github.com/trinker/textclean) package, which provides cleaning and text normalization functionality.  Additionally, the [**textreadr**](https://github.com/trinker/textreadr) package is designed to import various common text data sources into R for reshaping and cleaning.
-
+Other R packages provide some of the same functionality.  **textshape** differs from these packages in that it is designed to help the user take unstructured data (or implicitly structured), extract it into a structured format, and then restructure into common text analysis formats for use in the next stage of the text analysis pipeline.  The implicit structure of seemingly unstructured data is often detectable/expressible by the researcher.  **textshape** provides tools (e.g., `split_match`) to enable the researcher to convert this tacit knowledge into a form that can be used to reformat data into more structured formats.  This package is meant to be used jointly with the [**textclean**](https://github.com/trinker/textclean) package, which provides cleaning and text normalization functionality.  
 
 # Functions
 
@@ -125,7 +121,7 @@ The main shaping functions can be broken into the categories of (a) binding, (b)
 
 ```r
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(tidyverse, magrittr, ggstance, viridis, gridExtra, textreadr, quanteda)
+pacman::p_load(tidyverse, magrittr, ggstance, viridis, gridExtra, quanteda)
 pacman::p_load_current_gh('trinker/gofastr', 'trinker/textshape')
 ```
 
@@ -318,28 +314,6 @@ mtabulate(mtcars$cyl[1:10])
 (dat <- data.frame(matrix(sample(c("A", "B"), 30, TRUE), ncol=3)))
 mtabulate(dat)
 t(mtabulate(dat))
-```
-
-## Flattening
-
-`flatten` allows the user to flatten a named, nested list of atomic vectors to a single level using the concatenated list/atomic vector names as the names of the single tiered list.  This is particularly useful for flattening dictionaries as seen below.  First we see the **quanteda** dictionary.
-
-```{r}
-mydict <- textreadr::download("https://provalisresearch.com/Download/LaverGarry.zip") %>%
-    unzip(exdir = tempdir()) %>%
-    `[`(1) %>%
-    quanteda::dictionary(file = .)
-
-mydict
-```
-
-
-And now we coerce the dictionary to a list and flatten it.  This could have been combined with the chain above but I wanted the user to see the original dictionary structure as well.
-
-```{r}
-mydict %>%
-    as.list() %>%
-    flatten()
 ```
 
 ## Spanning

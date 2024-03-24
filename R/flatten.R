@@ -9,7 +9,7 @@
 #' nested list.
 #' @param \ldots ignored.
 #' @return Returns a flattened list.
-#' @author StackOverflow user @@Michael and Paul Foster and Tyler 
+#' @author StackOverflow user @@Michael and Paul Foster and Tyler
 #' Rinker <tyler.rinker@@gmail.com>.
 #' @export
 #' @note The order of the list is sorted alphabetically.  Pull requests for the
@@ -49,19 +49,6 @@
 #'
 #' flatten(x)
 #' flatten(x, ' -> ')
-#'
-#' \dontrun{
-#' ## dictionary from quanteda
-#' require(quanteda); library(textreadr); library(dplyr)
-#' mydict <- https://provalisresearch.com/Download/LaverGarry.zip" %>%
-#'     textreadr::download(") %>%
-#'     unzip(exdir = tempdir()) %>%
-#'     `[`(1) %>%
-#'     quanteda::dictionary(file = .)
-#'
-#' mydict
-#' flatten(as.list(mydict))
-#' }
 flatten <- function(x , sep = '_', ...){
 
     stopifnot(is.list(x))

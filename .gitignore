@@ -1,11 +1,10 @@
 # History files
 .Rhistory
-
 # Example code in package build process
 *-Ex.R
-
 .Rprofile
 .Rproj.user
 textshape.Rproj
 inst/maintenance.R
 Thumbs.db
+.DS_Store

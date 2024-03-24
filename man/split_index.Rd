@@ -13,7 +13,11 @@
 \usage{
 split_index(
   x,
-  indices = if (is.atomic(x)) {     NULL } else {     change_index(x) },
+  indices = if (is.atomic(x)) {
+     NULL
+ } else {
+     change_index(x)
+ },
   names = NULL,
   ...
 )

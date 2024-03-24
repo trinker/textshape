@@ -1,15 +1,7 @@
 textshape
 =========
 
-[![Project Status: Active - The project has reached a stable, usable
-state and is being actively
-developed.](https://www.repostatus.org/badges/0.1.0/active.svg)](https://www.repostatus.org/#active)
-[![Build
-Status](https://travis-ci.org/trinker/textshape.svg?branch=master)](https://travis-ci.org/trinker/textshape)
-[![Coverage
-Status](https://coveralls.io/repos/trinker/textshape/badge.svg?branch=master)](https://coveralls.io/github/trinker/textshape)
-[![](http://cranlogs.r-pkg.org/badges/textshape)](https://cran.r-project.org/package=textshape)
-
+[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](http://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/)
 ![](tools/textshape_logo/r_textshape.png)
 
 
@@ -30,10 +22,7 @@ detectable/expressible by the researcher. **textshape** provides tools
 knowledge into a form that can be used to reformat data into more
 structured formats. This package is meant to be used jointly with the
 [**textclean**](https://github.com/trinker/textclean) package, which
-provides cleaning and text normalization functionality. Additionally,
-the [**textreadr**](https://github.com/trinker/textreadr) package is
-designed to import various common text data sources into R for reshaping
-and cleaning.
+provides cleaning and text normalization functionality. 
 
 Table of Contents
 =================
@@ -272,7 +261,7 @@ Loading Dependencies
 ====================
 
     if (!require("pacman")) install.packages("pacman")
-    pacman::p_load(tidyverse, magrittr, ggstance, viridis, gridExtra, textreadr, quanteda)
+    pacman::p_load(tidyverse, magrittr, ggstance, viridis, gridExtra, quanteda)
     pacman::p_load_current_gh('trinker/gofastr', 'trinker/textshape')
 
 Tidying
@@ -655,215 +644,6 @@ counts.
     ## A  6  6  3
     ## B  4  4  7
 
-Flattening
-----------
-
-`flatten` allows the user to flatten a named, nested list of atomic
-vectors to a single level using the concatenated list/atomic vector
-names as the names of the single tiered list. This is particularly
-useful for flattening dictionaries as seen below. First we see the
-**quanteda** dictionary.
-
-    mydict <- textreadr::download("https://provalisresearch.com/Download/LaverGarry.zip") %>%
-        unzip(exdir = tempdir()) %>%
-        `[`(1) %>%
-        quanteda::dictionary(file = .)
-
-    ## LaverGarry.zip read into C:\Users\TYLERR~1\AppData\Local\Temp\RtmpyAtc0H
-
-    mydict
-
-    ## Dictionary object with 9 primary key entries and 2 nested levels.
-    ## - [CULTURE]:
-    ##   - people, war_in_iraq, civil_war
-    ##   - [CULTURE-HIGH]:
-    ##     - art, artistic, dance, galler*, museum*, music*, opera*, theatre*
-    ##   - [CULTURE-POPULAR]:
-    ##     - media
-    ##   - [SPORT]:
-    ##     - angler*
-    ## - [ECONOMY]:
-    ##   - [+STATE+]:
-    ##     - accommodation, age, ambulance, assist, benefit, care, carer*, child*, class, classes, clinics, collective*, contribution*, cooperative*, co-operative*, deprivation, disabilities, disadvantaged, educat*, elderly [ ... and 30 more ]
-    ##   - [=STATE=]:
-    ##     - accountant, accounting, accounts, advert*, airline*, airport*, audit*, bank*, bargaining, breadwinner*, budget*, buy*, cartel*, cash*, charge*, commerce*, compensat*, consum*, cost*, credit* [ ... and 51 more ]
-    ##   - [-STATE-]:
-    ##     - assets, autonomy, barrier*, bid, bidders, bidding, burden*, charit*, choice*, compet*, confidence, confiscatory, constrain*, contracting*, contractor*, controlled, controlling, controls, corporate, corporation* [ ... and 42 more ]
-    ## - [ENVIRONMENT]:
-    ##   - [CON ENVIRONMENT]:
-    ##     - produc*
-    ##   - [PRO ENVIRONMENT]:
-    ##     - car, catalytic, chemical*, chimney*, clean*, congestion, cyclist*, deplet*, ecolog*, emission*, energy-saving, environment*, fur, green, habitat*, hedgerow*, husbanded, litter*, opencast, open-cast* [ ... and 8 more ]
-    ## - [GROUPS]:
-    ##   - [ETHNIC]:
-    ##     - asian*, buddhist*, ethnic*, race, raci*
-    ##   - [WOMEN]:
-    ##     - girls, woman, women
-    ## - [INSTITUTIONS]:
-    ##   - [CONSERVATIVE]:
-    ##     - authority, continu*, disrupt*, inspect*, jurisdiction*, legitimate, manag*, moratorium, rul*, strike*, whitehall
-    ##   - [NEUTRAL]:
-    ##     - administr*, advis*, agenc*, amalgamat*, appoint*, assembly, chair*, commission*, committee*, constituen*, council*, department*, directorate*, executive*, headquarters, legislat*, mechanism*, minister*, office, offices [ ... and 18 more ]
-    ##   - [RADICAL]:
-    ##     - abolition, accountable, answerable, consult*, corrupt*, democratic*, elect*, implement*, modern*, monitor*, rebuild*, reexamine*, reform*, re-organi*, repeal*, replace*, representat*, scandal*, scrap, scrap* [ ... and 3 more ]
-    ## - [LAW_AND_ORDER]:
-    ##   - [LAW-CONSERVATIVE]:
-    ##     - assaults, bail, burglar*, constab*, convict*, court, courts, custod*, dealing, delinquen*, deter, deter*, disorder, drug*, fine, fines, firmness, force*, fraud*, guard* [ ... and 32 more ]
-    ##   - [LAW-LIBERAL]:
-    ##     - harassment, non-custodial
-    ## [ reached max_nkey ... 3 more keys ]
-
-And now we coerce the dictionary to a list and flatten it. This could
-have been combined with the chain above but I wanted the user to see the
-original dictionary structure as well.
-
-    mydict %>%
-        as.list() %>%
-        flatten()
-
-    ## $CULTURE___
-    ## [1] "people"      "war_in_iraq" "civil_war"  
-    ## 
-    ## $`CULTURE_CULTURE-HIGH`
-    ## [1] "art"      "artistic" "dance"    "galler*"  "museum*"  "music*"   "opera*"  
-    ## [8] "theatre*"
-    ## 
-    ## $`CULTURE_CULTURE-POPULAR`
-    ## [1] "media"
-    ## 
-    ## $CULTURE_SPORT
-    ## [1] "angler*"
-    ## 
-    ## $`ECONOMY_-STATE-`
-    ##  [1] "assets"         "autonomy"       "barrier*"       "bid"           
-    ##  [5] "bidders"        "bidding"        "burden*"        "charit*"       
-    ##  [9] "choice*"        "compet*"        "confidence"     "confiscatory"  
-    ## [13] "constrain*"     "contracting*"   "contractor*"    "controlled"    
-    ## [17] "controlling"    "controls"       "corporate"      "corporation*"  
-    ## [21] "deregulating"   "dismantl*"      "entrepreneur*"  "expensive"     
-    ## [25] "flexib*"        "franchise*"     "fundhold*"      "fund-holding"  
-    ## [29] "homestead*"     "initiative"     "intrusive"      "investor*"     
-    ## [33] "liberali*"      "market*"        "monetary"       "money"         
-    ## [37] "own*"           "private"        "privately"      "privatisations"
-    ## [41] "privatised"     "privatising"    "produce*"       "profitable"    
-    ## [45] "regulat*"       "retail*"        "risk"           "risks"         
-    ## [49] "savings"        "sell*"          "shares"         "simplif*"      
-    ## [53] "spend*"         "sponsorship"    "taxable"        "taxes"         
-    ## [57] "tax-free"       "thrift*"        "trading"        "value"         
-    ## [61] "volunt*"        "voucher*"      
-    ## 
-    ## $`ECONOMY_+STATE+`
-    ##  [1] "accommodation" "age"           "ambulance"     "assist"       
-    ##  [5] "benefit"       "care"          "carer*"        "child*"       
-    ##  [9] "class"         "classes"       "clinics"       "collective*"  
-    ## [13] "contribution*" "cooperative*"  "co-operative*" "deprivation"  
-    ## [17] "disabilities"  "disadvantaged" "educat*"       "elderly"      
-    ## [21] "equal*"        "establish"     "fair*"         "guarantee*"   
-    ## [25] "hardship"      "health*"       "homeless*"     "hospital*"    
-    ## [29] "hunger"        "inequal*"      "invest"        "investing"    
-    ## [33] "investment"    "means-test*"   "nurse*"        "patients"     
-    ## [37] "pension"       "poor"          "poorer"        "poorest"      
-    ## [41] "poverty"       "rehouse*"      "re-house*"     "school"       
-    ## [45] "teach*"        "transport"     "underfund*"    "unemploy*"    
-    ## [49] "vulnerable"    "widow*"       
-    ## 
-    ## $`ECONOMY_=STATE=`
-    ##  [1] "accountant"   "accounting"   "accounts"     "advert*"      "airline*"    
-    ##  [6] "airport*"     "audit*"       "bank*"        "bargaining"   "breadwinner*"
-    ## [11] "budget*"      "buy*"         "cartel*"      "cash*"        "charge*"     
-    ## [16] "commerce*"    "compensat*"   "consum*"      "cost*"        "credit*"     
-    ## [21] "customer*"    "debt*"        "deficit*"     "dwelling*"    "earn*"       
-    ## [26] "econ*"        "electricity"  "estate*"      "export*"      "fee"         
-    ## [31] "fees"         "financ*"      "hous*"        "import"       "imports"     
-    ## [36] "industr*"     "jobs"         "lease*"       "loan*"        "manufactur*" 
-    ## [41] "mortgage*"    "negotiat*"    "opportunity"  "partnership*" "passenger*"  
-    ## [46] "pay*"         "performance"  "port*"        "productivity" "profession*" 
-    ## [51] "purchas*"     "railway*"     "rebate*"      "recession*"   "research*"   
-    ## [56] "revenue*"     "salar*"       "sell*"        "settlement"   "software"    
-    ## [61] "supplier*"    "supply"       "telecom*"     "telephon*"    "tenan*"      
-    ## [66] "touris*"      "trade"        "train*"       "wage*"        "welfare"     
-    ## [71] "work*"       
-    ## 
-    ## $`ENVIRONMENT_CON ENVIRONMENT`
-    ## [1] "produc*"
-    ## 
-    ## $`ENVIRONMENT_PRO ENVIRONMENT`
-    ##  [1] "car"           "catalytic"     "chemical*"     "chimney*"     
-    ##  [5] "clean*"        "congestion"    "cyclist*"      "deplet*"      
-    ##  [9] "ecolog*"       "emission*"     "energy-saving" "environment*" 
-    ## [13] "fur"           "green"         "habitat*"      "hedgerow*"    
-    ## [17] "husbanded"     "litter*"       "opencast"      "open-cast*"   
-    ## [21] "ozone"         "planet"        "population"    "recycl*"      
-    ## [25] "re-cycl*"      "re-use"        "toxic"         "warming"      
-    ## 
-    ## $GROUPS_ETHNIC
-    ## [1] "asian*"    "buddhist*" "ethnic*"   "race"      "raci*"    
-    ## 
-    ## $GROUPS_WOMEN
-    ## [1] "girls" "woman" "women"
-    ## 
-    ## $INSTITUTIONS_CONSERVATIVE
-    ##  [1] "authority"     "continu*"      "disrupt*"      "inspect*"     
-    ##  [5] "jurisdiction*" "legitimate"    "manag*"        "moratorium"   
-    ##  [9] "rul*"          "strike*"       "whitehall"    
-    ## 
-    ## $INSTITUTIONS_NEUTRAL
-    ##  [1] "administr*"    "advis*"        "agenc*"        "amalgamat*"   
-    ##  [5] "appoint*"      "assembly"      "chair*"        "commission*"  
-    ##  [9] "committee*"    "constituen*"   "council*"      "department*"  
-    ## [13] "directorate*"  "executive*"    "headquarters"  "legislat*"    
-    ## [17] "mechanism*"    "minister*"     "office"        "offices"      
-    ## [21] "official"      "operat*"       "opposition"    "organisation*"
-    ## [25] "parliament*"   "presiden*"     "procedur*"     "process*"     
-    ## [29] "queen"         "regist*"       "scheme*"       "secretariat*" 
-    ## [33] "sovereign*"    "subcommittee*" "tribunal*"     "vote*"        
-    ## [37] "voting"        "westminster"  
-    ## 
-    ## $INSTITUTIONS_RADICAL
-    ##  [1] "abolition"    "accountable"  "answerable"   "consult*"     "corrupt*"    
-    ##  [6] "democratic*"  "elect*"       "implement*"   "modern*"      "monitor*"    
-    ## [11] "rebuild*"     "reexamine*"   "reform*"      "re-organi*"   "repeal*"     
-    ## [16] "replace*"     "representat*" "scandal*"     "scrap"        "scrap*"      
-    ## [21] "scrutin*"     "transform*"   "voice*"      
-    ## 
-    ## $`LAW_AND_ORDER_LAW-CONSERVATIVE`
-    ##  [1] "assaults"     "bail"         "burglar*"     "constab*"     "convict*"    
-    ##  [6] "court"        "courts"       "custod*"      "dealing"      "delinquen*"  
-    ## [11] "deter"        "deter*"       "disorder"     "drug*"        "fine"        
-    ## [16] "fines"        "firmness"     "force*"       "fraud*"       "guard*"      
-    ## [21] "hooligan*"    "illegal*"     "intimidat*"   "joy-ride*"    "lawless*"    
-    ## [26] "magistrat*"   "offence*"     "officer*"     "penal*"       "police"      
-    ## [31] "policemen"    "policing"     "prison*"      "probation"    "prosecution" 
-    ## [36] "punish*"      "re-offend"    "ruc"          "seiz*"        "sentence*"   
-    ## [41] "shop-lifting" "squatting"    "terror*"      "theft*"       "thug*"       
-    ## [46] "tough*"       "trafficker*"  "uniformed"    "unlawful"     "vandal*"     
-    ## [51] "victim*"      "vigilan*"    
-    ## 
-    ## $`LAW_AND_ORDER_LAW-LIBERAL`
-    ## [1] "harassment"    "non-custodial"
-    ## 
-    ## $RURAL
-    ##  [1] "agricultur*" "badgers"     "bird*"       "countryside" "farm*"      
-    ##  [6] "feed"        "fish*"       "forest*"     "hens"        "horse*"     
-    ## [11] "landscape*"  "lane*"       "livestock"   "meadows"     "village*"   
-    ## [16] "wildlife"   
-    ## 
-    ## $URBAN
-    ## [1] "town*"
-    ## 
-    ## $VALUES_CONSERVATIVE
-    ##  [1] "defend"          "defended"        "defending"       "discipline"     
-    ##  [5] "glories"         "glorious"        "grammar"         "heritage"       
-    ##  [9] "histor*"         "honour*"         "immigra*"        "inherit*"       
-    ## [13] "integrity"       "jubilee*"        "leader*"         "maintain"       
-    ## [17] "majesty"         "marriage"        "obscen*"         "past"           
-    ## [21] "pornograph*"     "preserv*"        "pride"           "principl*"      
-    ## [25] "probity"         "professionalism" "proud"           "punctual*"      
-    ## [29] "recapture*"      "reliab*"         "threat*"         "tradition*"     
-    ## 
-    ## $VALUES_LIBERAL
-    ##  [1] "cruel*"       "discriminat*" "human*"       "injustice*"   "innocent"    
-    ##  [6] "inter_racial" "minorit*"     "repressi*"    "rights"       "sex*"
 
 Spanning
 --------
