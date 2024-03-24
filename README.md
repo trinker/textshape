@@ -1,9 +1,10 @@
 textshape
 =========
 
+![](tools/textshape_logo/r_textshape.png)
+
 [![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](http://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/)
 
-![](tools/textshape_logo/r_textshape.png)
 
 
 **textshape** is small suite of text reshaping and restructuring
