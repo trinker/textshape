@@ -4,6 +4,7 @@
 \alias{from_to}
 \alias{from_to.default}
 \alias{from_to.character}
+\alias{from_to.factor}
 \alias{from_to.numeric}
 \alias{from_to.data.frame}
 \alias{from_to_summarize}
@@ -14,6 +15,8 @@ from_to(x, ...)
 \method{from_to}{default}(x, final = "End", ...)
 
 \method{from_to}{character}(x, final = "End", ...)
+
+\method{from_to}{factor}(x, final = "End", ...)
 
 \method{from_to}{numeric}(x, final = "End", ...)
 

@@ -65,6 +65,9 @@ from_to.character <- function(x, final = 'End', ...){
     c(x[-1], final)
 }
 
+#' @export
+#' @method from_to factor
+#' @rdname from_to
 from_to.factor <- function(x, final = 'End', ...){
     factor(c(as.character(x[-1]), final), levels = c(levels(x), final))
 }
@@ -116,7 +119,7 @@ from_to_summarize <- function(x, from.var, id.vars = NULL, text.var = TRUE,
     z <- z[, eval(express1)][,
         'word.count' := ifelse(is.na(word.count), 0, word.count)][]
 
-    out <- from_to(z, from.var)[, 
+    out <- from_to(z, from.var)[,
         list(word.count = sum(word.count)), c('from', 'to')]
 
     if (!is.null(id.vars)) {

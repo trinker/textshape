@@ -6,6 +6,7 @@
 \alias{grab_index.default}
 \alias{grab_index.list}
 \alias{grab_index.data.frame}
+\alias{grab_index.matrix}
 \title{Get Elements Matching Between 2 Points}
 \usage{
 grab_index(x, from = NULL, to = NULL, ...)
@@ -17,14 +18,16 @@ grab_index(x, from = NULL, to = NULL, ...)
 \method{grab_index}{list}(x, from = NULL, to = NULL, ...)
 
 \method{grab_index}{data.frame}(x, from = NULL, to = NULL, ...)
+
+\method{grab_index}{matrix}(x, from = NULL, to = NULL, ...)
 }
 \arguments{
 \item{x}{A character vector, \code{\link[base]{data.frame}}, or list.}
 
-\item{from}{An integer to start from (if \code{NULL} defaults to the first 
+\item{from}{An integer to start from (if \code{NULL} defaults to the first
 element/row).}
 
-\item{to}{A integer to get up to (if \code{NULL} defaults to the last 
+\item{to}{A integer to get up to (if \code{NULL} defaults to the last
 element/row).}
 
 \item{\ldots}{ignored.}

@@ -1,11 +1,11 @@
 #' Get Elements Matching Between 2 Points
-#' 
+#'
 #' Use regexes to get all the elements between two points.
-#' 
+#'
 #' @param x A character vector, \code{\link[base]{data.frame}}, or list.
-#' @param from An integer to start from (if \code{NULL} defaults to the first 
+#' @param from An integer to start from (if \code{NULL} defaults to the first
 #' element/row).
-#' @param to A integer to get up to (if \code{NULL} defaults to the last 
+#' @param to A integer to get up to (if \code{NULL} defaults to the last
 #' element/row).
 #' @param \ldots ignored.
 #' @return Returns a subset of the original data set.
@@ -38,7 +38,7 @@ grab_index.default <- function(x, from = NULL, to = NULL, ...){
 
     if (is.null(from)) from  <- 1
     if (is.null(to)) to <- length(x)
-        
+
     if (from < 1 | from > length(x)) stop('`from` must be > 1 & < length(x)')
     if (to < 1 | to > length(x)) stop('`to` must be > 1 & < length(x)')
     x[from:to]
@@ -67,6 +67,9 @@ grab_index.data.frame <- function(x, from = NULL, to = NULL, ...){
 
 
 ## Helper function(s)
+#' @export
+#' @rdname grab_index
+#' @method grab_index matrix
 grab_index.matrix <- function(x, from = NULL, to = NULL, ...){
 
     if (from < 1 | from > length(x)) stop('`from` must be > 1 & < length(x)')
